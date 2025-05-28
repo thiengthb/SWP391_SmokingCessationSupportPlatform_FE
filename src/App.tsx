@@ -1,9 +1,8 @@
-import React from 'react';
 import { ModeToggle } from './components/theme/theme-toggle';
-import Header from './components/template/header';
-import Hero from './components/template/hero';
-import Section from './components/template/section';
-import Footer from './components/template/footer';
+import Header from './components/template/home/header';
+import Hero from './components/template/home/hero';
+import Section from './components/template/home/section';
+import Footer from './components/template/home/footer';
 
 function App() {
   return (

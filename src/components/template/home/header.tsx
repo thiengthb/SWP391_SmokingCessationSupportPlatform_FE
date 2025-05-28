@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Header: React.FC = () => {
   return (
@@ -11,9 +12,19 @@ const Header: React.FC = () => {
           <li><a href="#" className="text-gray-600 hover:text-gray-800 text-sm sm:text-base">For companies</a></li>
           <li><a href="#" className="text-gray-600 hover:text-gray-800 text-sm sm:text-base">Partnerships</a></li>
         </ul>
-        <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-3">
-          <button className="text-green-600 font-semibold hover:underline text-sm sm:text-base">Sign in</button>
-          <button className="bg-green-600 text-white px-3 py-1 sm:px-4 sm:py-2 rounded-full hover:bg-green-700 text-sm sm:text-base">Start</button>
+        <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-3">
+          <Link
+            to="/login"
+            className="text-green-600 font-semibold text-sm sm:text-base px-3 py-1 sm:px-4 sm:py-2"
+          >
+            Sign In
+          </Link>
+          <Link
+            to="/login"
+            className="text-green-600 font-semibold text-sm sm:text-base px-3 py-1 sm:px-4 sm:py-2 bg-green-100 hover:bg-green-200 rounded-md"
+          >
+            Start
+          </Link>
         </div>
       </nav>
     </header>

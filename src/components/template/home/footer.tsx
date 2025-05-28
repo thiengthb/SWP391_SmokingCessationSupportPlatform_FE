@@ -4,7 +4,7 @@ const Footer: React.FC = () => {
   return (
     <footer className="bg-gray-700 text-white py-6 sm:py-8">
       <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 px-4 sm:px-6">
-        {/* Cột QUITNOW */}
+        
         <div className="text-center lg:text-left">
           <h3 className="text-lg sm:text-xl font-bold mb-4">QUITNOW</h3>
           <div className="flex flex-col space-y-3 sm:space-y-4 mb-4">
@@ -28,7 +28,7 @@ const Footer: React.FC = () => {
           </select>
         </div>
 
-        {/* Cột Quick links */}
+        
         <div className="text-center lg:text-left">
           <h3 className="text-base sm:text-lg font-bold mb-4">Quick links</h3>
           <ul className="space-y-2">
@@ -40,7 +40,7 @@ const Footer: React.FC = () => {
           </ul>
         </div>
 
-        {/* Cột Subscription */}
+        
         <div className="text-center lg:text-left">
           <h3 className="text-base sm:text-lg font-bold mb-4">Subscription</h3>
           <ul className="space-y-2">
@@ -50,7 +50,7 @@ const Footer: React.FC = () => {
           </ul>
         </div>
 
-        {/* Cột Legal */}
+        
         <div className="text-center lg:text-left">
           <h3 className="text-base sm:text-lg font-bold mb-4">Legal</h3>
           <ul className="space-y-2">
