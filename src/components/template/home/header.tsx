@@ -34,7 +34,7 @@ const Header: React.FC = () => {
           <Link to="/login" className="text-green-600 font-semibold text-sm sm:text-base px-3 py-1 sm:px-4 sm:py-2">
             Sign In
           </Link>
-          <Link to="/start" className="text-green-600 font-semibold text-sm sm:text-base px-3 py-1 sm:px-4 sm:py-2 bg-green-100 hover:bg-green-200 rounded-md">
+          <Link to="/login" className="text-green-600 font-semibold text-sm sm:text-base px-3 py-1 sm:px-4 sm:py-2 bg-green-100 hover:bg-green-200 rounded-md">
             Start
           </Link>
         </div>

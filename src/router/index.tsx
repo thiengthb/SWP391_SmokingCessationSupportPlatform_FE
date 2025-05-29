@@ -9,6 +9,7 @@ import ForgotPassword from "../pages/ForgotPassword";
 import InsurersPage from "../pages/InsurersPage";
 import ForCompaniesPage from "../pages/ForCompaniesPage";
 import PartnershipPage from "../pages/PartnershipPage";
+import DashboardPage from "../pages/DashboardPage";
 const router = createBrowserRouter([
     { path: '/', element: <App /> },
     { path: '/login', element: <LoginPage /> },
@@ -18,7 +19,8 @@ const router = createBrowserRouter([
     {path: '/forgot-password', element: <ForgotPassword />},
     { path: '/for-insurers', element: <InsurersPage /> },
     {path: '/for-companies', element: <ForCompaniesPage />},
-    {path: '/partnerships', element: <PartnershipPage />}, 
+    {path: '/partnerships', element: <PartnershipPage />},
+    {path: '/dashboard', element: <DashboardPage />}, 
     { path: '*', element: <NotFoundPage /> }
     
 ]);
