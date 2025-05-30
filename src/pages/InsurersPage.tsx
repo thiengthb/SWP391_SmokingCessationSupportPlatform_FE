@@ -6,7 +6,7 @@ const InsurersPage: React.FC = () => {
     <div className="min-h-screen flex flex-col">
 
       <Header />
-      <main className="flex-grow bg-gray-100 py-8">
+      <main className="flex-grow bg-white py-8">
         <div className="text-center max-w-6xl mx-auto px-4">
           <img
             src="https://i.pinimg.com/736x/12/61/90/1261906eb08d214379c8b884bb795682.jpg" // Thay bằng hình minh họa nhân vật thực tế
@@ -45,6 +45,7 @@ const InsurersPage: React.FC = () => {
               </p>
             </section>
           </div>
+          
         </div>
       </main>
       <Footer />
