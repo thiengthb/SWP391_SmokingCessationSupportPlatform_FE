@@ -10,18 +10,20 @@ import InsurersPage from "../pages/InsurersPage";
 import ForCompaniesPage from "../pages/ForCompaniesPage";
 import PartnershipPage from "../pages/PartnershipPage";
 import DashboardPage from "../pages/DashboardPage";
+import Test from "@/pages/test";
 const router = createBrowserRouter([
-    { path: '/', element: <App /> },
-    { path: '/login', element: <LoginPage /> },
-    {path: '/social-login', element:<SocialLoginPage />},
-    { path: '/signup', element: <SignupPage /> },
-    {path: '/signin', element: <SignIn />},
-    {path: '/forgot-password', element: <ForgotPassword />},
-    { path: '/for-insurers', element: <InsurersPage /> },
-    {path: '/for-companies', element: <ForCompaniesPage />},
-    {path: '/partnerships', element: <PartnershipPage />},
-    {path: '/dashboard', element: <DashboardPage />}, 
-    { path: '*', element: <NotFoundPage /> }
+    {   path: '/', element: <App /> },
+    {   path: '/login', element: <LoginPage /> },
+    {   path: '/social-login', element:<SocialLoginPage /> },
+    {   path: '/signup', element: <SignupPage /> },
+    {   path: '/signin', element: <SignIn /> },
+    {   path: '/forgot-password', element: <ForgotPassword /> },
+    {   path: '/for-insurers', element: <InsurersPage /> },
+    {   path: '/for-companies', element: <ForCompaniesPage /> },
+    {   path: '/partnerships', element: <PartnershipPage /> },
+    {   path: '/dashboard', element: <DashboardPage /> }, 
+    {   path: '/test', element: <Test /> }, 
+    {   path: '*', element: <NotFoundPage /> }
     
 ]);
 
