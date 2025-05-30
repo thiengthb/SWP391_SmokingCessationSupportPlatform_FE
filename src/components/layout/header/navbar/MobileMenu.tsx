@@ -1,20 +1,21 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible"
+} from "@/components/ui/collapsible";
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet"
-import { Menu, ChevronsUpDown  } from "lucide-react"
-import { Link } from "react-router-dom"
-import type { NavItems } from "./navbar.item"
+} from "@/components/ui/sheet";
+import { Menu, ChevronsUpDown } from "lucide-react";
+import { Link } from "react-router-dom";
+import type { NavItems } from "./navbar.item";
 
 const MobileMenu = ({ items }: NavItems) => {
   return (
@@ -36,7 +37,7 @@ const MobileMenu = ({ items }: NavItems) => {
                 <Collapsible>
                   <CollapsibleTrigger className="flex w-full items-center justify-between text-base">
                     {item.title}
-                    <ChevronsUpDown  className="h-4 w-4" />
+                    <ChevronsUpDown className="h-4 w-4" />
                   </CollapsibleTrigger>
                   <CollapsibleContent className="pl-4 mt-2 space-y-2 border-l">
                     {item.items.map((subItem) => (
@@ -61,17 +62,21 @@ const MobileMenu = ({ items }: NavItems) => {
             </div>
           ))}
           <SheetFooter>
-            <Button variant="secondary" asChild>
-                <Link to="/login">Login</Link>
-            </Button>
-            <Button asChild>
-              <Link to="/signup">Sign Up</Link>
-            </Button>
+            <SheetClose asChild>
+              <Button asChild>
+                <Link to="/auth/register">Sign Up</Link>
+              </Button>
+            </SheetClose>
+            <SheetClose asChild>
+              <Button variant="secondary" asChild>
+                <Link to="/auth/login">Login</Link>
+              </Button>
+            </SheetClose>
           </SheetFooter>
         </div>
       </SheetContent>
     </Sheet>
-  )
-}
+  );
+};
 
-export default MobileMenu
+export default MobileMenu;

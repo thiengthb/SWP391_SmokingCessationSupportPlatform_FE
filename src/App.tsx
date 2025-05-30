@@ -7,7 +7,6 @@ import Footer from './components/template/home/footer';
 function App() {
   return (
     <div className="min-h-screen bg-white">
-      <Header />
       <Hero />
       <Section
         title="Share the journey"
@@ -44,10 +43,6 @@ function App() {
           </a>
         </div>
       </Section>
-      <Footer />
-      <div className="fixed bottom-4 right-4">
-        <ModeToggle />
-      </div>
     </div>
   );
 }

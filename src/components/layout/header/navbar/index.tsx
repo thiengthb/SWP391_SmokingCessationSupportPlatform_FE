@@ -4,7 +4,7 @@ import MobileMenu from "./MobileMenu"
 import { NavigationItems } from "./NavigationItems"
 import { mainNav } from "./navbar.item"
 import { ModeToggle } from "@/components/theme/theme-toggle"
-import Logo from "./Logo"
+import Logo from "../Logo"
 
 const Navbar = () => {
   return (
@@ -17,10 +17,10 @@ const Navbar = () => {
           </nav>
           <div className="hidden md:flex items-center gap-2">
             <Button variant="secondary" size="sm" className="hidden lg:block">
-              <Link to="/login">Login</Link>
+              <Link to="/auth/login">Login</Link>
             </Button>
-            <Button size="sm">
-              <Link to="/signup">Sign Up</Link>
+            <Button size="sm" asChild>
+              <Link to="/auth/register">Sign Up</Link>
             </Button>
             <div className="hidden lg:flex">
               <ModeToggle />
