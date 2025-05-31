@@ -16,6 +16,7 @@ import {
 import { Menu, ChevronsUpDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import type { NavItems } from "./navbar.item";
+import ThemeSwitch from "@/components/theme/theme-switch";
 
 const MobileMenu = ({ items }: NavItems) => {
   return (
@@ -61,6 +62,10 @@ const MobileMenu = ({ items }: NavItems) => {
               )}
             </div>
           ))}
+          <div className="flex justify-between items-center">
+            <p>Theme</p>
+            <ThemeSwitch />
+          </div>
           <SheetFooter>
             <SheetClose asChild>
               <Button asChild>
