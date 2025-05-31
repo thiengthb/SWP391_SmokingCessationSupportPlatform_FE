@@ -1,6 +1,8 @@
 import { Outlet } from 'react-router-dom'
 import Navbar from './header/navbar'
 import Footer from './footer'
+import ScollBack from '../ScrollBack'
+import ChatBot from '../chatbot/ChatBot'
 
 const Layout = () => {
   return (
@@ -10,6 +12,8 @@ const Layout = () => {
         <Outlet />
       </main>
       <Footer />
+      <ScollBack />
+      <ChatBot />
     </>
   )
 }
