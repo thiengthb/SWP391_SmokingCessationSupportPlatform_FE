@@ -6,7 +6,6 @@ import { ChatMessage } from "./ChatMessage";
 import { BotMessageSquare, Loader2Icon, SendIcon, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { platformData } from "./platformData";
-import "./ChatBot.css";
 
 interface Message {
   sender: "user" | "bot";
