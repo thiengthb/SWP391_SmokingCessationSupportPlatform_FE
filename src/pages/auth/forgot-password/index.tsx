@@ -13,12 +13,13 @@ import { Link } from "react-router-dom";
 
 const ForgotPasswordPage = () => {
   return (
-    <div className="w-full mt-10 sm:mt-16 lg:mt-32 xl:mt-40 flex justify-center items-center">
-      <Card className="sm:w-[300px] lg:w-[360px] 2xl:w-[400px]">
+    <div className="w-full my-10 sm:my-16 lg:my-16 2xl:my-40 flex justify-center items-center">
+      <Card className="w-[360px] lg:w-[400px] xl:w-[440px] mx-2">
         <CardHeader>
           <CardTitle>Forgot Password</CardTitle>
           <CardDescription>
-            Enter your email address and we&apos;ll send you a link to reset your password.
+            Enter your email address and we&apos;ll send you a link to reset
+            your password.
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4">
@@ -29,8 +30,8 @@ const ForgotPasswordPage = () => {
         </CardContent>
         <CardFooter className="flex flex-col gap-4">
           <Button className="w-full">Send Reset Link</Button>
-          <Link 
-            to="/auth/login" 
+          <Link
+            to="/auth/login"
             className="text-sm text-muted-foreground hover:text-primary"
           >
             Back to login
