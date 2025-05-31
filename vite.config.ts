@@ -14,4 +14,12 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  define: {
+    'process.env': {}
+  },
+  server: {
+    host: '0.0.0.0',
+    port: 8080,
+    allowedHosts: ['view.smokingcessation.website']
+  },
 })
