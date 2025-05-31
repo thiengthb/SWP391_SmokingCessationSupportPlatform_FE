@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom'
 import Navbar from './header/navbar'
 import Footer from './footer'
 import ScollBack from '../ScrollBack'
-import ChatBot from '../chatbot/ChatBot'
+import ChatBot from '../chatbot'
 
 const Layout = () => {
   return (

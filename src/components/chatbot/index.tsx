@@ -1,19 +1,19 @@
-import { useState, useRef, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { Button } from '../ui/button';
-import { Input } from '../ui/input';
-import { ChatMessage } from './ChatMessage';
-import { BotMessageSquare, SendIcon, X } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { platformData } from './platformData';
-import './ChatBot.css'
+import { useState, useRef, useEffect } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { ChatMessage } from "./ChatMessage";
+import { BotMessageSquare, Loader2Icon, SendIcon, X } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { platformData } from "./platformData";
+import "./ChatBot.css";
 
 interface Message {
-  sender: 'user' | 'bot';
+  sender: "user" | "bot";
   text: string;
 }
 
-const STORAGE_KEY = 'chatbot_messages';
+const STORAGE_KEY = "chatbot_messages";
 
 const ChatBot = () => {
   const baseUrl = import.meta.env.VITE_GEMINI_GOOGLE_URL;
@@ -25,7 +25,7 @@ const ChatBot = () => {
     const stored = localStorage.getItem(STORAGE_KEY);
     return stored ? JSON.parse(stored) : [];
   });
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isMinimized, setIsMinimized] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -34,7 +34,7 @@ const ChatBot = () => {
   useEffect(() => {
     if (!isMinimized && messages.length === 0) {
       const welcomeMessage: Message = {
-        sender: 'bot',
+        sender: "bot",
         text: `Hello! I'm the assistant for smokingcessation.website. How can I help you today?`,
       };
       setMessages([welcomeMessage]);
@@ -43,7 +43,7 @@ const ChatBot = () => {
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   useEffect(() => {
@@ -53,25 +53,26 @@ const ChatBot = () => {
   }, [isLoading, isMinimized]);
 
   const handleSend = async () => {
-    if (input.trim() === '' || isLoading) return;
+    if (input.trim() === "" || isLoading) return;
 
-    const userMessage: Message = { sender: 'user', text: input };
+    const userMessage: Message = { sender: "user", text: input };
     setMessages((prev) => [...prev, userMessage]);
-    setInput('');
+    setInput("");
     setIsLoading(true);
-    
 
     const payload = {
       contents: [
         {
           parts: [
-            { text: `
+            {
+              text: `
                 Based on the following information to answer: ${platformData}
                 Question: ${input}
                 Instructions: Answer briefly and concisely, 
                 focusing only on the question, without digressing.
                 Answer the same language, if the answer don't match any language, answer in english.
-            `},
+            `,
+            },
           ],
         },
       ],
@@ -79,19 +80,23 @@ const ChatBot = () => {
 
     try {
       const response = await fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        }
-      );
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
       const data = await response.json();
-      const rawReply = data?.candidates?.[0]?.content?.parts?.[0]?.text || 'Something went wrong!';
+      const rawReply =
+        data?.candidates?.[0]?.content?.parts?.[0]?.text ||
+        "Something went wrong!";
 
-      const botMessage: Message = { sender: 'bot', text: rawReply };
+      const botMessage: Message = { sender: "bot", text: rawReply };
       setMessages((prev) => [...prev, botMessage]);
     } catch (error) {
-      const errorMessage: Message = { sender: 'bot', text: 'Failed to connect API' };
+      const errorMessage: Message = {
+        sender: "bot",
+        text: "Failed to connect API",
+      };
       setMessages((prev) => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
@@ -108,21 +113,24 @@ const ChatBot = () => {
         className={cn(
           "fixed bottom-20 right-4 z-50 rounded-full p-3 shadow-lg",
           "transition-all duration-300 ease-in-out hover:scale-110",
-          "animate-bounce-slow"
+          "animate-bounce-slow",
+          "hidden lg:flex",
+          isMinimized ? "scale-100 opacity-100" : "scale-0 opacity-0"
         )}
         onClick={() => setIsMinimized(!isMinimized)}
       >
-        <BotMessageSquare />
+        <BotMessageSquare className="w-20 h-20" />
       </Button>
 
       {!isMinimized && (
         <Card
           className={cn(
-            'fixed bottom-32 sm:bottom-20 right-4 sm:right-8 lg:right-16 w-[90%] sm:w-96 max-w-md h-[500px] z-40',
-            'shadow-2xl border-primary/20',
-            'animate-in slide-in-from-bottom-10 duration-300 p-0 gap-0 overflow-hidden',
-            isMinimized ? 'scale-0 opacity-0' : 'scale-100 opacity-100',
-          )} 
+            "fixed bottom-32 lg:bottom-4 2xl:bottom-16 right-4 sm:right-8 lg:right-16 lg:w-96 h-[500px] z-40",
+            "shadow-2xl border-primary/20",
+            "animate-in slide-in-from-bottom-10 duration-300 p-0 gap-0 overflow-hidden",
+            "hidden lg:flex",
+            isMinimized ? "scale-0 opacity-0" : "scale-100 opacity-100"
+          )}
         >
           <CardHeader className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground p-3">
             <CardTitle className="text-lg font-semibold flex items-center gap-2">
@@ -145,7 +153,9 @@ const ChatBot = () => {
               {messages.map((message, index) => (
                 <ChatMessage key={index} message={message} />
               ))}
-              {isLoading && <ChatMessage message={{ sender: 'bot', text: '...' }} loading />}
+              {isLoading && (
+                <ChatMessage message={{ sender: "bot", text: "..." }} loading />
+              )}
               <div ref={messagesEndRef} />
             </div>
 
@@ -165,17 +175,23 @@ const ChatBot = () => {
                   placeholder="Type your message..."
                   disabled={isLoading}
                   className="flex-1 bg-background shadow-sm"
-                  autoComplete='off'
+                  autoComplete="off"
                 />
-                <Button
-                  type="submit"
-                  size="icon"
-                  disabled={isLoading || !input.trim()}
-                  className="shadow-sm hover:scale-105 transition-transform"
-                >
-                  <SendIcon className="h-4 w-4" />
-                  <span className="sr-only">Send message</span>
-                </Button>
+                {isLoading ? (
+                  <Button size="icon" disabled>
+                    <Loader2Icon className="animate-spin" />
+                  </Button>
+                ) : (
+                  <Button
+                    type="submit"
+                    size="icon"
+                    disabled={!input.trim()}
+                    className="shadow-sm hover:scale-105 transition-transform"
+                  >
+                    <SendIcon className="h-4 w-4" />
+                    <span className="sr-only">Send message</span>
+                  </Button>
+                )}
               </form>
             </div>
           </CardContent>
