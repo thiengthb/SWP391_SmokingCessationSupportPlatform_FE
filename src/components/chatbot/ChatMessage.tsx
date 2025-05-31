@@ -28,7 +28,7 @@ export const ChatMessage = ({ message, loading }: ChatMessageProps) => {
       )}
       
       <div className={cn(
-        "px-4 py-2 rounded-2xl max-w-[85%] shadow-sm",
+        "px-4 py-2 rounded-2xl max-w-[70%] shadow-sm",
         "transition-all duration-200",
         isBot ? 
           "bg-muted/50 text-foreground rounded-bl-none" : 
