@@ -38,7 +38,7 @@ const ChatBot = () => {
       };
       setMessages([welcomeMessage]);
     }
-  }, [isMinimized]);
+  }, [isMinimized, messages.length]);
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
@@ -91,10 +91,11 @@ const ChatBot = () => {
 
       const botMessage: Message = { sender: "bot", text: rawReply };
       setMessages((prev) => [...prev, botMessage]);
-    } catch (error) {
+    } catch (err: unknown) {
+      console.error('API Error:', err); // Log the error
       const errorMessage: Message = {
         sender: "bot",
-        text: "Failed to connect API",
+        text: err instanceof Error ? err.message : "Failed to connect API",
       };
       setMessages((prev) => [...prev, errorMessage]);
     } finally {
