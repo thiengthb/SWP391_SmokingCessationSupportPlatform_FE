@@ -17,13 +17,18 @@ import { Menu, ChevronsUpDown } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import type { NavItems } from "./navbar.item";
 import ThemeSwitch from "@/components/theme/theme-switch";
+import { useAuth } from "@/context/AuthContext";
 
 const MobileMenu = ({ items }: NavItems) => {
   const navigate = useNavigate();
-  const isAuthenticated = !!localStorage.getItem("token");
+  const { isAuthenticated, logout } = useAuth();
+
+  const filteredItems = items.filter(
+    (item) => !item.requireAuth || (item.requireAuth && isAuthenticated)
+  );
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    logout();
     navigate("/auth/login");
   };
 
@@ -40,7 +45,7 @@ const MobileMenu = ({ items }: NavItems) => {
           <SheetTitle>Menu</SheetTitle>
         </SheetHeader>
         <div className="flex flex-col space-y-2 p-4">
-          {items.map((item) => (
+          {filteredItems.map((item) => (
             <div key={item.href} className="space-y-3">
               {item.items ? (
                 <Collapsible>
@@ -71,10 +76,11 @@ const MobileMenu = ({ items }: NavItems) => {
             </div>
           ))}
           {!isAuthenticated ? (
-          <div className="flex justify-between items-center">
-            <p>Theme</p>
-            <ThemeSwitch />
-          </div>) : null}
+            <div className="flex justify-between items-center">
+              <p>Theme</p>
+              <ThemeSwitch />
+            </div>
+          ) : null}
           <SheetFooter>
             {isAuthenticated ? (
               <SheetClose asChild>

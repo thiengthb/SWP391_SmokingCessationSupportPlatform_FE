@@ -15,6 +15,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { api } from "@/lib/axios";
 import axios from "axios";
+import { useAuth } from "@/context/AuthContext";
 
 interface LoginFormData {
   username: string;
@@ -31,6 +32,7 @@ interface LoginResponse {
 }
 
 const LoginPage = () => {
+  const { login } = useAuth();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -50,7 +52,7 @@ const LoginPage = () => {
       console.log("Login response:", data);
 
       if (data.code === 0 && data.result.authenticated) {
-        localStorage.setItem("token", data.result.token);
+        login(data.result.token);
         navigate("/dashboard");
       } else {
         const errorMessage =

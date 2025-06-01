@@ -88,10 +88,6 @@ export const mainNav: NavigationType[] = [
     href: "/",
   },
   {
-    title: "Contact",
-    href: "/contact",
-  },
-  {
     title: "Blog",
     href: "/blog",
     description: "News, articles, and resources",
@@ -113,5 +109,9 @@ export const mainNav: NavigationType[] = [
     href: "/about",
     description: "Learn more about our company",
     items: aboutItems
-  }
+  },
+  {
+    title: "Contact",
+    href: "/contact",
+  },
 ]
