@@ -1,4 +1,4 @@
-import { contactInfos } from "./contact.infos";
+import { contactInfos } from "../contact.infos";
 
 export function ContactInfo() {
   return (
@@ -13,7 +13,7 @@ export function ContactInfo() {
                 <h3 className="font-medium">{info.title}</h3>
                 <p className="text-muted-foreground">{info.content}</p>
                 {info.links && (
-                  <div className="w-full flex flex-wrap gap-10 mt-6">
+                  <div className="w-full flex flex-wrap gap-10 mt-4">
                     {info.links.map((link, index) => (
                       <div className="">
                         <link.icon className="inline-block w-4 h-4 mr-1" />

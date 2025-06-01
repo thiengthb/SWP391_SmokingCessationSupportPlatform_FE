@@ -11,6 +11,7 @@ interface AuthContextType {
     location?: string;
     phone?: string;
     avatar?: string;
+    role?: string;
   };
 }
 

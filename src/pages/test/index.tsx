@@ -1,9 +1,9 @@
-import Navbar from "@/components/layout/header/navbar"
+import CoachDashboard from "../dashboard/coach"
 
 const Test = () => {
   return (
     <>
-        <Navbar />
+        <CoachDashboard />
     </>
   )
 }

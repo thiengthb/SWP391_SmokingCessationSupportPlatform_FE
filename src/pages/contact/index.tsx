@@ -1,5 +1,5 @@
-import { ContactForm } from "./ContactForm";
-import { ContactInfo } from "./ContactInfo";
+import { ContactForm } from "./components/ContactForm";
+import { ContactInfo } from "./components/ContactInfo";
 
 export default function ContactPage() {
   return (

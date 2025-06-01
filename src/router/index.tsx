@@ -6,7 +6,7 @@ import ForgotPassword from "../pages/ForgotPassword";
 import InsurersPage from "../pages/InsurersPage";
 import ForCompaniesPage from "../pages/ForCompaniesPage";
 import PartnershipPage from "../pages/PartnershipPage";
-import DashboardPage from "../pages/DashboardPage";
+import DashboardPage from "../pages/dashboard";
 
 import App from "../App";
 import Layout from "@/components/layout";
@@ -38,7 +38,8 @@ const router = createBrowserRouter([
       { path: "/setting", element: <SettingsPage /> },
       { path: "/profile", element: <ProfilePage /> },
       { path: "/contact", element: <ContactPage /> },
-
+      { path: "/dashboard", element: <DashboardPage /> },
+      
       { path: "/social-login", element: <SocialLoginPage /> },
       { path: "/signup", element: <SignupPage /> },
       { path: "/signin", element: <SignIn /> },
@@ -46,7 +47,6 @@ const router = createBrowserRouter([
       { path: "/for-insurers", element: <InsurersPage /> },
       { path: "/for-companies", element: <ForCompaniesPage /> },
       { path: "/partnerships", element: <PartnershipPage /> },
-      { path: "/dashboard", element: <DashboardPage /> },
       { path: "/test", element: <Test /> },
       {
         path: "/about/team",
