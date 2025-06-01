@@ -74,7 +74,6 @@ const LoginPage = () => {
       setIsLoading(false);
     }
   };
-
   return (
     <div className="w-full my-10 sm:my-16 lg:my-16 2xl:my-40 flex justify-center items-center">
       <Card className="w-[360px] lg:w-[400px] xl:w-[440px] mx-2 pb-10">
