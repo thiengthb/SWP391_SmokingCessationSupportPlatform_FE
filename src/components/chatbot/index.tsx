@@ -6,7 +6,6 @@ import { ChatMessage } from "./ChatMessage";
 import { BotMessageSquare, Loader2Icon, SendIcon, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { platformData } from "./platform.data";
-import "./ChatBot.css";
 
 interface Message {
   sender: "user" | "bot";
@@ -111,15 +110,15 @@ const ChatBot = () => {
         variant="outline"
         size="icon"
         className={cn(
-          "fixed bottom-20 right-4 z-50 rounded-full p-3 shadow-lg",
+          "fixed bottom-20 right-3 z-50 rounded-full shadow-lg",
           "transition-all duration-300 ease-in-out hover:scale-110",
           "animate-bounce-slow",
           "hidden lg:flex",
-          isMinimized ? "scale-100 opacity-100" : "scale-0 opacity-0"
+          "w-12 h-12",
         )}
         onClick={() => setIsMinimized(!isMinimized)}
       >
-        <BotMessageSquare className="w-20 h-20" />
+        <BotMessageSquare />
       </Button>
 
       {!isMinimized && (
