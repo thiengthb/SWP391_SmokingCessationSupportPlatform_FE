@@ -14,11 +14,19 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Menu, ChevronsUpDown } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import type { NavItems } from "./navbar.item";
 import ThemeSwitch from "@/components/theme/theme-switch";
 
 const MobileMenu = ({ items }: NavItems) => {
+  const navigate = useNavigate();
+  const isAuthenticated = !!localStorage.getItem("token");
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/auth/login");
+  };
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -62,21 +70,32 @@ const MobileMenu = ({ items }: NavItems) => {
               )}
             </div>
           ))}
+          {!isAuthenticated ? (
           <div className="flex justify-between items-center">
             <p>Theme</p>
             <ThemeSwitch />
-          </div>
+          </div>) : null}
           <SheetFooter>
-            <SheetClose asChild>
-              <Button asChild>
-                <Link to="/auth/register">Sign Up</Link>
-              </Button>
-            </SheetClose>
-            <SheetClose asChild>
-              <Button variant="secondary" asChild>
-                <Link to="/auth/login">Login</Link>
-              </Button>
-            </SheetClose>
+            {isAuthenticated ? (
+              <SheetClose asChild>
+                <Button variant="secondary" onClick={handleLogout}>
+                  Logout
+                </Button>
+              </SheetClose>
+            ) : (
+              <>
+                <SheetClose asChild>
+                  <Button asChild>
+                    <Link to="/auth/register">Sign Up</Link>
+                  </Button>
+                </SheetClose>
+                <SheetClose asChild>
+                  <Button variant="secondary" asChild>
+                    <Link to="/auth/login">Login</Link>
+                  </Button>
+                </SheetClose>
+              </>
+            )}
           </SheetFooter>
         </div>
       </SheetContent>

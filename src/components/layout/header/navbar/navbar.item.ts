@@ -1,8 +1,13 @@
-export interface NavItem {
-  title: string;
-  href: string;
-  description?: string;
-  items?: NavItem[];
+export type NavItem = {
+  title: string
+  href: string
+  description?: string
+  items?: {
+    title: string
+    href: string
+    description?: string
+  }[]
+  requireAuth?: boolean
 }
 
 export interface NavItems {
@@ -53,11 +58,38 @@ export const leaderboardItems: NavItem[] = [
   }
 ]
 
-export const mainNav = [
+export type NavigationType = {
+  title: string;
+  href: string;
+  requireAuth?: boolean;
+  description?: string;
+  items?: NavItem[];
+};
+
+export const mainNav: NavigationType[] = [
+  
+  {
+    title: "Dashboard",
+    href: "/dashboard",
+    requireAuth: true,
+  },
+  {
+    title: "Profile",
+    href: "/profile",
+    requireAuth: true,
+  },
+  {
+    title: "Settings",
+    href: "/setting",
+    requireAuth: true,
+  },
   {
     title: "Home",
     href: "/",
-    description: "Return to the homepage",
+  },
+  {
+    title: "Contact",
+    href: "/contact",
   },
   {
     title: "Blog",
@@ -81,10 +113,5 @@ export const mainNav = [
     href: "/about",
     description: "Learn more about our company",
     items: aboutItems
-  },
-  {
-    title: "Contact",
-    href: "/contact",
-    description: "Get in touch with our team",
   }
 ]

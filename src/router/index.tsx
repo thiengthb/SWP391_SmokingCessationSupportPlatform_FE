@@ -15,6 +15,7 @@ import Test from "@/pages/test";
 import LoginPage from "@/pages/auth/login";
 import RegisterPage from "@/pages/auth/register";
 import ForgotPasswordPage from "@/pages/auth/forgot-password";
+import SettingsPage from "@/pages/setting";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,7 @@ const router = createBrowserRouter([
           { path: "forgot-password", element: <ForgotPasswordPage /> },
         ],
       },
+      { path: "/setting", element: <SettingsPage /> },
       { path: "/social-login", element: <SocialLoginPage /> },
       { path: "/signup", element: <SignupPage /> },
       { path: "/signin", element: <SignIn /> },
