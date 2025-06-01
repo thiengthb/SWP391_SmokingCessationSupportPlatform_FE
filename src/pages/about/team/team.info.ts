@@ -19,7 +19,7 @@ export const teamMembers :TeamMember[] = [
     description: "Expert in Springboot and MySQL, focusing on scalable backend solutions for health tech",
   },
   {
-    name: "Tran Nhat Chinh (channi)",
+    name: "Tran Nhat Chinh",
     role: "Backend Developer",
     image: "/team/member3.jpg",
     description: "Backend developer with expertise in Springboot and database management, ensuring robust application performance",

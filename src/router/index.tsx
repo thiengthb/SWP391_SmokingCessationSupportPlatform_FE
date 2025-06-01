@@ -17,7 +17,8 @@ import TestimonialsPage from "@/pages/testimonials";
 import AboutPage from "@/pages/about";
 import CommunityPage from "@/pages/community";
 import LeaderboardPage from "@/pages/leaderboard";
-import HallOfFamePage from "@/pages/leaderboard/hall-of-fame";
+import HallOfFamePage from "@/pages/leaderboard/HallOfFame";
+import BlogPage from "@/pages/blog";
 
 const router = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
           { path: "", element: <LeaderboardPage /> },
           { path: "hall-of-fame", element: <HallOfFamePage /> },
         ],
+      },
+      {
+        path: "/blog",
+        children: [{ path: "", element: <BlogPage /> }],
       },
       { path: "*", element: <NotFoundPage /> },
     ],

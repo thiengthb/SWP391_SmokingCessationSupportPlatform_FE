@@ -27,24 +27,6 @@ export const aboutItems: NavItem[] = [
   },
 ]
 
-export const blogItems: NavItem[] = [
-  {
-    title: "Latest Posts",
-    href: "/blog/latest",
-    description: "Check out our most recent articles"
-  },
-  {
-    title: "Featured",
-    href: "/blog/featured",
-    description: "Must-read articles from our editors"
-  },
-  {
-    title: "Categories",
-    href: "/blog/categories",
-    description: "Browse articles by topic"
-  }
-]
-
 export const leaderboardItems: NavItem[] = [
   {
     title: "Global Rankings",
@@ -91,7 +73,6 @@ export const mainNav: NavigationType[] = [
     title: "Blog",
     href: "/blog",
     description: "News, articles, and resources",
-    items: blogItems
   },
   {
     title: "Leaderboard",

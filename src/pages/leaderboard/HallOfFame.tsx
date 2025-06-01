@@ -1,7 +1,7 @@
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "../../components/ui/badge";
 import { Trophy, Star } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Card } from "../../components/ui/card";
+import { Avatar, AvatarImage, AvatarFallback } from "../../components/ui/avatar";
 import { champions } from "./hall-of-fame";
 
 
