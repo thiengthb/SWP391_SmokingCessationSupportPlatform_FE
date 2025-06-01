@@ -48,7 +48,7 @@ export const blogItems: NavItem[] = [
 export const leaderboardItems: NavItem[] = [
   {
     title: "Global Rankings",
-    href: "/leaderboard/global",
+    href: "/leaderboard",
     description: "See top performers worldwide"
   },
   {

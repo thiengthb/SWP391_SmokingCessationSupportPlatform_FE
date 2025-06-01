@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Users, Send, PlusCircle } from "lucide-react";
+import { Users, Send } from "lucide-react";
 import { onlineUsers, chatMessages } from "./data";
 import { ChatMessage } from "./components/ChatMessage";
 import { OnlineUser } from "./components/OnlineUser";
