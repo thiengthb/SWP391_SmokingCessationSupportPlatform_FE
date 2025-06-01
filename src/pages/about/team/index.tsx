@@ -1,9 +1,16 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { teamMembers } from "./team.info";
 import { Button } from "@/components/ui/button";
+import { teamMembers } from "./team.info";
 
 export default function TeamPage() {
+  const getInitials = (name: string) => {
+    return name
+      .split(" ")
+      .map((n) => n[0])
+      .join("");
+  };
+
   return (
     <div className="container max-w-3xl lg:max-w-6xl mx-auto px-4 py-6 lg:py-10">
       <div className="space-y-10">
@@ -22,7 +29,7 @@ export default function TeamPage() {
                 <CardHeader className="text-center">
                   <Avatar className="h-24 w-24 mx-auto mb-4">
                     <AvatarImage src={member.image} alt={member.name} />
-                    <AvatarFallback>{member.name[0]}</AvatarFallback>
+                    <AvatarFallback>{getInitials(member.name)}</AvatarFallback>
                   </Avatar>
                   <CardTitle className="text-xl font-bold">
                     {member.name}

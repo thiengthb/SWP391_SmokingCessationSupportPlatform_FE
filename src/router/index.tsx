@@ -15,6 +15,7 @@ import TeamPage from "@/pages/about/team";
 import StoryPage from "@/pages/about/story";
 import TestimonialsPage from "@/pages/testimonials";
 import AboutPage from "@/pages/about";
+import CommunityPage from "@/pages/community";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,7 @@ const router = createBrowserRouter([
       },
       { path: "/test", element: <Test /> },
       { path: "/testimonials", element: <TestimonialsPage /> },
+      { path: "/community", element: <CommunityPage /> },
       { path: "*", element: <NotFoundPage /> },
     ],
   },
