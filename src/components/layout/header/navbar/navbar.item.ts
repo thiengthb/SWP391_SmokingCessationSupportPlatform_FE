@@ -27,28 +27,10 @@ export const aboutItems: NavItem[] = [
   },
 ]
 
-export const blogItems: NavItem[] = [
-  {
-    title: "Latest Posts",
-    href: "/blog/latest",
-    description: "Check out our most recent articles"
-  },
-  {
-    title: "Featured",
-    href: "/blog/featured",
-    description: "Must-read articles from our editors"
-  },
-  {
-    title: "Categories",
-    href: "/blog/categories",
-    description: "Browse articles by topic"
-  }
-]
-
 export const leaderboardItems: NavItem[] = [
   {
     title: "Global Rankings",
-    href: "/leaderboard/global",
+    href: "/leaderboard",
     description: "See top performers worldwide"
   },
   {
@@ -88,14 +70,9 @@ export const mainNav: NavigationType[] = [
     href: "/",
   },
   {
-    title: "Contact",
-    href: "/contact",
-  },
-  {
     title: "Blog",
     href: "/blog",
     description: "News, articles, and resources",
-    items: blogItems
   },
   {
     title: "Leaderboard",
@@ -113,5 +90,9 @@ export const mainNav: NavigationType[] = [
     href: "/about",
     description: "Learn more about our company",
     items: aboutItems
-  }
+  },
+  {
+    title: "Contact",
+    href: "/contact",
+  },
 ]

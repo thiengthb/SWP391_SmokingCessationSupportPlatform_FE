@@ -1,7 +1,8 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Separator } from "@/components/ui/separator";import ProfileForm from "./ProfileForm";
-import SecurityForm from "./SecurityForm";
-import { PreferencesForm } from "./PreferencesForm";
+import { Separator } from "@/components/ui/separator";
+import ProfileForm from "./components/ProfileForm";
+import SecurityForm from "./components/SecurityForm";
+import { PreferencesForm } from "./components/PreferencesForm";
 
 export default function SettingsPage() {
   return (

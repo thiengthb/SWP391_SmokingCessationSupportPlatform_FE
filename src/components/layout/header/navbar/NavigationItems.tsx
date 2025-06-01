@@ -35,10 +35,9 @@ const ListItem = ({
 )
 
 export function NavigationItems({ items }: NavItems) {
-  const isAuthenticated = !!localStorage.getItem("token")
 
   const filteredItems = items.filter(
-    (item) => !item.requireAuth || (item.requireAuth && isAuthenticated)
+    (item) => !item.requireAuth
   )
 
   return (
@@ -47,7 +46,7 @@ export function NavigationItems({ items }: NavItems) {
         <NavigationMenuList>
           {filteredItems.map((item) => (
             <NavigationMenuItem key={item.href}>
-              {item.items ? (
+              {item.items? (
                 <>
                   <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>
                   <NavigationMenuContent className="absolute top-0 left-0 z-[999]">

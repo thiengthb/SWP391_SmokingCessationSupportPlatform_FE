@@ -6,9 +6,10 @@ import { mainNav } from "./navbar.item"
 import { ModeToggle } from "@/components/theme/theme-toggle"
 import Logo from "../Logo"
 import { UserNav } from "./UserNav"
+import { useAuth } from "@/context/AuthContext"
 
 const Navbar = () => {
-  const isAuthenticated = !!localStorage.getItem("token")
+  const { isAuthenticated } = useAuth();
 
   return (
     <header className="sticky top-0 z-50 w-full px-4 sm:px-6 lg:px-8 xl:px-12 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
