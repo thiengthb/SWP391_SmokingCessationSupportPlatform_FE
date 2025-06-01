@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/navigation-menu"
 import { Link } from "react-router-dom"
 import type { NavItems } from "./navbar.item"
-import { useAuth } from "@/context/AuthContext"
 
 const ListItem = ({
   title,

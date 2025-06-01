@@ -16,15 +16,24 @@ import {
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { useTheme } from "@/components/theme/theme-provider";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
+import { format } from "date-fns";
+import { Clock } from "lucide-react";
 
 export function PreferencesForm() {
   const { setTheme, theme } = useTheme();
   const [language, setLanguage] = useState("en");
   const [frequency, setFrequency] = useState("daily");
+  const [trackingMode, setTrackingMode] = useState("counter");
+  const [deadline, setDeadline] = useState<string>("22:00");
 
   const handleSave = () => {
-    // Save preferences to backend/localStorage
-    console.log({ theme, language, frequency });
+    console.log({ theme, language, frequency, trackingMode, deadline });
   };
 
   return (
@@ -71,11 +80,61 @@ export function PreferencesForm() {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="never">Never</SelectItem>
+              <SelectItem value="6hour">Every 6 hours</SelectItem>
+              <SelectItem value="12hour">Every 12 hours</SelectItem>
               <SelectItem value="daily">Daily</SelectItem>
               <SelectItem value="weekly">Weekly</SelectItem>
               <SelectItem value="monthly">Monthly</SelectItem>
             </SelectContent>
           </Select>
+        </div>
+
+        <div className="space-y-2">
+          <Label>Tracking Mode</Label>
+          <Select value={trackingMode} onValueChange={setTrackingMode}>
+            <SelectTrigger>
+              <SelectValue placeholder="Select tracking mode" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="counter">Counter</SelectItem>
+              <SelectItem value="dailytraking">Daily Tracking</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="space-y-2">
+          <Label>Daily Deadline</Label>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                className={cn(
+                  "w-[200px] justify-start text-left font-normal",
+                  !deadline && "text-muted-foreground"
+                )}
+              >
+                <Clock className="mr-2 h-4 w-4" />
+                {deadline ? format(new Date(`2000/01/01 ${deadline}`), 'p') : "Pick a time"}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="start">
+              <Select value={deadline} onValueChange={setDeadline}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select deadline" />
+                </SelectTrigger>
+                <SelectContent>
+                  {Array.from({ length: 24 }, (_, i) => {
+                    const hour = i.toString().padStart(2, '0');
+                    return (
+                      <SelectItem key={hour} value={`${hour}:00`}>
+                        {format(new Date(`2000/01/01 ${hour}:00`), 'p')}
+                      </SelectItem>
+                    );
+                  })}
+                </SelectContent>
+              </Select>
+            </PopoverContent>
+          </Popover>
         </div>
 
         <Button onClick={handleSave} className="w-full">

@@ -1,9 +1,17 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 interface AuthContextType {
   isAuthenticated: boolean;
   login: (token: string) => void;
   logout: () => void;
+  userInfo?: {
+    username?: string;
+    email?: string;
+    bio?: string;
+    location?: string;
+    phone?: string;
+    avatar?: string;
+  };
 }
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
