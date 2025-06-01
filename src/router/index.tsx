@@ -18,6 +18,8 @@ import ForgotPasswordPage from "@/pages/auth/forgot-password";
 import SettingsPage from "@/pages/setting";
 import ProfilePage from "@/pages/profile";
 import ContactPage from "@/pages/contact";
+import TeamPage from "@/pages/about/team";
+import StoryPage from "@/pages/about/story";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +48,14 @@ const router = createBrowserRouter([
       { path: "/partnerships", element: <PartnershipPage /> },
       { path: "/dashboard", element: <DashboardPage /> },
       { path: "/test", element: <Test /> },
+      {
+        path: "/about/team",
+        element: <TeamPage />,
+      },
+      {
+        path: "/about/story",
+        element: <StoryPage />,
+      },
       { path: "*", element: <NotFoundPage /> },
     ],
   },
