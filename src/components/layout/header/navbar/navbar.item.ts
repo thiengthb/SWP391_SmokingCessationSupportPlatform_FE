@@ -1,8 +1,13 @@
-export interface NavItem {
-  title: string;
-  href: string;
-  description?: string;
-  items?: NavItem[];
+export type NavItem = {
+  title: string
+  href: string
+  description?: string
+  items?: {
+    title: string
+    href: string
+    description?: string
+  }[]
+  requireAuth?: boolean
 }
 
 export interface NavItems {
@@ -22,28 +27,10 @@ export const aboutItems: NavItem[] = [
   },
 ]
 
-export const blogItems: NavItem[] = [
-  {
-    title: "Latest Posts",
-    href: "/blog/latest",
-    description: "Check out our most recent articles"
-  },
-  {
-    title: "Featured",
-    href: "/blog/featured",
-    description: "Must-read articles from our editors"
-  },
-  {
-    title: "Categories",
-    href: "/blog/categories",
-    description: "Browse articles by topic"
-  }
-]
-
 export const leaderboardItems: NavItem[] = [
   {
     title: "Global Rankings",
-    href: "/leaderboard/global",
+    href: "/leaderboard",
     description: "See top performers worldwide"
   },
   {
@@ -53,17 +40,39 @@ export const leaderboardItems: NavItem[] = [
   }
 ]
 
-export const mainNav = [
+export type NavigationType = {
+  title: string;
+  href: string;
+  requireAuth?: boolean;
+  description?: string;
+  items?: NavItem[];
+};
+
+export const mainNav: NavigationType[] = [
+  
+  {
+    title: "Dashboard",
+    href: "/dashboard",
+    requireAuth: true,
+  },
+  {
+    title: "Profile",
+    href: "/profile",
+    requireAuth: true,
+  },
+  {
+    title: "Settings",
+    href: "/setting",
+    requireAuth: true,
+  },
   {
     title: "Home",
     href: "/",
-    description: "Return to the homepage",
   },
   {
     title: "Blog",
     href: "/blog",
     description: "News, articles, and resources",
-    items: blogItems
   },
   {
     title: "Leaderboard",
@@ -85,6 +94,5 @@ export const mainNav = [
   {
     title: "Contact",
     href: "/contact",
-    description: "Get in touch with our team",
-  }
+  },
 ]

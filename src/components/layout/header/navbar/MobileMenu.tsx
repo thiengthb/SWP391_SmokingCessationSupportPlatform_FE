@@ -14,10 +14,24 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Menu, ChevronsUpDown } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import type { NavItems } from "./navbar.item";
+import ThemeSwitch from "@/components/theme/theme-switch";
+import { useAuth } from "@/context/AuthContext";
 
 const MobileMenu = ({ items }: NavItems) => {
+  const navigate = useNavigate();
+  const { isAuthenticated, logout } = useAuth();
+
+  const filteredItems = items.filter(
+    (item) => !item.requireAuth || (item.requireAuth && isAuthenticated)
+  );
+
+  const handleLogout = () => {
+    logout();
+    navigate("/auth/login");
+  };
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -31,7 +45,7 @@ const MobileMenu = ({ items }: NavItems) => {
           <SheetTitle>Menu</SheetTitle>
         </SheetHeader>
         <div className="flex flex-col space-y-2 p-4">
-          {items.map((item) => (
+          {filteredItems.map((item) => (
             <div key={item.href} className="space-y-3">
               {item.items ? (
                 <Collapsible>
@@ -61,17 +75,33 @@ const MobileMenu = ({ items }: NavItems) => {
               )}
             </div>
           ))}
+          {!isAuthenticated ? (
+            <div className="flex justify-between items-center">
+              <p>Theme</p>
+              <ThemeSwitch />
+            </div>
+          ) : null}
           <SheetFooter>
-            <SheetClose asChild>
-              <Button asChild>
-                <Link to="/auth/register">Sign Up</Link>
-              </Button>
-            </SheetClose>
-            <SheetClose asChild>
-              <Button variant="secondary" asChild>
-                <Link to="/auth/login">Login</Link>
-              </Button>
-            </SheetClose>
+            {isAuthenticated ? (
+              <SheetClose asChild>
+                <Button variant="secondary" onClick={handleLogout}>
+                  Logout
+                </Button>
+              </SheetClose>
+            ) : (
+              <>
+                <SheetClose asChild>
+                  <Button asChild>
+                    <Link to="/auth/register">Sign Up</Link>
+                  </Button>
+                </SheetClose>
+                <SheetClose asChild>
+                  <Button variant="secondary" asChild>
+                    <Link to="/auth/login">Login</Link>
+                  </Button>
+                </SheetClose>
+              </>
+            )}
           </SheetFooter>
         </div>
       </SheetContent>
