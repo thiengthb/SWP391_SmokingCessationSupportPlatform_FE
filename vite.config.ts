@@ -19,7 +19,14 @@ export default defineConfig({
   },
   server: {
     host: '0.0.0.0',
-    port: 8080,
-    allowedHosts: ['view.smokingcessation.website']
+    port: 3000,
+    allowedHosts: ['view.smokingcessation.website'],
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        secure: false
+      }
+    }
   },
 })

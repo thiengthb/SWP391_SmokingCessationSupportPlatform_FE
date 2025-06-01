@@ -35,11 +35,17 @@ const ListItem = ({
 )
 
 export function NavigationItems({ items }: NavItems) {
+  const isAuthenticated = !!localStorage.getItem("token")
+
+  const filteredItems = items.filter(
+    (item) => !item.requireAuth || (item.requireAuth && isAuthenticated)
+  )
+
   return (
     <div className="relative">
       <NavigationMenu viewport={false}>
         <NavigationMenuList>
-          {items.map((item) => (
+          {filteredItems.map((item) => (
             <NavigationMenuItem key={item.href}>
               {item.items ? (
                 <>
