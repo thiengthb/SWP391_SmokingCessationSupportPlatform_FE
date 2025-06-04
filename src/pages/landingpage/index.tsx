@@ -7,7 +7,7 @@ import { FeaturesSection } from "./components/FeaturesSection";
 import { SuccessStoriesSection } from "./components/SuccessStoriesSection";
 import { CTASection } from "./components/CTASection";
 
-export default function HomePage({ className }: HomePageProps) {
+export default function LandingPage({ className }: HomePageProps) {
   const navigate = useNavigate();
 
   const handleGetStarted = () => {

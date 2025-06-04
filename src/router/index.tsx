@@ -9,7 +9,6 @@ import RegisterPage from "@/pages/auth/register";
 import ForgotPasswordPage from "@/pages/auth/forgot-password";
 import SettingsPage from "@/pages/setting";
 import ProfilePage from "@/pages/profile";
-import DashboardPage from "../pages/dashboard";
 import ContactPage from "@/pages/contact";
 import TeamPage from "@/pages/about/team";
 import StoryPage from "@/pages/about/story";
@@ -20,9 +19,6 @@ import LeaderboardPage from "@/pages/leaderboard";
 import HallOfFamePage from "@/pages/leaderboard/HallOfFame";
 import BlogPage from "@/pages/blog";
 import BlogPostPage from "@/pages/blog/[slug]";
-import AdminDashboard from "@/pages/dashboard/admin";
-import CoachDashboard from "@/pages/dashboard/coach";
-import MemberDashboard from "@/pages/dashboard/member";
 
 const router = createBrowserRouter([
   {
@@ -41,7 +37,6 @@ const router = createBrowserRouter([
       { path: "/setting", element: <SettingsPage /> },
       { path: "/profile", element: <ProfilePage /> },
       { path: "/contact", element: <ContactPage /> },
-      { path: "/dashboard", element: <DashboardPage /> },
       {
         path: "/about",
         element: <AboutPage />,
@@ -70,14 +65,6 @@ const router = createBrowserRouter([
           { path: "", element: <BlogPage /> },
           { path: ":slug", element: <BlogPostPage /> },
         ],
-      },
-      {
-        path: "/dashboard",
-        children: [
-          { path: "admin", element: <AdminDashboard /> },
-          { path: "coach", element: <CoachDashboard /> },
-          { path: "member", element: <MemberDashboard /> },
-        ]
       },
       { path: "*", element: <NotFoundPage /> },
     ],

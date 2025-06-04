@@ -1,9 +1,9 @@
-import BlogEditPage from "../blog/edit"
+import AdminHome from "../admin/home"
 
 const Test = () => {
   return (
     <>
-        <BlogEditPage />
+        <AdminHome />
     </>
   )
 }

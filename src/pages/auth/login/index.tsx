@@ -17,35 +17,6 @@ import { api } from "@/lib/axios";
 import axios from "axios";
 import { useAuth } from "@/context/AuthContext";
 import type { LoginFormData, LoginResponse } from "@/types/auth/login";
-import {
-  adminAccount,
-  memberAccount,
-  coachAccount,
-} from "@/utils/mockdata/testaccount";
-
-const testLogin = ({
-  username,
-  password,
-}: {
-  username: string;
-  password: string;
-}, navigate: ReturnType<typeof useNavigate>) => {
-  if (username === adminAccount.email && password === adminAccount.password) {
-    navigate("/dashboard/admin");
-  } else if (
-    username === coachAccount.email &&
-    password === coachAccount.password
-  ) {
-    navigate("/dashboard/member");
-  } else if (
-    username === memberAccount.email &&
-    password === memberAccount.password
-  ) {
-    navigate("/dashboard/guest");
-  } else {
-    navigate("/not-found");
-  }
-};
 
 const LoginPage = () => {
   const { login } = useAuth();
@@ -78,7 +49,6 @@ const LoginPage = () => {
         setError(errorMessage);
       }
     } catch (err) {
-      testLogin(formData, navigate);
       console.error("Login error:", err);
       if (axios.isAxiosError(err)) {
         // Get detailed error message from API response
