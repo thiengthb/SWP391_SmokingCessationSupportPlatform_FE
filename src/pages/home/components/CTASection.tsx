@@ -1,9 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Zap } from "lucide-react";
-
-interface CTASectionProps {
-  onGetStarted: () => void;
-}
+import type { CTASectionProps } from "../types";
 
 export function CTASection({ onGetStarted }: CTASectionProps) {
   return (

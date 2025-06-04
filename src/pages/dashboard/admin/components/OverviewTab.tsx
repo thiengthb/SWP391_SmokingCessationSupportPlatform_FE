@@ -1,34 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, ActivitySquare, Medal, LineChart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-
-const stats = [
-  {
-    title: "Total Users",
-    value: "1,234",
-    icon: Users,
-    description: "+12% from last month",
-  },
-  {
-    title: "Active Goals",
-    value: "845",
-    icon: ActivitySquare,
-    description: "Currently in progress",
-  },
-  {
-    title: "Success Rate",
-    value: "75%",
-    icon: Medal,
-    description: "+5% improvement",
-  },
-  {
-    title: "Weekly Growth",
-    value: "+22%",
-    icon: LineChart,
-    description: "User engagement",
-  },
-];
+import { stats } from "@/utils/mockdata/dashboard/member";
 
 export function OverviewTab() {
   return (

@@ -1,10 +1,6 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import type { TestimonialAvatarProps } from "@/types/testimonial";
 import { User } from "lucide-react";
-
-interface TestimonialAvatarProps {
-  src?: string;
-  alt: string;
-}
 
 export function TestimonialAvatar({ src, alt }: TestimonialAvatarProps) {
   const initials = alt

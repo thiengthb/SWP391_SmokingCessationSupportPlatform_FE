@@ -19,6 +19,7 @@ import CommunityPage from "@/pages/community";
 import LeaderboardPage from "@/pages/leaderboard";
 import HallOfFamePage from "@/pages/leaderboard/HallOfFame";
 import BlogPage from "@/pages/blog";
+import BlogPostPage from "@/pages/blog/[slug]";
 
 const router = createBrowserRouter([
   {
@@ -62,7 +63,10 @@ const router = createBrowserRouter([
       },
       {
         path: "/blog",
-        children: [{ path: "", element: <BlogPage /> }],
+        children: [
+          { path: "", element: <BlogPage /> },
+          { path: ":slug", element: <BlogPostPage /> },
+        ],
       },
       { path: "*", element: <NotFoundPage /> },
     ],

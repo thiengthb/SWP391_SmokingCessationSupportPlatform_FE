@@ -5,7 +5,7 @@ import { Progress } from "@/components/ui/progress";
 import { Medal, Trophy, Award } from "lucide-react";
 import { Link } from "react-router-dom";
 import { LeaderboardTabs } from "./components/LeaderboardTabs";
-import { leaderboardData } from "./data";
+import { leaderboardData } from "@/utils/mockdata/leaderboard";
 import { Separator } from "@/components/ui/separator";
 
 export default function LeaderboardPage() {
@@ -19,7 +19,6 @@ export default function LeaderboardPage() {
     }
   };
 
-  // Simulate current user - replace with actual auth user data
   const currentUser = {
     id: "current-user",
     name: "You",
@@ -29,7 +28,7 @@ export default function LeaderboardPage() {
     badge: "Bronze",
     achievement: "Getting Started",
     progress: 45,
-    avatar: "", // Add avatar property, set to empty string or a valid image URL
+    avatar: "",
   };
 
   const topTenUsers = leaderboardData.slice(0, 10);

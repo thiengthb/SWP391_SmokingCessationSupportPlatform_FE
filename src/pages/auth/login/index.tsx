@@ -16,20 +16,7 @@ import { useState } from "react";
 import { api } from "@/lib/axios";
 import axios from "axios";
 import { useAuth } from "@/context/AuthContext";
-
-interface LoginFormData {
-  username: string;
-  password: string;
-}
-
-interface LoginResponse {
-  code: number;
-  result: {
-    token: string;
-    authenticated: boolean;
-    message?: string;
-  };
-}
+import type { LoginFormData, LoginResponse } from "@/types/auth/login";
 
 const LoginPage = () => {
   const { login } = useAuth();

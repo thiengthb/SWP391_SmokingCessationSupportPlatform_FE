@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { milestones } from "./milestones";
+import { milestones } from "../data";
 
 export default function StoryPage() {
   return (

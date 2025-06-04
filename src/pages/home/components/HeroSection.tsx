@@ -1,11 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight } from "lucide-react";
-
-interface HeroSectionProps {
-  onGetStarted: () => void;
-  onLearnMore: () => void;
-}
+import type { HeroSectionProps } from "../types";
 
 export function HeroSection({ onGetStarted, onLearnMore }: HeroSectionProps) {
   return (

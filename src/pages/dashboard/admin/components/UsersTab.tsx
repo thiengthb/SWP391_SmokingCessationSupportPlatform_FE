@@ -10,7 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, MoreVertical, Ban, CheckCircle } from "lucide-react";
-import { users } from "../data";
+import { users } from "@/utils/mockdata/dashboard/admin";
 import {
   DropdownMenu,
   DropdownMenuContent,

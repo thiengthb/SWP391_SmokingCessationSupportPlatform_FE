@@ -5,54 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Clock, Video, CalendarDays } from "lucide-react";
 import { useState } from "react";
 import { format } from "date-fns";
-
-// Example appointments data
-const appointments = [
-  {
-    date: new Date(2025, 6, 1),
-    sessions: [
-      { time: "10:00", clientName: "John Doe", status: "confirmed" },
-      { time: "14:30", clientName: "Jane Smith", status: "pending" },
-    ],
-  },
-  {
-    date: new Date(2025, 6, 2),
-    sessions: [
-      { time: "11:00", clientName: "Mike Johnson", status: "confirmed" },
-      { time: "16:00", clientName: "Sarah Wilson", status: "confirmed" },
-    ],
-  },
-  {
-    date: new Date(2025, 6, 3),
-    sessions: [
-      { time: "09:30", clientName: "Alex Brown", status: "confirmed" },
-      { time: "13:00", clientName: "Emma Davis", status: "pending" },
-      { time: "15:30", clientName: "Chris Martin", status: "confirmed" },
-    ],
-  },
-  {
-    date: new Date(2025, 6, 1),
-    sessions: [
-      { time: "10:00", clientName: "Linda Chen", status: "confirmed" },
-      { time: "14:00", clientName: "Tom Wilson", status: "confirmed" },
-    ],
-  },
-  {
-    date: new Date(2025, 6, 5),
-    sessions: [
-      { time: "11:30", clientName: "Maria Garcia", status: "pending" },
-      { time: "15:00", clientName: "David Kim", status: "confirmed" },
-      { time: "17:30", clientName: "Sophie Lee", status: "confirmed" },
-    ],
-  },
-  {
-    date: new Date(2025, 6, 6),
-    sessions: [
-      { time: "09:00", clientName: "James Taylor", status: "confirmed" },
-      { time: "13:30", clientName: "Rachel Green", status: "pending" },
-    ],
-  },
-];
+import { appointments } from "@/utils/mockdata/dashboard/coach";
 
 export function ScheduleTab() {
   const [date, setDate] = useState<Date | undefined>(new Date());

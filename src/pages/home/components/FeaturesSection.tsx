@@ -1,9 +1,5 @@
 import { Card } from "@/components/ui/card";
-import type { Feature } from "../types";
-
-interface FeaturesSectionProps {
-  features: Feature[];
-}
+import type { FeaturesSectionProps } from "../types";
 
 export function FeaturesSection({ features }: FeaturesSectionProps) {
   return (

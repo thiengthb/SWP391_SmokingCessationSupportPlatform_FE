@@ -2,14 +2,10 @@ import { useNavigate } from "react-router-dom";
 import { HeroSection } from "./components/HeroSection";
 
 import { features, successItems, testimonials } from "./data";
-import type { SectionProps } from "./types";
+import type { HomePageProps } from "./types";
 import { FeaturesSection } from "./components/FeaturesSection";
 import { SuccessStoriesSection } from "./components/SuccessStoriesSection";
 import { CTASection } from "./components/CTASection";
-
-interface HomePageProps extends SectionProps {
-  className?: string;
-}
 
 export default function HomePage({ className }: HomePageProps) {
   const navigate = useNavigate();

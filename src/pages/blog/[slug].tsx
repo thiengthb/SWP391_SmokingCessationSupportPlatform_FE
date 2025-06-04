@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
-import { blogPosts } from "./data";
+import { blogPosts } from "@/utils/mockdata/blog";
 
 export default function BlogPostPage() {
   const { slug } = useParams();

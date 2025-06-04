@@ -3,13 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
-
-interface ContactFormData {
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
-}
+import type { ContactFormData } from "@/types/contact/contact";
 
 export function ContactForm() {
   const [isLoading, setIsLoading] = useState(false);

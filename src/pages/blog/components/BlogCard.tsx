@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Clock } from "lucide-react";
 import { ImageOff } from "lucide-react";
 import { useState } from "react";
-import type { BlogPost } from "../types";
+import type { BlogPost } from "@/types/blog";
 
 function FallbackImage() {
   return (

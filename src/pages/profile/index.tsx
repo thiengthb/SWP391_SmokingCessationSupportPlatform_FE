@@ -7,14 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useEffect, useState } from "react";
 import { Pencil } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
-
-interface ProfileFormData {
-  username: string;
-  email: string;
-  bio: string;
-  location: string;
-  phone: string;
-}
+import type { ProfileFormData } from "@/types/profile";
 
 export default function ProfilePage() {
   const { userInfo } = useAuth();

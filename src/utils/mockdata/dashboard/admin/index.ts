@@ -1,11 +1,5 @@
-export interface User {
-  id: string;
-  name: string;
-  email: string;
-  role: 'admin' | 'coach' | 'member';
-  status: 'active' | 'inactive' | 'banned';
-  joinDate: string;
-}
+import { Users, ActivitySquare, Medal, LineChart } from "lucide-react";
+import type { User } from "@/types/dashboard/admin/user";
 
 export const users: User[] = [
   {
@@ -121,3 +115,48 @@ export const advancedAnalyticsData = {
     { month: "Jun", engagement: 90 }
   ]
 };
+
+export const stats = [
+  {
+    title: "Total Users",
+    value: "1,234",
+    icon: Users,
+    description: "+12% from last month",
+  },
+  {
+    title: "Active Goals",
+    value: "845",
+    icon: ActivitySquare,
+    description: "Currently in progress",
+  },
+  {
+    title: "Success Rate",
+    value: "75%",
+    icon: Medal,
+    description: "+5% improvement",
+  },
+  {
+    title: "Weekly Growth",
+    value: "+22%",
+    icon: LineChart,
+    description: "User engagement",
+  },
+];
+
+export const reports = [
+  {
+    title: "User Activity Report",
+    description: "Daily user engagement and activity metrics",
+    lastGenerated: "2024-03-15",
+  },
+  {
+    title: "Success Metrics",
+    description: "User success rates and milestone achievements",
+    lastGenerated: "2024-03-14",
+  },
+  {
+    title: "System Performance",
+    description: "Server health and performance metrics",
+    lastGenerated: "2024-03-15",
+  },
+];

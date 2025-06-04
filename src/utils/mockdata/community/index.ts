@@ -1,26 +1,5 @@
-import type { ForumPost } from "./types";
-import type { User, ChatMessage } from "./types";
-
-
-export const forumPosts: ForumPost[] = [
-  {
-    id: "1",
-    title: "Starting My Quit Journey Today!",
-    content: "After 10 years of smoking, I'm finally taking the first step...",
-    author: {
-      name: "John Doe",
-      avatar: "/avatars/john.jpg",
-      role: "Member"
-    },
-    category: "Support",
-    likes: 24,
-    replies: 12,
-    createdAt: "2024-03-18",
-    tags: ["beginner", "motivation"],
-    isStickied: true
-  },
-  // Add more posts...
-];
+import type { ChatMessage } from "@/types/community/chat";
+import type { User } from "@/types/community/user";
 
 export const onlineUsers: User[] = [
   {

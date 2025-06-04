@@ -21,3 +21,26 @@ export interface Testimonial {
 export interface SectionProps {
   className?: string;
 }
+
+export interface SuccessStoriesSectionProps {
+  items: string[];
+  testimonials: Testimonial[];
+  onReadMore: () => void;
+}
+
+export interface HeroSectionProps {
+  onGetStarted: () => void;
+  onLearnMore: () => void;
+}
+
+export interface FeaturesSectionProps {
+  features: Feature[];
+}
+
+export interface CTASectionProps {
+  onGetStarted: () => void;
+}
+
+export interface HomePageProps extends SectionProps {
+  className?: string;
+}

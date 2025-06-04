@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Target, Plus } from "lucide-react";
-import { goals } from "../member.dashboard.data";
+import { goals } from "@/utils/mockdata/dashboard/member";
 
 export function GoalsTab() {
   return (

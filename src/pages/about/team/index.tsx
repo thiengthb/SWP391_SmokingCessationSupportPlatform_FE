@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { teamMembers } from "./team.info";
+import { teamMembers } from "../data";
 
 export default function TeamPage() {
   const getInitials = (name: string) => {

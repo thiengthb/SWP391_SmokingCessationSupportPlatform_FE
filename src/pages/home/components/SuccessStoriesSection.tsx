@@ -1,12 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { CheckCircle, ArrowRight } from "lucide-react";
-import type { Testimonial } from "../types";
-
-interface SuccessStoriesSectionProps {
-  items: string[];
-  testimonials: Testimonial[];
-  onReadMore: () => void;
-}
+import type { SuccessStoriesSectionProps } from "../types";
 
 export function SuccessStoriesSection({ items, onReadMore }: SuccessStoriesSectionProps) {
   return (

@@ -7,11 +7,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useState } from "react";
-
-interface LeaderboardTabsProps {
-  onFilterChange?: (filter: string) => void;
-  onPeriodChange?: (period: string) => void;
-}
+import type { LeaderboardTabsProps } from "@/types/leaderboard";
 
 export function LeaderboardTabs({ onFilterChange, onPeriodChange }: LeaderboardTabsProps) {
   const [currentTab, setCurrentTab] = useState("global");

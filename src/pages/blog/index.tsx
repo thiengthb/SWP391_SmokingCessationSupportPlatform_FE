@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BlogCard } from "./components/BlogCard";
-import { blogPosts } from "./data";
+import { blogPosts } from "@/utils/mockdata/blog";
 import {
   Pagination,
   PaginationContent,
