@@ -1,9 +1,9 @@
-import CoachDashboard from "../dashboard/coach"
+import BlogEditPage from "../blog/edit"
 
 const Test = () => {
   return (
     <>
-        <CoachDashboard />
+        <BlogEditPage />
     </>
   )
 }
