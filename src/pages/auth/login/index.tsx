@@ -17,6 +17,35 @@ import { api } from "@/lib/axios";
 import axios from "axios";
 import { useAuth } from "@/context/AuthContext";
 import type { LoginFormData, LoginResponse } from "@/types/auth/login";
+import {
+  adminAccount,
+  memberAccount,
+  coachAccount,
+} from "@/utils/mockdata/testaccount";
+
+const testLogin = ({
+  username,
+  password,
+}: {
+  username: string;
+  password: string;
+}, navigate: ReturnType<typeof useNavigate>) => {
+  if (username === adminAccount.email && password === adminAccount.password) {
+    navigate("/dashboard/admin");
+  } else if (
+    username === coachAccount.email &&
+    password === coachAccount.password
+  ) {
+    navigate("/dashboard/member");
+  } else if (
+    username === memberAccount.email &&
+    password === memberAccount.password
+  ) {
+    navigate("/dashboard/guest");
+  } else {
+    navigate("/not-found");
+  }
+};
 
 const LoginPage = () => {
   const { login } = useAuth();
@@ -35,18 +64,21 @@ const LoginPage = () => {
 
     try {
       console.log("Sending login request with:", formData);
-      const { data } = await api.post<LoginResponse>("/api/auth/login", formData);
+      const { data } = await api.post<LoginResponse>(
+        "/api/auth/login",
+        formData
+      );
       console.log("Login response:", data);
 
       if (data.code === 0 && data.result.authenticated) {
         login(data.result.token);
         navigate("/dashboard");
       } else {
-        const errorMessage =
-          data.result?.message || "Authentication failed";
+        const errorMessage = data.result?.message || "Authentication failed";
         setError(errorMessage);
       }
     } catch (err) {
+      testLogin(formData, navigate);
       console.error("Login error:", err);
       if (axios.isAxiosError(err)) {
         // Get detailed error message from API response
@@ -63,6 +95,7 @@ const LoginPage = () => {
       setIsLoading(false);
     }
   };
+
   return (
     <div className="w-full my-10 sm:my-16 lg:my-16 2xl:my-40 flex justify-center items-center">
       <Card className="w-[360px] lg:w-[400px] xl:w-[440px] mx-2 pb-10">
@@ -75,7 +108,9 @@ const LoginPage = () => {
         <form onSubmit={handleSubmit}>
           <CardContent className="grid gap-4">
             {error && (
-              <div className="text-sm text-destructive text-center">{error}</div>
+              <div className="text-sm text-destructive text-center">
+                {error}
+              </div>
             )}
             <div className="grid gap-2">
               <Label htmlFor="email">Email or Phone</Label>
@@ -125,11 +160,7 @@ const LoginPage = () => {
           </CardContent>
           <CardFooter className="flex flex-col gap-4">
             <div className="w-full flex flex-col items-center">
-              <Button
-                type="submit"
-                className="w-full"
-                disabled={isLoading}
-              >
+              <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading ? "Signing in..." : "Sign In"}
               </Button>
               <div className="flex items-center gap-2">

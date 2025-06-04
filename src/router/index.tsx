@@ -20,6 +20,9 @@ import LeaderboardPage from "@/pages/leaderboard";
 import HallOfFamePage from "@/pages/leaderboard/HallOfFame";
 import BlogPage from "@/pages/blog";
 import BlogPostPage from "@/pages/blog/[slug]";
+import AdminDashboard from "@/pages/dashboard/admin";
+import CoachDashboard from "@/pages/dashboard/coach";
+import MemberDashboard from "@/pages/dashboard/member";
 
 const router = createBrowserRouter([
   {
@@ -67,6 +70,14 @@ const router = createBrowserRouter([
           { path: "", element: <BlogPage /> },
           { path: ":slug", element: <BlogPostPage /> },
         ],
+      },
+      {
+        path: "/dashboard",
+        children: [
+          { path: "admin", element: <AdminDashboard /> },
+          { path: "coach", element: <CoachDashboard /> },
+          { path: "member", element: <MemberDashboard /> },
+        ]
       },
       { path: "*", element: <NotFoundPage /> },
     ],
