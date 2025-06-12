@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { stats } from "@/utils/mockdata/dashboard/member";
+import { stats } from "@/utils/mockdata/member";
 
 export function OverviewTab() {
   return (

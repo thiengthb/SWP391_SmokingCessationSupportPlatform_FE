@@ -1,13 +1,15 @@
 export interface LoginFormData {
-  username: string;
+  email: string;
   password: string;
+  remember?: boolean;
 }
 
 export interface LoginResponse {
   code: number;
+  message?: string;
   result: {
-    token: string;
     authenticated: boolean;
-    message?: string;
+    accessToken?: string;
+    role?: 'admin' | 'coach' | 'member';
   };
 }

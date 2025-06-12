@@ -1,20 +1,21 @@
 import LandingPage from "@/pages/landingpage";
 
 import { useAuth } from "@/context/AuthContext";
-import AdminHome from "@/pages/admin/home";
-import CoachHome from "@/pages/coach/home"
-import MemberHome from "@/pages/member/home"
+import AdminDashboard from "./pages/dashboard/admin";
+import CoachDashboard from "./pages/dashboard/coach";
+import MemberDashboard from "./pages/dashboard/member";
+
 
 export default function App() {
   const { userInfo } = useAuth();
 
   switch (userInfo?.role) {
     case "admin":
-      return <AdminHome />;
+      return <AdminDashboard />;
     case "coach":
-      return <CoachHome />;
+      return <CoachDashboard />;
     case "member":
-      return <MemberHome />;
+      return <MemberDashboard />;
     default:
       return <LandingPage />;
   }

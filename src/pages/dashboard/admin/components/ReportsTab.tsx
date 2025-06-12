@@ -16,7 +16,7 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
-import { userActivityData, successRateData, userDistributionData, reports } from "@/utils/mockdata/dashboard/admin";
+import { userActivityData, successRateData, userDistributionData, reports } from "@/utils/mockdata/admin";
 
 const COLORS = [
   "hsl(var(--primary))",

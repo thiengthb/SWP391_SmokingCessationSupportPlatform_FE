@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Clock, Video, CalendarDays } from "lucide-react";
 import { useState } from "react";
 import { format } from "date-fns";
-import { appointments } from "@/utils/mockdata/dashboard/coach";
+import { appointments } from "@/utils/mockdata/coach";
 
 export function ScheduleTab() {
   const [date, setDate] = useState<Date | undefined>(new Date());

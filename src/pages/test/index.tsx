@@ -1,9 +1,9 @@
-import AdminHome from "../admin/home"
+import Setting from "../setting"
 
 const Test = () => {
   return (
     <>
-        <AdminHome />
+        <Setting />
     </>
   )
 }

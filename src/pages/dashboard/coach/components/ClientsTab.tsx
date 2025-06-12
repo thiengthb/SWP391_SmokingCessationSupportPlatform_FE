@@ -11,7 +11,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Search, MessageCircle, UserPlus } from "lucide-react";
-import { clients } from "@/utils/mockdata/dashboard/coach";
+import { clients } from "@/utils/mockdata/coach";
 
 export function ClientsTab() {
   return (

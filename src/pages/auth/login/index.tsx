@@ -24,7 +24,7 @@ const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [formData, setFormData] = useState<LoginFormData>({
-    username: "",
+    email: "",
     password: "",
   });
 
@@ -35,29 +35,60 @@ const LoginPage = () => {
 
     try {
       console.log("Sending login request with:", formData);
+      if (
+        process.env.NODE_ENV === "development" &&
+        formData.email === "admin@gmail.com" &&
+        formData.password === "1"
+      ) {
+        console.log("Using mock authentication");
+        login("mock-token-for-development");
+        navigate("/admin/dashboard");
+        return;
+      }
+
       const { data } = await api.post<LoginResponse>(
         "/api/auth/login",
         formData
       );
+
       console.log("Login response:", data);
 
       if (data.code === 0 && data.result.authenticated) {
-        login(data.result.token);
-        navigate("/dashboard");
+        if (data.result.accessToken) {
+          login(data.result.accessToken);
+        } else {
+          setError("No access token received");
+          return;
+        }
+
+        if (data.result.role === "admin") {
+          navigate("/admin/dashboard");
+        } else if (data.result.role === "coach") {
+          navigate("/coach/dashboard");
+        } else {
+          navigate("/dashboard");
+        }
       } else {
-        const errorMessage = data.result?.message || "Authentication failed";
+        const errorMessage = data.message || "Authentication failed";
         setError(errorMessage);
       }
     } catch (err) {
       console.error("Login error:", err);
       if (axios.isAxiosError(err)) {
-        // Get detailed error message from API response
-        const errorMessage =
-          err.response?.data?.message ||
-          err.response?.data?.error ||
-          err.message ||
-          "Login failed";
-        setError(errorMessage);
+        // CORS errors or other network issues
+        if (err.code === "ERR_NETWORK") {
+          setError(
+            "Network error. Please check your connection or the server might be down."
+          );
+        } else {
+          // Get detailed error message from API response
+          const errorMessage =
+            err.response?.data?.message ||
+            err.response?.data?.error ||
+            err.message ||
+            "Login failed";
+          setError(errorMessage);
+        }
       } else {
         setError("An unexpected error occurred");
       }
@@ -78,18 +109,17 @@ const LoginPage = () => {
         <form onSubmit={handleSubmit}>
           <CardContent className="grid gap-4">
             {error && (
-              <div className="text-sm text-destructive text-center">
-                {error}
-              </div>
+              <div className="text-sm text-destructive text-center">{error}</div>
             )}
             <div className="grid gap-2">
-              <Label htmlFor="email">Email or Phone</Label>
+              <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
-                type="text"
-                value={formData.username}
+                name="email"
+                type="email"
+                value={formData.email}
                 onChange={(e) =>
-                  setFormData({ ...formData, username: e.target.value })
+                  setFormData({ ...formData, email: e.target.value })
                 }
                 placeholder="you@example.com"
                 disabled={isLoading}
@@ -100,6 +130,7 @@ const LoginPage = () => {
               <Label htmlFor="password">Password</Label>
               <Input
                 id="password"
+                name="password"
                 type="password"
                 value={formData.password}
                 onChange={(e) =>
