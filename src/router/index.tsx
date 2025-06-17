@@ -19,6 +19,10 @@ import LeaderboardPage from "@/pages/leaderboard";
 import HallOfFamePage from "@/pages/leaderboard/HallOfFame";
 import BlogPage from "@/pages/blog";
 import BlogPostPage from "@/pages/blog/[slug]";
+import AdminDashboard from "@/pages/dashboard/admin";
+import ProtectedRoute from "@/components/ProtectedRoute";
+import MemberDashboard from "@/pages/dashboard/member";
+import CoachDashboard from "@/pages/dashboard/coach";
 
 const router = createBrowserRouter([
   {
@@ -65,6 +69,31 @@ const router = createBrowserRouter([
           { path: "", element: <BlogPage /> },
           { path: ":slug", element: <BlogPostPage /> },
         ],
+      },
+
+      {
+        path: "/admin/dashboard",
+        element: (
+          <ProtectedRoute allowedRoles={["ADMIN"]}>
+            <AdminDashboard />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/coach/dashboard",
+        element: (
+          <ProtectedRoute allowedRoles={["COACH"]}>
+            <CoachDashboard />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/member/dashboard",
+        element: (
+          <ProtectedRoute allowedRoles={["MEMBER"]}>
+            <MemberDashboard />
+          </ProtectedRoute>
+        ),
       },
       { path: "*", element: <NotFoundPage /> },
     ],

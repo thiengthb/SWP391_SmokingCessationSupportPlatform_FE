@@ -17,18 +17,18 @@ import { Menu, ChevronsUpDown } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import type { NavItems } from "./navbar.item";
 import ThemeSwitch from "@/components/theme/theme-switch";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/AuthProvider";
 
 const MobileMenu = ({ items }: NavItems) => {
   const navigate = useNavigate();
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, handleLogout } = useAuth();
 
   const filteredItems = items.filter(
     (item) => !item.requireAuth || (item.requireAuth && isAuthenticated)
   );
 
-  const handleLogout = () => {
-    logout();
+  const onLogout = () => {
+    handleLogout();
     navigate("/auth/login");
   };
 
@@ -84,7 +84,7 @@ const MobileMenu = ({ items }: NavItems) => {
           <SheetFooter>
             {isAuthenticated ? (
               <SheetClose asChild>
-                <Button variant="secondary" onClick={handleLogout}>
+                <Button variant="secondary" onClick={onLogout}>
                   Logout
                 </Button>
               </SheetClose>

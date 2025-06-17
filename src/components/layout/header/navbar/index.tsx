@@ -1,12 +1,12 @@
-import { Button } from "@/components/ui/button"
-import { Link } from "react-router-dom"
-import MobileMenu from "./MobileMenu"
-import { NavigationItems } from "./NavigationItems"
-import { mainNav } from "./navbar.item"
-import { ModeToggle } from "@/components/theme/theme-toggle"
-import Logo from "../Logo"
-import { UserNav } from "./UserNav"
-import { useAuth } from "@/context/AuthContext"
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import MobileMenu from "./MobileMenu";
+import { NavigationItems } from "./NavigationItems";
+import { mainNav } from "./navbar.item";
+import { ModeToggle } from "@/components/theme/theme-toggle";
+import Logo from "../Logo";
+import { UserNav } from "./UserNav";
+import { useAuth } from "@/context/AuthProvider";
 
 const Navbar = () => {
   const { isAuthenticated } = useAuth();
@@ -47,7 +47,7 @@ const Navbar = () => {
         </div>
       </div>
     </header>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

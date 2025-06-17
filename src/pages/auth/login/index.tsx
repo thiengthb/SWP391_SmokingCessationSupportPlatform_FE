@@ -12,89 +12,46 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import GoogleButton from "@/pages/auth/GoogleButton";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { api } from "@/lib/axios";
-import axios from "axios";
-import { useAuth } from "@/context/AuthContext";
-import type { LoginFormData, LoginResponse } from "@/types/auth/login";
+import { loginSchema, type LoginFormData } from "@/types/auth/login";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, type SubmitHandler } from "react-hook-form";
+import FormInputError from "@/components/FormInputError";
+import { useAuth } from "@/context/AuthProvider";
+import type { User } from "@/types/admin/user";
+
+const routeRole = (role: User["role"]) => {
+  switch (role) {
+    case "ADMIN":
+      return "/admin/dashboard";
+    case "COACH":
+      return "/coach/dashboard";
+    case "MEMBER":
+      return "/member/dashboard";
+    default:
+      return "/";
+  }
+};
 
 const LoginPage = () => {
-  const { login } = useAuth();
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [formData, setFormData] = useState<LoginFormData>({
-    email: "",
-    password: "",
+  const { accountResponse, accessToken, handleLogin } = useAuth();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-    setIsLoading(true);
-
-    try {
-      console.log("Sending login request with:", formData);
-      if (
-        process.env.NODE_ENV === "development" &&
-        formData.email === "admin@gmail.com" &&
-        formData.password === "1"
-      ) {
-        console.log("Using mock authentication");
-        login("mock-token-for-development");
-        navigate("/admin/dashboard");
-        return;
+  const onSubmit: SubmitHandler<LoginFormData> = async (
+    formData: LoginFormData
+  ) => {
+    handleLogin(formData).then(() => {
+      if (accessToken) {
+        navigate(routeRole(accountResponse?.role || "MEMBER"));
       }
-
-      const { data } = await api.post<LoginResponse>(
-        "/api/auth/login",
-        formData
-      );
-
-      console.log("Login response:", data);
-
-      if (data.code === 0 && data.result.authenticated) {
-        if (data.result.accessToken) {
-          login(data.result.accessToken);
-        } else {
-          setError("No access token received");
-          return;
-        }
-
-        if (data.result.role === "admin") {
-          navigate("/admin/dashboard");
-        } else if (data.result.role === "coach") {
-          navigate("/coach/dashboard");
-        } else {
-          navigate("/dashboard");
-        }
-      } else {
-        const errorMessage = data.message || "Authentication failed";
-        setError(errorMessage);
-      }
-    } catch (err) {
-      console.error("Login error:", err);
-      if (axios.isAxiosError(err)) {
-        // CORS errors or other network issues
-        if (err.code === "ERR_NETWORK") {
-          setError(
-            "Network error. Please check your connection or the server might be down."
-          );
-        } else {
-          // Get detailed error message from API response
-          const errorMessage =
-            err.response?.data?.message ||
-            err.response?.data?.error ||
-            err.message ||
-            "Login failed";
-          setError(errorMessage);
-        }
-      } else {
-        setError("An unexpected error occurred");
-      }
-    } finally {
-      setIsLoading(false);
-    }
+    });
   };
 
   return (
@@ -106,50 +63,33 @@ const LoginPage = () => {
             Enter your credentials to access your account
           </CardDescription>
         </CardHeader>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent className="grid gap-4">
-            {error && (
-              <div className="text-sm text-destructive text-center">{error}</div>
-            )}
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
-                name="email"
                 type="email"
-                value={formData.email}
-                onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
-                }
-                placeholder="you@example.com"
-                disabled={isLoading}
-                required
+                placeholder="example@gmail.com"
+                disabled={isSubmitting}
+                {...register("email")}
               />
+              <FormInputError field={errors.email} />
             </div>
             <div className="grid gap-2">
               <Label htmlFor="password">Password</Label>
               <Input
                 id="password"
-                name="password"
                 type="password"
-                value={formData.password}
-                onChange={(e) =>
-                  setFormData({ ...formData, password: e.target.value })
-                }
-                disabled={isLoading}
-                required
+                placeholder="Enter your password"
+                disabled={isSubmitting}
+                {...register("password")}
               />
+              <FormInputError field={errors.password} />
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="remember"
-                  // checked={formData.remember}
-                  // onCheckedChange={(checked) =>
-                  //   setFormData({ ...formData, remember: checked as boolean })
-                  // }
-                  disabled={isLoading}
-                />
+                <Checkbox id="remember" disabled={isSubmitting} />
                 <label htmlFor="remember" className="text-sm leading-none">
                   Remember me
                 </label>
@@ -161,8 +101,8 @@ const LoginPage = () => {
           </CardContent>
           <CardFooter className="flex flex-col gap-4">
             <div className="w-full flex flex-col items-center">
-              <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? "Signing in..." : "Sign In"}
+              <Button type="submit" className="w-full" disabled={isSubmitting}>
+                {isSubmitting ? "Signing in..." : "Sign In"}
               </Button>
               <div className="flex items-center gap-2">
                 <span className="text-sm">Don't have account?</span>

@@ -1,8 +1,8 @@
 export interface User {
   id: string;
-  name: string;
   email: string;
-  role: 'admin' | 'coach' | 'member';
+  role: 'ADMIN' | 'COACH' | 'MEMBER';
   status: 'active' | 'inactive' | 'banned';
-  joinDate: string;
+  createdAt: string;
+  updatedAt: string;
 }

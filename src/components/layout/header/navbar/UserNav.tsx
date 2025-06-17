@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/AuthProvider";
 
 export function UserNav() {
   const navigate = useNavigate();
@@ -43,13 +43,19 @@ export function UserNav() {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            <Link to="/dashboard" className="w-full">Dashboard</Link>
+            <Link to="/dashboard" className="w-full">
+              Dashboard
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Link to="/profile" className="w-full">Profile</Link>
+            <Link to="/profile" className="w-full">
+              Profile
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Link to="/setting" className="w-full">Setting</Link>
+            <Link to="/setting" className="w-full">
+              Setting
+            </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
