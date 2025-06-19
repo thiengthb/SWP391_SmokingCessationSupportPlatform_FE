@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Card } from "@/components/ui/card";
+import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,14 +9,42 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { UserPlus, Search } from "lucide-react";
-import { UsersTab } from "../components/UsersTab";
+import { UsersTab } from "../components/UsersTable";
+import useApi from "@/hooks/useApi";
+import { useLocation, useNavigate } from "react-router-dom";
+import { type User } from "@/types/admin/user";
 
 export default function UserManagement() {
   const [search, setSearch] = useState("");
   const [role, setRole] = useState<string | null>(null);
+  const [users, setUsesrs] = useState<User[]>([]);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const api = useApi();
+
+  useEffect(() => {
+    const getUsesrs = async () => {
+      try {
+        const response = await api.get(
+          `/v1/accounts?page=0&size=5&direction=ASC`
+        );
+        console.log("Response data:", response.data);
+        console.log("Fetched users:", response.data.result.content);
+        setUsesrs(response.data.result.content);
+      } catch (error) {
+        console.error("Failed to fetch users:", error);
+        navigate("/auth/login", {
+          state: { from: location.pathname },
+          replace: true,
+        });
+      }
+    };
+
+    getUsesrs();
+  }, []);
 
   return (
-    <div className="container py-6 space-y-6">
+    <div className="container py-6 space-y-6 mx-auto">
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">User Management</h1>
@@ -43,12 +70,14 @@ export default function UserManagement() {
             />
           </div>
         </div>
-        <Select value={role || ""} onValueChange={(val) => setRole(val === "" ? null : val)}>
+        <Select
+          value={role || ""}
+          onValueChange={(val) => setRole(val === "" ? null : val)}
+        >
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Filter by role" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All Roles</SelectItem>
             <SelectItem value="admin">Admin</SelectItem>
             <SelectItem value="coach">Coach</SelectItem>
             <SelectItem value="member">Member</SelectItem>
@@ -56,9 +85,7 @@ export default function UserManagement() {
         </Select>
       </div>
 
-      <Card>
-        <UsersTab />
-      </Card>
+      <UsersTab users={users} />
     </div>
   );
 }

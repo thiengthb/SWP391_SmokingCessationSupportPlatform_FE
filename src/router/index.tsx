@@ -20,16 +20,18 @@ import HallOfFamePage from "@/pages/leaderboard/HallOfFame";
 import BlogPage from "@/pages/blog";
 import BlogPostPage from "@/pages/blog/[slug]";
 import AdminDashboard from "@/pages/dashboard/admin";
-import ProtectedRoute from "@/components/ProtectedRoute";
 import MemberDashboard from "@/pages/dashboard/member";
 import CoachDashboard from "@/pages/dashboard/coach";
+import RequireAuth from "@/components/RequireAuth";
+import { Role } from "@/types/admin/user";
+import AccessDenied from "@/components/AccessDenied";
+import PersistLogin from "@/components/PersistLogin";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
     children: [
-      { path: "/", element: <App /> },
       {
         path: "/auth",
         children: [
@@ -38,64 +40,74 @@ const router = createBrowserRouter([
           { path: "forgot-password", element: <ForgotPasswordPage /> },
         ],
       },
-      { path: "/setting", element: <SettingsPage /> },
-      { path: "/profile", element: <ProfilePage /> },
-      { path: "/contact", element: <ContactPage /> },
-      {
-        path: "/about",
-        element: <AboutPage />,
-      },
-      {
-        path: "/about/team",
-        element: <TeamPage />,
-      },
-      {
-        path: "/about/story",
-        element: <StoryPage />,
-      },
-      { path: "/test", element: <Test /> },
-      { path: "/testimonials", element: <TestimonialsPage /> },
-      { path: "/community", element: <CommunityPage /> },
-      {
-        path: "/leaderboard",
-        children: [
-          { path: "", element: <LeaderboardPage /> },
-          { path: "hall-of-fame", element: <HallOfFamePage /> },
-        ],
-      },
-      {
-        path: "/blog",
-        children: [
-          { path: "", element: <BlogPage /> },
-          { path: ":slug", element: <BlogPostPage /> },
-        ],
-      },
-
-      {
-        path: "/admin/dashboard",
-        element: (
-          <ProtectedRoute allowedRoles={["ADMIN"]}>
-            <AdminDashboard />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "/coach/dashboard",
-        element: (
-          <ProtectedRoute allowedRoles={["COACH"]}>
-            <CoachDashboard />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "/member/dashboard",
-        element: (
-          <ProtectedRoute allowedRoles={["MEMBER"]}>
-            <MemberDashboard />
-          </ProtectedRoute>
-        ),
-      },
+      { path: "/access-denied", element: <AccessDenied /> },
       { path: "*", element: <NotFoundPage /> },
+      {
+        path: "",
+        element: <PersistLogin />,
+        children: [
+          { path: "", element: <App /> },
+          { path: "contact", element: <ContactPage /> },
+          {
+            path: "about",
+            element: <AboutPage />,
+            children: [
+              { path: "team", element: <TeamPage /> },
+              { path: "story", element: <StoryPage /> },
+            ],
+          },
+          { path: "test", element: <Test /> },
+          { path: "testimonials", element: <TestimonialsPage /> },
+          { path: "community", element: <CommunityPage /> },
+          {
+            path: "leaderboard",
+            children: [
+              { path: "", element: <LeaderboardPage /> },
+              { path: "hall-of-fame", element: <HallOfFamePage /> },
+            ],
+          },
+          {
+            path: "blog",
+            children: [
+              { path: "", element: <BlogPage /> },
+              { path: ":slug", element: <BlogPostPage /> },
+            ],
+          },
+          {
+            path: "admin",
+            element: <RequireAuth allowedRoles={[Role.ADMIN]} />,
+            children: [{ path: "dashboard", element: <AdminDashboard /> }],
+          },
+          {
+            path: "coach",
+            element: <RequireAuth allowedRoles={[Role.COACH]} />,
+            children: [{ path: "dashboard", element: <CoachDashboard /> }],
+          },
+          {
+            path: "member",
+            element: <RequireAuth allowedRoles={[Role.MEMBER]} />,
+            children: [{ path: "dashboard", element: <MemberDashboard /> }],
+          },
+          {
+            path: "setting",
+            element: (
+              <RequireAuth
+                allowedRoles={[Role.ADMIN, Role.MEMBER, Role.COACH]}
+              />
+            ),
+            children: [{ path: "", element: <SettingsPage /> }],
+          },
+          {
+            path: "profile",
+            element: (
+              <RequireAuth
+                allowedRoles={[Role.ADMIN, Role.MEMBER, Role.COACH]}
+              />
+            ),
+            children: [{ path: "", element: <ProfilePage /> }],
+          },
+        ],
+      },
     ],
   },
 ]);

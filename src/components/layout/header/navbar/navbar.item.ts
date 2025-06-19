@@ -49,12 +49,6 @@ export type NavigationType = {
 };
 
 export const mainNav: NavigationType[] = [
-  
-  {
-    title: "Dashboard",
-    href: "/dashboard",
-    requireAuth: true,
-  },
   {
     title: "Profile",
     href: "/profile",

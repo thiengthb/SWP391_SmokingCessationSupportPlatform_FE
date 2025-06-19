@@ -10,14 +10,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "@/context/AuthProvider";
+import { useAuth } from "@/context/AuthContext";
 
 export function UserNav() {
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { auth, handleLogout } = useAuth();
 
-  const handleLogout = () => {
-    logout();
+  const submitLogout = async () => {
+    await handleLogout();
     navigate("/auth/login");
   };
 
@@ -34,16 +34,21 @@ export function UserNav() {
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">username</p>
+            <p className="text-sm font-medium leading-none">
+              {auth.currentUser?.username || "Guest"}
+            </p>
             <p className="text-xs leading-none text-muted-foreground">
-              user@example.com
+              {auth.currentUser?.email}
             </p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            <Link to="/dashboard" className="w-full">
+            <Link
+              to={`/${auth.currentUser?.role?.toLowerCase()}/dashboard`}
+              className="w-full"
+            >
               Dashboard
             </Link>
           </DropdownMenuItem>
@@ -59,7 +64,7 @@ export function UserNav() {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={handleLogout}>Log out</DropdownMenuItem>
+        <DropdownMenuItem onClick={submitLogout}>Log out</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

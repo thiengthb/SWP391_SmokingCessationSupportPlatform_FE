@@ -11,30 +11,19 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import GoogleButton from "@/pages/auth/GoogleButton";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { loginSchema, type LoginFormData } from "@/types/auth/login";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import FormInputError from "@/components/FormInputError";
-import { useAuth } from "@/context/AuthProvider";
-import type { User } from "@/types/admin/user";
-
-const routeRole = (role: User["role"]) => {
-  switch (role) {
-    case "ADMIN":
-      return "/admin/dashboard";
-    case "COACH":
-      return "/coach/dashboard";
-    case "MEMBER":
-      return "/member/dashboard";
-    default:
-      return "/";
-  }
-};
+import { useAuth } from "@/context/AuthContext";
+import { useEffect } from "react";
 
 const LoginPage = () => {
+  const { persist, setPersist, handleLogin } = useAuth();
   const navigate = useNavigate();
-  const { accountResponse, accessToken, handleLogin } = useAuth();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const {
     register,
@@ -47,12 +36,22 @@ const LoginPage = () => {
   const onSubmit: SubmitHandler<LoginFormData> = async (
     formData: LoginFormData
   ) => {
-    handleLogin(formData).then(() => {
-      if (accessToken) {
-        navigate(routeRole(accountResponse?.role || "MEMBER"));
-      }
-    });
+    await handleLogin(formData)
+      .then(() => {
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        console.error("Login failed:", error);
+      });
   };
+
+  const togglePersist = () => {
+    setPersist((prev) => !prev);
+  };
+
+  useEffect(() => {
+    localStorage.setItem("persist", JSON.stringify(persist));
+  }, [persist]);
 
   return (
     <div className="w-full my-10 sm:my-16 lg:my-16 2xl:my-40 flex justify-center items-center">
@@ -89,7 +88,12 @@ const LoginPage = () => {
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
-                <Checkbox id="remember" disabled={isSubmitting} />
+                <Checkbox
+                  id="remember"
+                  checked={persist}
+                  onCheckedChange={togglePersist}
+                  disabled={isSubmitting}
+                />
                 <label htmlFor="remember" className="text-sm leading-none">
                   Remember me
                 </label>

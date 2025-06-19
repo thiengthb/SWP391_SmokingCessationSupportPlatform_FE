@@ -17,18 +17,20 @@ import { Menu, ChevronsUpDown } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import type { NavItems } from "./navbar.item";
 import ThemeSwitch from "@/components/theme/theme-switch";
-import { useAuth } from "@/context/AuthProvider";
+import { useAuth } from "@/context/AuthContext";
+import { roleDecode } from "@/utils/helper";
 
 const MobileMenu = ({ items }: NavItems) => {
   const navigate = useNavigate();
-  const { isAuthenticated, handleLogout } = useAuth();
+  const { auth, handleLogout } = useAuth();
+  const role = roleDecode(auth?.accessToken || "");
 
   const filteredItems = items.filter(
-    (item) => !item.requireAuth || (item.requireAuth && isAuthenticated)
+    (item) => !item.requireAuth || (item.requireAuth && auth.isAuthenticated)
   );
 
-  const onLogout = () => {
-    handleLogout();
+  const submitLogout = async () => {
+    await handleLogout();
     navigate("/auth/login");
   };
 
@@ -45,6 +47,12 @@ const MobileMenu = ({ items }: NavItems) => {
           <SheetTitle>Menu</SheetTitle>
         </SheetHeader>
         <div className="flex flex-col space-y-2 p-4">
+          <Link
+            to={role ? `/${role.toLowerCase()}/dashboard` : `/dashboard`}
+            className="block text-base transition-colors hover:text-primary"
+          >
+            Dashboard
+          </Link>
           {filteredItems.map((item) => (
             <div key={item.href} className="space-y-3">
               {item.items ? (
@@ -75,16 +83,16 @@ const MobileMenu = ({ items }: NavItems) => {
               )}
             </div>
           ))}
-          {!isAuthenticated ? (
+          {!auth.isAuthenticated ? (
             <div className="flex justify-between items-center">
               <p>Theme</p>
               <ThemeSwitch />
             </div>
           ) : null}
           <SheetFooter>
-            {isAuthenticated ? (
+            {auth.isAuthenticated ? (
               <SheetClose asChild>
-                <Button variant="secondary" onClick={onLogout}>
+                <Button variant="secondary" onClick={submitLogout}>
                   Logout
                 </Button>
               </SheetClose>
