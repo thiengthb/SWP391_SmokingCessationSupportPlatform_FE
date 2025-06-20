@@ -26,6 +26,7 @@ import RequireAuth from "@/components/RequireAuth";
 import { Role } from "@/types/admin/user";
 import AccessDenied from "@/components/AccessDenied";
 import PersistLogin from "@/components/PersistLogin";
+import PricingPage from "@/pages/pricing";
 
 const router = createBrowserRouter([
   {
@@ -56,6 +57,7 @@ const router = createBrowserRouter([
               { path: "story", element: <StoryPage /> },
             ],
           },
+          { path: "pricing", element: <PricingPage /> },
           { path: "test", element: <Test /> },
           { path: "testimonials", element: <TestimonialsPage /> },
           { path: "community", element: <CommunityPage /> },
