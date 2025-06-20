@@ -1,8 +1,8 @@
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { UserProfile } from '@/utils/mockdata/profile';
-import { CalendarIcon, MapPinIcon, MailIcon, PhoneIcon } from 'lucide-react';
+import { type UserProfile } from '@/utils/mockdata/profile';
+import { CalendarIcon, MapPinIcon, MailIcon } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
 interface ProfileHeaderProps {
@@ -50,10 +50,9 @@ export default function ProfileHeader({ profile }: ProfileHeaderProps) {
         </div>
 
         <div className="mt-4 flex flex-wrap gap-2 justify-center md:justify-start">
-          {Object.entries(profile.socialLinks || {}).map(([platform, url]) => (
+          {Object.entries( {}).map(([platform, url]) => (
             <a 
               key={platform} 
-              href={url} 
               target="_blank" 
               rel="noopener noreferrer"
               className="flex items-center p-2 bg-muted rounded-md hover:bg-muted/80 transition-colors"

@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { useAuth } from "@/context/AuthContext";
-import { getMockProfile, UserProfile } from "@/utils/mockdata/profile";
+import { getMockProfile } from "@/utils/mockdata/profile";
 import ProfileHeader from "./components/ProfileHeader";
 import PersonalInfoTab from "./components/PersonalInfoTab";
 import AccountSettingsTab from "./components/AccountSettingsTab";
@@ -12,22 +11,21 @@ import FitnessStatsTab from "./components/FitnessStatsTab";
 import CoachDetailsTab from "./components/CoachDetailsTab";
 
 export default function ProfilePage() {
-  const { userInfo } = useAuth();
-  const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [profile, setProfile] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     // In a real app, this would be an API call
     // For development, we're using mock data
     try {
-      const mockProfile = getMockProfile(userInfo?.role || "member");
+      const mockProfile = getMockProfile("member");
       setProfile(mockProfile);
       setIsLoading(false);
     } catch (error) {
       console.error("Failed to fetch profile:", error);
       setIsLoading(false);
     }
-  }, [userInfo]);
+  }, []);
 
   if (isLoading) {
     return (

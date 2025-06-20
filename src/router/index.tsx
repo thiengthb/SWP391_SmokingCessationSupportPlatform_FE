@@ -27,6 +27,9 @@ import { Role } from "@/types/admin/user";
 import AccessDenied from "@/components/AccessDenied";
 import PersistLogin from "@/components/PersistLogin";
 import PricingPage from "@/pages/pricing";
+import TimerPage from "@/pages/timer";
+import CigaretteTracker from "@/pages/cigarette-tracker";
+import CigaretteHealthInfo from "@/pages/cigarette-tracker/info";
 
 const router = createBrowserRouter([
   {
@@ -58,6 +61,9 @@ const router = createBrowserRouter([
             ],
           },
           { path: "pricing", element: <PricingPage /> },
+          { path: "timer", element: <TimerPage /> },
+          { path: "cigarette-tracker", element: <CigaretteTracker /> },
+          { path: "cigarette-health-info", element: <CigaretteHealthInfo /> },
           { path: "test", element: <Test /> },
           { path: "testimonials", element: <TestimonialsPage /> },
           { path: "community", element: <CommunityPage /> },

@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
-import { UserProfile } from '@/utils/mockdata/profile';
+import { type UserProfile } from '@/utils/mockdata/profile';
 import { BellIcon, GlobeIcon, ShieldIcon } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { useState } from 'react';
@@ -55,7 +55,7 @@ export default function AccountSettingsTab({ profile }: AccountSettingsTabProps)
             <div className="space-y-1">
               <p className="text-sm font-medium text-muted-foreground">Account Status</p>
               <div>
-                <Badge variant="success" className="bg-green-100 text-green-800">Active</Badge>
+                <Badge className="bg-green-100 text-green-800">Active</Badge>
               </div>
             </div>
             <div className="space-y-1">

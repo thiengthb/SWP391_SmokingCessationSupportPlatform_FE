@@ -1,9 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { UserProfile } from '@/utils/mockdata/profile';
+import { type UserProfile } from '@/utils/mockdata/profile';
 import { Badge } from '@/components/ui/badge';
 import {
-  Clock,
   CreditCard,
   CalendarCheck,
   Check,

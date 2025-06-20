@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { UserProfile } from '@/utils/mockdata/profile';
+import { type UserProfile } from '@/utils/mockdata/profile';
 import { Badge } from '@/components/ui/badge';
 import {
   Award,
@@ -124,7 +124,7 @@ export default function CoachDetailsTab({ profile }: CoachDetailsTabProps) {
                     {[...Array(5)].map((_, i) => (
                       <Star 
                         key={i}
-                        className={`h-5 w-5 ${i < Math.floor(profile.coachDetails.rating) ? 'text-yellow-500 fill-yellow-500' : 'text-gray-300'}`}
+                        className={`h-5 w-5 ${i < 3 ? 'text-yellow-500 fill-yellow-500' : 'text-gray-300'}`}
                       />
                     ))}
                   </div>

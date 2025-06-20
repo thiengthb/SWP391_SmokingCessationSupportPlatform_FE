@@ -13,7 +13,6 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   Accordion,
   AccordionContent,
@@ -27,14 +26,12 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Switch } from '@/components/ui/switch';
-import { Label } from '@/components/ui/label';
-import { Separator } from '@/components/ui/separator';
 
 interface PricingFeature {
   name: string;
-  basic: boolean;
-  premium: boolean;
-  elite: boolean;
+  basic: boolean | string;
+  premium: boolean | string;
+  elite: boolean | string;
   tooltip?: string;
 }
 
