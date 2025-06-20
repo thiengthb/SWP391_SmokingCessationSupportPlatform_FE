@@ -30,6 +30,7 @@ import PricingPage from "@/pages/pricing";
 import TimerPage from "@/pages/timer";
 import CigaretteTracker from "@/pages/cigarette-tracker";
 import CigaretteHealthInfo from "@/pages/cigarette-tracker/info";
+import QuitSmokingPlanPage from "@/pages/quit-smoking-plan";
 
 const router = createBrowserRouter([
   {
@@ -63,7 +64,8 @@ const router = createBrowserRouter([
           { path: "pricing", element: <PricingPage /> },
           { path: "timer", element: <TimerPage /> },
           { path: "cigarette-tracker", element: <CigaretteTracker /> },
-          { path: "cigarette-health-info", element: <CigaretteHealthInfo /> },
+          { path: "cigarette-tracker/info", element: <CigaretteHealthInfo /> },
+          { path: "quit-smoking-plan", element: <QuitSmokingPlanPage /> },
           { path: "test", element: <Test /> },
           { path: "testimonials", element: <TestimonialsPage /> },
           { path: "community", element: <CommunityPage /> },

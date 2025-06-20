@@ -265,18 +265,25 @@ export default function CigaretteHealthInfo() {
                   <Plus className="mr-2 h-4 w-4" />
                   <span>Bắt đầu theo dõi ngay</span>
                 </Link>
-              </Button>
-              <Button variant="outline" className="w-full md:w-auto" asChild>
-                <a 
-                  href="https://vinmec.com/vi/tin-tuc/thong-tin-suc-khoe/cac-phuong-phap-cai-thuoc-la-hieu-qua/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex items-center"
-                >
-                  <ExternalLink className="mr-2 h-4 w-4" />
-                  <span>Tìm hiểu cách bỏ thuốc lá</span>
-                </a>
-              </Button>
+              </Button>              <div className="flex flex-col md:flex-row gap-2">
+                <Button variant="outline" className="w-full md:w-auto" asChild>
+                  <a 
+                    href="https://vinmec.com/vi/tin-tuc/thong-tin-suc-khoe/cac-phuong-phap-cai-thuoc-la-hieu-qua/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex items-center"
+                  >
+                    <ExternalLink className="mr-2 h-4 w-4" />
+                    <span>Tìm hiểu cách bỏ thuốc lá</span>
+                  </a>
+                </Button>
+                <Button variant="default" className="w-full md:w-auto" asChild>
+                  <a href="/quit-smoking-plan" className="flex items-center">
+                    <Calendar className="mr-2 h-4 w-4" />
+                    <span>Lập kế hoạch cai thuốc</span>
+                  </a>
+                </Button>
+              </div>
             </div>
           </CardContent>
         </Card>
