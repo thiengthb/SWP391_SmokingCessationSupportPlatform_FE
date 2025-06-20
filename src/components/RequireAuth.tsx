@@ -1,7 +1,6 @@
 import { useLocation, Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 import { Role } from "@/types/admin/user";
-import { roleDecode } from "@/utils/helper";
 
 type RequireAuthProps = {
   allowedRoles: Role[];
@@ -10,8 +9,7 @@ type RequireAuthProps = {
 const RequireAuth = ({ allowedRoles }: RequireAuthProps) => {
   const { auth } = useAuth();
   const location = useLocation();
-
-  const role = roleDecode(auth?.accessToken || "");
+  const role = auth.currentUser?.role;
 
   return role && allowedRoles?.includes(role) ? (
     <Outlet />

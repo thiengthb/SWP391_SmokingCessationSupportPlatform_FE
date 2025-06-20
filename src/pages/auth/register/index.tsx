@@ -10,7 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import GoogleButton from "@/pages/auth/GoogleButton";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import {
   registerFormSchema,
@@ -18,8 +18,15 @@ import {
 } from "@/types/auth/register";
 import FormInputError from "@/components/FormInputError";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { api } from "@/lib/axios";
+import { useAuth } from "@/context/AuthContext";
 
 const RegisterPage = () => {
+  const { setAuth, setPersist } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
   const {
     register,
     handleSubmit,
@@ -31,7 +38,19 @@ const RegisterPage = () => {
 
   const onSubmit: SubmitHandler<RegisterFormData> = async (data) => {
     try {
-      console.log("Form submitted with data:", data);
+      const response = await api.post(
+        "/v1/auth/register",
+        data as RegisterFormData
+      );
+      const { user, accessToken } = response.data.result;
+
+      setAuth({
+        isAuthenticated: true,
+        currentUser: user,
+        accessToken: accessToken,
+      });
+      setPersist(true);
+      navigate(from, { replace: true });
     } catch (error: any) {
       console.error("Error during registration:", error);
 
@@ -132,7 +151,7 @@ const RegisterPage = () => {
                 </Button>
               </div>
             </div>
-            <GoogleButton value="Sign up with Google" />
+            <GoogleButton />
           </CardFooter>
           <FormInputError field={errors.root} />
         </form>

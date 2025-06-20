@@ -28,6 +28,7 @@ const LoginPage = () => {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors, isSubmitting },
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
@@ -41,7 +42,19 @@ const LoginPage = () => {
         navigate(from, { replace: true });
       })
       .catch((error) => {
-        console.error("Login failed:", error);
+        console.error("Error during login:", error);
+
+        if (error.response?.data?.message) {
+          setError("root", {
+            type: "server",
+            message: error.response.data.message,
+          });
+        } else {
+          setError("root", {
+            type: "server",
+            message: "An unexpected error occurred. Please try again.",
+          });
+        }
       });
   };
 
@@ -120,7 +133,7 @@ const LoginPage = () => {
                 </Button>
               </div>
             </div>
-            <GoogleButton value="Sign in with Google" />
+            <GoogleButton />
           </CardFooter>
         </form>
       </Card>

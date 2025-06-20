@@ -18,12 +18,10 @@ import { Link, useNavigate } from "react-router-dom";
 import type { NavItems } from "./navbar.item";
 import ThemeSwitch from "@/components/theme/theme-switch";
 import { useAuth } from "@/context/AuthContext";
-import { roleDecode } from "@/utils/helper";
 
 const MobileMenu = ({ items }: NavItems) => {
   const navigate = useNavigate();
   const { auth, handleLogout } = useAuth();
-  const role = roleDecode(auth?.accessToken || "");
 
   const filteredItems = items.filter(
     (item) => !item.requireAuth || (item.requireAuth && auth.isAuthenticated)
@@ -48,7 +46,11 @@ const MobileMenu = ({ items }: NavItems) => {
         </SheetHeader>
         <div className="flex flex-col space-y-2 p-4">
           <Link
-            to={role ? `/${role.toLowerCase()}/dashboard` : `/dashboard`}
+            to={
+              auth.currentUser?.role
+                ? `/${auth.currentUser?.role.toLowerCase()}/dashboard`
+                : `/dashboard`
+            }
             className="block text-base transition-colors hover:text-primary"
           >
             Dashboard
