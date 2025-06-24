@@ -1,0 +1,31 @@
+name: Vercel Deploy with ENV
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      - name: Install Vercel CLI
+        run: npm install -g vercel
+
+      - name: Pull .env from GitHub Secret
+        run: |
+          echo "$VERCEL_ENV" > .env.production
+        env:
+          VERCEL_ENV: ${{ secrets.VERCEL_ENV }}
+
+      - name: Link Vercel Project
+        run: vercel link --yes --token=$VERCEL_TOKEN
+
+      - name: Set ENV variables to Vercel
+        run: vercel env pull .env.production -y --environment=production --token=$VERCEL_TOKEN
+
+      - name: Deploy to Vercel
+        run: vercel --prod --token=$VERCEL_TOKEN
