@@ -1,38 +1,9 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Heart, Users, Shield, Target, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-
-const stats = [
-  { value: "50K+", label: "Active Users" },
-  { value: "90%", label: "Success Rate" },
-  { value: "24/7", label: "Support" },
-  { value: "5★", label: "Rating" }
-];
-
-const features = [
-  {
-    icon: Heart,
-    title: "Health-First Approach",
-    description: "Evidence-based methods and personalized plans for successful quitting"
-  },
-  {
-    icon: Users,
-    title: "Community Support",
-    description: "Connect with others on the same journey and share experiences"
-  },
-  {
-    icon: Shield,
-    title: "Expert Guidance",
-    description: "Professional coaches and medical experts to support your journey"
-  },
-  {
-    icon: Target,
-    title: "Goal Tracking",
-    description: "Set and track your goals with detailed progress analytics"
-  }
-];
+import { stats, features } from "./data";
 
 export default function AboutPage() {
     const navigate = useNavigate();

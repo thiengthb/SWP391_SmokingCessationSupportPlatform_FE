@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import type { ChatMessage } from "../types";
+import type { ChatMessage } from "@/types/community/chat";
 
 interface ChatMessageProps {
   message: ChatMessage;

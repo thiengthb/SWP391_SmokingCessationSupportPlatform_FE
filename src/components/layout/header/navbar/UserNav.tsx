@@ -11,13 +11,14 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
+import { UserRound } from "lucide-react";
 
 export function UserNav() {
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { auth, handleLogout } = useAuth();
 
-  const handleLogout = () => {
-    logout();
+  const submitLogout = async () => {
+    await handleLogout();
     navigate("/auth/login");
   };
 
@@ -26,34 +27,50 @@ export function UserNav() {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
-            <AvatarImage src="/avatars/01.png" alt="@username" />
-            <AvatarFallback>SC</AvatarFallback>
+            <AvatarImage
+              src={auth.currentUser?.avatar ?? ""}
+              alt={auth.currentUser?.username ?? "User"}
+            />
+            <AvatarFallback>
+              <UserRound />
+            </AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">username</p>
+            <p className="text-sm font-medium leading-none">
+              {auth.currentUser?.username || "Guest"}
+            </p>
             <p className="text-xs leading-none text-muted-foreground">
-              user@example.com
+              {auth.currentUser?.email}
             </p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            <Link to="/dashboard" className="w-full">Dashboard</Link>
+            <Link
+              to={`/${auth.currentUser?.role?.toLowerCase()}/dashboard`}
+              className="w-full"
+            >
+              Dashboard
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Link to="/profile" className="w-full">Profile</Link>
+            <Link to="/profile" className="w-full">
+              Profile
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Link to="/setting" className="w-full">Setting</Link>
+            <Link to="/setting" className="w-full">
+              Setting
+            </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={handleLogout}>Log out</DropdownMenuItem>
+        <DropdownMenuItem onClick={submitLogout}>Log out</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

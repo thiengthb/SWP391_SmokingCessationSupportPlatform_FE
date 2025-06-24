@@ -1,15 +1,15 @@
-import { Button } from "@/components/ui/button"
-import { Link } from "react-router-dom"
-import MobileMenu from "./MobileMenu"
-import { NavigationItems } from "./NavigationItems"
-import { mainNav } from "./navbar.item"
-import { ModeToggle } from "@/components/theme/theme-toggle"
-import Logo from "../Logo"
-import { UserNav } from "./UserNav"
-import { useAuth } from "@/context/AuthContext"
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import MobileMenu from "./MobileMenu";
+import { NavigationItems } from "./NavigationItems";
+import { mainNav } from "./navbar.item";
+import { ModeToggle } from "@/components/theme/theme-toggle";
+import Logo from "../Logo";
+import { UserNav } from "./UserNav";
+import { useAuth } from "@/context/AuthContext";
 
 const Navbar = () => {
-  const { isAuthenticated } = useAuth();
+  const { auth } = useAuth();
 
   return (
     <header className="sticky top-0 z-50 w-full px-4 sm:px-6 lg:px-8 xl:px-12 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -20,7 +20,7 @@ const Navbar = () => {
             <NavigationItems items={mainNav} />
           </nav>
           <div className="hidden md:flex items-center gap-2">
-            {isAuthenticated ? (
+            {auth.currentUser ? (
               <>
                 <UserNav />
               </>
@@ -47,7 +47,7 @@ const Navbar = () => {
         </div>
       </div>
     </header>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

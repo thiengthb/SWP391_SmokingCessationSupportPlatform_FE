@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Users, Send } from "lucide-react";
-import { onlineUsers, chatMessages } from "./data";
+import { onlineUsers, chatMessages } from "@/utils/mockdata/community";
 import { ChatMessage } from "./components/ChatMessage";
 import { OnlineUser } from "./components/OnlineUser";
 

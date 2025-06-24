@@ -11,71 +11,61 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import GoogleButton from "@/pages/auth/GoogleButton";
-import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { api } from "@/lib/axios";
-import axios from "axios";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { loginSchema, type LoginFormData } from "@/types/auth/login";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, type SubmitHandler } from "react-hook-form";
+import FormInputError from "@/components/FormInputError";
 import { useAuth } from "@/context/AuthContext";
-
-interface LoginFormData {
-  username: string;
-  password: string;
-}
-
-interface LoginResponse {
-  code: number;
-  result: {
-    token: string;
-    authenticated: boolean;
-    message?: string;
-  };
-}
+import { useEffect } from "react";
 
 const LoginPage = () => {
-  const { login } = useAuth();
+  const { persist, setPersist, handleLogin } = useAuth();
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [formData, setFormData] = useState<LoginFormData>({
-    username: "",
-    password: "",
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-    setIsLoading(true);
+  const onSubmit: SubmitHandler<LoginFormData> = async (
+    formData: LoginFormData
+  ) => {
+    await handleLogin(formData)
+      .then(() => {
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        console.error("Error during login:", error);
 
-    try {
-      console.log("Sending login request with:", formData);
-      const { data } = await api.post<LoginResponse>("/api/auth/login", formData);
-      console.log("Login response:", data);
-
-      if (data.code === 0 && data.result.authenticated) {
-        login(data.result.token);
-        navigate("/dashboard");
-      } else {
-        const errorMessage =
-          data.result?.message || "Authentication failed";
-        setError(errorMessage);
-      }
-    } catch (err) {
-      console.error("Login error:", err);
-      if (axios.isAxiosError(err)) {
-        // Get detailed error message from API response
-        const errorMessage =
-          err.response?.data?.message ||
-          err.response?.data?.error ||
-          err.message ||
-          "Login failed";
-        setError(errorMessage);
-      } else {
-        setError("An unexpected error occurred");
-      }
-    } finally {
-      setIsLoading(false);
-    }
+        if (error.response?.data?.message) {
+          setError("root", {
+            type: "server",
+            message: error.response.data.message,
+          });
+        } else {
+          setError("root", {
+            type: "server",
+            message: "An unexpected error occurred. Please try again.",
+          });
+        }
+      });
   };
+
+  const togglePersist = () => {
+    setPersist((prev) => !prev);
+  };
+
+  useEffect(() => {
+    localStorage.setItem("persist", JSON.stringify(persist));
+  }, [persist]);
+
   return (
     <div className="w-full my-10 sm:my-16 lg:my-16 2xl:my-40 flex justify-center items-center">
       <Card className="w-[360px] lg:w-[400px] xl:w-[440px] mx-2 pb-10">
@@ -85,47 +75,37 @@ const LoginPage = () => {
             Enter your credentials to access your account
           </CardDescription>
         </CardHeader>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent className="grid gap-4">
-            {error && (
-              <div className="text-sm text-destructive text-center">{error}</div>
-            )}
             <div className="grid gap-2">
-              <Label htmlFor="email">Email or Phone</Label>
+              <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
-                type="text"
-                value={formData.username}
-                onChange={(e) =>
-                  setFormData({ ...formData, username: e.target.value })
-                }
-                placeholder="you@example.com"
-                disabled={isLoading}
-                required
+                type="email"
+                placeholder="example@gmail.com"
+                disabled={isSubmitting}
+                {...register("email")}
               />
+              <FormInputError field={errors.email} />
             </div>
             <div className="grid gap-2">
               <Label htmlFor="password">Password</Label>
               <Input
                 id="password"
                 type="password"
-                value={formData.password}
-                onChange={(e) =>
-                  setFormData({ ...formData, password: e.target.value })
-                }
-                disabled={isLoading}
-                required
+                placeholder="Enter your password"
+                disabled={isSubmitting}
+                {...register("password")}
               />
+              <FormInputError field={errors.password} />
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <Checkbox
                   id="remember"
-                  // checked={formData.remember}
-                  // onCheckedChange={(checked) =>
-                  //   setFormData({ ...formData, remember: checked as boolean })
-                  // }
-                  disabled={isLoading}
+                  checked={persist}
+                  onCheckedChange={togglePersist}
+                  disabled={isSubmitting}
                 />
                 <label htmlFor="remember" className="text-sm leading-none">
                   Remember me
@@ -138,12 +118,8 @@ const LoginPage = () => {
           </CardContent>
           <CardFooter className="flex flex-col gap-4">
             <div className="w-full flex flex-col items-center">
-              <Button
-                type="submit"
-                className="w-full"
-                disabled={isLoading}
-              >
-                {isLoading ? "Signing in..." : "Sign In"}
+              <Button type="submit" className="w-full" disabled={isSubmitting}>
+                {isSubmitting ? "Signing in..." : "Sign In"}
               </Button>
               <div className="flex items-center gap-2">
                 <span className="text-sm">Don't have account?</span>
@@ -157,7 +133,7 @@ const LoginPage = () => {
                 </Button>
               </div>
             </div>
-            <GoogleButton value="Sign in with Google" />
+            <GoogleButton />
           </CardFooter>
         </form>
       </Card>

@@ -49,12 +49,6 @@ export type NavigationType = {
 };
 
 export const mainNav: NavigationType[] = [
-  
-  {
-    title: "Dashboard",
-    href: "/dashboard",
-    requireAuth: true,
-  },
   {
     title: "Profile",
     href: "/profile",
@@ -68,6 +62,10 @@ export const mainNav: NavigationType[] = [
   {
     title: "Home",
     href: "/",
+  },
+  {
+    title: "Pricing",
+    href: "/pricing",
   },
   {
     title: "Blog",

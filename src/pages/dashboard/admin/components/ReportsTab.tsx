@@ -16,25 +16,7 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
-import { userActivityData, successRateData, userDistributionData } from "../data";
-
-const reports = [
-  {
-    title: "User Activity Report",
-    description: "Daily user engagement and activity metrics",
-    lastGenerated: "2024-03-15",
-  },
-  {
-    title: "Success Metrics",
-    description: "User success rates and milestone achievements",
-    lastGenerated: "2024-03-14",
-  },
-  {
-    title: "System Performance",
-    description: "Server health and performance metrics",
-    lastGenerated: "2024-03-15",
-  },
-];
+import { userActivityData, successRateData, userDistributionData, reports } from "@/utils/mockdata/admin";
 
 const COLORS = [
   "hsl(var(--primary))",

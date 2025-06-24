@@ -1,9 +1,9 @@
-import CoachDashboard from "../dashboard/coach"
+import Setting from "../setting"
 
 const Test = () => {
   return (
     <>
-        <CoachDashboard />
+        <Setting />
     </>
   )
 }

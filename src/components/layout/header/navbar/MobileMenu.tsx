@@ -21,14 +21,14 @@ import { useAuth } from "@/context/AuthContext";
 
 const MobileMenu = ({ items }: NavItems) => {
   const navigate = useNavigate();
-  const { isAuthenticated, logout } = useAuth();
+  const { auth, handleLogout } = useAuth();
 
   const filteredItems = items.filter(
-    (item) => !item.requireAuth || (item.requireAuth && isAuthenticated)
+    (item) => !item.requireAuth || (item.requireAuth && auth.isAuthenticated)
   );
 
-  const handleLogout = () => {
-    logout();
+  const submitLogout = async () => {
+    await handleLogout();
     navigate("/auth/login");
   };
 
@@ -45,6 +45,16 @@ const MobileMenu = ({ items }: NavItems) => {
           <SheetTitle>Menu</SheetTitle>
         </SheetHeader>
         <div className="flex flex-col space-y-2 p-4">
+          <Link
+            to={
+              auth.currentUser?.role
+                ? `/${auth.currentUser?.role.toLowerCase()}/dashboard`
+                : `/dashboard`
+            }
+            className="block text-base transition-colors hover:text-primary"
+          >
+            Dashboard
+          </Link>
           {filteredItems.map((item) => (
             <div key={item.href} className="space-y-3">
               {item.items ? (
@@ -75,16 +85,16 @@ const MobileMenu = ({ items }: NavItems) => {
               )}
             </div>
           ))}
-          {!isAuthenticated ? (
+          {!auth.isAuthenticated ? (
             <div className="flex justify-between items-center">
               <p>Theme</p>
               <ThemeSwitch />
             </div>
           ) : null}
           <SheetFooter>
-            {isAuthenticated ? (
+            {auth.isAuthenticated ? (
               <SheetClose asChild>
-                <Button variant="secondary" onClick={handleLogout}>
+                <Button variant="secondary" onClick={submitLogout}>
                   Logout
                 </Button>
               </SheetClose>

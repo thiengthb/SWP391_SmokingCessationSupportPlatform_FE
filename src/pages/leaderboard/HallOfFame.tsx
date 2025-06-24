@@ -2,7 +2,7 @@ import { Badge } from "../../components/ui/badge";
 import { Trophy, Star } from "lucide-react";
 import { Card } from "../../components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "../../components/ui/avatar";
-import { champions } from "./hall-of-fame";
+import { champions } from "@/utils/mockdata/leaderboard";
 
 
 export default function HallOfFamePage() {

@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Trophy, Lock, Star } from "lucide-react";
-import { achievementCategories } from "../member.dashboard.data";
+import { achievementCategories } from "@/utils/mockdata/member";
 
 export function AchievementsTab() {
 	const totalAchievements = achievementCategories.reduce(

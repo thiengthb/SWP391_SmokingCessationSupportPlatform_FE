@@ -11,22 +11,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Search, MessageCircle, UserPlus } from "lucide-react";
-
-const clients = [
-  {
-    name: "John Doe",
-    progress: 75,
-    lastSession: "2024-03-15",
-    status: "active",
-  },
-  {
-    name: "Jane Smith",
-    progress: 45,
-    lastSession: "2024-03-14",
-    status: "at-risk",
-  },
-  // Add more clients...
-];
+import { clients } from "@/utils/mockdata/coach";
 
 export function ClientsTab() {
   return (

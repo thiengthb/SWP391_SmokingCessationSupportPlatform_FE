@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Trophy } from "lucide-react";
-import { stats, achievements, healthTimeline } from "../member.dashboard.data";
+import { stats, achievements, healthTimeline } from "@/utils/mockdata/member";  
 
 export function OverviewTab() {
   return (

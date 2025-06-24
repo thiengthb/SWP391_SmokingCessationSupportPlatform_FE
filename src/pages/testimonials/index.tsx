@@ -9,7 +9,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Star, CheckCircle } from "lucide-react";
-import { testimonials } from "./data";
+import { testimonials } from "@/utils/mockdata/testimonials";
 import { TestimonialAvatar } from "./components/TestimonialAvatar";
 
 export default function TestimonialsPage() {

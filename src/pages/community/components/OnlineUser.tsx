@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import type { User } from "../types";
+import type { User } from "@/types/community/user";
 
 interface OnlineUserProps {
   user: User;
