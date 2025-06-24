@@ -136,7 +136,6 @@ export function getMockProfile(role: string = 'member'): UserProfile {
 
 // Function to simulate API call to update profile
 export async function updateProfile(
-  userId: string,
   data: Partial<UserProfile>
 ): Promise<UserProfile> {
   // Simulate API latency

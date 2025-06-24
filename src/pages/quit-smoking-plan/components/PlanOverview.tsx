@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -12,7 +12,6 @@ import { format, differenceInDays, addDays, isFuture, isPast, isToday } from 'da
 import { vi } from 'date-fns/locale';
 import {
   CalendarIcon,
-  Calendar as CalendarIcon2,
   Target,
   CheckCircle2,
   Cigarette,
@@ -66,7 +65,6 @@ export function PlanOverview({
   };
   
   const getStatusText = () => {
-    const today = new Date();
     
     if (isPast(plan.targetQuitDate) || isToday(plan.targetQuitDate)) {
       return "Đã đến ngày cai thuốc!";

@@ -16,11 +16,10 @@ import {
   ResponsiveContainer,
   BarChart,
   Bar,
-  Legend
 } from 'recharts';
-import { format, subDays, isSameDay, parseISO, addDays } from 'date-fns';
+import { format, subDays, isSameDay, parseISO } from 'date-fns';
 import { vi } from 'date-fns/locale';
-import { Calendar as CalendarIcon, Plus, Minus, Save, BarChart2, LineChart as LineChartIcon, Calendar, Cigarette, AlertTriangle, ArrowDownRight, ArrowUpRight, Leaf, Heart } from 'lucide-react';
+import { Plus, Minus, Save, BarChart2, LineChart as LineChartIcon, Calendar, Cigarette, AlertTriangle, ArrowDownRight, ArrowUpRight, Leaf, Heart } from 'lucide-react';
 
 // Interface for cigarette log entry
 interface CigaretteLog {
