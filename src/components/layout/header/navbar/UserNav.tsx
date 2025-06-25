@@ -68,6 +68,11 @@ export function UserNav() {
               Setting
             </Link>
           </DropdownMenuItem>
+          <DropdownMenuItem>
+            <Link to="/feedback" className="w-full">
+              Feedback
+            </Link>
+          </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={submitLogout}>Log out</DropdownMenuItem>

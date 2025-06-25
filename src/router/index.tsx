@@ -31,6 +31,7 @@ import TimerPage from "@/pages/timer";
 import CigaretteTracker from "@/pages/cigarette-tracker";
 import CigaretteHealthInfo from "@/pages/cigarette-tracker/info";
 import QuitSmokingPlanPage from "@/pages/quit-smoking-plan";
+import FeedbackPage from "@/pages/feedback";
 
 const router = createBrowserRouter([
   {
@@ -82,6 +83,13 @@ const router = createBrowserRouter([
               { path: "", element: <BlogPage /> },
               { path: ":slug", element: <BlogPostPage /> },
             ],
+          },
+          {
+            path: "feedback",
+            element: (
+              <RequireAuth allowedRoles={[Role.MEMBER, Role.COACH]} />
+            ),
+            children: [{ path: "", element: <FeedbackPage /> }],
           },
           {
             path: "admin",
