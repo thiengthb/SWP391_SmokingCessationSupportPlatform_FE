@@ -13,24 +13,52 @@ import { UsersTab } from "../components/UsersTable";
 import useApi from "@/hooks/useApi";
 import { useLocation, useNavigate } from "react-router-dom";
 import { type User } from "@/types/admin/user";
+import { useForm, type SubmitHandler } from "react-hook-form";
+import { userFormSchema, type userFormData } from "@/types/auth/user";
+import { toast } from "sonner";
+import { zodResolver } from "@hookform/resolvers/zod";
+import FormInputError from "@/components/FormInputError";
+import { Label } from "@/components/ui/label";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogClose,
+} from "@/components/ui/dialog";
 
 export default function UserManagement() {
   const [search, setSearch] = useState("");
   const [role, setRole] = useState<string | null>(null);
-  const [users, setUsesrs] = useState<User[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
+  const [newUser, setNewUser] = useState<string>("");
+  const [page, setPage] = useState<number>(0);
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const size = 10;
+
   const navigate = useNavigate();
   const location = useLocation();
   const api = useApi();
 
   useEffect(() => {
-    const getUsesrs = async () => {
+    const getUsers = async () => {
       try {
         const response = await api.get(
-          `/v1/accounts?page=0&size=5&direction=ASC`
+          `/v1/accounts?page=${page}&size=${size}&direction=ASC`
         );
-        console.log("Response data:", response.data);
-        console.log("Fetched users:", response.data.result.content);
-        setUsesrs(response.data.result.content);
+        setUsers(response.data.result.content);
+        setTotalPages(response.data.result.totalPages);
       } catch (error) {
         console.error("Failed to fetch users:", error);
         navigate("/auth/login", {
@@ -40,8 +68,82 @@ export default function UserManagement() {
       }
     };
 
-    getUsesrs();
-  }, []);
+    getUsers();
+  }, [newUser, page]);
+
+  const handlePrevious = () => {
+    if (page > 0) {
+      setPage(page - 1);
+    }
+  };
+  const handleNext = () => {
+    if (page < totalPages - 1) {
+      setPage(page + 1);
+    }
+  };
+
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors, isSubmitting },
+    setValue,
+  } = useForm<userFormData>({
+    resolver: zodResolver(userFormSchema),
+  });
+
+  function generatePageNumbers(
+    current: number,
+    total: number
+  ): (number | "...")[] {
+    const pages: (number | "...")[] = [];
+
+    if (total <= 5) {
+      for (let i = 1; i <= total; i++) pages.push(i);
+    } else {
+      if (current > 3) {
+        pages.push(1, "...");
+      }
+
+      const start = Math.max(1, current - 1);
+      const end = Math.min(total, current + 1);
+
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
+
+      if (current < total - 2) {
+        pages.push("...", total);
+      } else if (!pages.includes(total)) {
+        pages.push(total);
+      }
+    }
+
+    return pages;
+  }
+
+  const onSubmit: SubmitHandler<userFormData> = async (data) => {
+    try {
+      const response = await api.post("v1/accounts", data as userFormData);
+      const { username } = response.data.result;
+      toast("User created successfully!");
+      setNewUser(username);
+      // Dialog sẽ tự đóng nhờ DialogClose bên dưới
+    } catch (error: any) {
+      console.error("Error during user creation:", error);
+      if (error.response?.data?.message) {
+        setError("root", {
+          type: "server",
+          message: error.response.data.message,
+        });
+      } else {
+        setError("root", {
+          type: "server",
+          message: "An unexpected error occurred. Please try again.",
+        });
+      }
+    }
+  };
 
   return (
     <div className="container py-6 space-y-6 mx-auto">
@@ -52,10 +154,84 @@ export default function UserManagement() {
             Manage and monitor user accounts
           </p>
         </div>
-        <Button>
-          <UserPlus className="mr-2 h-4 w-4" />
-          Add New User
-        </Button>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button>
+              <UserPlus className="mr-2 h-4 w-4" />
+              Add New User
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle>Add New User</DialogTitle>
+              <DialogDescription>Enter details for the new user</DialogDescription>
+            </DialogHeader>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="grid gap-4 py-4">
+                <div className="grid gap-2">
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="you@example.com"
+                    {...register("email")}
+                  />
+                  <FormInputError field={errors.email} />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="password">Password</Label>
+                  <Input
+                    id="password"
+                    type="password"
+                    placeholder="Enter password"
+                    {...register("password")}
+                  />
+                  <FormInputError field={errors.password} />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="phoneNumber">Phone Number</Label>
+                  <Input
+                    id="phoneNumber"
+                    placeholder="0123456789"
+                    {...register("phoneNumber")}
+                  />
+                  <FormInputError field={errors.phoneNumber} />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="role">Role</Label>
+                  <Select
+                    onValueChange={(val: userFormData["role"]) =>
+                      setValue("role", val)
+                    }
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select role" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="ADMIN">Admin</SelectItem>
+                      <SelectItem value="COACH">Coach</SelectItem>
+                      <SelectItem value="MEMBER">Member</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormInputError field={errors.role} />
+                </div>
+              </div>
+              <DialogFooter className="flex justify-end gap-2">
+                <DialogClose asChild>
+                  <Button type="button" variant="outline">
+                    Cancel
+                  </Button>
+                </DialogClose>
+                <DialogClose asChild>
+                  <Button type="submit" disabled={isSubmitting}>
+                    {isSubmitting ? "Creating..." : "Create"}
+                  </Button>
+                </DialogClose>
+              </DialogFooter>
+              <FormInputError field={errors.root} />
+            </form>
+          </DialogContent>
+        </Dialog>
       </div>
 
       <div className="flex flex-col md:flex-row gap-4">
@@ -85,7 +261,52 @@ export default function UserManagement() {
         </Select>
       </div>
 
-      <UsersTab users={users} />
+      <UsersTab users={users} page={page} size={size} />
+
+      {totalPages > 1 && (
+        <div className="flex justify-center mt-4">
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious
+                  onClick={handlePrevious}
+                  className={
+                    page === 0
+                      ? "pointer-events-none opacity-50"
+                      : "cursor-pointer"
+                  }
+                />
+              </PaginationItem>
+
+              {generatePageNumbers(page + 1, totalPages).map((item, index) => (
+                <PaginationItem key={index}>
+                  {item === "..." ? (
+                    <span className="px-2 text-muted-foreground">...</span>
+                  ) : (
+                    <PaginationLink
+                      isActive={item === page + 1}
+                      onClick={() => setPage(Number(item) - 1)}
+                    >
+                      {item}
+                    </PaginationLink>
+                  )}
+                </PaginationItem>
+              ))}
+
+              <PaginationItem>
+                <PaginationNext
+                  onClick={handleNext}
+                  className={
+                    page >= totalPages - 1
+                      ? "pointer-events-none opacity-50"
+                      : "cursor-pointer"
+                  }
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        </div>
+      )}
     </div>
   );
 }

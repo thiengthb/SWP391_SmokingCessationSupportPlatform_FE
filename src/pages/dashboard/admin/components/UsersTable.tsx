@@ -18,7 +18,15 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { AccountStatus, type User } from "@/types/admin/user";
 
-export function UsersTab({ users }: { users: User[] }) {
+export function UsersTab({
+  users,
+  page,
+  size,
+}: {
+  users: User[];
+  page: number;
+  size: number;
+}) {
   const getStatusBadge = (status: string) => {
     const variants = {
       active: "default",
@@ -38,6 +46,7 @@ export function UsersTab({ users }: { users: User[] }) {
         <Table>
           <TableHeader>
             <TableRow>
+              <TableHead className="w-[60px] text-center">#</TableHead>
               <TableHead>Name</TableHead>
               <TableHead>Email</TableHead>
               <TableHead>Role</TableHead>
@@ -46,8 +55,11 @@ export function UsersTab({ users }: { users: User[] }) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {users?.map((user) => (
+            {users?.map((user, index) => (
               <TableRow key={user.id}>
+                <TableCell className="text-center">
+                  {page * size + index + 1}
+                </TableCell>
                 <TableCell className="px-2">{user.username}</TableCell>
                 <TableCell className="px-2">{user.email}</TableCell>
                 <TableCell className="capitalize">{user.role}</TableCell>
