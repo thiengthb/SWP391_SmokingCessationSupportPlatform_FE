@@ -82,16 +82,6 @@ export default function UserManagement() {
     }
   };
 
-  const {
-    register,
-    handleSubmit,
-    setError,
-    formState: { errors, isSubmitting },
-    setValue,
-  } = useForm<userFormData>({
-    resolver: zodResolver(userFormSchema),
-  });
-
   function generatePageNumbers(
     current: number,
     total: number
@@ -121,6 +111,16 @@ export default function UserManagement() {
 
     return pages;
   }
+  
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors, isSubmitting },
+    setValue,
+  } = useForm<userFormData>({
+    resolver: zodResolver(userFormSchema),
+  });
 
   const onSubmit: SubmitHandler<userFormData> = async (data) => {
     try {
@@ -128,7 +128,6 @@ export default function UserManagement() {
       const { username } = response.data.result;
       toast("User created successfully!");
       setNewUser(username);
-      // Dialog sẽ tự đóng nhờ DialogClose bên dưới
     } catch (error: any) {
       console.error("Error during user creation:", error);
       if (error.response?.data?.message) {
@@ -164,7 +163,9 @@ export default function UserManagement() {
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
               <DialogTitle>Add New User</DialogTitle>
-              <DialogDescription>Enter details for the new user</DialogDescription>
+              <DialogDescription>
+                Enter details for the new user
+              </DialogDescription>
             </DialogHeader>
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="grid gap-4 py-4">

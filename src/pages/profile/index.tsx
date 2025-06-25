@@ -1,165 +1,121 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { useAuth } from "@/context/AuthContext";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useEffect, useState } from "react";
-import { Pencil } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import type { ProfileFormData } from "@/types/profile";
+import { getMockProfile } from "@/utils/mockdata/profile";
+import ProfileHeader from "./components/ProfileHeader";
+import PersonalInfoTab from "./components/PersonalInfoTab";
+import AccountSettingsTab from "./components/AccountSettingsTab";
+import MembershipTab from "./components/MembershipTab";
+import FitnessStatsTab from "./components/FitnessStatsTab";
+import CoachDetailsTab from "./components/CoachDetailsTab";
 
 export default function ProfilePage() {
-  const { userInfo } = useAuth();
-  const [isEditing, setIsEditing] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [formData, setFormData] = useState<ProfileFormData>({
-    username: "",
-    email: "",
-    bio: "",
-    location: "",
-    phone: "",
-  });
+  const [profile, setProfile] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (userInfo) {
-      setFormData({
-        username: userInfo.username || "",
-        email: userInfo.email || "",
-        bio: userInfo.bio || "",
-        location: userInfo.location || "",
-        phone: userInfo.phone || "",
-      });
-    }
-  }, [userInfo]);
-
-  const handleSave = async () => {
+    // In a real app, this would be an API call
+    // For development, we're using mock data
     try {
-      setIsLoading(true);
-      // TODO: Implement API call to update profile
-      // await api.put('/api/profile', formData);
-      setIsEditing(false);
+      const mockProfile = getMockProfile("member");
+      setProfile(mockProfile);
+      setIsLoading(false);
     } catch (error) {
-      console.error("Failed to update profile:", error);
-    } finally {
+      console.error("Failed to fetch profile:", error);
       setIsLoading(false);
     }
-  };
+  }, []);
 
-  if (!userInfo) {
+  if (isLoading) {
     return (
-      <div className="container max-w-3xl py-6 lg:py-10">
-        <p className="text-muted-foreground">Loading profile...</p>
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
+  if (!profile) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="text-center">
+          <h2 className="text-xl font-semibold mb-2">Profile Not Found</h2>
+          <p className="text-muted-foreground">
+            We couldn't load your profile information. Please try again later.
+          </p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="container max-w-3xl py-6 lg:py-10">
-      <div className="space-y-6">
-        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight">Profile</h1>
-            <p className="text-muted-foreground">
-              Manage your public profile and preferences
-            </p>
-          </div>
-          <Button onClick={() => setIsEditing(!isEditing)}>
-            <Pencil className="mr-2 h-4 w-4" />
-            {isEditing ? "Cancel" : "Edit Profile"}
-          </Button>
-        </div>
-        <Separator />
+    <div className="container py-8 space-y-8">
+      <ProfileHeader profile={profile} />
 
-        <div className="space-y-8">
-          {/* Avatar Section */}
-          <div className="flex items-center gap-x-6">
-            <Avatar className="h-24 w-24">
-              <AvatarImage src={userInfo?.avatar} />
-              <AvatarFallback className="text-lg">
-                {userInfo?.username?.[0]?.toUpperCase() || "U"}
-              </AvatarFallback>
-            </Avatar>
-            {isEditing && <Button variant="outline">Change Avatar</Button>}
-          </div>
+      <Tabs defaultValue="personal-info" className="space-y-6">
+        <TabsList className="grid grid-cols-2 md:grid-cols-5 gap-2">
+          <TabsTrigger value="personal-info">Personal Info</TabsTrigger>
+          <TabsTrigger value="account">Account Settings</TabsTrigger>
 
-          {/* Form Section */}
-          <div className="grid gap-6">
-            <div className="grid gap-2">
-              <Label htmlFor="username">Username</Label>
-              <Input
-                id="username"
-                value={formData.username}
-                onChange={(e) =>
-                  setFormData({ ...formData, username: e.target.value })
-                }
-                disabled={!isEditing}
-              />
-            </div>
+          {profile.role === "member" && (
+            <>
+              <TabsTrigger value="membership">Membership</TabsTrigger>
+              <TabsTrigger value="fitness">Fitness Stats</TabsTrigger>
+            </>
+          )}
 
-            <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                value={formData.email}
-                onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
-                }
-                disabled={!isEditing}
-              />
-            </div>
+          {profile.role === "coach" && (
+            <TabsTrigger value="coach-details">Coach Details</TabsTrigger>
+          )}
 
-            <div className="grid gap-2">
-              <Label htmlFor="bio">Bio</Label>
-              <Textarea
-                id="bio"
-                value={formData.bio}
-                onChange={(e) =>
-                  setFormData({ ...formData, bio: e.target.value })
-                }
-                disabled={!isEditing}
-                placeholder="Tell us about yourself"
-              />
-            </div>
+          <TabsTrigger value="security">Security</TabsTrigger>
+        </TabsList>
 
-            <div className="grid gap-2">
-              <Label htmlFor="location">Location</Label>
-              <Input
-                id="location"
-                value={formData.location}
-                onChange={(e) =>
-                  setFormData({ ...formData, location: e.target.value })
-                }
-                disabled={!isEditing}
-              />
-            </div>
+        <TabsContent value="personal-info">
+          <PersonalInfoTab profile={profile} />
+        </TabsContent>
 
-            <div className="grid gap-2">
-              <Label htmlFor="phone">Phone</Label>
-              <Input
-                id="phone"
-                type="tel"
-                value={formData.phone}
-                onChange={(e) =>
-                  setFormData({ ...formData, phone: e.target.value })
-                }
-                disabled={!isEditing}
-              />
-            </div>
+        <TabsContent value="account">
+          <AccountSettingsTab profile={profile} />
+        </TabsContent>
 
-            {isEditing && (
-              <Button
-                onClick={handleSave}
-                className="w-full"
-                disabled={isLoading}
-              >
-                {isLoading ? "Saving..." : "Save Changes"}
-              </Button>
-            )}
-          </div>
-        </div>
-      </div>
+        {profile.role === "member" && (
+          <>
+            <TabsContent value="membership">
+              <MembershipTab profile={profile} />
+            </TabsContent>
+
+            <TabsContent value="fitness">
+              <FitnessStatsTab profile={profile} />
+            </TabsContent>
+          </>
+        )}
+
+        {profile.role === "coach" && (
+          <TabsContent value="coach-details">
+            <CoachDetailsTab profile={profile} />
+          </TabsContent>
+        )}
+
+        <TabsContent value="security">
+          <Card>
+            <CardHeader>
+              <CardTitle>Security Settings</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="space-y-4">
+                <h3 className="text-lg font-medium">Change Password</h3>
+                <p className="text-sm text-muted-foreground">
+                  Password management and two-factor authentication options will go
+                  here.
+                </p>
+                <Separator />
+                <p className="text-sm">This section is under development.</p>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }

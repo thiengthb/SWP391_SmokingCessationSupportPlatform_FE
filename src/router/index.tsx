@@ -26,6 +26,12 @@ import RequireAuth from "@/components/RequireAuth";
 import { Role } from "@/types/admin/user";
 import AccessDenied from "@/components/AccessDenied";
 import PersistLogin from "@/components/PersistLogin";
+import PricingPage from "@/pages/pricing";
+import TimerPage from "@/pages/timer";
+import CigaretteTracker from "@/pages/cigarette-tracker";
+import CigaretteHealthInfo from "@/pages/cigarette-tracker/info";
+import QuitSmokingPlanPage from "@/pages/quit-smoking-plan";
+import FeedbackPage from "@/pages/feedback";
 
 const router = createBrowserRouter([
   {
@@ -56,6 +62,11 @@ const router = createBrowserRouter([
               { path: "story", element: <StoryPage /> },
             ],
           },
+          { path: "pricing", element: <PricingPage /> },
+          { path: "timer", element: <TimerPage /> },
+          { path: "cigarette-tracker", element: <CigaretteTracker /> },
+          { path: "cigarette-tracker/info", element: <CigaretteHealthInfo /> },
+          { path: "quit-smoking-plan", element: <QuitSmokingPlanPage /> },
           { path: "test", element: <Test /> },
           { path: "testimonials", element: <TestimonialsPage /> },
           { path: "community", element: <CommunityPage /> },
@@ -74,9 +85,17 @@ const router = createBrowserRouter([
             ],
           },
           {
+            path: "feedback",
+            element: <RequireAuth allowedRoles={[Role.MEMBER, Role.COACH]} />,
+            children: [{ path: "", element: <FeedbackPage /> }],
+          },
+          {
             path: "admin",
             element: <RequireAuth allowedRoles={[Role.ADMIN]} />,
-            children: [{ path: "dashboard", element: <AdminDashboard /> }],
+            children: [
+              { path: "dashboard", element: <AdminDashboard /> },
+              //{ path: "feedback", element: <AdminFeedbackPage /> },
+            ],
           },
           {
             path: "coach",

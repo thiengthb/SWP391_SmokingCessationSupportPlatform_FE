@@ -14,7 +14,7 @@ const useApi = () => {
                 if (!config.headers['Authorization'] && auth?.accessToken) {
                     config.headers['Authorization'] = `Bearer ${auth.accessToken}`;
                 }
-                 return config;
+                return config;
             }, (error) => Promise.reject(error)
         );
 
@@ -29,7 +29,6 @@ const useApi = () => {
                         return api(originalRequest);
                     
                 }
-
                 return Promise.reject(error);
             }
         );

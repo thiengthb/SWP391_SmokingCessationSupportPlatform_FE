@@ -64,6 +64,10 @@ export const mainNav: NavigationType[] = [
     href: "/",
   },
   {
+    title: "Pricing",
+    href: "/pricing",
+  },
+  {
     title: "Blog",
     href: "/blog",
     description: "News, articles, and resources",
