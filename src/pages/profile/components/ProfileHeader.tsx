@@ -50,7 +50,7 @@ export default function ProfileHeader({ profile }: ProfileHeaderProps) {
         </div>
 
         <div className="mt-4 flex flex-wrap gap-2 justify-center md:justify-start">
-          {Object.entries( {}).map(([platform, url]) => (
+          {Object.entries( {}).map(([platform]) => (
             <a 
               key={platform} 
               target="_blank" 
