@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import useApi from "@/hooks/useApi";
-import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 import type { Feedback } from "../components/FeedbackTab";
 import { FeedbackTab } from "../components/FeedbackTab";
 
@@ -18,9 +25,13 @@ export default function FeedbackManagement() {
   useEffect(() => {
     const getFeedbacks = async () => {
       try {
-        const response = await api.get(`/v1/feedback?page=${page}&size=${size}&direction=ASC`);
-        setFeedbacks(response.data.result.content);
-        setTotalPages(response.data.result.totalPages);
+        const response = await api.get(
+          `/v1/feedback?page=${page}&size=${size}&direction=ASC`
+        );
+        console.log("Feedback response:", response.data);
+        const { content, totalElements } = response.data.result;
+        setFeedbacks(content || []);
+        setTotalPages(Math.ceil(totalElements / size) || 1);
       } catch (error) {
         console.error("Failed to fetch feedback:", error);
         navigate("/auth/login", {
@@ -45,7 +56,10 @@ export default function FeedbackManagement() {
     }
   };
 
-  function generatePageNumbers(current: number, total: number): (number | "...")[] {
+  function generatePageNumbers(
+    current: number,
+    total: number
+  ): (number | "...")[] {
     const pages: (number | "...")[] = [];
 
     if (total <= 5) {
@@ -69,8 +83,12 @@ export default function FeedbackManagement() {
     <div className="container py-6 space-y-6 mx-auto">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Feedback Management</h1>
-          <p className="text-muted-foreground">Manage user feedback submissions</p>
+          <h1 className="text-2xl font-bold tracking-tight">
+            Feedback Management
+          </h1>
+          <p className="text-muted-foreground">
+            Manage user feedback submissions
+          </p>
         </div>
       </div>
 
@@ -83,7 +101,11 @@ export default function FeedbackManagement() {
               <PaginationItem>
                 <PaginationPrevious
                   onClick={handlePrevious}
-                  className={page === 0 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                  className={
+                    page === 0
+                      ? "pointer-events-none opacity-50"
+                      : "cursor-pointer"
+                  }
                 />
               </PaginationItem>
 
@@ -105,7 +127,11 @@ export default function FeedbackManagement() {
               <PaginationItem>
                 <PaginationNext
                   onClick={handleNext}
-                  className={page >= totalPages - 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                  className={
+                    page >= totalPages - 1
+                      ? "pointer-events-none opacity-50"
+                      : "cursor-pointer"
+                  }
                 />
               </PaginationItem>
             </PaginationContent>

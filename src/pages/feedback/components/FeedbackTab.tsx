@@ -37,9 +37,8 @@ export default function FeedbackManagement() {
 
   const onSubmit: SubmitHandler<feedbackFormData> = async (data) => {
     try {
-      const response = await api.post("/v1/feedback", data as feedbackFormData);
-      console.log(response.data); // Kiểm tra dữ liệu trả về
-      toast("Feedback submitted successfully!");
+      await api.post("/v1/feedback", data);
+      toast.success("Feedback submitted successfully!");
       reset({ comment: "", rating: 0 });
     } catch (error: any) {
       console.error("Error submitting feedback:", error);

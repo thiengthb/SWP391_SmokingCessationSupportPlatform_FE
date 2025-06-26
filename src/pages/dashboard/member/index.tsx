@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { OverviewTab } from "./components/OverviewTab";
-import { GoalsTab } from "./components/GoalsTab";
 import { AchievementsTab } from "./components/AchievementsTab";
+import GoalManagement from "./users";
 
 export default function MemberDashboard() {
   return (
@@ -18,7 +18,7 @@ export default function MemberDashboard() {
         </TabsList>
         
         <TabsContent value="overview"><OverviewTab /></TabsContent>
-        <TabsContent value="goals"><GoalsTab /></TabsContent>
+        <TabsContent value="goals"><GoalManagement /></TabsContent>
         <TabsContent value="achievements"><AchievementsTab /></TabsContent>
       </Tabs>
     </div>
