@@ -12,7 +12,7 @@ export interface FeedbackResponse {
   message: string;
   result: {
     id: string;
-    accountId: string;
+    userName: string;
     comment: string;
     rating: number;
     createdAt: string;

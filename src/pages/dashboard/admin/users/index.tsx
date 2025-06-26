@@ -57,8 +57,9 @@ export default function UserManagement() {
         const response = await api.get(
           `/v1/accounts?page=${page}&size=${size}&direction=ASC`
         );
-        setUsers(response.data.result.content);
-        setTotalPages(response.data.result.totalPages);
+        const { content, totalElements } = response.data.result;
+        setUsers(content || []);
+        setTotalPages(Math.ceil(totalElements / size) || 1);
       } catch (error) {
         console.error("Failed to fetch users:", error);
         navigate("/auth/login", {
