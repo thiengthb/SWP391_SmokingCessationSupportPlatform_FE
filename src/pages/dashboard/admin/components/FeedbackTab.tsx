@@ -21,7 +21,7 @@ import StarRatingDisplay from "@/pages/feedback/components/StarRatingDisplay";
 
 export type Feedback = {
   id: string;
-  userName: string;
+  username: string;
   comment: string;
   rating: number;
 };
@@ -83,7 +83,7 @@ export function FeedbackTab({
                   {page * size + index + 1}
                 </TableCell>
                 <TableCell className="py-4">
-                  {truncateString(fb.userName, 20)}
+                  {truncateString(fb.username, 20)}
                 </TableCell>
                 <TableCell className="py-4" title={fb.comment}>
                   {truncateString(fb.comment)}
@@ -114,7 +114,7 @@ export function FeedbackTab({
                 <div className="grid gap-1">
                   <span className="text-sm font-medium">UserName:</span>
                   <p className="text-sm break-all">
-                    {selectedFeedback.userName}
+                    {selectedFeedback.username}
                   </p>
                 </div>
                 <div className="grid gap-1">
