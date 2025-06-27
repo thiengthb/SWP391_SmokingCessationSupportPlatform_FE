@@ -15,17 +15,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { type Goal } from "@/types/member/goal"; 
+import { type Goal } from "@/types/member/goal";
 
-export function GoalsTab({
-  goals,
-  page,
-  size,
-}: {
-  goals: Goal[];
-  page: number;
-  size: number;
-}) {
+export function GoalsTab({ goals }: { goals: Goal[] }) {
   return (
     <Card>
       <CardContent className="p-0">
@@ -44,13 +36,13 @@ export function GoalsTab({
           <TableBody>
             {goals?.map((goal, index) => (
               <TableRow key={goal.id || index}>
-                <TableCell className="text-center">
-                  {page * size + index + 1}
-                </TableCell>
+                <TableCell className="text-center">{index + 1}</TableCell>
                 <TableCell className="px-2">{goal.name}</TableCell>
                 <TableCell className="px-2">{goal.description}</TableCell>
                 <TableCell className="px-2">{goal.iconUrl}</TableCell>
-                <TableCell className="capitalize">{goal.criteriaType}</TableCell>
+                <TableCell className="capitalize">
+                  {goal.criteriaType}
+                </TableCell>
                 <TableCell className="px-2">{goal.criteriaValue}</TableCell>
                 <TableCell className="px-2">
                   <DropdownMenu>
