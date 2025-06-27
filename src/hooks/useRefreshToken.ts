@@ -1,5 +1,5 @@
 import { api } from "@/lib/axios";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/contexts/AuthContext";
 
 const useRefreshToken = () => {
     const { setAuth } = useAuth();

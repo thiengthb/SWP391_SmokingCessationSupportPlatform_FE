@@ -16,7 +16,7 @@ import { loginSchema, type LoginFormData } from "@/types/auth/login";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import FormInputError from "@/components/FormInputError";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { useEffect } from "react";
 
 const LoginPage = () => {

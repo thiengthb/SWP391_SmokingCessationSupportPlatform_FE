@@ -1,4 +1,4 @@
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { api } from "@/lib/axios";
 import { GoogleLogin, type CredentialResponse } from "@react-oauth/google";
 import { useLocation, useNavigate } from "react-router-dom";

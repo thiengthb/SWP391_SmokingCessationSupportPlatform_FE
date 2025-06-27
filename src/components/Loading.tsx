@@ -13,21 +13,34 @@ interface LoadingProps {
 }
 
 export function Loading({
-  size = 24,
+  size = 36,
   className,
   text = "Loading...",
-  fullscreen = false,
+  fullscreen = true,
 }: LoadingProps) {
   const containerClass = cn(
-    "w-full h-full flex flex-col items-center justify-center gap-2",
-    fullscreen && "fixed inset-0 bg-background/80 backdrop-blur-sm z-50",
+    "flex flex-col items-center justify-center gap-4",
+    fullscreen
+      ? "fixed inset-0 bg-background/50 backdrop-blur-sm z-50"
+      : "w-full h-full",
     className
   );
 
   return (
     <div className={containerClass}>
-      <Loader2 className="animate-spin text-primary" size={size} />
-      {text && <p className="text-sm text-muted-foreground">{text}</p>}
+      <div className="relative">
+        <div className="absolute -inset-1 rounded-full bg-primary/20 blur-sm animate-pulse"></div>
+        <Loader2
+          className="relative animate-spin text-primary"
+          size={size}
+          strokeWidth={2.5}
+        />
+      </div>
+      {text && (
+        <p className="text-base font-medium text-muted-foreground animate-pulse">
+          {text}
+        </p>
+      )}
     </div>
   );
 }

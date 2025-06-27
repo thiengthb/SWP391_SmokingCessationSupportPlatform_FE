@@ -19,13 +19,11 @@ import {
 import FormInputError from "@/components/FormInputError";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { api } from "@/lib/axios";
-import { useAuth } from "@/context/AuthContext";
 
 const RegisterPage = () => {
-  const { setAuth, setPersist } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from?.pathname || "/auth/waiting-for-approval";
 
   const {
     register,
@@ -38,18 +36,8 @@ const RegisterPage = () => {
 
   const onSubmit: SubmitHandler<RegisterFormData> = async (data) => {
     try {
-      const response = await api.post(
-        "/v1/auth/register",
-        data as RegisterFormData
-      );
-      const { user, accessToken } = response.data.result;
+      await api.post("/v1/auth/register", data as RegisterFormData);
 
-      setAuth({
-        isAuthenticated: true,
-        currentUser: user,
-        accessToken: accessToken,
-      });
-      setPersist(true);
       navigate(from, { replace: true });
     } catch (error: any) {
       console.error("Error during registration:", error);
@@ -80,16 +68,6 @@ const RegisterPage = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent className="grid gap-4">
             <div className="grid gap-2">
-              <Label htmlFor="name">Full Name</Label>
-              <Input
-                id="name"
-                type="text"
-                placeholder="John Doe"
-                {...register("fullName")}
-              />
-              <FormInputError field={errors.fullName} />
-            </div>
-            <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
@@ -98,16 +76,6 @@ const RegisterPage = () => {
                 {...register("email")}
               />
               <FormInputError field={errors.email} />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="phone">Phone Number</Label>
-              <Input
-                id="phone"
-                type="tel"
-                placeholder="+1234567890"
-                {...register("phoneNumber")}
-              />
-              <FormInputError field={errors.phoneNumber} />
             </div>
             <div className="grid gap-2">
               <Label htmlFor="password">Password</Label>

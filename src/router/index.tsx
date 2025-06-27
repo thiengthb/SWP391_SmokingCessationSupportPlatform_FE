@@ -23,14 +23,13 @@ import AdminDashboard from "@/pages/dashboard/admin";
 import MemberDashboard from "@/pages/dashboard/member";
 import CoachDashboard from "@/pages/dashboard/coach";
 import RequireAuth from "@/components/RequireAuth";
-import { Role } from "@/types/admin/user";
+import { Role } from "@/types/user/user";
 import AccessDenied from "@/components/AccessDenied";
 import PersistLogin from "@/components/PersistLogin";
 import PricingPage from "@/pages/pricing";
-import TimerPage from "@/pages/timer";
 import CigaretteTracker from "@/pages/cigarette-tracker";
 import CigaretteHealthInfo from "@/pages/cigarette-tracker/info";
-import QuitSmokingPlanPage from "@/pages/quit-smoking-plan";
+import WaitingForApprovalPage from "@/pages/waiting-for-approval";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +42,7 @@ const router = createBrowserRouter([
           { path: "login", element: <LoginPage /> },
           { path: "register", element: <RegisterPage /> },
           { path: "forgot-password", element: <ForgotPasswordPage /> },
+          { path: "waiting-for-approval", element: <WaitingForApprovalPage /> },
         ],
       },
       { path: "/access-denied", element: <AccessDenied /> },
@@ -62,10 +62,8 @@ const router = createBrowserRouter([
             ],
           },
           { path: "pricing", element: <PricingPage /> },
-          { path: "timer", element: <TimerPage /> },
           { path: "cigarette-tracker", element: <CigaretteTracker /> },
           { path: "cigarette-tracker/info", element: <CigaretteHealthInfo /> },
-          { path: "quit-smoking-plan", element: <QuitSmokingPlanPage /> },
           { path: "test", element: <Test /> },
           { path: "testimonials", element: <TestimonialsPage /> },
           { path: "community", element: <CommunityPage /> },

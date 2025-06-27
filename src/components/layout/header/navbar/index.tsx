@@ -6,7 +6,7 @@ import { mainNav } from "./navbar.item";
 import { ModeToggle } from "@/components/theme/theme-toggle";
 import Logo from "../Logo";
 import { UserNav } from "./UserNav";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Navbar = () => {
   const { auth } = useAuth();

@@ -17,7 +17,7 @@ import { Menu, ChevronsUpDown } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import type { NavItems } from "./navbar.item";
 import ThemeSwitch from "@/components/theme/theme-switch";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/contexts/AuthContext";
 
 const MobileMenu = ({ items }: NavItems) => {
   const navigate = useNavigate();

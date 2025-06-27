@@ -1,5 +1,5 @@
 import useRefreshToken from './useRefreshToken'
-import { useAuth } from '@/context/AuthContext';
+import { useAuth } from '@/contexts/AuthContext';
 import { api } from '@/lib/axios';
 import { useEffect } from 'react';
 

@@ -1,5 +1,5 @@
 import { api } from "@/lib/axios";
-import type { User } from "@/types/admin/user";
+import type { User } from "@/types/user/user";
 import type { LoginFormData } from "@/types/auth/login";
 import { createContext, useContext, useState } from "react";
 
@@ -8,6 +8,12 @@ export interface Auth {
   currentUser: User | null;
   accessToken: string | null;
 }
+
+const defaultAuth: Auth = {
+  isAuthenticated: false,
+  currentUser: null,
+  accessToken: null,
+};
 
 export interface AuthContext {
   auth: Auth;
@@ -21,11 +27,7 @@ export interface AuthContext {
 const AuthContext = createContext<AuthContext>({} as AuthContext);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [auth, setAuth] = useState<Auth>({
-    isAuthenticated: false,
-    currentUser: null,
-    accessToken: null,
-  });
+  const [auth, setAuth] = useState<Auth>(defaultAuth);
   const [persist, setPersist] = useState<boolean>(
     JSON.parse(localStorage.getItem("persist") || "true")
   );
@@ -41,11 +43,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         accessToken: accessToken,
       });
     } catch (error: any) {
-      setAuth({
-        isAuthenticated: false,
-        currentUser: null,
-        accessToken: null,
-      });
+      setAuth(defaultAuth);
       console.error("Login error:", error);
       throw new Error(error.response?.data?.message || "Login failed");
     }
@@ -67,11 +65,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       console.error("Logout error:", error);
       throw new Error(error.response?.data?.message || "Logout failed");
     } finally {
-      setAuth({
-        isAuthenticated: false,
-        currentUser: null,
-        accessToken: null,
-      });
+      setAuth(defaultAuth);
       console.log("Auth state reset after logout");
     }
   };

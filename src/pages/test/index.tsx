@@ -1,11 +1,12 @@
-import Setting from "../setting"
+import Loading from "@/components/Loading";
+import Setting from "../setting";
 
 const Test = () => {
   return (
     <>
-        <Setting />
+      <Loading />
     </>
-  )
-}
+  );
+};
 
-export default Test
+export default Test;
