@@ -232,6 +232,119 @@
         "password": "Mật khẩu",
         "confirmPassword": "Xác nhận mật khẩu"
       }
+    },
+    "cigarett-tracker": {
+      "title": "Theo Dõi Hút Thuốc",
+      "description": "Theo dõi và quản lý thói quen hút thuốc của bạn",
+      "today": {
+        "title": "Hôm Nay",
+        "subtitle": "{{date, EEEE, dd/MM/yyyy}}",
+        "tracking": "Đang theo dõi",
+        "unit": "điếu thuốc",
+        "notes": {
+          "label": "Ghi chú",
+          "placeholder": "Thêm ghi chú cho hôm nay..."
+        },
+        "save": "Lưu thông tin"
+      },
+      "chart": {
+        "title": "Biểu đồ theo dõi",
+        "subtitle": "Lịch sử 14 ngày gần nhất",
+        "line": "Đường",
+        "bar": "Cột",
+        "tooltip": {
+          "label": "Ngày {{label}}",
+          "value": "{{value}} điếu"
+        }
+      },
+      "stat": {
+        "title": "Thống kê",
+        "description": "Các số liệu thống kê về thói quen hút thuốc",
+        "week": "Tuần này",
+        "avg": "Trung bình/ngày"
+      },
+      "trend": {
+        "label": "Xu hướng gần đây",
+        "down": "Đang giảm",
+        "up": "Đang tăng",
+        "stable": "Ổn định"
+      },
+      "impact": {
+        "label": "Tác động sức khoẻ",
+        "high": "Mức hút thuốc cao có thể gây nhiều tác hại nghiêm trọng đến sức khoẻ. Hãy cân nhắc giảm dần.",
+        "medium": "Mức hút thuốc trung bình vẫn có tác động đến sức khoẻ. Cố gắng giảm thêm nữa.",
+        "low": "Mức hút thuốc thấp, nhưng không hút thuốc mới là tốt nhất cho sức khoẻ."
+      },
+      "recent": {
+        "title": "Lịch sử gần đây",
+        "description": "Các bản ghi gần đây của bạn",
+        "empty": "Chưa có dữ liệu. Bắt đầu theo dõi ngay từ hôm nay."
+      },
+      "notes": {
+        "none": "Không có ghi chú"
+      }
+    },
+    "cigarett-tracker2": {
+      "health": {
+        "title": "Thông Tin Sức Khoẻ",
+        "description": "Hiểu về tác hại của thuốc lá và lợi ích của việc bỏ thuốc",
+        "harm": {
+          "title": "Tác hại của thuốc lá",
+          "description": "Thuốc lá ảnh hưởng đến hầu như mọi cơ quan trong cơ thể",
+          "lungs": {
+            "title": "Tác hại đến phổi",
+            "1": "Ung thư phổi - Thuốc lá gây ra tới 90% các ca tử vong do ung thư phổi",
+            "2": "Bệnh phổi tắc nghẽn mãn tính (COPD) bao gồm viêm phế quản mãn tính và khí phế thũng",
+            "3": "Tăng nguy cơ nhiễm trùng đường hô hấp và làm trầm trọng các triệu chứng hen suyễn"
+          },
+          "heart": {
+            "title": "Tác hại đến tim mạch",
+            "1": "Bệnh mạch vành dẫn đến đau thắt ngực và đau tim",
+            "2": "Tăng huyết áp và làm tăng nhịp tim",
+            "3": "Tăng nguy cơ đột quỵ do tắc nghẽn mạch máu hoặc xuất huyết não"
+          },
+          "brain": {
+            "title": "Tác hại đến não bộ",
+            "1": "Nicotine gây nghiện và thay đổi hoạt động của não",
+            "2": "Tăng nguy cơ đột quỵ với khả năng gây tổn thương não vĩnh viễn",
+            "3": "Nghiên cứu cho thấy liên quan giữa hút thuốc và tăng nguy cơ mắc bệnh Alzheimer"
+          }
+        },
+        "tabs": {
+          "lungs": "Phổi",
+          "heart": "Tim",
+          "brain": "Não"
+        },
+        "benefit": {
+          "title": "Lợi ích khi bỏ thuốc lá",
+          "description": "Cơ thể bắt đầu phục hồi ngay sau khi bạn bỏ thuốc",
+          "timeline": {
+            "title": "Thời gian phục hồi",
+            "description": "Những thay đổi tích cực sẽ diễn ra theo thời gian"
+          }
+        },
+        "statistics": {
+          "title": "Thống kê về thuốc lá"
+        },
+        "economic": {
+          "title": "Lợi ích kinh tế từ việc bỏ thuốc",
+          "note": "*Tính toán dựa trên mức hút 1 gói thuốc mỗi ngày với giá 30.000đ/gói",
+          "save1month": "Tiết kiệm sau 1 tháng",
+          "save1year": "Tiết kiệm sau 1 năm",
+          "save10year": "Tiết kiệm sau 10 năm",
+          "medical": "Chi phí y tế giảm",
+          "unknown": "Không ước tính được"
+        },
+        "tracker": {
+          "title": "Bắt đầu theo dõi thói quen hút thuốc của bạn",
+          "description": "Bước đầu tiên để bỏ thuốc lá là hiểu được thói quen hiện tại của bạn",
+          "start": "Bắt đầu theo dõi ngay",
+          "link": {
+            "quitMethod": "Tìm hiểu cách bỏ thuốc lá",
+            "plan": "Lập kế hoạch cai thuốc"
+          }
+        }
+      }
     }
   }
 }

@@ -227,11 +227,123 @@
       "loading": "Loading...",
       "signUp": "Sign Up",
       "haveAccount": "Already have an account?",
-      "login": "Login"
+      "login": "Login",
+      "form": {
+        "password": "Password",
+        "confirmPassword": "Confirm Password"
+      }
     },
-    "form": {
-      "password": "Password",
-      "confirmPassword": "Confirm Password"
+    "cigarette-tracker": {
+      "title": "Cigarette Tracker",
+      "description": "Track and manage your smoking habits",
+      "today": {
+        "title": "Today",
+        "subtitle": "{{date, EEEE, dd/MM/yyyy}}",
+        "tracking": "Tracking",
+        "unit": "cigarettes",
+        "notes": {
+          "label": "Notes",
+          "placeholder": "Add notes for today..."
+        },
+        "save": "Save information"
+      },
+      "chart": {
+        "title": "Tracking Chart",
+        "subtitle": "History of the last 14 days",
+        "line": "Line",
+        "bar": "Bar",
+        "tooltip": {
+          "label": "Date {{label}}",
+          "value": "{{value}} cigarettes"
+        }
+      },
+      "stat": {
+        "title": "Statistics",
+        "description": "Statistics about your smoking habits",
+        "week": "This week",
+        "avg": "Average/day"
+      },
+      "trend": {
+        "label": "Recent trend",
+        "down": "Decreasing",
+        "up": "Increasing",
+        "stable": "Stable"
+      },
+      "impact": {
+        "label": "Health impact",
+        "high": "High smoking levels can cause serious health harm. Consider reducing gradually.",
+        "medium": "Moderate smoking levels still impact health. Try to reduce further.",
+        "low": "Low smoking levels, but quitting entirely is best for your health."
+      },
+      "recent": {
+        "title": "Recent history",
+        "description": "Your recent records",
+        "empty": "No data yet. Start tracking today."
+      },
+      "notes": {
+        "none": "No notes"
+      }
+    },
+    "cigarett-tracker2": {
+      "health": {
+        "title": "Health Information",
+        "description": "Understand the harms of smoking and the benefits of quitting",
+        "harm": {
+          "title": "Harms of Smoking",
+          "description": "Smoking affects nearly every organ in the body",
+          "lungs": {
+            "title": "Effects on the lungs",
+            "1": "Lung cancer – Smoking causes up to 90% of deaths from lung cancer",
+            "2": "Chronic obstructive pulmonary disease (COPD), including chronic bronchitis and emphysema",
+            "3": "Increased risk of respiratory infections and worsened asthma symptoms"
+          },
+          "heart": {
+            "title": "Effects on the heart",
+            "1": "Coronary artery disease leading to chest pain and heart attack",
+            "2": "Increased blood pressure and heart rate",
+            "3": "Higher risk of stroke from blood clots or brain bleeding"
+          },
+          "brain": {
+            "title": "Effects on the brain",
+            "1": "Nicotine causes addiction and alters brain activity",
+            "2": "Increased risk of stroke with potential permanent brain damage",
+            "3": "Studies show a link between smoking and increased risk of Alzheimer’s disease"
+          }
+        },
+        "tabs": {
+          "lungs": "Lungs",
+          "heart": "Heart",
+          "brain": "Brain"
+        },
+        "benefit": {
+          "title": "Benefits of Quitting Smoking",
+          "description": "The body begins to recover immediately after quitting",
+          "timeline": {
+            "title": "Recovery Timeline",
+            "description": "Positive changes will occur over time"
+          }
+        },
+        "statistics": {
+          "title": "Smoking Statistics"
+        },
+        "economic": {
+          "title": "Economic Benefits of Quitting",
+          "note": "*Estimated based on smoking 1 pack per day at 30,000đ per pack",
+          "save1month": "Savings after 1 month",
+          "save1year": "Savings after 1 year",
+          "save10year": "Savings after 10 years",
+          "medical": "Reduced medical expenses"
+        },
+        "tracker": {
+          "title": "Start Tracking Your Smoking Habit",
+          "description": "The first step to quitting is understanding your current habit",
+          "start": "Start tracking now",
+          "link": {
+            "quitMethod": "Learn how to quit smoking",
+            "plan": "Create a quit-smoking plan"
+          }
+        }
+      }
     }
   }
 }
