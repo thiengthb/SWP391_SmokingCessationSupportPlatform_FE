@@ -15,7 +15,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
 
   return (
     <div className={cn(
-      "flex items-start gap-2 p-2 rounded", "bg-muted/50 text-center justify-center"
+      "flex items-start gap-2 p-2 rounded bg-muted/50"
     )}>
       {
         <Avatar>
