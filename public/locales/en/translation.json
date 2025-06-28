@@ -172,6 +172,14 @@
         "social": "Social Media",
         "followUs": "Follow us on our social media channels for updates and support."
       }
+    },
+    "community": {
+      "title": "Community",
+      "description": "Connect and share with others on their journey",
+      "inputPlaceholder": "Type your message here...",
+      "onlineUsers": "Online Users",
+      "activeNow": "Active Now",
+      "away": "Away"
     }
   }
 }
