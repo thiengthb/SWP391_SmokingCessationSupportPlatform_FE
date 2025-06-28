@@ -99,14 +99,7 @@ export default function GoalManagement() {
     }
   };
 
-  const previewGoals = goals
-    .filter((goal) => (goal.goalProgress?.progress || 0) < goal.criteriaValue) 
-    .sort((a, b) => {
-      const progressA = (a.goalProgress?.progress || 0) / a.criteriaValue;
-      const progressB = (b.goalProgress?.progress || 0) / b.criteriaValue;
-      return progressB - progressA; 
-    })
-    .slice(0, 3);
+  const previewGoals = goals.slice(0, 3);
   const paginatedGoals = goals.slice(
     modalPage * modalPageSize,
     (modalPage + 1) * modalPageSize
@@ -231,7 +224,7 @@ export default function GoalManagement() {
             <DialogHeader>
               <DialogTitle>All Personal Goals</DialogTitle>
             </DialogHeader>
-
+            
             <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-2">
               {paginatedGoals.map((goal) => {
                 const progressValue = goal.goalProgress?.progress || 0;
@@ -259,6 +252,7 @@ export default function GoalManagement() {
                           )}
                         </div>
 
+                        
                         <div className="space-y-1">
                           <Progress value={percentage} className="h-2" />
                           <p className="text-xs text-muted-foreground text-right">
