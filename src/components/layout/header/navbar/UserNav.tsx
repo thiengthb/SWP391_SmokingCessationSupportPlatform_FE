@@ -66,7 +66,7 @@ export function UserNav() {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Link to="/setting" className="w-full">
+            <Link to="/settings" className="w-full">
               {t(`nav.settings.title`)}
             </Link>
           </DropdownMenuItem>

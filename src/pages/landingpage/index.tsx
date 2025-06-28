@@ -6,8 +6,10 @@ import type { HomePageProps } from "./types";
 import { FeaturesSection } from "./components/FeaturesSection";
 import { SuccessStoriesSection } from "./components/SuccessStoriesSection";
 import { CTASection } from "./components/CTASection";
+import { useTranslation } from "react-i18next";
 
 export default function LandingPage({ className }: HomePageProps) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const handleGetStarted = () => {
@@ -30,7 +32,7 @@ export default function LandingPage({ className }: HomePageProps) {
       />
       <FeaturesSection features={features} />
       <SuccessStoriesSection
-        items={successItems}
+         items={successItems.map((key) => t(key))}
         testimonials={testimonials}
         onReadMore={handleReadStories}
       />

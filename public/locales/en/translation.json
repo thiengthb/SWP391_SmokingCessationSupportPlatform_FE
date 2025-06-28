@@ -10,56 +10,56 @@
       "description": "Open or close the navigation menu"
     },
     "profile": {
-        "title": "Profile"
+      "title": "Profile"
     },
     "settings": {
-        "title": "Settings"
+      "title": "Settings"
     },
     "home": {
-        "title": "Home"
+      "title": "Home"
     },
     "pricing": {
-        "title": "Pricing",
-        "description": "Explore our plans and pricing options"
+      "title": "Pricing",
+      "description": "Explore our plans and pricing options"
     },
     "blog": {
-        "title": "Blog",
-        "description": "News, articles, and resources"
+      "title": "Blog",
+      "description": "News, articles, and resources"
     },
-    "leaderboard":{
-        "title": "Leaderboard",
-        "description": "Explore top rankings and achievements",
-        "global": {
-                "title": "Global Ranking",
-                "href": "/leaderboard/global"
-        },
-        "hallOfFame": {
-                "title": "Hall of Fame",
-                "href": "/leaderboard/hall-of-fame"
-        }
+    "leaderboard": {
+      "title": "Leaderboard",
+      "description": "Explore top rankings and achievements",
+      "global": {
+        "title": "Global Ranking",
+        "href": "/leaderboard/global"
+      },
+      "hallOfFame": {
+        "title": "Hall of Fame",
+        "href": "/leaderboard/hall-of-fame"
+      }
     },
     "community": {
-        "title": "Community",
-        "description": "Connect with other members"
+      "title": "Community",
+      "description": "Connect with other members"
     },
     "about": {
-        "title": "About Us",
-        "description": "Learn more about our mission and team",
-        "team": {
-            "title": "Our Team",
-            "description": "Meet the people behind our platform"
-        },
-        "story": {
-            "title": "Our Story",
-            "description": "Discover our journey and values"
-        }
+      "title": "About Us",
+      "description": "Learn more about our mission and team",
+      "team": {
+        "title": "Our Team",
+        "description": "Meet the people behind our platform"
+      },
+      "story": {
+        "title": "Our Story",
+        "description": "Discover our journey and values"
+      }
     },
     "contact": {
-        "title": "Contact Us"
+      "title": "Contact Us"
     },
     "dashboard": {
-        "title": "Dashboard",
-        "description": "Your personal dashboard"
+      "title": "Dashboard",
+      "description": "Your personal dashboard"
     }
   },
   "buttons": {
@@ -88,5 +88,67 @@
     "user": "User",
     "guest": "Guest",
     "coach": "Coach"
+  },
+  "feature": {
+    "shield": {
+      "title": "Evidence-Based Methods",
+      "description": "Scientifically proven techniques to help you quit"
+    },
+    "activity": {
+      "title": "Activity Tracking",
+      "description": "Monitor your progress and stay motivated"
+    },
+    "communitySupport": {
+      "title": "Community Support",
+      "description": "Connect with others on the same journey"
+    },
+    "health": {
+      "title": "Health Improvement",
+      "description": "Experience better health and wellness"
+    },
+    "timeEfficient": {
+      "title": "Time-Efficient",
+      "description": "Quick and easy methods to track your progress"
+    },
+    "success": {
+      "title": "Proven Success",
+      "description": "Join the ranks of our successful quitters"
+    }
+  },
+  "testimonial": {
+    "item1": {
+      "text": "Dịch vụ tuyệt vời!",
+      "role": "Khách hàng"
+    },
+    "item2": {
+      "text": "Rất thích trải nghiệm.",
+      "role": "Người dùng"
+    },
+    "item3": {
+      "text": "Rất đáng để thử.",
+      "role": "Khách quen"
+    }
+  },
+  "page": {
+    "landingPage": {
+      "title": "🎉 Join 100,000+ users who quit smoking",
+      "description": "Your journey to a smoke-free life starts here",
+      "paragraph": "Experience personalized support, track your progress, and join a community of people committed to quitting smoking for good.",
+      "buttonStart": "Start Your Journey",
+      "buttonLearn": "Learn More",
+      "paragraph1": "Everything You Need to Quit",
+      "paragraph2": "Comprehensive tools and support to help you succeed in your journey",
+      "paragraph3": "Real People, Real Success",
+      "successItems": {
+        "item1": "Over 100,000 successful quitters",
+        "item2": "90% success rate after 3 months",
+        "item3": "Average savings of $2,000 per year",
+        "item4": "Improved health within weeks"
+      },
+      "text1": "Ready to Change Your Life?",
+      "text2": "Join our community and take the first step towards a healthier, smoke-free life.",
+      "buttonStartNow": "Get Started Now",
+      "buttonRead": "Read Success Stories"
+    }
   }
 }

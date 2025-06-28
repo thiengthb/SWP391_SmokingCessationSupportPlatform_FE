@@ -19,42 +19,42 @@
       "title": "Trang chủ"
     },
     "pricing": {
-        "title": "Giá cả",
-        "description": "Khám phá các gói và tùy chọn giá của chúng tôi"
+      "title": "Giá cả",
+      "description": "Khám phá các gói và tùy chọn giá của chúng tôi"
     },
     "blog": {
-        "title": "Blog",
-        "description": "Tin tức, bài viết và tài nguyên"
+      "title": "Blog",
+      "description": "Tin tức, bài viết và tài nguyên"
     },
     "leaderboard": {
-        "title": "Xếp hạng",
-        "description": "Khám phá các xếp hạng và thành tích hàng đầu",
-        "global": {
-            "title": "Xếp hạng toàn cầu",
-            "href": "/leaderboard/global",
-            "description": "Xem những người xuất sắc nhất trên toàn thế giới"
-        },
-        "hallOfFame": {
-            "title": "Ngôi đền danh vọng",
-            "href": "/leaderboard/hall-of-fame",
-            "description": "Những thành tích vĩ đại nhất mọi thời đại"
-        }
+      "title": "Xếp hạng",
+      "description": "Khám phá các xếp hạng và thành tích hàng đầu",
+      "global": {
+        "title": "Xếp hạng toàn cầu",
+        "href": "/leaderboard/global",
+        "description": "Xem những người xuất sắc nhất trên toàn thế giới"
+      },
+      "hallOfFame": {
+        "title": "Ngôi đền danh vọng",
+        "href": "/leaderboard/hall-of-fame",
+        "description": "Những thành tích vĩ đại nhất mọi thời đại"
+      }
     },
     "community": {
-        "title": "Cộng đồng",
-        "description": "Kết nối với các thành viên khác"
+      "title": "Cộng đồng",
+      "description": "Kết nối với các thành viên khác"
     },
     "about": {
-        "title": "Chúng tôi",
-        "description": "Tìm hiểu thêm về sứ mệnh và đội ngũ của chúng tôi",
-        "team": {
-            "title": "Đội ngũ của chúng tôi",
-            "description": "Gặp gỡ những người đứng sau nền tảng của chúng tôi"
-        },
-        "story": {
-            "title": "Câu chuyện của chúng tôi",
-            "description": "Khám phá hành trình và giá trị của chúng tôi"
-        }
+      "title": "Chúng tôi",
+      "description": "Tìm hiểu thêm về sứ mệnh và đội ngũ của chúng tôi",
+      "team": {
+        "title": "Đội ngũ của chúng tôi",
+        "description": "Gặp gỡ những người đứng sau nền tảng của chúng tôi"
+      },
+      "story": {
+        "title": "Câu chuyện của chúng tôi",
+        "description": "Khám phá hành trình và giá trị của chúng tôi"
+      }
     },
     "contact": {
       "title": "Liên hệ"
@@ -77,16 +77,78 @@
     "edit": "Chỉnh sửa",
     "delete": "Xóa"
   },
-    "theme": {
-        "title": "Chủ đề",
-        "light": "Sáng",
-        "dark": "Tối",
-        "system": "Hệ thống"
+  "theme": {
+    "title": "Chủ đề",
+    "light": "Sáng",
+    "dark": "Tối",
+    "system": "Hệ thống"
+  },
+  "roles": {
+    "admin": "Quản trị viên",
+    "user": "Người dùng",
+    "guest": "Khách",
+    "coach": "Huấn luyện viên"
+  },
+  "feature": {
+    "shield": {
+      "title": "Bảo vệ",
+      "description": "Bảo vệ tài khoản và dữ liệu của bạn"
     },
-    "roles": {
-        "admin": "Quản trị viên",
-        "user": "Người dùng",
-        "guest": "Khách",
-        "coach": "Huấn luyện viên"
+    "activity": {
+      "title": "Theo dõi hoạt động",
+      "description": "Theo dõi tiến trình của bạn và giữ động lực"
+    },
+    "communitySupport": {
+      "title": "Hỗ trợ cộng đồng",
+      "description": "Kết nối với những người khác trên cùng một hành trình"
+    },
+    "health": {
+      "title": "Cải thiện sức khỏe",
+      "description": "Trải nghiệm sức khỏe và thể chất tốt hơn"
+    },
+    "timeEfficient": {
+      "title": "Tiết kiệm thời gian",
+      "description": "Phương pháp nhanh chóng và dễ dàng để theo dõi tiến trình của bạn"
+    },
+    "success": {
+      "title": "Thành công đã được chứng minh",
+      "description": "Gia nhập hàng ngũ những người bỏ thuốc thành công"
     }
+  },
+  "testimonial": {
+    "item1": {
+      "text": "Dịch vụ tuyệt vời!",
+      "role": "Khách hàng"
+    },
+    "item2": {
+      "text": "Rất thích trải nghiệm.",
+      "role": "Người dùng"
+    },
+    "item3": {
+      "text": "Đội ngũ hỗ trợ rất hữu ích.",
+      "role": "Người dùng"
+    }
+  },
+  "page": {
+    "landingPage": {
+      "title": "🎉 Tham gia cùng hơn 100.000 người dùng bỏ thuốc lá",
+      "description": "Nơi bạn có thể tìm thấy sự hỗ trợ và động lực để từ bỏ thuốc lá",
+      "paragraph": "Trải nghiệm hỗ trợ cá nhân hóa, theo dõi tiến trình và tham gia cộng đồng",
+      "buttonStart": "Bắt đầu ngay",
+      "buttonLearnMore": "Tìm hiểu thêm",
+      "paragraph1": "Mọi thứ bạn cần để bỏ thuốc lá",
+      "paragraph2": "Công cụ và hỗ trợ toàn diện để giúp bạn thành công",
+      "paragraph3": "Người thật, thành công thật",
+      "successItems": {
+        "item1": "Hơn 100.000 người bỏ thuốc thành công",
+        "item2": "Tỷ lệ thành công 90% sau 3 tháng",
+        "item3": "Tiết kiệm trung bình $2.000 mỗi năm",
+        "item4": "Cải thiện sức khỏe trong vòng vài tuần"
+      },
+      "text1": "Sẵn sàng thay đổi cuộc sống của bạn?",
+      "text2": "Tham gia cộng đồng của chúng tôi và bắt đầu hành trình",
+      "buttonStartNow": "Bắt đầu ngay",
+      "buttonRead": "Đọc câu chuyện thành công"
+    }
+  }
 }
