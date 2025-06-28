@@ -624,5 +624,32 @@
         "noAppointments": "Không có lịch hẹn nào cho ngày này"
       }
     }
+  },
+  "footer": {
+    "about": {
+      "title": "Về chúng tôi",
+      "description": "Tại dự án cai thuốc, chúng tôi hỗ trợ mọi người trên hành trình cai thuốc thông qua công nghệ và cộng đồng."
+    },
+    "links": {
+      "title": "Liên kết nhanh",
+      "home": "Trang chủ",
+      "about": "Giới thiệu",
+      "contact": "Liên hệ",
+      "blog": "Blog",
+      "terms": "Điều khoản",
+      "privacy": "Chính sách"
+    },
+    "subscribe": {
+      "title": "Đăng ký nhận tin",
+      "description": "Đăng ký nhận bản tin để nhận cập nhật và mẹo chăm sóc sức khỏe.",
+      "placeholder": "Nhập email của bạn",
+      "button": "Đăng ký"
+    },
+    "bottom": {
+      "copyright": "Đã đăng ký bản quyền.",
+      "terms": "Điều khoản",
+      "privacy": "Chính sách",
+      "cookies": "Cookie"
+    }
   }
 }
