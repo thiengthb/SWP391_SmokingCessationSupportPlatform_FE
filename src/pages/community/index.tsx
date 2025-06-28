@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Users, Send } from "lucide-react";
 import { ChatMessage } from "./components/ChatMessage";
 import { OnlineUser } from "./components/OnlineUser";
@@ -16,14 +15,60 @@ import { useTranslation } from "react-i18next";
 
 export default function CommunityPage() {
   const { t } = useTranslation();
+  const PAGE_SIZE = 50; // Number of messages per page
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<ChatMessageType[]>([]);
   const [onlineUsers, setOnlineUsers] = useState<User[]>([]);
+  const [page, setPage] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
+  const [shouldScrollToBottom, setShouldScrollToBottom] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const { sendMessage, subscribeToTopic } = useWebSocket();
   const { auth } = useAuth();
 
+
   const apiWithInterceptor = useApi();
+
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  const handleScroll = async() => {
+    const element = scrollContainerRef.current;
+    if (!element) return;
+
+    const scrollHeight = element.scrollHeight;
+
+    if (element.scrollTop === 0 && hasMore) {
+      const newPage = page + 1;
+      try {
+        const response = await apiWithInterceptor.get(`/v1/chats`, {
+          params: { 
+            page: newPage, 
+            size: PAGE_SIZE,
+            sortBy: 'createdAt',
+            direction: 'ASC'
+          },
+        });
+        const newMessages: ChatMessageType[] = Array.isArray(response.data.result.content)
+      ? response.data.result.content : [];
+      console.log("Fetched messages:", newMessages);
+        if(newMessages.length > 0) {
+          setMessages((prev) => [...newMessages, ...prev]);
+
+          requestAnimationFrame(() => {
+            if(scrollContainerRef.current) {
+            const newScrollHeight = scrollContainerRef.current?.scrollHeight;
+            scrollContainerRef.current.scrollTop = newScrollHeight - scrollHeight;
+          }
+        });
+          setPage(newPage);
+        } else {
+          setHasMore(false); // No more messages to load
+        }
+      }catch (error) {
+        console.error("Failed to fetch messages", error);
+        }
+    }
+  };
 
 
   useEffect(() => {
@@ -46,13 +91,38 @@ export default function CommunityPage() {
       }
     };
 
+    const loadInitialMessages = async () => {
+    try {
+      const response = await apiWithInterceptor.get("/v1/chats", {
+        params: {
+          page: 0,
+          size: PAGE_SIZE,
+          sortBy: "createdAt",
+          direction: "ASC",
+        },
+      });
+
+      const initialMessages: ChatMessageType[] = Array.isArray(response.data.result.content)
+      ? response.data.result.content : [];
+      setMessages(initialMessages);
+      setShouldScrollToBottom(true);
+    } catch (err) {
+      console.error("Failed to load initial messages", err);
+    }
+  };
+
+  loadInitialMessages();
+
     fetchOnlineUsers();
   }, []);
 
 
   useEffect(() => {
-    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  if (shouldScrollToBottom && scrollContainerRef.current) {
+    scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
+    setShouldScrollToBottom(false);
+  }
+}, [messages, shouldScrollToBottom]);
 
   useEffect(() => {
   const unsubscribe = subscribeToTopic("/topic/public", (body) => {
@@ -84,6 +154,7 @@ export default function CommunityPage() {
     console.log("Sending message:", chatMessage);
     sendMessage("/app/chat/send", JSON.stringify(chatMessage));
     setMessage("")
+    setShouldScrollToBottom(true);
   };
 
   return (
@@ -97,19 +168,19 @@ export default function CommunityPage() {
 
       <div className="grid lg:grid-cols-[1fr_250px] gap-8">
         <Card className="p-4">
-          <div className="flex flex-col h-[600px]">
-            <ScrollArea className="flex-1 pr-4">
-              <div className="space-y-4 h-[530px] overflow-y-auto scrollbar-hidden">
-                {messages.map((msg) => (
-                  <ChatMessage key={msg.id} message={msg} />
-                ))}
-                <div ref={scrollRef} />
-              </div>
-            </ScrollArea>
+          <div className="flex flex-col h-[60vh]">
+            <div className="flex-1 overflow-y-auto space-y-4 pr-2" 
+              ref={scrollContainerRef} 
+              onScroll={handleScroll}>
+            {messages.map((msg) => (
+                <ChatMessage key={msg.id} message={msg} />
+            ))}
+              <div ref={scrollRef} />
+            </div>
 
             <form
               onSubmit={handleSendMessage}
-              className="flex gap-2 pt-4 border-t mt-4"
+              className="flex gap-2 pt-4 border-t mt-4 min-h-[50px]"
             >
               <Input
                 value={message}
