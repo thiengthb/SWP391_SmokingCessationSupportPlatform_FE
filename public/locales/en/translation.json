@@ -381,6 +381,86 @@
       "yourRanking": "Your Ranking",
       "daysSmokeFree": "days smoke-free",
       "points": "pts"
+    },
+    "stat": {
+      "smoke": {
+        "title": "Smoke-Free Days",
+        "description": "Keep going strong!"
+      },
+      "cigarettes": {
+        "title": "Cigarettes Avoided",
+        "description": "That's impressive!"
+      },
+      "moneySaved": {
+        "title": "Money Saved",
+        "description": "More savings ahead"
+      },
+      "health": {
+        "title": "Health Score",
+        "description": "Great progress"
+      }
+    },
+    "dashboard": {
+      "recentRegistrations": "Recent Registrations",
+      "viewAllUsers": "View All Users",
+      "systemHealth": "System Health",
+      "serverLoad": "Server Load",
+      "storageUsage": "Storage Usage",
+      "admin": {
+        "title": "Admin Dashboard",
+        "tabs": {
+          "overview": "Overview",
+          "users": "Users",
+          "reports": "Reports"
+        }
+      },
+      "userTable": {
+        "name": "Name",
+        "email": "Email",
+        "role": "Role",
+        "status": "Status",
+        "actions": "Actions",
+        "edit": "Edit",
+        "viewDetails": "View Details",
+        "ban": "Ban User",
+        "unban": "Unban User"
+      },
+      "userManagement": {
+        "title": "User Management",
+        "description": "Manage and monitor user accounts",
+        "addUser": "Add New User",
+        "searchPlaceholder": "Search users...",
+        "filterByRole": "Filter by Role",
+        "roles": {
+          "admin": "Administrator",
+          "coach": "Coach",
+          "member": "Member"
+        }
+      },
+      "analytics": {
+        "userActivityTrends": "User Activity Trends",
+        "activeUsers": "Active Users",
+        "newUsers": "New Users",
+        "successRateByWeek": "Success Rate by Week",
+        "successRate": "Success Rate",
+        "userDistribution": "User Distribution",
+        "lastGenerated": "Last generated:",
+        "download": "Download"
+      }
+    },
+    "reports": {
+      "userActivity": {
+        "title": "Báo cáo hoạt động người dùng",
+        "description": "Chỉ số tương tác và hoạt động hàng ngày của người dùng"
+      },
+      "successMetrics": {
+        "title": "Chỉ số thành công",
+        "description": "Tỷ lệ thành công và các cột mốc đạt được của người dùng"
+      },
+      "systemPerformance": {
+        "title": "Hiệu suất hệ thống",
+        "description": "Chỉ số sức khỏe và hiệu suất của máy chủ"
+      }
     }
   }
 }

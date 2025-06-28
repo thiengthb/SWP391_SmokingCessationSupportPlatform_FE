@@ -389,6 +389,92 @@
       "yourRanking": "Xếp Hạng Của Bạn",
       "daysSmokeFree": "{{count}} ngày không hút thuốc",
       "points": "điểm"
+    },
+    "stat": {
+      "smoke": {
+        "title": "Số Ngày Không Hút Thuốc",
+        "description": "Cố gắng lên nhé!"
+      },
+      "cigarettes": {
+        "title": "Số Điếu Thuốc Đã Bỏ",
+        "description": "Thật ấn tượng!"
+      },
+      "moneySaved": {
+        "title": "Số Tiền Tiết Kiệm",
+        "description": "Sẽ còn tiết kiệm được nhiều hơn nữa"
+      },
+      "health": {
+        "title": "Cải Thiện Sức Khỏe",
+        "description": "Tiến bộ tuyệt vời"
+      }
+    },
+    "dashboard": {
+      "recentRegistrations": "Người dùng mới đăng ký",
+      "viewAllUsers": "Xem toàn bộ người dùng",
+      "systemHealth": "Sức khỏe hệ thống",
+      "serverLoad": "Tải máy chủ",
+      "storageUsage": "Dung lượng đã sử dụng",
+      "admin": {
+        "title": "Bảng điều khiển quản trị",
+        "tabs": {
+          "overview": "Tổng quan",
+          "users": "Người dùng",
+          "reports": "Báo cáo"
+        }
+      },
+      "userTable": {
+        "name": "Tên",
+        "email": "Email",
+        "role": "Vai trò",
+        "status": "Trạng thái",
+        "actions": "Hành động",
+        "edit": "Chỉnh sửa",
+        "viewDetails": "Xem chi tiết",
+        "ban": "Cấm người dùng",
+        "unban": "Bỏ cấm người dùng"
+      },
+      "userManagement": {
+        "title": "Quản lý người dùng",
+        "description": "Quản lý và theo dõi tài khoản người dùng",
+        "addUser": "Thêm người dùng mới",
+        "searchPlaceholder": "Tìm kiếm người dùng...",
+        "filterByRole": "Lọc theo vai trò",
+        "roles": {
+          "admin": "Quản trị viên",
+          "coach": "Huấn luyện viên",
+          "member": "Thành viên"
+        }
+      },
+      "analytics": {
+        "userActivityTrends": "Xu hướng hoạt động người dùng",
+        "activeUsers": "Người dùng hoạt động",
+        "newUsers": "Người dùng mới",
+        "successRateByWeek": "Tỷ lệ thành công theo tuần",
+        "successRate": "Tỷ lệ thành công",
+        "userDistribution": "Phân bố người dùng",
+        "lastGenerated": "Tạo lần cuối:",
+        "download": "Tải xuống",
+        "status": {
+          "active": "Đang hoạt động",
+          "inactive": "Không hoạt động",
+          "banned": "Bị cấm",
+          "new": "Mới"
+        }
+      }
+    },
+    "reports": {
+      "userActivity": {
+        "title": "Báo cáo hoạt động người dùng",
+        "description": "Chỉ số tương tác và hoạt động hàng ngày của người dùng"
+      },
+      "successMetrics": {
+        "title": "Chỉ số thành công",
+        "description": "Tỷ lệ thành công và các cột mốc đạt được của người dùng"
+      },
+      "systemPerformance": {
+        "title": "Hiệu suất hệ thống",
+        "description": "Chỉ số sức khỏe và hiệu suất của máy chủ"
+      }
     }
   }
 }

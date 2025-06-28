@@ -17,8 +17,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
 import { AccountStatus, type User } from "@/types/user/user";
+import { useTranslation } from "react-i18next";
 
 export function UsersTab({ users }: { users: User[] }) {
+  const { t } = useTranslation();
   const getStatusBadge = (status: string) => {
     const variants = {
       active: "default",
@@ -38,11 +40,11 @@ export function UsersTab({ users }: { users: User[] }) {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead>Email</TableHead>
-              <TableHead>Role</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Actions</TableHead>
+              <TableHead>{t("page.dashboard.userTable.name")}</TableHead>
+              <TableHead>{t("page.dashboard.userTable.email")}</TableHead>
+              <TableHead>{t("page.dashboard.userTable.role")}</TableHead>
+              <TableHead>{t("page.dashboard.userTable.status")}</TableHead>
+              <TableHead>{t("page.dashboard.userTable.actions")}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -62,17 +64,23 @@ export function UsersTab({ users }: { users: User[] }) {
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                      <DropdownMenuItem>Edit</DropdownMenuItem>
-                      <DropdownMenuItem>View Details</DropdownMenuItem>
+                      <DropdownMenuItem>
+                        {" "}
+                        {t("page.dashboard.userTable.edit")}
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        {" "}
+                        {t("page.dashboard.userTable.viewDetails")}
+                      </DropdownMenuItem>
                       {user.status !== AccountStatus.BANNED ? (
                         <DropdownMenuItem className="text-destructive">
                           <Ban className="h-4 w-4 mr-2" />
-                          Ban User
+                          {t("page.dashboard.userTable.ban")}
                         </DropdownMenuItem>
                       ) : (
                         <DropdownMenuItem>
                           <CheckCircle className="h-4 w-4 mr-2" />
-                          Unban User
+                          {t("page.dashboard.userTable.unban")}
                         </DropdownMenuItem>
                       )}
                     </DropdownMenuContent>

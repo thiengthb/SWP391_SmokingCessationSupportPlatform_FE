@@ -2,28 +2,28 @@ import { Clock, Cigarette, DollarSign, Activity } from "lucide-react";
 
 export const stats = [
   {
-    title: "Smoke-Free Days",
+    title: "page.stat.smoke.title",
     value: "7",
     icon: Clock,
-    description: "Keep going strong!",
+    description: "page.stat.smoke.description",
   },
   {
-    title: "Cigarettes Avoided",
+    title: "page.stat.cigarettes.title",
     value: "140",
     icon: Cigarette,
-    description: "That's impressive!",
+    description: "page.stat.cigarettes.description",
   },
   {
-    title: "Money Saved",
+    title: "page.stat.moneySaved.title",
     value: "$70",
     icon: DollarSign,
-    description: "More savings ahead",
+    description: "page.stat.moneySaved.description",
   },
   {
-    title: "Health Score",
+    title: "page.stat.health.title",
     value: "85%",
     icon: Activity,
-    description: "Great progress",
+    description: "page.stat.health.description",
   },
 ];
 

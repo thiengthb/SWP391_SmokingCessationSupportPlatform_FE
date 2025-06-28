@@ -7,7 +7,7 @@ export const users: User[] = [
     name: "John Doe",
     email: "john@example.com",
     role: "member",
-    status: "active",
+    status: "page.analytics.status.active",
     joinDate: "2024-01-15",
   },
   {
@@ -15,7 +15,7 @@ export const users: User[] = [
     name: "Jane Smith",
     email: "jane@example.com",
     role: "coach",
-    status: "active",
+    status: "page.analytics.status.active",
     joinDate: "2024-02-01",
   },
   {
@@ -23,7 +23,7 @@ export const users: User[] = [
     name: "Admin User",
     email: "admin@example.com",
     role: "admin",
-    status: "active",
+    status: "page.analytics.status.active",
     joinDate: "2023-12-01",
   },
   {
@@ -31,7 +31,7 @@ export const users: User[] = [
     name: "Bob Wilson",
     email: "bob@example.com",
     role: "member",
-    status: "inactive",
+    status: "page.analytics.status.inactive",
     joinDate: "2024-03-01",
   },
   {
@@ -39,7 +39,7 @@ export const users: User[] = [
     name: "Alice Brown",
     email: "alice@example.com",
     role: "member",
-    status: "banned",
+    status: "page.analytics.status.banned",
     joinDate: "2024-02-15",
   },
 ];
@@ -145,18 +145,18 @@ export const stats = [
 
 export const reports = [
   {
-    title: "User Activity Report",
-    description: "Daily user engagement and activity metrics",
+    title: "page.reports.userActivity.title",
+    description: "page.reports.userActivity.description",
     lastGenerated: "2024-03-15",
   },
   {
-    title: "Success Metrics",
-    description: "User success rates and milestone achievements",
+    title: "page.reports.successMetrics.title",
+    description: "page.reports.successMetrics.description",
     lastGenerated: "2024-03-14",
   },
   {
-    title: "System Performance",
-    description: "Server health and performance metrics",
+    title: "page.reports.systemPerformance.title",
+    description: "page.reports.systemPerformance.description",
     lastGenerated: "2024-03-15",
   },
 ];
