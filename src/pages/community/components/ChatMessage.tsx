@@ -7,7 +7,7 @@ interface ChatMessageProps {
 }
 
 export function ChatMessage({ message }: ChatMessageProps) {
-  const initials = message.author.name
+  const initials = message.author.username
     .split(' ')
     .map(n => n[0])
     .join('')
@@ -15,29 +15,26 @@ export function ChatMessage({ message }: ChatMessageProps) {
 
   return (
     <div className={cn(
-      "flex items-start gap-2 p-2 rounded",
-      message.isSystem && "bg-muted/50 text-center justify-center"
+      "flex items-start gap-2 p-2 rounded", "bg-muted/50 text-center justify-center"
     )}>
-      {!message.isSystem && (
+      {
         <Avatar>
-          <AvatarImage src={message.author.avatar} alt={message.author.name} />
+          <AvatarImage src={message.author.avatar} alt={message.author.username} />
           <AvatarFallback>{initials}</AvatarFallback>
         </Avatar>
-      )}
+      }
       <div className="flex-1">
-        {!message.isSystem && (
-          <div className="text-sm font-medium">{message.author.name}</div>
-        )}
+          <div className="text-sm font-medium">{message.author.username}</div>
         <p className={cn(
           "text-sm",
-          message.isSystem ? "text-muted-foreground" : "text-foreground"
         )}>
           {message.content}
         </p>
       </div>
+      {message.timestamp && (
       <time className="text-xs text-muted-foreground">
         {new Date(message.timestamp).toLocaleTimeString()}
-      </time>
+      </time>)}
     </div>
   );
 }

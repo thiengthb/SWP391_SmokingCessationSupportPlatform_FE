@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useRef } from 'react';
+import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { Client } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import { useAuth } from './AuthContext';
@@ -7,28 +7,19 @@ import { toast } from 'sonner';
 type WebSocketContextType = {
     client: Client | null;
     sendMessage: (destination: string, body: string) => void;
+    subscribeToTopic: (
+        topic: string,
+        callback: (messageBody: string) => void
+    ) => (() => void) | void;
 };
-
-interface NotificationPayload {
-  id?: string;
-  accountId?: string;
-  content?: string;
-  notificationType?: 'EMAIL' | 'LIVE' | string;
-  sentAt?: string;  
-}
-
-interface ChatMessagePayload {
-    username?: string;  
-    content?: string;
-    sentAt?: string;
-    isFirstTime?: boolean;
-}
 
 const WebSocketContext = createContext<WebSocketContextType | undefined>(undefined);
 
 export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const { auth } = useAuth();
     const clientRef = useRef<Client | null>(null);
+    const [connectedClient, setConnectedClient] = useState<Client | null>(null);
+
 
     useEffect(() => {
         const accountId = auth.currentUser?.id;
@@ -43,6 +34,7 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
             onConnect: () => {
                 console.log('WebSocket connected');
+                setConnectedClient(client);
 
                 client.subscribe(`/topic/notifications/${accountId}`, (message) => {
                     const data = JSON.parse(message.body);
@@ -60,8 +52,6 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
                         duration: 5000,
                     });
                 });
-
-                
             },
             onStompError: (frame) => {
                 console.error('Broker reported error:', frame.headers['message']);
@@ -89,14 +79,29 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         clientRef.current.publish({ destination, body });
     };
 
+    const subscribeToTopic = (
+        topic: string,
+        callback: (messageBody: string) => void
+    ): (() => void) | void => {
+        if (!clientRef.current?.connected) {
+            console.warn("WebSocket not connected yet");
+            return;
+        }
+    const subscription = clientRef.current.subscribe(topic, (message) => {
+    callback(message.body);
+    });
+
+  return () => subscription.unsubscribe();
+};
+
     return (
-        <WebSocketContext.Provider value={{ sendMessage, client: clientRef.current }}>
+        <WebSocketContext.Provider value={{ sendMessage, client: connectedClient, subscribeToTopic,}}>
             {children}
         </WebSocketContext.Provider>
     );
 };
 
-export const useWebSocket = () => {
+export const useWebSocket = (): WebSocketContextType => {
     const context = useContext(WebSocketContext);
     if (!context) {
         throw new Error('useWebSocket must be used within a WebSocketProvider');
