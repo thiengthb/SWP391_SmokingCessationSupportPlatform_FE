@@ -2,8 +2,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Trophy, Lock, Star } from "lucide-react";
 import { achievementCategories } from "@/utils/mockdata/member";
+import { useTranslation } from "react-i18next";
 
 export function AchievementsTab() {
+	const { t } = useTranslation();
 	const totalAchievements = achievementCategories.reduce(
 		(acc, cat) => acc + cat.achievements.length,
 		0
@@ -34,7 +36,7 @@ export function AchievementsTab() {
 
 			{achievementCategories.map((category) => (
 				<div key={category.name} className="space-y-4">
-					<h3 className="text-lg font-semibold">{category.name}</h3>
+					<h3 className="text-lg font-semibold">{t(category.name)}</h3>
 					<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
 						{category.achievements.map((achievement) => (
 							<Card
@@ -43,7 +45,7 @@ export function AchievementsTab() {
 							>
 								<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
 									<CardTitle className="text-sm font-medium">
-										{achievement.title}
+										{t(achievement.title)}
 									</CardTitle>
 									{achievement.completed ? (
 										<Trophy className="h-4 w-4 text-primary" />
@@ -53,7 +55,7 @@ export function AchievementsTab() {
 								</CardHeader>
 								<CardContent className="space-y-2">
 									<p className="text-sm text-muted-foreground">
-										{achievement.description}
+										{t(achievement.description)}
 									</p>
 									<Progress value={achievement.progress} />
 								</CardContent>
