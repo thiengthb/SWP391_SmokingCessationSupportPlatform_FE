@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { UserPlus as AddGoalIcon } from "lucide-react";
-import { GoalsTab } from "../components/GoalsTab";
+import { UserPlus as AddGoalIcon, Star, Trophy } from "lucide-react";
 import useApi from "@/hooks/useApi";
 import { useLocation, useNavigate } from "react-router-dom";
 import { type Goal } from "@/types/member/goal";
@@ -11,14 +10,6 @@ import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import FormInputError from "@/components/FormInputError";
 import { Label } from "@/components/ui/label";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
 import {
   Dialog,
   DialogContent,
@@ -37,13 +28,22 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationNext,
+  PaginationPrevious,
+  PaginationLink,
+} from "@/components/ui/pagination";
 
 export default function GoalManagement() {
   const [goals, setGoals] = useState<Goal[]>([]);
   const [newGoal, setNewGoal] = useState<string>("");
-  const [page, setPage] = useState<number>(0);
-  const [totalPages, setTotalPages] = useState<number>(1);
-  const size = 5;
+  const [modalPage, setModalPage] = useState<number>(0);
+  const modalPageSize = 6;
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -52,12 +52,9 @@ export default function GoalManagement() {
   useEffect(() => {
     const getGoals = async () => {
       try {
-        const response = await api.get(
-          `/v1/goals/my-goals?page=${page}&size=${size}&direction=ASC`
-        );
-        const { content, totalElements } = response.data.result;
+        const response = await api.get("/v1/goals/my-goals?direction=ASC");
+        const { content } = response.data.result;
         setGoals(content || []);
-        setTotalPages(Math.ceil(totalElements / size) || 1);
       } catch (error) {
         console.error("Failed to fetch goals:", error);
         navigate("/auth/login", {
@@ -68,48 +65,7 @@ export default function GoalManagement() {
     };
 
     getGoals();
-  }, [newGoal, page]);
-
-  const handlePrevious = () => {
-    if (page > 0) {
-      setPage(page - 1);
-    }
-  };
-  const handleNext = () => {
-    if (page < totalPages - 1) {
-      setPage(page + 1);
-    }
-  };
-
-  function generatePageNumbers(
-    current: number,
-    total: number
-  ): (number | "...")[] {
-    const pages: (number | "...")[] = [];
-
-    if (total <= 5) {
-      for (let i = 1; i <= total; i++) pages.push(i);
-    } else {
-      if (current > 3) {
-        pages.push(1, "...");
-      }
-
-      const start = Math.max(1, current - 1);
-      const end = Math.min(total, current + 1);
-
-      for (let i = start; i <= end; i++) {
-        pages.push(i);
-      }
-
-      if (current < total - 2) {
-        pages.push("...", total);
-      } else if (!pages.includes(total)) {
-        pages.push(total);
-      }
-    }
-
-    return pages;
-  }
+  }, [newGoal]);
 
   const {
     register,
@@ -143,6 +99,20 @@ export default function GoalManagement() {
     }
   };
 
+  const previewGoals = goals
+    .filter((goal) => (goal.goalProgress?.progress || 0) < goal.criteriaValue) 
+    .sort((a, b) => {
+      const progressA = (a.goalProgress?.progress || 0) / a.criteriaValue;
+      const progressB = (b.goalProgress?.progress || 0) / b.criteriaValue;
+      return progressB - progressA; 
+    })
+    .slice(0, 3);
+  const paginatedGoals = goals.slice(
+    modalPage * modalPageSize,
+    (modalPage + 1) * modalPageSize
+  );
+  const totalPages = Math.ceil(goals.length / modalPageSize);
+
   return (
     <div className="container py-6 space-y-6 mx-auto">
       <div className="flex justify-between items-center">
@@ -153,8 +123,7 @@ export default function GoalManagement() {
         <Dialog>
           <DialogTrigger asChild>
             <Button>
-              <AddGoalIcon className="mr-2 h-4 w-4" />
-              Add Goal
+              <AddGoalIcon className="mr-2 h-4 w-4" /> Add Goal
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
@@ -218,16 +187,13 @@ export default function GoalManagement() {
                   </Select>
                   <FormInputError field={errors.criteriaType} />
                 </div>
-
                 <div className="grid gap-2">
                   <Label htmlFor="criteriaValue">Criteria Value</Label>
                   <Input
                     id="criteriaValue"
                     type="number"
                     placeholder="Enter criteria value"
-                    {...register("criteriaValue", {
-                      valueAsNumber: true,
-                    })}
+                    {...register("criteriaValue", { valueAsNumber: true })}
                   />
                   <FormInputError field={errors.criteriaValue} />
                 </div>
@@ -250,52 +216,140 @@ export default function GoalManagement() {
         </Dialog>
       </div>
 
-      <GoalsTab goals={goals} page={page} size={size} />
+      <div className="space-y-8">
+        <Dialog>
+          <DialogTrigger asChild>
+            <Card className="cursor-pointer">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Star className="h-5 w-5 text-primary" /> Personal Goals
+                </CardTitle>
+              </CardHeader>
+            </Card>
+          </DialogTrigger>
+          <DialogContent className="max-w-5xl">
+            <DialogHeader>
+              <DialogTitle>All Personal Goals</DialogTitle>
+            </DialogHeader>
 
-      {totalPages > 1 && (
-        <div className="flex justify-center mt-4">
-          <Pagination>
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious
-                  onClick={handlePrevious}
-                  className={
-                    page === 0
-                      ? "pointer-events-none opacity-50"
-                      : "cursor-pointer"
-                  }
-                />
-              </PaginationItem>
+            <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-2">
+              {paginatedGoals.map((goal) => {
+                const progressValue = goal.goalProgress?.progress || 0;
+                const percentage = Math.min(
+                  (progressValue / goal.criteriaValue) * 100,
+                  100
+                );
+                const isCompleted = progressValue >= goal.criteriaValue;
 
-              {generatePageNumbers(page + 1, totalPages).map((item, index) => (
-                <PaginationItem key={index}>
-                  {item === "..." ? (
-                    <span className="px-2 text-muted-foreground">...</span>
-                  ) : (
-                    <PaginationLink
-                      isActive={item === page + 1}
-                      onClick={() => setPage(Number(item) - 1)}
-                    >
-                      {item}
-                    </PaginationLink>
-                  )}
-                </PaginationItem>
-              ))}
+                return (
+                  <Card
+                    key={goal.id}
+                    className={`${
+                      isCompleted ? "opacity-100" : "opacity-75"
+                    } w-full`}
+                  >
+                    <div className="flex items-center p-4 space-x-4">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between mb-2">
+                          <h3 className="text-sm font-medium truncate pr-2">
+                            {goal.name}
+                          </h3>
+                          {isCompleted && (
+                            <Trophy className="h-4 w-4 text-primary flex-shrink-0" />
+                          )}
+                        </div>
 
-              <PaginationItem>
-                <PaginationNext
-                  onClick={handleNext}
-                  className={
-                    page >= totalPages - 1
-                      ? "pointer-events-none opacity-50"
-                      : "cursor-pointer"
-                  }
-                />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
+                        <div className="space-y-1">
+                          <Progress value={percentage} className="h-2" />
+                          <p className="text-xs text-muted-foreground text-right">
+                            {percentage.toFixed(0)}%
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+                );
+              })}
+            </div>
+
+            <div className="mt-4 flex justify-center">
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious
+                      onClick={() =>
+                        setModalPage((prev) => Math.max(prev - 1, 0))
+                      }
+                      className={
+                        modalPage === 0
+                          ? "pointer-events-none opacity-50"
+                          : "cursor-pointer"
+                      }
+                    />
+                  </PaginationItem>
+                  {Array.from({ length: totalPages }, (_, i) => (
+                    <PaginationItem key={i}>
+                      <PaginationLink
+                        isActive={i === modalPage}
+                        onClick={() => setModalPage(i)}
+                      >
+                        {i + 1}
+                      </PaginationLink>
+                    </PaginationItem>
+                  ))}
+                  <PaginationItem>
+                    <PaginationNext
+                      onClick={() =>
+                        setModalPage((prev) =>
+                          Math.min(prev + 1, totalPages - 1)
+                        )
+                      }
+                      className={
+                        modalPage === totalPages - 1
+                          ? "pointer-events-none opacity-50"
+                          : "cursor-pointer"
+                      }
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {previewGoals.map((goal) => {
+            const progressValue = goal.goalProgress?.progress || 0;
+            const percentage = Math.min(
+              (progressValue / goal.criteriaValue) * 100,
+              100
+            );
+            const isCompleted = progressValue >= goal.criteriaValue;
+            return (
+              <Card
+                key={goal.id}
+                className={isCompleted ? "opacity-100" : "opacity-75"}
+              >
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    {goal.name}
+                  </CardTitle>
+                  {isCompleted && <Trophy className="h-4 w-4 text-primary" />}
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  <p className="text-sm text-muted-foreground">
+                    {goal.description}
+                  </p>
+                  <Progress value={percentage} />
+                  <p className="text-xs text-muted-foreground text-right">
+                    {percentage.toFixed(0)}%
+                  </p>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
-      )}
+      </div>
     </div>
   );
 }

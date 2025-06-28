@@ -11,6 +11,16 @@ import {
 } from "@/components/ui/pagination";
 import type { Feedback } from "../components/FeedbackTab";
 import { FeedbackTab } from "../components/FeedbackTab";
+import { toast } from "sonner";
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogFooter,
+  AlertDialogCancel,
+  AlertDialogAction,
+} from "@/components/ui/alert-dialog";
 
 export default function FeedbackManagement() {
   const navigate = useNavigate();
@@ -22,13 +32,15 @@ export default function FeedbackManagement() {
   const [totalPages, setTotalPages] = useState<number>(1);
   const size = 10;
 
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [open, setOpen] = useState(false);
+
   useEffect(() => {
     const getFeedbacks = async () => {
       try {
         const response = await api.get(
           `/v1/feedback?page=${page}&size=${size}&direction=ASC`
         );
-        console.log("Feedback response:", response.data);
         const { content, totalElements } = response.data.result;
         setFeedbacks(content || []);
         setTotalPages(Math.ceil(totalElements / size) || 1);
@@ -43,6 +55,27 @@ export default function FeedbackManagement() {
 
     getFeedbacks();
   }, [page]);
+
+  const handleDelete = async () => {
+    if (!selectedId) return;
+    try {
+      await api.delete(`/v1/feedback/${selectedId}`);
+      setSelectedId(null);
+      setOpen(false);
+
+      const response = await api.get(
+        `/v1/feedback?page=${page}&size=${size}&direction=ASC`
+      );
+      const { content, totalElements } = response.data.result;
+      setFeedbacks(content || []);
+      setTotalPages(Math.ceil(totalElements / size) || 1);
+
+      toast.success("Xoá thành công");
+    } catch (error) {
+      console.error("Xoá thất bại:", error);
+      toast.error("Không thể xoá phản hồi. Vui lòng thử lại.");
+    }
+  };
 
   const handlePrevious = () => {
     if (page > 0) {
@@ -92,7 +125,15 @@ export default function FeedbackManagement() {
         </div>
       </div>
 
-      <FeedbackTab feedbacks={feedbacks} page={page} size={size} />
+      <FeedbackTab
+        feedbacks={feedbacks}
+        page={page}
+        size={size}
+        onRequestDelete={(id) => {
+          setSelectedId(id);
+          setOpen(true);
+        }}
+      />
 
       {totalPages > 1 && (
         <div className="flex justify-center mt-4">
@@ -138,6 +179,20 @@ export default function FeedbackManagement() {
           </Pagination>
         </div>
       )}
+
+      <AlertDialog open={open} onOpenChange={setOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>
+              Are you sure you want to delete this comment ?
+            </AlertDialogTitle>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDelete}>Delete</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

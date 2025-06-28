@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import StarRatingDisplay from "@/pages/feedback/components/StarRatingDisplay";
+import { Trash2 } from "lucide-react";
 
 export type Feedback = {
   id: string;
@@ -30,10 +31,12 @@ export function FeedbackTab({
   feedbacks,
   page,
   size,
+  onRequestDelete,
 }: {
   feedbacks: Feedback[];
   page: number;
   size: number;
+  onRequestDelete?: (id: string) => void; // ✅ thêm prop này
 }) {
   const [selectedFeedback, setSelectedFeedback] = useState<Feedback | null>(
     null
@@ -58,40 +61,52 @@ export function FeedbackTab({
         <Table>
           <TableHeader>
             <TableRow className="border-b">
-              <TableHead className="w-16 text-center font-semibold text-gray-700">
-                #
-              </TableHead>
-              <TableHead className="w-1/4 font-semibold text-gray-700">
-                Username
-              </TableHead>
-              <TableHead className="w-1/2 font-semibold text-gray-700">
-                Comment
-              </TableHead>
-              <TableHead className="w-1/4 text-center font-semibold text-gray-700">
-                <div className="flex justify-center">Rating</div>
-              </TableHead>
+              <TableHead className="w-16 text-center font-semibold text-gray-700">#</TableHead>
+              <TableHead className="w-1/4 font-semibold text-gray-700">Username</TableHead>
+              <TableHead className="w-1/2 font-semibold text-gray-700">Comment</TableHead>
+              <TableHead className="text-center font-semibold text-gray-700">Rating</TableHead>
+              <TableHead className="w-16 text-center font-semibold text-gray-700">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {feedbacks?.map((fb, index) => (
               <TableRow
                 key={fb.id}
-                className="cursor-pointer hover:bg-[#2E2E40] transition-colors border-b"
-                onClick={() => handleRowClick(fb)}
+                className="group hover:bg-[#2E2E40] transition-colors border-b"
               >
                 <TableCell className="text-center py-4">
                   {page * size + index + 1}
                 </TableCell>
-                <TableCell className="py-4">
+                <TableCell
+                  className="py-4 cursor-pointer"
+                  onClick={() => handleRowClick(fb)}
+                >
                   {truncateString(fb.username, 20)}
                 </TableCell>
-                <TableCell className="py-4" title={fb.comment}>
+                <TableCell
+                  className="py-4 cursor-pointer"
+                  title={fb.comment}
+                  onClick={() => handleRowClick(fb)}
+                >
                   {truncateString(fb.comment)}
                 </TableCell>
-                <TableCell className="py-4">
+                <TableCell
+                  className="py-4 cursor-pointer"
+                  onClick={() => handleRowClick(fb)}
+                >
                   <div className="flex justify-center items-center">
                     <StarRatingDisplay value={fb.rating} />
                   </div>
+                </TableCell>
+                <TableCell className="text-center py-4">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="text-destructive hover:bg-red-100 dark:hover:bg-red-900"
+                    onClick={() => onRequestDelete?.(fb.id)}
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}
@@ -142,3 +157,4 @@ export function FeedbackTab({
     </Card>
   );
 }
+
