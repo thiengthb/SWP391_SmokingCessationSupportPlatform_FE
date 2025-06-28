@@ -18,9 +18,11 @@ import { Link, useNavigate } from "react-router-dom";
 import type { NavItems } from "./navbar.item";
 import ThemeSwitch from "@/components/theme/theme-switch";
 import { useAuth } from "@/contexts/AuthContext";
+import { useTranslation } from "react-i18next";
 
 const MobileMenu = ({ items }: NavItems) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { auth, handleLogout } = useAuth();
 
   const filteredItems = items.filter(
@@ -37,12 +39,12 @@ const MobileMenu = ({ items }: NavItems) => {
       <SheetTrigger asChild>
         <Button variant="secondary" size="icon" className="md:hidden">
           <Menu className="h-5 w-5" />
-          <span className="sr-only">Toggle menu</span>
+          <span className="sr-only">{t(`nav.menu.toggleMenu`)}</span>
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className="w-72 p-0">
         <SheetHeader className="p-4 border-b">
-          <SheetTitle>Menu</SheetTitle>
+          <SheetTitle>{t(`nav.menu.title`)}</SheetTitle>
         </SheetHeader>
         <div className="flex flex-col space-y-2 p-4">
           <Link
@@ -53,14 +55,14 @@ const MobileMenu = ({ items }: NavItems) => {
             }
             className="block text-base transition-colors hover:text-primary"
           >
-            Dashboard
+            {t(`nav.dashboard.title`)}
           </Link>
           {filteredItems.map((item) => (
             <div key={item.href} className="space-y-3">
               {item.items ? (
                 <Collapsible>
                   <CollapsibleTrigger className="flex w-full items-center justify-between text-base">
-                    {item.title}
+                    {t(item.title)}
                     <ChevronsUpDown className="h-4 w-4" />
                   </CollapsibleTrigger>
                   <CollapsibleContent className="pl-4 mt-2 space-y-2 border-l">
@@ -70,7 +72,7 @@ const MobileMenu = ({ items }: NavItems) => {
                         to={subItem.href}
                         className="block text-sm text-muted-foreground hover:text-primary"
                       >
-                        {subItem.title}
+                        {t(subItem.title)}
                       </Link>
                     ))}
                   </CollapsibleContent>
@@ -80,14 +82,14 @@ const MobileMenu = ({ items }: NavItems) => {
                   to={item.href}
                   className="block text-base transition-colors hover:text-primary"
                 >
-                  {item.title}
+                  {t(item.title)}
                 </Link>
               )}
             </div>
           ))}
           {!auth.isAuthenticated ? (
             <div className="flex justify-between items-center">
-              <p>Theme</p>
+              <p>{t(`theme.title`)}</p>
               <ThemeSwitch />
             </div>
           ) : null}
@@ -95,19 +97,19 @@ const MobileMenu = ({ items }: NavItems) => {
             {auth.isAuthenticated ? (
               <SheetClose asChild>
                 <Button variant="secondary" onClick={submitLogout}>
-                  Logout
+                  {t("buttons.logout")}
                 </Button>
               </SheetClose>
             ) : (
               <>
                 <SheetClose asChild>
                   <Button asChild>
-                    <Link to="/auth/register">Sign Up</Link>
+                    <Link to="/auth/register">{t(`buttons.signup`)}</Link>
                   </Button>
                 </SheetClose>
                 <SheetClose asChild>
                   <Button variant="secondary" asChild>
-                    <Link to="/auth/login">Login</Link>
+                    <Link to="/auth/login">{t(`buttons.login`)}</Link>
                   </Button>
                 </SheetClose>
               </>

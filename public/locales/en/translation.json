@@ -1,0 +1,92 @@
+{
+  "welcome": "Hello!",
+  "nav": {
+    "menu": {
+      "title": "Menu",
+      "description": "Explore our features and sections"
+    },
+    "toggleMenu": {
+      "title": "Toggle Menu",
+      "description": "Open or close the navigation menu"
+    },
+    "profile": {
+        "title": "Profile"
+    },
+    "settings": {
+        "title": "Settings"
+    },
+    "home": {
+        "title": "Home"
+    },
+    "pricing": {
+        "title": "Pricing",
+        "description": "Explore our plans and pricing options"
+    },
+    "blog": {
+        "title": "Blog",
+        "description": "News, articles, and resources"
+    },
+    "leaderboard":{
+        "title": "Leaderboard",
+        "description": "Explore top rankings and achievements",
+        "global": {
+                "title": "Global Ranking",
+                "href": "/leaderboard/global"
+        },
+        "hallOfFame": {
+                "title": "Hall of Fame",
+                "href": "/leaderboard/hall-of-fame"
+        }
+    },
+    "community": {
+        "title": "Community",
+        "description": "Connect with other members"
+    },
+    "about": {
+        "title": "About Us",
+        "description": "Learn more about our mission and team",
+        "team": {
+            "title": "Our Team",
+            "description": "Meet the people behind our platform"
+        },
+        "story": {
+            "title": "Our Story",
+            "description": "Discover our journey and values"
+        }
+    },
+    "contact": {
+        "title": "Contact Us"
+    },
+    "dashboard": {
+        "title": "Dashboard",
+        "description": "Your personal dashboard"
+    }
+  },
+  "buttons": {
+    "login": "Login",
+    "logout": "Log out",
+    "signup": "Sign Up",
+    "forgotPassword": "Forgot Password?",
+    "resetPassword": "Reset Password",
+    "changePassword": "Change Password",
+    "register": "Register",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "theme": {
+    "title": "Theme",
+    "description": "Choose your preferred theme",
+    "light": "Light Mode",
+    "dark": "Dark Mode",
+    "system": "System Default"
+  },
+  "roles": {
+    "admin": "Administrator",
+    "user": "User",
+    "guest": "Guest",
+    "coach": "Coach"
+  }
+}

@@ -10,6 +10,7 @@ import { useAuth } from "./AuthContext";
 import { createContext, useContext, useState, useEffect } from "react";
 import { toast } from "sonner";
 import { useTheme } from "@/components/theme/theme-provider";
+import i18n from "@/lib/i18n";
 
 export interface SettingContext {
   setting: Setting;
@@ -62,6 +63,8 @@ export function SettingProvider({ children }: { children: React.ReactNode }) {
   };
 
   const handleChangeLanguage = (newLanguage: Language) => {
+    i18n.changeLanguage(newLanguage.toLowerCase());
+    localStorage.setItem("language", newLanguage.toLowerCase());
     setSetting((prev) => ({ ...prev, language: newLanguage }));
   };
 

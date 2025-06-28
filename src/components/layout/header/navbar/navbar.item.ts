@@ -16,27 +16,27 @@ export interface NavItems {
 
 export const aboutItems: NavItem[] = [
   {
-    title: "Our Team",
+    title: "nav.about.team.title",
     href: "/about/team",
-    description: "Meet the amazing people behind our success"
+    description: "nav.about.team.description"
   },
   {
-    title: "Our Story",
+    title: "nav.about.story.title",
     href: "/about/story",
-    description: "Learn about our journey and mission"
+    description: "nav.about.story.description"
   },
 ]
 
 export const leaderboardItems: NavItem[] = [
   {
-    title: "Global Rankings",
+    title: "nav.leaderboard.global.title",
     href: "/leaderboard",
-    description: "See top performers worldwide"
+    description: "nav.leaderboard.global.description"
   },
   {
-    title: "Hall of Fame",
+    title: "nav.leaderboard.hallOfFame.title",
     href: "/leaderboard/hall-of-fame",
-    description: "All-time greatest performances"
+    description: "nav.leaderboard.hallOfFame.description"
   }
 ]
 
@@ -50,47 +50,48 @@ export type NavigationType = {
 
 export const mainNav: NavigationType[] = [
   {
-    title: "Profile",
+    title: "nav.profile.title",
     href: "/profile",
     requireAuth: true,
   },
   {
-    title: "Settings",
-    href: "/setting",
+    title: "nav.settings.title",
+    href: "/settings",
     requireAuth: true,
   },
   {
-    title: "Home",
+    title: "nav.home.title",
     href: "/",
   },
   {
-    title: "Pricing",
+    title: "nav.pricing.title",
     href: "/pricing",
+    description: "nav.pricing.description",
   },
   {
-    title: "Blog",
+    title: "nav.blog.title",
     href: "/blog",
-    description: "News, articles, and resources",
+    description: "nav.blog.description",
   },
   {
-    title: "Leaderboard",
+    title: "nav.leaderboard.title",
     href: "/leaderboard",
-    description: "Explore top rankings and achievements",
+    description: "nav.leaderboard.description",
     items: leaderboardItems
   },
   {
-    title: "Community",
+    title: "nav.community.title",
     href: "/community",
-    description: "Connect with other members",
+    description: "nav.community.description",
   },
   {
-    title: "About Us",
-    href: "/about",
-    description: "Learn more about our company",
+    title: "nav.about.title",
+    href: "/about-us",
+    description: "nav.about.description",
     items: aboutItems
   },
   {
-    title: "Contact",
+    title: "nav.contact.title",
     href: "/contact",
   },
 ]

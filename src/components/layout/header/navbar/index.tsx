@@ -7,8 +7,10 @@ import { ModeToggle } from "@/components/theme/theme-toggle";
 import Logo from "../Logo";
 import { UserNav } from "./UserNav";
 import { useAuth } from "@/contexts/AuthContext";
+import { useTranslation } from "react-i18next";
 
 const Navbar = () => {
+  const { t } = useTranslation();
   const { auth } = useAuth();
 
   return (
@@ -32,10 +34,10 @@ const Navbar = () => {
                   asChild
                   className="hidden lg:inline-flex"
                 >
-                  <Link to="/auth/login">Login</Link>
+                  <Link to="/auth/login">{t(`buttons.login`)}</Link>
                 </Button>
                 <Button size="sm" asChild>
-                  <Link to="/auth/register">Sign Up</Link>
+                  <Link to="/auth/register">{t(`buttons.signup`)}</Link>
                 </Button>
                 <div className="hidden lg:flex">
                   <ModeToggle />

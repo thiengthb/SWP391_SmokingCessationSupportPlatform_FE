@@ -1,0 +1,92 @@
+{
+  "welcome": "Xin chào!",
+  "nav": {
+    "menu": {
+      "title": "Menu",
+      "description": "Khám phá các tính năng và phần của chúng tôi"
+    },
+    "toggleMenu": {
+      "title": "Menu",
+      "description": "Mở hoặc đóng menu điều hướng"
+    },
+    "profile": {
+      "title": "Hồ sơ"
+    },
+    "settings": {
+      "title": "Cài đặt"
+    },
+    "home": {
+      "title": "Trang chủ"
+    },
+    "pricing": {
+        "title": "Giá cả",
+        "description": "Khám phá các gói và tùy chọn giá của chúng tôi"
+    },
+    "blog": {
+        "title": "Blog",
+        "description": "Tin tức, bài viết và tài nguyên"
+    },
+    "leaderboard": {
+        "title": "Xếp hạng",
+        "description": "Khám phá các xếp hạng và thành tích hàng đầu",
+        "global": {
+            "title": "Xếp hạng toàn cầu",
+            "href": "/leaderboard/global",
+            "description": "Xem những người xuất sắc nhất trên toàn thế giới"
+        },
+        "hallOfFame": {
+            "title": "Ngôi đền danh vọng",
+            "href": "/leaderboard/hall-of-fame",
+            "description": "Những thành tích vĩ đại nhất mọi thời đại"
+        }
+    },
+    "community": {
+        "title": "Cộng đồng",
+        "description": "Kết nối với các thành viên khác"
+    },
+    "about": {
+        "title": "Chúng tôi",
+        "description": "Tìm hiểu thêm về sứ mệnh và đội ngũ của chúng tôi",
+        "team": {
+            "title": "Đội ngũ của chúng tôi",
+            "description": "Gặp gỡ những người đứng sau nền tảng của chúng tôi"
+        },
+        "story": {
+            "title": "Câu chuyện của chúng tôi",
+            "description": "Khám phá hành trình và giá trị của chúng tôi"
+        }
+    },
+    "contact": {
+      "title": "Liên hệ"
+    },
+    "dashboard": {
+      "title": "Bảng điều khiển",
+      "description": "Bảng điều khiển cá nhân của bạn"
+    }
+  },
+  "buttons": {
+    "login": "Đăng nhập",
+    "logout": "Đăng xuất",
+    "signup": "Đăng ký",
+    "forgotPassword": "Quên mật khẩu?",
+    "resetPassword": "Đặt lại mật khẩu",
+    "register": "Đăng ký",
+    "submit": "Gửi",
+    "cancel": "Hủy",
+    "save": "Lưu",
+    "edit": "Chỉnh sửa",
+    "delete": "Xóa"
+  },
+    "theme": {
+        "title": "Chủ đề",
+        "light": "Sáng",
+        "dark": "Tối",
+        "system": "Hệ thống"
+    },
+    "roles": {
+        "admin": "Quản trị viên",
+        "user": "Người dùng",
+        "guest": "Khách",
+        "coach": "Huấn luyện viên"
+    }
+}

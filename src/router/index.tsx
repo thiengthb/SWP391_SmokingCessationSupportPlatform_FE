@@ -97,7 +97,7 @@ const router = createBrowserRouter([
             children: [{ path: "dashboard", element: <MemberDashboard /> }],
           },
           {
-            path: "setting",
+            path: "settings",
             element: (
               <RequireAuth
                 allowedRoles={[Role.ADMIN, Role.MEMBER, Role.COACH]}
