@@ -68,6 +68,13 @@ export function UserNav() {
               Setting
             </Link>
           </DropdownMenuItem>
+          {auth.currentUser?.role !== "ADMIN" && (
+            <DropdownMenuItem>
+              <Link to="/feedback" className="w-full">
+                Feedback
+              </Link>
+            </DropdownMenuItem>
+          )}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={submitLogout}>Log out</DropdownMenuItem>
