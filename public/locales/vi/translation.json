@@ -345,6 +345,50 @@
           }
         }
       }
+    },
+    "leaderboard": {
+      "title": "Bảng Xếp Hạng",
+      "description": "Những người đạt thành tích cao trong hành trình bỏ thuốc",
+
+      "tabs": {
+        "global": "Bảng Xếp Hạng Toàn Cầu",
+        "monthly": "Người Dẫn Đầu Tháng"
+      },
+
+      "filter": {
+        "placeholder": "Lọc theo",
+        "all": "Tất cả thời gian",
+        "week": "Tuần này",
+        "month": "Tháng này",
+        "year": "Năm nay"
+      },
+
+      "period": {
+        "placeholder": "Chọn tháng",
+        "current": "Tháng hiện tại",
+        "last": "Tháng trước",
+        "previous": "Các tháng trước"
+      },
+
+      "global": {
+        "title": "Nhà Vô Địch Toàn Cầu",
+        "description": "Cập nhật theo thời gian thực"
+      },
+
+      "monthly": {
+        "title": "Nhà Vô Địch Tháng",
+        "description": "Bảng xếp hạng được đặt lại mỗi tháng"
+      },
+
+      "hallOfFame": {
+        "title": "Vinh Danh Thành Tích",
+        "subtitle": "Tôn vinh những người xuất sắc nhất",
+        "button": "Vinh Danh"
+      },
+
+      "yourRanking": "Xếp Hạng Của Bạn",
+      "daysSmokeFree": "{{count}} ngày không hút thuốc",
+      "points": "điểm"
     }
   }
 }
