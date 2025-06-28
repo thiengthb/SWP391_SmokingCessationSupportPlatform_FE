@@ -4,34 +4,86 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Users, Send } from "lucide-react";
-import { onlineUsers, chatMessages } from "@/utils/mockdata/community";
 import { ChatMessage } from "./components/ChatMessage";
 import { OnlineUser } from "./components/OnlineUser";
+import { useWebSocket } from "@/contexts/WebSocketContext";
+import { useAuth } from "@/contexts/AuthContext";
+import type { ChatMessage as ChatMessageType } from "@/types/community/chat";
+import type { User } from "@/types/community/user";
+import useApi from "@/hooks/useApi";
+
 import { useTranslation } from "react-i18next";
 
 export default function CommunityPage() {
   const { t } = useTranslation();
   const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState(chatMessages);
+  const [messages, setMessages] = useState<ChatMessageType[]>([]);
+  const [onlineUsers, setOnlineUsers] = useState<User[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { sendMessage, subscribeToTopic } = useWebSocket();
+  const { auth } = useAuth();
+
+  const apiWithInterceptor = useApi();
+
+
+  useEffect(() => {
+    const fetchOnlineUsers = async () => {
+      try {
+        const response = await apiWithInterceptor.get("/v1/accounts/online-users");
+        const data = response.data;
+
+        if (Array.isArray(data.result)) {
+          setOnlineUsers(data.result);
+        } else if (Array.isArray(data.users.result)) {
+          setOnlineUsers(data.users.result);
+        } else {
+          console.error("Unexpected online users format:", data);
+          setOnlineUsers([]); // Fallback to empty array
+        }
+
+      } catch (error) {
+        console.error("Failed to fetch online users", error);
+      }
+    };
+
+    fetchOnlineUsers();
+  }, []);
+
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  useEffect(() => {
+  const unsubscribe = subscribeToTopic("/topic/public", (body) => {
+    try {
+      const newMessage: ChatMessageType = JSON.parse(body);
+      setMessages((prev) => [...prev, newMessage]);
+    } catch (err) {
+      console.error("Failed to parse chat message", err);
+    }
+  });
+
+  return () => {
+    if (typeof unsubscribe === "function") {
+      unsubscribe();
+    }
+  };
+}, [subscribeToTopic]);
+
+
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
     if (!message.trim()) return;
 
-    const newMessage = {
-      id: Date.now().toString(),
+    const chatMessage = {
+      accountId: auth.currentUser?.id,
       content: message,
-      author: onlineUsers[0], // Current user
-      timestamp: new Date().toISOString(),
     };
 
-    setMessages([...messages, newMessage]);
-    setMessage("");
+    console.log("Sending message:", chatMessage);
+    sendMessage("/app/chat/send", JSON.stringify(chatMessage));
+    setMessage("")
   };
 
   return (
