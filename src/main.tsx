@@ -5,6 +5,8 @@ import { ThemeProvider } from "./components/theme/theme-provider.tsx";
 import { AuthProvider } from "./contexts/AuthContext.tsx";
 import { disableReactDevTools } from "@fvilers/disable-react-devtools";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { WebSocketProvider } from './context/WebSocketContext';
+import { Toaster } from "@/components/ui/sonner";
 import ReduxProvider from "./redux/provider/Provider.tsx";
 import router from "./router/index.tsx";
 import "./index.css";
