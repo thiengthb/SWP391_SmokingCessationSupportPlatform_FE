@@ -3,38 +3,38 @@ export const clients = [
     name: "John Doe",
     progress: 75,
     lastSession: "2024-03-15",
-    status: "active",
+    status: "page.coachdashboard.clientTabs.status.active",
   },
   {
     name: "Jane Smith",
     progress: 45,
     lastSession: "2024-03-14",
-    status: "at-risk",
+    status: "page.coachdashboard.clientTabs.status.atRisk",
   },
   // Add more clients...
 ];
 
 export const clientStats = [
   {
-    title: "Active Clients",
+    title: "page.coachdashboard.clientStats.activeClients",
     value: "28",
     change: "+2",
     changeType: "increase",
   },
   {
-    title: "Success Rate",
+    title: "page.coachdashboard.clientStats.successRate",
     value: "82%",
     change: "+5%",
     changeType: "increase",
   },
   {
-    title: "Sessions Today",
+    title: "page.coachdashboard.clientStats.sessionsToday",
     value: "5",
     change: "0",
     changeType: "neutral",
   },
   {
-    title: "Open Chats",
+    title: "page.coachdashboard.clientStats.openChats",
     value: "12",
     change: "-3",
     changeType: "decrease",

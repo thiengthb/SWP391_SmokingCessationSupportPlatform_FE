@@ -579,6 +579,50 @@
           }
         }
       }
+    },
+    "coachdashboard": {
+      "title": "Bảng Điều Khiển Huấn Luyện Viên",
+      "lastmonth": "so với tháng trước",
+      "clientOverview": "Tổng quan tiến độ khách hàng",
+      "tabs": {
+        "overview": "Tổng quan",
+        "clients": "Khách hàng",
+        "schedule": "Lịch trình"
+      },
+      "clientStats": {
+        "activeClients": "Khách đang hoạt động",
+        "successRate": "Tỷ lệ thành công",
+        "sessionsToday": "Buổi hôm nay",
+        "openChats": "Tin nhắn đang mở",
+        "changeType": {
+          "increase": "Tăng",
+          "decrease": "Giảm",
+          "neutral": "Không đổi"
+        }
+      },
+      "clientTabs": {
+        "status": {
+          "active": "Đang hoạt động",
+          "atRisk": "có rủi ro"
+        }
+      },
+      "clients": {
+        "searchPlaceholder": "Tìm kiếm khách hàng...",
+        "addClient": "Thêm khách hàng",
+        "activeClients": "Khách hàng đang hoạt động",
+        "table": {
+          "name": "Tên",
+          "progress": "Tiến trình",
+          "lastSession": "Buổi gần nhất",
+          "status": "Trạng thái",
+          "actions": "Hành động"
+        }
+      },
+      "schedule": {
+        "title": "Lịch hẹn",
+        "noDateSelected": "Chưa chọn ngày",
+        "noAppointments": "Không có lịch hẹn nào cho ngày này"
+      }
     }
   }
 }

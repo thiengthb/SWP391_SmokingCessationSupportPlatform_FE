@@ -2,8 +2,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip } from "recharts";
 import { clientStats, clientProgress } from "@/utils/mockdata/coach";
 import { ArrowDownIcon, ArrowRightIcon, ArrowUpIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export function OverviewTab() {
+  const { t } = useTranslation();
   const getChangeIcon = (type: string) => {
     switch (type) {
       case 'increase':
@@ -21,13 +23,13 @@ export function OverviewTab() {
         {clientStats.map((stat) => (
           <Card key={stat.title}>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium">{stat.title}</CardTitle>
-              {getChangeIcon(stat.changeType)}
+              <CardTitle className="text-sm font-medium">{t(stat.title)}</CardTitle>
+              {getChangeIcon(t(stat.changeType))}
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{stat.value}</div>
               <p className="text-xs text-muted-foreground">
-                {stat.change} from last month
+                {stat.change} {t("page.coachdashboard.lastmonth")}
               </p>
             </CardContent>
           </Card>
@@ -36,7 +38,7 @@ export function OverviewTab() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Client Progress Overview</CardTitle>
+          <CardTitle>{t("page.coachdashboard.clientOverview")}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="h-[300px]">

@@ -6,8 +6,10 @@ import { Clock, Video, CalendarDays } from "lucide-react";
 import { useState } from "react";
 import { format } from "date-fns";
 import { appointments } from "@/utils/mockdata/coach";
+import { useTranslation } from "react-i18next";
 
 export function ScheduleTab() {
+  const { t } = useTranslation();
   const [date, setDate] = useState<Date | undefined>(new Date());
 
   const selectedDayAppointments = appointments.find(
@@ -19,7 +21,7 @@ export function ScheduleTab() {
       <div className="flex flex-col items-center space-y-4">
         <div className="flex items-center gap-2 text-lg font-semibold">
           <CalendarDays className="h-5 w-5" />
-          Schedule
+          {t("page.coachdashboard.schedule.title")}
         </div>
         <Calendar
           mode="single"
@@ -48,7 +50,9 @@ export function ScheduleTab() {
         <Card>
           <CardHeader>
             <CardTitle>
-              {date ? format(date, "MMMM d, yyyy") : "No date selected"}
+              {date
+                ? format(date, "MMMM d, yyyy")
+                : t("page.coachdashboard.schedule.noDateSelected")}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -81,7 +85,7 @@ export function ScheduleTab() {
               ))
             ) : (
               <p className="text-center text-muted-foreground">
-                No appointments scheduled for this day
+                {t("page.coachdashboard.schedule.noAppointments")}
               </p>
             )}
           </CardContent>
