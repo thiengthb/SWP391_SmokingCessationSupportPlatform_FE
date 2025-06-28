@@ -149,6 +149,29 @@
       "text2": "Join our community and take the first step towards a healthier, smoke-free life.",
       "buttonStartNow": "Get Started Now",
       "buttonRead": "Read Success Stories"
+    },
+    "contact": {
+      "title": "Contact Us",
+      "description": "We'd love to hear from you. Send us a message and we'll respond as soon as possible.",
+      "form": {
+        "name": "Name",
+        "subject": "Subject",
+        "message": "Message",
+        "placeholderName": "Your Name",
+        "placeholderSubject": "Subject of your message",
+        "placeholderMessage": "Type your message here...",
+        "submit": "Send Message",
+        "sending": "Sending...",
+        "success": "Message sent successfully!"
+      },
+      "getInTouch": "Get in Touch",
+      "info": {
+        "email": "Email",
+        "phone": "Phone",
+        "address": "Address",
+        "social": "Social Media",
+        "followUs": "Follow us on our social media channels for updates and support."
+      }
     }
   }
 }
