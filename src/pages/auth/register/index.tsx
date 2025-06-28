@@ -19,8 +19,10 @@ import {
 import FormInputError from "@/components/FormInputError";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { api } from "@/lib/axios";
+import { useTranslation } from "react-i18next";
 
 const RegisterPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/auth/waiting-for-approval";
@@ -60,10 +62,8 @@ const RegisterPage = () => {
     <div className="w-full my-10 sm:my-16 lg:my-16 2xl:my-40 flex justify-center items-center">
       <Card className="w-[360px] lg:w-[400px] xl:w-[440px] mx-2 pb-10">
         <CardHeader>
-          <CardTitle>Create an account</CardTitle>
-          <CardDescription>
-            Enter your information to create your account
-          </CardDescription>
+          <CardTitle>{t("page.register.title")}</CardTitle>
+          <CardDescription>{t("page.register.description")}</CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent className="grid gap-4">
@@ -78,21 +78,25 @@ const RegisterPage = () => {
               <FormInputError field={errors.email} />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">
+                {t("page.register.form.password")}
+              </Label>
               <Input
                 id="password"
                 type="password"
-                placeholder="Enter your password"
+                placeholder={t("page.register.placeholderConfirm")}
                 {...register("password")}
               />
               <FormInputError field={errors.password} />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="confirm-password">Confirm Password</Label>
+              <Label htmlFor="confirm-password">
+                {t("page.register.form.confirmPassword")}
+              </Label>
               <Input
                 id="confirm-password"
                 type="password"
-                placeholder="Re-enter your password"
+                placeholder={t("page.register.placeholderConfirm")}
                 {...register("confirmPassword")}
               />
               <FormInputError field={errors.confirmPassword} />
@@ -105,16 +109,20 @@ const RegisterPage = () => {
                 disabled={isSubmitting}
                 className="w-full mt-8"
               >
-                {isSubmitting ? "Loading..." : "Sign Up"}
+                {isSubmitting
+                  ? t("page.register.loading")
+                  : t("page.register.signUp")}
               </Button>
               <div className="flex items-center gap-2">
-                <span className="text-sm">Already have an account?</span>
+                <span className="text-sm">
+                  {t("page.register.haveAccount")}
+                </span>
                 <Button variant="link" className="px-0">
                   <Link
                     to="/auth/login"
                     className="text-sm text-muted-foreground hover:text-primary"
                   >
-                    Login
+                    {t("page.register.login")}
                   </Link>
                 </Button>
               </div>

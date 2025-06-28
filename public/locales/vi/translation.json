@@ -197,6 +197,41 @@
       "getInTouchTitle": "Liên hệ với chúng tôi",
       "getInTouchDescription": "Bạn có câu hỏi? Chúng tôi rất vui khi được lắng nghe. Gửi tin nhắn và chúng tôi sẽ phản hồi sớm nhất.",
       "buttonContact": "Liên hệ"
+    },
+    "forgotPassword": {
+      "title": "Quên mật khẩu",
+      "description": "Nhập địa chỉ email của bạn và chúng tôi sẽ gửi liên kết đặt lại mật khẩu.",
+      "buttonSend": "Gửi liên kết",
+      "backToLogin": "Quay lại đăng nhập"
+    },
+    "login": {
+      "title": "Chào mừng trở lại",
+      "description": "Nhập thông tin đăng nhập để truy cập tài khoản",
+      "placeholderEmail": "example@gmail.com",
+      "placeholderPassword": "Nhập mật khẩu của bạn",
+      "rememberMe": "Ghi nhớ tôi",
+      "forgotPassword": "Quên mật khẩu?",
+      "signingIn": "Đang đăng nhập...",
+      "signIn": "Đăng nhập",
+      "noAccount": "Bạn chưa có tài khoản?",
+      "signUp": "Đăng ký",
+      "form": {
+        "password": "Mật khẩu"
+      }
+    },
+    "register": {
+      "title": "Tạo tài khoản",
+      "description": "Nhập thông tin để tạo tài khoản của bạn",
+      "placeholderPassword": "Nhập mật khẩu của bạn",
+      "placeholderConfirm": "Nhập lại mật khẩu",
+      "loading": "Đang xử lý...",
+      "signUp": "Đăng ký",
+      "haveAccount": "Bạn đã có tài khoản?",
+      "login": "Đăng nhập",
+      "form": {
+        "password": "Mật khẩu",
+        "confirmPassword": "Xác nhận mật khẩu"
+      }
     }
   }
 }
