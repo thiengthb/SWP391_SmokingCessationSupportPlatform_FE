@@ -6,7 +6,7 @@ import type { FTNDQuestion } from "./ftndData";
 
 interface RenderQuestionInputProps {
   currentQuestionData: FTNDQuestion;
-  currentAnswer: number | undefined;
+  currentAnswer: number | string | undefined;
   handleAnswer: (value: number | string) => void;
 }
 

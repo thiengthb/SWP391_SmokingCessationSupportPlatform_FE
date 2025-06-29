@@ -58,7 +58,7 @@ export const ftndQuestions: FTNDQuestion[] = [
       { value: 0, label: "No" },
     ],
   },
-    {
+  {
     id: 6,
     name: "cigarettesPerDay",
     question: "On average, how many cigarettes do you smoke per day?",
@@ -106,4 +106,16 @@ export const ftndLevels = [
   { level: 3, description: "High dependence", advice: "Strongly consider quitting" },
   { level: 4, description: "Very high dependence", advice: "Immediate action recommended" },
 ];
+
+export const calculateScoreFromCirgettesPerDay = (cigarettesPerDay: number): number => {
+  if (cigarettesPerDay <= 10) {
+    return 0;
+  } else if (cigarettesPerDay <= 20) {
+    return 1;
+  } else if (cigarettesPerDay <= 30) {
+    return 2;
+  } else {
+    return 3;
+  }
+}
 

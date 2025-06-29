@@ -10,10 +10,10 @@ const GoogleButton = () => {
   const from = location.state?.from?.pathname || "/";
 
   const handleGoogleLogin = async (credentialResponse: CredentialResponse) => {
-    const idToken = credentialResponse.credential;
+    const token = credentialResponse.credential;
     try {
       const response = await api.post("/v1/auth/google/login", {
-        idToken,
+        token,
       });
       setAuth({
         isAuthenticated: true,

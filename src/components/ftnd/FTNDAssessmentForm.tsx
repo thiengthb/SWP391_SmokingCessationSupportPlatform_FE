@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { api } from "@/lib/axios";
 import { toast } from "sonner";
-import { ftndQuestions } from "./ftndData";
+import { calculateScoreFromCirgettesPerDay, ftndQuestions } from "./ftndData";
 import RenderQuestionInput from "./RenderQuestionInput";
 import { defaultHealthValue, type HealthCreateRequest } from "@/types/health";
 
@@ -25,7 +25,9 @@ export function FTNDAssessmentForm({
   onOpenChange,
 }: FTNDAssessmentFormProps) {
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [answers, setAnswers] = useState<Record<number, number>>({});
+  const [answers, setAnswers] = useState<
+    Record<number | string, number | string>
+  >({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [healthInfo, setHealthInfo] =
     useState<HealthCreateRequest>(defaultHealthValue);
@@ -33,14 +35,15 @@ export function FTNDAssessmentForm({
   const handleAnswer = (value: number | string) => {
     setAnswers((prev) => ({
       ...prev,
-      [ftndQuestions[currentQuestion].id]: Number(value),
+      [ftndQuestions[currentQuestion].id]: value,
     }));
 
-    if (currentQuestion >= 6)
+    if (currentQuestion >= 5) {
       setHealthInfo((prev) => ({
         ...prev,
         [ftndQuestions[currentQuestion].name]: value,
       }));
+    }
   };
 
   const handleNext = () => {
@@ -60,15 +63,26 @@ export function FTNDAssessmentForm({
   const handleSubmit = async () => {
     setIsSubmitting(true);
     try {
-      const totalScore = Object.values(answers).reduce(
-        (sum, score) => sum + score,
-        0
-      );
+      let result = 0;
+      for (let i = 1; i <= currentQuestion; i++) {
+        if (i >= 7) break;
+        if (i === 6)
+          result += calculateScoreFromCirgettesPerDay(answers[i] as number);
+        else result += answers[i] as number;
+        console.log("Calculating FTND level for question:", result);
+      }
 
-      await api.post("/v1/healths", { ...healthInfo });
+      const updatedHealthInfo = {
+        ...healthInfo,
+        ftndLevel: result,
+      };
+
+      console.log("Submitting health info:", updatedHealthInfo.ftndLevel);
+
+      await api.post("/v1/healths", updatedHealthInfo);
 
       toast.success("Assessment Completed", {
-        description: `Thank you for completing the assessment. Your nicotine dependence score is ${totalScore}.`,
+        description: `Thank you for completing the assessment. Your nicotine dependence score is ${updatedHealthInfo.ftndLevel}.`,
       });
 
       onOpenChange(false);
@@ -133,6 +147,7 @@ export function FTNDAssessmentForm({
             disabled={
               (currentQuestionData.type !== "number" &&
                 currentAnswer === undefined) ||
+              currentAnswer === 0 ||
               isSubmitting
             }
             onClick={handleNext}
