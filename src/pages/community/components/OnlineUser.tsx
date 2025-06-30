@@ -19,7 +19,7 @@ export function OnlineUser({ user }: OnlineUserProps) {
     <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted/50">
       <div className="relative">
         <Avatar className="h-8 w-8">
-          <AvatarImage src={user.avatar} alt={user.username} />
+          <AvatarImage src={user.avatar} alt={user.name} />
           <AvatarFallback>{initials}</AvatarFallback>
         </Avatar>
         <span className={cn(
@@ -28,9 +28,9 @@ export function OnlineUser({ user }: OnlineUserProps) {
         )} />
       </div>
       <div className="flex flex-col">
-        <span className="text-sm font-medium leading-none">{user.username}</span>
+        <span className="text-sm font-medium leading-none">{user.name}</span>
         <span className="text-xs text-muted-foreground">
-          {user.status === "ONLINE" ? "Active now" : "Away"}
+          {t(user.status === "ONLINE" ? "page.community.activeNow" : "page.community.away")}
         </span>
       </div>
     </div>

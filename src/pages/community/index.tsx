@@ -12,6 +12,11 @@ import type { User } from "@/types/community/user";
 import useApi from "@/hooks/useApi";
 
 import { useTranslation } from "react-i18next";
+import { useWebSocket } from "@/contexts/WebSocketContext";
+import { useAuth } from "@/contexts/AuthContext";
+import type { ChatMessage as ChatMessageType } from "@/types/community/chat";
+import type { User } from "@/types/community/user";
+import useApi from "@/hooks/useApi";
 
 export default function CommunityPage() {
   const { t } = useTranslation();
