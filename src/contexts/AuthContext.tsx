@@ -37,6 +37,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const response = await api.post("/v1/auth/login", formData);
       const { user, accessToken } = response.data.result;
 
+      console.log("Login successful:", user);
+
       setAuth({
         isAuthenticated: true,
         currentUser: user,

@@ -14,6 +14,7 @@ import { toast } from "sonner";
 import { calculateScoreFromCirgettesPerDay, ftndQuestions } from "./ftndData";
 import RenderQuestionInput from "./RenderQuestionInput";
 import { defaultHealthValue, type HealthCreateRequest } from "@/types/health";
+import { ResultForm } from "./ResultForm";
 
 interface FTNDAssessmentFormProps {
   open: boolean;
@@ -31,6 +32,8 @@ export function FTNDAssessmentForm({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [healthInfo, setHealthInfo] =
     useState<HealthCreateRequest>(defaultHealthValue);
+  const [showCompletionDialog, setShowCompletionDialog] = useState(false);
+  const [ftndScore, setFtndScore] = useState(0);
 
   const handleAnswer = (value: number | string) => {
     setAnswers((prev) => ({
@@ -69,7 +72,6 @@ export function FTNDAssessmentForm({
         if (i === 6)
           result += calculateScoreFromCirgettesPerDay(answers[i] as number);
         else result += answers[i] as number;
-        console.log("Calculating FTND level for question:", result);
       }
 
       const updatedHealthInfo = {
@@ -77,15 +79,10 @@ export function FTNDAssessmentForm({
         ftndLevel: result,
       };
 
-      console.log("Submitting health info:", updatedHealthInfo.ftndLevel);
-
       await api.post("/v1/healths", updatedHealthInfo);
 
-      toast.success("Assessment Completed", {
-        description: `Thank you for completing the assessment. Your nicotine dependence score is ${updatedHealthInfo.ftndLevel}.`,
-      });
-
-      onOpenChange(false);
+      setFtndScore(result);
+      setShowCompletionDialog(true);
     } catch (error) {
       console.error("Error submitting FTND assessment:", error);
       toast.error("Error", {
@@ -100,6 +97,25 @@ export function FTNDAssessmentForm({
   const progress = ((currentQuestion + 1) / ftndQuestions.length) * 100;
   const currentQuestionData = ftndQuestions[currentQuestion];
   const currentAnswer = answers[currentQuestionData.id];
+
+  if (showCompletionDialog) {
+    return (
+      <ResultForm
+        open={showCompletionDialog}
+        ftndScore={ftndScore}
+        onOpenChange={(open) => {
+          setShowCompletionDialog(open);
+          if (!open) {
+            onOpenChange(false);
+          } else {
+            setCurrentQuestion(0);
+            setAnswers({});
+            setHealthInfo(defaultHealthValue);
+          }
+        }}
+      />
+    );
+  }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

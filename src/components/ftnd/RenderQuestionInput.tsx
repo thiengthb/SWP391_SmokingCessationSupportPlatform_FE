@@ -48,7 +48,7 @@ export const RenderQuestionInput: React.FC<RenderQuestionInputProps> = ({
         onValueChange={(value) => handleAnswer(Number(value))}
         className="space-y-3"
       >
-        {currentQuestionData.options.map((option) => (
+        {currentQuestionData.options?.map((option) => (
           <div key={option.value} className="flex items-center space-x-2">
             <RadioGroupItem
               value={option.value.toString()}

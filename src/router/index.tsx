@@ -30,6 +30,7 @@ import PricingPage from "@/pages/pricing";
 import CigaretteTracker from "@/pages/cigarette-tracker";
 import CigaretteHealthInfo from "@/pages/cigarette-tracker/info";
 import WaitingForApprovalPage from "@/pages/waiting-for-approval";
+import PaymentResult from "@/pages/payment/PaymentResult";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,7 @@ const router = createBrowserRouter([
           { path: "waiting-for-approval", element: <WaitingForApprovalPage /> },
         ],
       },
+      { path: "/payment", element: <PaymentResult /> },
       { path: "/access-denied", element: <AccessDenied /> },
       { path: "*", element: <NotFoundPage /> },
       {

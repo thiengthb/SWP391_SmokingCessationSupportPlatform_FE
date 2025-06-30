@@ -15,6 +15,7 @@ const GoogleButton = () => {
       const response = await api.post("/v1/auth/google/login", {
         token,
       });
+      console.log("Google login response:", response.data);
       setAuth({
         isAuthenticated: true,
         currentUser: response.data.user,
