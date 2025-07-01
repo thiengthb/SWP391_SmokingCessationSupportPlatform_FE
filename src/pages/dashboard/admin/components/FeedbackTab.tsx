@@ -36,7 +36,7 @@ export function FeedbackTab({
   feedbacks: Feedback[];
   page: number;
   size: number;
-  onRequestDelete?: (id: string) => void; // ✅ thêm prop này
+  onRequestDelete?: (id: string) => void;
 }) {
   const [selectedFeedback, setSelectedFeedback] = useState<Feedback | null>(
     null
