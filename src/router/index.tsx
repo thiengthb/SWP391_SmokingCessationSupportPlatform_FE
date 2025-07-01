@@ -56,9 +56,9 @@ const router = createBrowserRouter([
           { path: "", element: <App /> },
           { path: "contact", element: <ContactPage /> },
           {
-            path: "about",
-            element: <AboutPage />,
+            path: "about-us",
             children: [
+              { path: "", element: <AboutPage /> },
               { path: "team", element: <TeamPage /> },
               { path: "story", element: <StoryPage /> },
             ],

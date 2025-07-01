@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import MobileMenu from "./MobileMenu";
 import { NavigationItems } from "./NavigationItems";
-import { mainNav } from "./navbar.item";
 import { ModeToggle } from "@/components/theme/theme-toggle";
 import Logo from "../Logo";
 import { UserNav } from "./UserNav";
@@ -19,7 +18,7 @@ const Navbar = () => {
         <Logo />
         <div className="flex items-center justify-between md:gap-4 xl:gap-8 2xl:gap-12">
           <nav className="hidden md:flex">
-            <NavigationItems items={mainNav} />
+            <NavigationItems />
           </nav>
           <div className="hidden md:flex items-center gap-2">
             {auth.currentUser ? (
@@ -45,7 +44,7 @@ const Navbar = () => {
               </>
             )}
           </div>
-          <MobileMenu items={mainNav} />
+          <MobileMenu />
         </div>
       </div>
     </header>

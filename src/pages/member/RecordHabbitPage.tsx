@@ -5,16 +5,15 @@ import { useAuth } from "@/contexts/AuthContext";
 import { api } from "@/lib/axios";
 import { toast } from "sonner";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import QuitSmokingJourney from "@/pages/member/components/QuitSmokingJourney";
-import SmokingAchievements from "@/pages/member/components/SmokingAchievements";
-import TodayRecord from "@/pages/member/components/TodayRecord";
-import RecordCalendar from "@/pages/member/components/RecordCalendar";
-import RecordsList from "@/pages/member/components/RecordsList";
-import RecordDialog from "@/pages/member/components/RecordDialog";
+import QuitSmokingJourney from "@/pages/member/components/record/QuitSmokingJourney";
+import SmokingAchievements from "@/pages/member/components/record/SmokingAchievements";
+import TodayRecord from "@/pages/member/components/record/TodayRecord";
+import RecordCalendar from "@/pages/member/components/record/RecordCalendar";
+import RecordsList from "@/pages/member/components/record/RecordsList";
+import RecordDialog from "@/pages/member/components/record/RecordDialog";
 import type { SmokingRecord } from "@/types/recordhabbit";
 import { defaultPagination, type Pagination } from "@/types/pagination";
 import PlanTrackingTab from "./PlanTrackingTab";
-import { Other } from "./Other";
 const RecordHabbitPage = () => {
   const { auth } = useAuth();
   const { assessmentResults } = useFTND();
@@ -225,11 +224,16 @@ const RecordHabbitPage = () => {
       </h1>
 
       <Tabs defaultValue="overview" className="mb-6">
-        <TabsList className="grid grid-cols-4 mb-4">
+        <TabsList
+          className={`grid ${
+            auth.currentUser?.havingSubscription ? "grid-cols-3" : "grid-cols-2"
+          } mb-4`}
+        >
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="records">Smoking Records</TabsTrigger>
-          <TabsTrigger value="plans">Plan</TabsTrigger>
-          <TabsTrigger value="other">Other</TabsTrigger>
+          {auth.currentUser?.havingSubscription ?? (
+            <TabsTrigger value="plans">Plan</TabsTrigger>
+          )}
         </TabsList>
 
         <TabsContent value="overview">
@@ -276,9 +280,6 @@ const RecordHabbitPage = () => {
 
         <TabsContent value="plans">
           <PlanTrackingTab />
-        </TabsContent>
-        <TabsContent value="other">
-          <Other />
         </TabsContent>
       </Tabs>
 

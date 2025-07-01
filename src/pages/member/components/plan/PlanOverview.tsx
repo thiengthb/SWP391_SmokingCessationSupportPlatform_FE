@@ -83,8 +83,6 @@ export function PlanOverview({
   };
 
   const getStatusText = () => {
-    const today = new Date();
-
     if (isPast(plan.targetQuitDate) || isToday(plan.targetQuitDate)) {
       return "Đã đến ngày cai thuốc!";
     }
