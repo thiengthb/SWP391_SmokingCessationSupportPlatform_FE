@@ -31,7 +31,7 @@ export default function CommunityPage() {
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  const handleScroll = async() => {
+  const handleScroll = async () => {
     const element = scrollContainerRef.current;
     if (!element) return;
 
@@ -41,32 +41,32 @@ export default function CommunityPage() {
       const newPage = page + 1;
       try {
         const response = await apiWithInterceptor.get(`/v1/chats`, {
-          params: { 
-            page: newPage, 
+          params: {
+            page: newPage,
             size: PAGE_SIZE,
             sortBy: 'createdAt',
             direction: 'ASC'
           },
         });
         const newMessages: ChatMessageType[] = Array.isArray(response.data.result.content)
-      ? response.data.result.content : [];
-      console.log("Fetched messages:", newMessages);
-        if(newMessages.length > 0) {
+          ? response.data.result.content : [];
+        console.log("Fetched messages:", newMessages);
+        if (newMessages.length > 0) {
           setMessages((prev) => [...newMessages, ...prev]);
 
           requestAnimationFrame(() => {
-            if(scrollContainerRef.current) {
-            const newScrollHeight = scrollContainerRef.current?.scrollHeight;
-            scrollContainerRef.current.scrollTop = newScrollHeight - scrollHeight;
-          }
-        });
+            if (scrollContainerRef.current) {
+              const newScrollHeight = scrollContainerRef.current?.scrollHeight;
+              scrollContainerRef.current.scrollTop = newScrollHeight - scrollHeight;
+            }
+          });
           setPage(newPage);
         } else {
           setHasMore(false); // No more messages to load
         }
-      }catch (error) {
+      } catch (error) {
         console.error("Failed to fetch messages", error);
-        }
+      }
     }
   };
 
@@ -92,54 +92,65 @@ export default function CommunityPage() {
     };
 
     const loadInitialMessages = async () => {
-    try {
-      const response = await apiWithInterceptor.get("/v1/chats", {
-        params: {
-          page: 0,
-          size: PAGE_SIZE,
-          sortBy: "createdAt",
-          direction: "ASC",
-        },
-      });
+      try {
+        const response = await apiWithInterceptor.get("/v1/chats", {
+          params: {
+            page: 0,
+            size: PAGE_SIZE,
+            sortBy: "createdAt",
+            direction: "ASC",
+          },
+        });
 
-      const initialMessages: ChatMessageType[] = Array.isArray(response.data.result.content)
-      ? response.data.result.content : [];
-      setMessages(initialMessages);
-      setShouldScrollToBottom(true);
-    } catch (err) {
-      console.error("Failed to load initial messages", err);
-    }
-  };
+        const initialMessages: ChatMessageType[] = Array.isArray(response.data.result.content)
+          ? response.data.result.content : [];
+        setMessages(initialMessages);
+        setShouldScrollToBottom(true);
+      } catch (err) {
+        console.error("Failed to load initial messages", err);
+      }
+    };
 
-  loadInitialMessages();
+    loadInitialMessages();
 
     fetchOnlineUsers();
   }, []);
 
 
   useEffect(() => {
-  if (shouldScrollToBottom && scrollContainerRef.current) {
-    scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
-    setShouldScrollToBottom(false);
-  }
-}, [messages, shouldScrollToBottom]);
+    if (!scrollContainerRef.current) return;
+    if (!shouldScrollToBottom) return;
+
+    // Defer to next animation frame so message renders first
+    requestAnimationFrame(() => {
+      scrollContainerRef.current?.scrollTo({
+        top: scrollContainerRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+      setShouldScrollToBottom(false);
+    });
+  }, [messages, shouldScrollToBottom]);
 
   useEffect(() => {
-  const unsubscribe = subscribeToTopic("/topic/public", (body) => {
-    try {
-      const newMessage: ChatMessageType = JSON.parse(body);
-      setMessages((prev) => [...prev, newMessage]);
-    } catch (err) {
-      console.error("Failed to parse chat message", err);
-    }
-  });
+    const unsubscribe = subscribeToTopic("/topic/public", (body) => {
+      try {
+        const newMessage: ChatMessageType = JSON.parse(body);
+        setMessages((prev) => [...prev, newMessage]);
 
-  return () => {
-    if (typeof unsubscribe === "function") {
-      unsubscribe();
-    }
-  };
-}, [subscribeToTopic]);
+        if (newMessage.author.id === auth.currentUser?.id) {
+          setShouldScrollToBottom(true);
+        }
+      } catch (err) {
+        console.error("Failed to parse chat message", err);
+      }
+    });
+
+    return () => {
+      if (typeof unsubscribe === "function") {
+        unsubscribe();
+      }
+    };
+  }, [subscribeToTopic]);
 
 
   const handleSendMessage = (e: React.FormEvent) => {
@@ -169,12 +180,12 @@ export default function CommunityPage() {
       <div className="grid lg:grid-cols-[1fr_250px] gap-8">
         <Card className="p-4">
           <div className="flex flex-col h-[60vh]">
-            <div className="flex-1 overflow-y-auto space-y-4 pr-2" 
-              ref={scrollContainerRef} 
+            <div className="flex-1 overflow-y-auto space-y-4 pr-2 scrollbar-hidden"
+              ref={scrollContainerRef}
               onScroll={handleScroll}>
-            {messages.map((msg) => (
-                <ChatMessage key={msg.id} message={msg} />
-            ))}
+              {messages.map((msg) => (
+                <ChatMessage key={msg.id} message={msg} isOwnMessage={msg.author.id === auth.currentUser?.id} />
+              ))}
               <div ref={scrollRef} />
             </div>
 

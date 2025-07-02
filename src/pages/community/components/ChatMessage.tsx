@@ -1,40 +1,63 @@
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import type { ChatMessage } from "@/types/community/chat";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 interface ChatMessageProps {
   message: ChatMessage;
+  isOwnMessage?: boolean;
 }
 
-export function ChatMessage({ message }: ChatMessageProps) {
-  const initials = message.author.name
+export function ChatMessage({ message, isOwnMessage = false }: ChatMessageProps) {
+  const initials = message.author.username
     .split(' ')
     .map(n => n[0])
     .join('')
     .toUpperCase();
 
   return (
-    <div className={cn(
-      "flex items-start gap-2 p-2 rounded bg-muted/50"
-    )}>
+    <div className="flex gap-2 items-start animate-in slide-in-from-bottom-2">
       {
-        <Avatar>
-          <AvatarImage src={message.author.avatar} alt={message.author.name} />
-          <AvatarFallback>{initials}</AvatarFallback>
-        </Avatar>
+        !isOwnMessage && <Tooltip>
+          <TooltipTrigger><Avatar>
+            <AvatarImage src={message.author.avatar} alt={message.author.username} />
+            <AvatarFallback>{initials}</AvatarFallback>
+          </Avatar></TooltipTrigger>
+          <TooltipContent>
+            <p>{message.author.username}</p>
+          </TooltipContent>
+        </Tooltip>
       }
-      <div className="flex-1">
-          <div className="text-sm font-medium">{message.author.name}</div>
-        <p className={cn(
-          "text-sm",
-        )}>
+      <div className={cn(
+        "flex items-center justify-between gap-2 p-2 rounded-xl max-w-1/2 shadow-sm ",
+        isOwnMessage ? "ml-auto bg-gray-300 item-start rounded-br-none" : "rounded-bl-none bg-muted/50",
+      )}>
+
+        <p className={cn("text-sm px-1")}>
           {message.content}
         </p>
+        {message.timestamp && (
+          <time className="text-xs text-muted-foreground">
+            {new Date(message.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}
+          </time>)}
       </div>
-      {message.timestamp && (
-      <time className="text-xs text-muted-foreground">
-        {new Date(message.timestamp).toLocaleTimeString()}
-      </time>)}
+      {
+        isOwnMessage && <Tooltip>
+          <TooltipTrigger>
+            <Avatar className="flex justify-center items-center">
+              <AvatarImage src={message.author.avatar} alt={message.author.username} />
+              <AvatarFallback className="mb-[1.5px]">{initials}</AvatarFallback>
+            </Avatar>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>{message.author.username}</p>
+          </TooltipContent>
+        </Tooltip>
+      }
     </div>
   );
 }

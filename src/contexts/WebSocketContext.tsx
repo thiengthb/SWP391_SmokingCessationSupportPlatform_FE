@@ -20,7 +20,6 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     const clientRef = useRef<Client | null>(null);
     const [connectedClient, setConnectedClient] = useState<Client | null>(null);
 
-
     useEffect(() => {
         const accountId = auth.currentUser?.id;
 
@@ -38,7 +37,6 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
                 client.subscribe(`/topic/notifications/${accountId}`, (message) => {
                     const data = JSON.parse(message.body);
-
                     toast(data.title || "You have a new notification", {
                         description: data.content || "",
                         duration: 5000,
@@ -95,7 +93,7 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 };
 
     return (
-        <WebSocketContext.Provider value={{ sendMessage, client: connectedClient, subscribeToTopic,}}>
+        <WebSocketContext.Provider value={{ sendMessage, client: connectedClient, subscribeToTopic }}>
             {children}
         </WebSocketContext.Provider>
     );

@@ -14,7 +14,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { UserRound } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { mainNav } from "./navbar.item";
-import { NavigationNotifications } from "@/components/layout/header/navbar/NavigationNotifications";
+import { NavigationNotifications } from "./NavigationNotifications";
 
 export function UserNav() {
   const navigate = useNavigate();
@@ -44,7 +44,7 @@ export function UserNav() {
   });
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center space-x-4">
       <NavigationNotifications />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -81,16 +81,13 @@ export function UserNav() {
                 {t(`nav.dashboard.title`)}
               </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Link to="/profile" className="w-full">
-                {t(`nav.profile.title`)}
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Link to="/settings" className="w-full">
-                {t(`nav.settings.title`)}
-              </Link>
-            </DropdownMenuItem>
+            {filteredItems.map((item) => (
+              <DropdownMenuItem key={item.href}>
+                <Link to={item.href} className="w-full">
+                  {t(item.title)}
+                </Link>
+              </DropdownMenuItem>
+            ))}
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={submitLogout}>
