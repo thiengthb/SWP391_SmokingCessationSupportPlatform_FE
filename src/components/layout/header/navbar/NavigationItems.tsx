@@ -8,8 +8,9 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { Link } from "react-router-dom";
-import type { NavItems } from "./navbar.item";
+import { mainNav } from "./navbar.item";
 import { useTranslation } from "react-i18next";
+import { useAuth } from "@/contexts/AuthContext";
 
 const ListItem = ({
   title,
@@ -35,10 +36,26 @@ const ListItem = ({
   </li>
 );
 
-export function NavigationItems({ items }: NavItems) {
+export function NavigationItems() {
   const { t } = useTranslation();
+  const { auth } = useAuth();
 
-  const filteredItems = items.filter((item) => !item.requireAuth);
+  const filteredItems = mainNav.filter((item) => {
+    if (item.displayMobile) return false;
+
+    if (
+      auth.isAuthenticated &&
+      (item.id === "about" || item.id === "contact")
+    ) {
+      return false;
+    }
+
+    if (auth.currentUser?.havingSubscription && item.id === "pricing") {
+      return false;
+    }
+
+    return true;
+  });
 
   return (
     <div className="relative">

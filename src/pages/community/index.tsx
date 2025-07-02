@@ -76,7 +76,9 @@ export default function CommunityPage() {
           <Card className="p-4 h-full">
             <div className="flex items-center gap-2 mb-4">
               <Users className="h-5 w-5" />
-              <h3 className="font-semibold">{t("page.community.onlineUsers")}</h3>
+              <h3 className="font-semibold">
+                {t("page.community.onlineUsers")}
+              </h3>
             </div>
             <div className="space-y-1">
               {onlineUsers.map((user) => (

@@ -1,6 +1,4 @@
-import type { Testimonial } from "@/pages/home/types";
-
-export const testimonials: Testimonial[] = [
+export const testimonials = [
   {
     author: "John Doe",
     role: "Software Engineer",

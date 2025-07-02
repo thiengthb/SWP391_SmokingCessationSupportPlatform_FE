@@ -15,19 +15,23 @@ import {
 } from "@/components/ui/sheet";
 import { Menu, ChevronsUpDown } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import type { NavItems } from "./navbar.item";
+import { mainNav } from "./navbar.item";
 import ThemeSwitch from "@/components/theme/theme-switch";
 import { useAuth } from "@/contexts/AuthContext";
 import { useTranslation } from "react-i18next";
 
-const MobileMenu = ({ items }: NavItems) => {
+const MobileMenu = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { auth, handleLogout } = useAuth();
 
-  const filteredItems = items.filter(
-    (item) => !item.requireAuth || (item.requireAuth && auth.isAuthenticated)
-  );
+  const filteredItems = mainNav.filter((item) => {
+    if (auth.currentUser?.havingSubscription && item.id === "pricing") {
+      return false;
+    }
+
+    return true;
+  });
 
   const submitLogout = async () => {
     await handleLogout();

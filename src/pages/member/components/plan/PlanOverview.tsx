@@ -29,7 +29,6 @@ import {
 import { vi } from "date-fns/locale";
 import {
   CalendarIcon,
-  Calendar as CalendarIcon2,
   Target,
   CheckCircle2,
   Cigarette,
@@ -83,8 +82,6 @@ export function PlanOverview({
   };
 
   const getStatusText = () => {
-    const today = new Date();
-
     if (isPast(plan.targetQuitDate) || isToday(plan.targetQuitDate)) {
       return "Đã đến ngày cai thuốc!";
     }

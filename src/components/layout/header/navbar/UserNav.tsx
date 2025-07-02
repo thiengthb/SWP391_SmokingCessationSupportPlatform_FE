@@ -13,6 +13,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { UserRound } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { mainNav } from "./navbar.item";
 
 export function UserNav() {
   const navigate = useNavigate();
@@ -23,6 +24,23 @@ export function UserNav() {
     await handleLogout();
     navigate("/auth/login");
   };
+
+  const filteredItems = mainNav.filter((item) => {
+    if (
+      auth.isAuthenticated &&
+      (item.id === "about" || item.id === "contact")
+    ) {
+      return true;
+    }
+
+    if (!item.displayMobile) return false;
+
+    if (auth.currentUser?.havingSubscription && item.id === "pricing") {
+      return false;
+    }
+
+    return true;
+  });
 
   return (
     <DropdownMenu>
@@ -60,16 +78,13 @@ export function UserNav() {
               {t(`nav.dashboard.title`)}
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Link to="/profile" className="w-full">
-              {t(`nav.profile.title`)}
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Link to="/settings" className="w-full">
-              {t(`nav.settings.title`)}
-            </Link>
-          </DropdownMenuItem>
+          {filteredItems.map((item) => (
+            <DropdownMenuItem key={item.href}>
+              <Link to={item.href} className="w-full">
+                {t(item.title)}
+              </Link>
+            </DropdownMenuItem>
+          ))}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={submitLogout}>

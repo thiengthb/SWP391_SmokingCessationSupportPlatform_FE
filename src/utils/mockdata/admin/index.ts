@@ -1,48 +1,5 @@
 import { Users, ActivitySquare, Medal, LineChart } from "lucide-react";
-import type { User } from "@/types/dashboard/admin/user";
 
-export const users: User[] = [
-  {
-    id: "1",
-    name: "John Doe",
-    email: "john@example.com",
-    role: "member",
-    status: "active",
-    joinDate: "2024-01-15",
-  },
-  {
-    id: "2",
-    name: "Jane Smith",
-    email: "jane@example.com",
-    role: "coach",
-    status: "active",
-    joinDate: "2024-02-01",
-  },
-  {
-    id: "3",
-    name: "Admin User",
-    email: "admin@example.com",
-    role: "admin",
-    status: "active",
-    joinDate: "2023-12-01",
-  },
-  {
-    id: "4",
-    name: "Bob Wilson",
-    email: "bob@example.com",
-    role: "member",
-    status: "inactive",
-    joinDate: "2024-03-01",
-  },
-  {
-    id: "5",
-    name: "Alice Brown",
-    email: "alice@example.com",
-    role: "member",
-    status: "banned",
-    joinDate: "2024-02-15",
-  },
-];
 
 export const userActivityData = [
   { date: '2024-03-01', active: 400, new: 240 },

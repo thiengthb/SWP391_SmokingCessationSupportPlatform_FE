@@ -60,46 +60,53 @@ export function SettingProvider({ children }: { children: React.ReactNode }) {
   const handleChangeTheme = (newTheme: Theme) => {
     setTheme(newTheme);
     setSetting((prev) => ({ ...prev, theme: newTheme }));
+    handleSaveSetting();
+    toast.success("Theme updated successfully!");
   };
 
   const handleChangeLanguage = (newLanguage: Language) => {
     i18n.changeLanguage(newLanguage.toLowerCase());
     localStorage.setItem("language", newLanguage.toLowerCase());
     setSetting((prev) => ({ ...prev, language: newLanguage }));
+    handleSaveSetting();
+    toast.success("Language updated successfully!");
   };
 
   const handleChangeTrackingMode = (newTrackingMode: TrackingMode) => {
     setSetting((prev) => ({ ...prev, trackingMode: newTrackingMode }));
+    handleSaveSetting();
+    toast.success("Tracking mode updated successfully!");
   };
 
   const handleChangeMotivationFrequency = (
     newFrequency: MotivationFrequency
   ) => {
     setSetting((prev) => ({ ...prev, motivationFrequency: newFrequency }));
+    handleSaveSetting();
+    toast.success("Motivation frequency updated successfully!");
   };
 
   const handleChangeReportDeadline = (newDeadline: string) => {
     setSetting((prev) => ({ ...prev, reportDeadline: newDeadline }));
+    handleSaveSetting();
+    toast.success("Report deadline updated successfully!");
   };
 
-  useEffect(() => {
-    const handleSaveSetting = async () => {
-      if (auth.accessToken) {
-        try {
-          await apiWithInterceptors.put(
-            `/v1/settings/${auth.currentUser?.id}`,
-            setting
-          );
-          toast.success("Settings saved successfully!");
-        } catch (error) {
-          console.error("Error saving settings:", error);
-        }
-      } else {
-        toast.error("You need to be logged in to save settings.");
+  const handleSaveSetting = async () => {
+    if (auth.accessToken) {
+      try {
+        await apiWithInterceptors.put(
+          `/v1/settings/${auth.currentUser?.id}`,
+          setting
+        );
+      } catch (error) {
+        console.error("Error saving settings:", error);
+        toast.error("Failed to save settings. Please try again later.");
       }
-    };
-    handleSaveSetting();
-  }, [setting]);
+    } else {
+      toast.error("You need to be logged in to save settings.");
+    }
+  };
 
   return (
     <SettingContext.Provider

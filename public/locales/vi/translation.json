@@ -31,12 +31,10 @@
       "description": "Khám phá các xếp hạng và thành tích hàng đầu",
       "global": {
         "title": "Xếp hạng toàn cầu",
-        "href": "/leaderboard/global",
         "description": "Xem những người xuất sắc nhất trên toàn thế giới"
       },
       "hallOfFame": {
         "title": "Ngôi đền danh vọng",
-        "href": "/leaderboard/hall-of-fame",
         "description": "Những thành tích vĩ đại nhất mọi thời đại"
       }
     },

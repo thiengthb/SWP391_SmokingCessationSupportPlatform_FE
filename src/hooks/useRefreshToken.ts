@@ -10,6 +10,7 @@ const useRefreshToken = () => {
             ...prev,
             currentUser: response.data.result.user,
             accessToken: response.data.result.accessToken,
+            isAuthenticated: true,
         }));
         return response.data.result.accessToken;
     }
