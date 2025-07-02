@@ -36,7 +36,7 @@ export function FeedbackTab({
   feedbacks: Feedback[];
   page: number;
   size: number;
-  onRequestDelete?: (id: string) => void; // ✅ thêm prop này
+  onRequestDelete?: (id: string) => void;
 }) {
   const [selectedFeedback, setSelectedFeedback] = useState<Feedback | null>(
     null
@@ -61,18 +61,19 @@ export function FeedbackTab({
         <Table>
           <TableHeader>
             <TableRow className="border-b">
-              <TableHead className="w-16 text-center font-semibold text-gray-700">#</TableHead>
-              <TableHead className="w-1/4 font-semibold text-gray-700">Username</TableHead>
-              <TableHead className="w-1/2 font-semibold text-gray-700">Comment</TableHead>
-              <TableHead className="text-center font-semibold text-gray-700">Rating</TableHead>
-              <TableHead className="w-16 text-center font-semibold text-gray-700">Actions</TableHead>
+              <TableHead className="w-16 text-center font-semibold text-gray-700 dark:text-gray-200">#</TableHead>
+              <TableHead className="w-1/4 font-semibold text-gray-700 dark:text-gray-200">Username</TableHead>
+              <TableHead className="w-1/2 font-semibold text-gray-700 dark:text-gray-200">Comment</TableHead>
+              <TableHead className="text-center font-semibold text-gray-700 dark:text-gray-200">Rating</TableHead>
+              <TableHead className="w-16 text-center font-semibold text-gray-700 dark:text-gray-200">Actions</TableHead>
+
             </TableRow>
           </TableHeader>
           <TableBody>
             {feedbacks?.map((fb, index) => (
               <TableRow
                 key={fb.id}
-                className="group hover:bg-[#2E2E40] transition-colors border-b"
+                className="group hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors border-b cursor-pointer"
               >
                 <TableCell className="text-center py-4">
                   {page * size + index + 1}
@@ -102,7 +103,7 @@ export function FeedbackTab({
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="text-destructive hover:bg-red-100 dark:hover:bg-red-900"
+                    className="text-muted-foreground hover:text-red-500 hover:bg-red-100 dark:hover:bg-red-900"
                     onClick={() => onRequestDelete?.(fb.id)}
                   >
                     <Trash2 className="w-4 h-4" />

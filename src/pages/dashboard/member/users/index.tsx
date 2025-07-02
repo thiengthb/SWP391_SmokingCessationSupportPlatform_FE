@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { UserPlus as AddGoalIcon, Star, Trophy } from "lucide-react";
+import { UserPlus as AddGoalIcon, Trophy } from "lucide-react";
 import useApi from "@/hooks/useApi";
 import { useLocation, useNavigate } from "react-router-dom";
 import { type Goal } from "@/types/member/goal";
@@ -30,33 +30,28 @@ import {
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationNext,
-  PaginationPrevious,
-  PaginationLink,
-} from "@/components/ui/pagination";
 
 export default function GoalManagement() {
-  const [goals, setGoals] = useState<Goal[]>([]);
+  const [myGoals, setMyGoals] = useState<Goal[]>([]);
+  const [publicGoals, setPublicGoals] = useState<Goal[]>([]);
   const [newGoal, setNewGoal] = useState<string>("");
-  const [modalPage, setModalPage] = useState<number>(0);
-  const modalPageSize = 6;
 
   const navigate = useNavigate();
   const location = useLocation();
   const api = useApi();
 
   useEffect(() => {
-    const getGoals = async () => {
+    const getGoalsData = async () => {
       try {
-        const response = await api.get("/v1/goals/my-goals?direction=ASC");
-        const { content } = response.data.result;
-        setGoals(content || []);
+        const [myGoalsRes, allGoalsRes] = await Promise.all([
+          api.get("/v1/goals/my-goals"),
+          api.get("/v1/goals"),
+        ]);
+
+        setMyGoals(myGoalsRes.data.result || []);
+        setPublicGoals(allGoalsRes.data.result || []);
       } catch (error) {
-        console.error("Failed to fetch goals:", error);
+        console.error("Error fetching goals:", error);
         navigate("/auth/login", {
           state: { from: location.pathname },
           replace: true,
@@ -64,7 +59,7 @@ export default function GoalManagement() {
       }
     };
 
-    getGoals();
+    getGoalsData();
   }, [newGoal]);
 
   const {
@@ -79,32 +74,52 @@ export default function GoalManagement() {
 
   const onSubmit: SubmitHandler<goalFormData> = async (data) => {
     try {
-      const response = await api.post("v1/goals", data as goalFormData);
+      const response = await api.post("v1/goals", data);
       const { name } = response.data.result;
       toast.success("Goal created successfully!");
       setNewGoal(name);
     } catch (error: any) {
       console.error("Error during goal creation:", error);
-      if (error.response?.data?.message) {
-        setError("root", {
-          type: "server",
-          message: error.response.data.message,
-        });
-      } else {
-        setError("root", {
-          type: "server",
-          message: "An unexpected error occurred. Please try again.",
-        });
-      }
+      setError("root", {
+        type: "server",
+        message:
+          error.response?.data?.message ||
+          "An unexpected error occurred. Please try again.",
+      });
     }
   };
 
-  const previewGoals = goals.slice(0, 3);
-  const paginatedGoals = goals.slice(
-    modalPage * modalPageSize,
-    (modalPage + 1) * modalPageSize
-  );
-  const totalPages = Math.ceil(goals.length / modalPageSize);
+  const renderGoalCard = (goal: Goal) => {
+    const progressValue = goal.goalProgress?.progress || 0;
+    const criteria = goal.criteriaValue;
+
+    const percentage =
+      typeof criteria === "number" && criteria > 0
+        ? Math.min((progressValue / criteria) * 100, 100)
+        : 0;
+
+    const isCompleted =
+      typeof criteria === "number" && criteria > 0 && progressValue >= criteria;
+
+    return (
+      <Card
+        key={goal.id}
+        className={isCompleted ? "opacity-100" : "opacity-75"}
+      >
+        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardTitle className="text-sm font-medium">{goal.name}</CardTitle>
+          {isCompleted && <Trophy className="h-4 w-4 text-primary" />}
+        </CardHeader>
+        <CardContent className="space-y-2">
+          <p className="text-sm text-muted-foreground">{goal.description}</p>
+          <Progress value={percentage} />
+          <p className="text-xs text-muted-foreground text-right">
+            {percentage.toFixed(0)}%
+          </p>
+        </CardContent>
+      </Card>
+    );
+  };
 
   return (
     <div className="container py-6 space-y-6 mx-auto">
@@ -170,12 +185,8 @@ export default function GoalManagement() {
                       <SelectItem value="SMOKE_FREE">Smoke Free</SelectItem>
                       <SelectItem value="MONEY_SAVED">Money Saved</SelectItem>
                       <SelectItem value="PLAN_STREAK">Plan Streak</SelectItem>
-                      <SelectItem value="PLAN_COMPLETE">
-                        Plan Complete
-                      </SelectItem>
-                      <SelectItem value="PHASE_COMPLETE">
-                        Phase Complete
-                      </SelectItem>
+                      <SelectItem value="PLAN_COMPLETE">Plan Complete</SelectItem>
+                      <SelectItem value="PHASE_COMPLETE">Phase Complete</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormInputError field={errors.criteriaType} />
@@ -209,139 +220,25 @@ export default function GoalManagement() {
         </Dialog>
       </div>
 
-      <div className="space-y-8">
-        <Dialog>
-          <DialogTrigger asChild>
-            <Card className="cursor-pointer">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Star className="h-5 w-5 text-primary" /> Personal Goals
-                </CardTitle>
-              </CardHeader>
-            </Card>
-          </DialogTrigger>
-          <DialogContent className="max-w-5xl">
-            <DialogHeader>
-              <DialogTitle>All Personal Goals</DialogTitle>
-            </DialogHeader>
-            
-            <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-2">
-              {paginatedGoals.map((goal) => {
-                const progressValue = goal.goalProgress?.progress || 0;
-                const percentage = Math.min(
-                  (progressValue / goal.criteriaValue) * 100,
-                  100
-                );
-                const isCompleted = progressValue >= goal.criteriaValue;
-
-                return (
-                  <Card
-                    key={goal.id}
-                    className={`${
-                      isCompleted ? "opacity-100" : "opacity-75"
-                    } w-full`}
-                  >
-                    <div className="flex items-center p-4 space-x-4">
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center justify-between mb-2">
-                          <h3 className="text-sm font-medium truncate pr-2">
-                            {goal.name}
-                          </h3>
-                          {isCompleted && (
-                            <Trophy className="h-4 w-4 text-primary flex-shrink-0" />
-                          )}
-                        </div>
-
-                        
-                        <div className="space-y-1">
-                          <Progress value={percentage} className="h-2" />
-                          <p className="text-xs text-muted-foreground text-right">
-                            {percentage.toFixed(0)}%
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </Card>
-                );
-              })}
-            </div>
-
-            <div className="mt-4 flex justify-center">
-              <Pagination>
-                <PaginationContent>
-                  <PaginationItem>
-                    <PaginationPrevious
-                      onClick={() =>
-                        setModalPage((prev) => Math.max(prev - 1, 0))
-                      }
-                      className={
-                        modalPage === 0
-                          ? "pointer-events-none opacity-50"
-                          : "cursor-pointer"
-                      }
-                    />
-                  </PaginationItem>
-                  {Array.from({ length: totalPages }, (_, i) => (
-                    <PaginationItem key={i}>
-                      <PaginationLink
-                        isActive={i === modalPage}
-                        onClick={() => setModalPage(i)}
-                      >
-                        {i + 1}
-                      </PaginationLink>
-                    </PaginationItem>
-                  ))}
-                  <PaginationItem>
-                    <PaginationNext
-                      onClick={() =>
-                        setModalPage((prev) =>
-                          Math.min(prev + 1, totalPages - 1)
-                        )
-                      }
-                      className={
-                        modalPage === totalPages - 1
-                          ? "pointer-events-none opacity-50"
-                          : "cursor-pointer"
-                      }
-                    />
-                  </PaginationItem>
-                </PaginationContent>
-              </Pagination>
-            </div>
-          </DialogContent>
-        </Dialog>
-
+      <div className="space-y-4">
+        <h2 className="text-lg font-semibold">My Goals</h2>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {previewGoals.map((goal) => {
-            const progressValue = goal.goalProgress?.progress || 0;
-            const percentage = Math.min(
-              (progressValue / goal.criteriaValue) * 100,
-              100
-            );
-            const isCompleted = progressValue >= goal.criteriaValue;
-            return (
-              <Card
-                key={goal.id}
-                className={isCompleted ? "opacity-100" : "opacity-75"}
-              >
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    {goal.name}
-                  </CardTitle>
-                  {isCompleted && <Trophy className="h-4 w-4 text-primary" />}
-                </CardHeader>
-                <CardContent className="space-y-2">
-                  <p className="text-sm text-muted-foreground">
-                    {goal.description}
-                  </p>
-                  <Progress value={percentage} />
-                  <p className="text-xs text-muted-foreground text-right">
-                    {percentage.toFixed(0)}%
-                  </p>
-                </CardContent>
-              </Card>
-            );
-          })}
+          {myGoals.length > 0 ? (
+            myGoals.map(renderGoalCard)
+          ) : (
+            <p className="text-sm text-muted-foreground">No personal goals yet.</p>
+          )}
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        <h2 className="text-lg font-semibold">Public Goals</h2>
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {publicGoals.length > 0 ? (
+            publicGoals.map(renderGoalCard)
+          ) : (
+            <p className="text-sm text-muted-foreground">No public goals available.</p>
+          )}
         </div>
       </div>
     </div>
