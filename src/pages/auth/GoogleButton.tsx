@@ -1,4 +1,4 @@
-import { useAuth } from "@/contexts/AuthContext";
+import { defaultAuth, useAuth } from "@/contexts/AuthContext";
 import { api } from "@/lib/axios";
 import { GoogleLogin, type CredentialResponse } from "@react-oauth/google";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -18,17 +18,13 @@ const GoogleButton = () => {
       console.log("Google login response:", response.data);
       setAuth({
         isAuthenticated: true,
-        currentUser: response.data.user,
+        currentAcc: response.data.account,
         accessToken: response.data.accessToken,
       });
       navigate(from, { replace: true });
     } catch (err) {
       console.error("Login failed", err);
-      setAuth({
-        isAuthenticated: false,
-        currentUser: null,
-        accessToken: null,
-      });
+      setAuth(defaultAuth);
     }
   };
 

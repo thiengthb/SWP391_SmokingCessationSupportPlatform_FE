@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useAuth } from "./AuthContext";
 import useApi from "@/hooks/useApi";
-import { Role } from "@/types/user/user";
-import { ftndLevels } from "@/components/ftnd/ftndData";
+import { Role } from "@/types/models/account";
+import { ftndLevels } from "@/data/ftnd.data";
 
 interface FTNDContextType {
   showFTNDAssessment: boolean;
@@ -53,7 +53,7 @@ export const FTNDProvider: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     const checkFTNDStatus = async () => {
-      if (auth?.accessToken && auth?.currentUser?.role === Role.MEMBER) {
+      if (auth?.accessToken && auth?.currentAcc?.role === Role.MEMBER) {
         try {
           const response = await apiWithInterceptors.get(
             "/v1/healths/ftnd-status"

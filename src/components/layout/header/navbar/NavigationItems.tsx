@@ -50,7 +50,7 @@ export function NavigationItems() {
       return false;
     }
 
-    if (auth.currentUser?.havingSubscription && item.id === "pricing") {
+    if (auth.currentAcc?.havingSubscription && item.id === "pricing") {
       return false;
     }
 

@@ -1,12 +1,12 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import type { TestimonialAvatarProps } from "@/types/testimonial";
+import type { TestimonialAvatarProps } from "@/types/models/testimonilal";
 import { User } from "lucide-react";
 
 export function TestimonialAvatar({ src, alt }: TestimonialAvatarProps) {
   const initials = alt
-    .split(' ')
-    .map(word => word[0])
-    .join('')
+    .split(" ")
+    .map((word) => word[0])
+    .join("")
     .toUpperCase();
 
   return (

@@ -2,7 +2,7 @@ import React from "react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import type { FTNDQuestion } from "./ftndData";
+import type { FTNDQuestion } from "../../data/ftnd.data";
 
 interface RenderQuestionInputProps {
   currentQuestionData: FTNDQuestion;

@@ -11,9 +11,15 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { api } from "@/lib/axios";
 import { toast } from "sonner";
-import { calculateScoreFromCirgettesPerDay, ftndQuestions } from "./ftndData";
+import {
+  calculateScoreFromCirgettesPerDay,
+  ftndQuestions,
+} from "../../data/ftnd.data";
 import RenderQuestionInput from "./RenderQuestionInput";
-import { defaultHealthValue, type HealthCreateRequest } from "@/types/health";
+import {
+  defaultHealthValue,
+  type HealthCreateRequest,
+} from "@/types/models/health";
 import { ResultForm } from "./ResultForm";
 
 interface FTNDAssessmentFormProps {

@@ -5,7 +5,7 @@ import {
   Theme,
   TrackingMode,
   type Setting,
-} from "@/types/setting";
+} from "@/types/models/setting";
 import { useAuth } from "./AuthContext";
 import { createContext, useContext, useState, useEffect } from "react";
 import { toast } from "sonner";
@@ -44,7 +44,7 @@ export function SettingProvider({ children }: { children: React.ReactNode }) {
       if (auth.accessToken) {
         try {
           const response = await apiWithInterceptors.get(
-            `/v1/settings/${auth.currentUser?.id}`
+            `/v1/settings/${auth.currentAcc?.id}`
           );
           console.log("Fetched settings:", response.data.result);
           setSetting(response.data.result);
@@ -57,54 +57,56 @@ export function SettingProvider({ children }: { children: React.ReactNode }) {
     fetchSetting();
   }, [auth.accessToken]);
 
-  const handleChangeTheme = (newTheme: Theme) => {
+  const handleChangeTheme = async (newTheme: Theme) => {
     setTheme(newTheme);
     setSetting((prev) => ({ ...prev, theme: newTheme }));
-    handleSaveSetting();
-    toast.success("Theme updated successfully!");
+    (await handleSaveSetting()) && toast.success("Theme updated successfully!");
   };
 
-  const handleChangeLanguage = (newLanguage: Language) => {
+  const handleChangeLanguage = async (newLanguage: Language) => {
     i18n.changeLanguage(newLanguage.toLowerCase());
     localStorage.setItem("language", newLanguage.toLowerCase());
     setSetting((prev) => ({ ...prev, language: newLanguage }));
-    handleSaveSetting();
-    toast.success("Language updated successfully!");
+    (await handleSaveSetting()) &&
+      toast.success("Language updated successfully!");
   };
 
-  const handleChangeTrackingMode = (newTrackingMode: TrackingMode) => {
+  const handleChangeTrackingMode = async (newTrackingMode: TrackingMode) => {
     setSetting((prev) => ({ ...prev, trackingMode: newTrackingMode }));
-    handleSaveSetting();
-    toast.success("Tracking mode updated successfully!");
+    (await handleSaveSetting()) &&
+      toast.success("Tracking mode updated successfully!");
   };
 
-  const handleChangeMotivationFrequency = (
+  const handleChangeMotivationFrequency = async (
     newFrequency: MotivationFrequency
   ) => {
     setSetting((prev) => ({ ...prev, motivationFrequency: newFrequency }));
-    handleSaveSetting();
-    toast.success("Motivation frequency updated successfully!");
+    (await handleSaveSetting()) &&
+      toast.success("Motivation frequency updated successfully!");
   };
 
-  const handleChangeReportDeadline = (newDeadline: string) => {
+  const handleChangeReportDeadline = async (newDeadline: string) => {
     setSetting((prev) => ({ ...prev, reportDeadline: newDeadline }));
-    handleSaveSetting();
-    toast.success("Report deadline updated successfully!");
+    (await handleSaveSetting()) &&
+      toast.success("Report deadline updated successfully!");
   };
 
   const handleSaveSetting = async () => {
     if (auth.accessToken) {
       try {
         await apiWithInterceptors.put(
-          `/v1/settings/${auth.currentUser?.id}`,
+          `/v1/settings/${auth.currentAcc?.id}`,
           setting
         );
+        return true;
       } catch (error) {
         console.error("Error saving settings:", error);
         toast.error("Failed to save settings. Please try again later.");
+        return false;
       }
     } else {
       toast.error("You need to be logged in to save settings.");
+      return false;
     }
   };
 

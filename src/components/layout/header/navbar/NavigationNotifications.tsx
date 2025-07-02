@@ -3,17 +3,24 @@ import { Link } from "react-router-dom";
 import { Inbox } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import useApi from "@/hooks/useApi";
-import type { NotificationResponse } from "@/types/notification/notification";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import type { NotificationResponse } from "@/types/models/notification";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 
 export function NavigationNotifications() {
-const { auth } = useAuth();
+  const { auth } = useAuth();
   const apiWithInterceptor = useApi();
-  const [notifications, setNotifications] = useState<NotificationResponse[]>([]);
+  const [notifications, setNotifications] = useState<NotificationResponse[]>(
+    []
+  );
 
   useEffect(() => {
-    if(!auth?.isAuthenticated) return;
+    if (!auth?.isAuthenticated) return;
     const fetchNotifications = async () => {
       try {
         const response = await apiWithInterceptor.get("/v1/notifications", {
@@ -24,16 +31,18 @@ const { auth } = useAuth();
             direction: "DESC",
           },
         });
-        const newNotifications: NotificationResponse[] = Array.isArray(response.data.result.content)
+        const newNotifications: NotificationResponse[] = Array.isArray(
+          response.data.result.content
+        )
           ? response.data.result.content
           : [];
         setNotifications(newNotifications);
       } catch (error) {
         console.error("Failed to fetch notifications:", error);
       }
-    }
+    };
     fetchNotifications();
-  },[auth]);
+  }, [auth]);
 
   if (!auth?.isAuthenticated) return null;
 
@@ -41,7 +50,7 @@ const { auth } = useAuth();
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon">
-            <Inbox className="h-5 w-5"/>
+          <Inbox className="h-5 w-5" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-64">
@@ -58,7 +67,10 @@ const { auth } = useAuth();
           <DropdownMenuItem>No notifications</DropdownMenuItem>
         )}
         <DropdownMenuItem asChild>
-          <Link to="/notifications" className="w-full text-center text-primary hover:underline">
+          <Link
+            to="/notifications"
+            className="w-full text-center text-primary hover:underline"
+          >
             See more
           </Link>
         </DropdownMenuItem>

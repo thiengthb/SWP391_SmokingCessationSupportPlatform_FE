@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Check, X } from "lucide-react";
-import { type ProgramFeature } from "@/types/pricing";
+import { type ProgramFeature } from "@/types/models/membership";
 
 interface FeatureComparisonProps {
   features: ProgramFeature[];

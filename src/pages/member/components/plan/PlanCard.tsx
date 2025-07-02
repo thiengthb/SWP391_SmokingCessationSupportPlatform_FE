@@ -16,7 +16,7 @@ import {
   BadgeCheck,
   Scale,
 } from "lucide-react";
-import type { PlanTemplate } from "@/data/presetPlanData";
+import type { PlanTemplate } from "@/data/preset-plan.data";
 import type { QuitPlan } from "@/pages/member/PlanTrackingTab";
 
 interface PlanCardProps {

@@ -1,5 +1,5 @@
 import { CheckCheck } from "lucide-react";
-import type { PlanTemplate } from "@/data/presetPlanData";
+import type { PlanTemplate } from "@/data/preset-plan.data";
 
 interface PlanGuideProps {
   plans: PlanTemplate[];

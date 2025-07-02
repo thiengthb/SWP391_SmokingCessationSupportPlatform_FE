@@ -7,8 +7,8 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
-import { type SmokingRecord } from "@/types/recordhabbit";
-import type { Pagination } from "@/types/pagination";
+import { type SmokingRecord } from "@/types/models/record";
+import type { Pagination } from "@/types/models/pagination";
 
 interface RecordsListProps {
   loading: boolean;

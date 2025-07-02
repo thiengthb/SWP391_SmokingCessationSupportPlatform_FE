@@ -6,8 +6,8 @@ export interface Pagination {
 }
 
 export const defaultPagination: Pagination = {
-    pageNumber: 0,
-    pageSize: 10,
-    totalElements: 0,
-    totalPages: 0,
+  pageNumber: 0,
+  pageSize: 10,
+  totalElements: 0,
+  totalPages: 0,
 };

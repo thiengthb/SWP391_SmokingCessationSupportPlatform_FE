@@ -1,17 +1,17 @@
 import { api } from "@/lib/axios";
-import type { User } from "@/types/user/user";
-import type { LoginFormData } from "@/types/auth/login";
+import type { Account } from "@/types/models/account";
+import type { LoginFormData } from "@/types/validations/auth/login";
 import { createContext, useContext, useState } from "react";
 
 export interface Auth {
   isAuthenticated: boolean;
-  currentUser: User | null;
+  currentAcc: Account | null;
   accessToken: string | null;
 }
 
-const defaultAuth: Auth = {
+export const defaultAuth: Auth = {
   isAuthenticated: false,
-  currentUser: null,
+  currentAcc: null,
   accessToken: null,
 };
 
@@ -41,7 +41,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       setAuth({
         isAuthenticated: true,
-        currentUser: user,
+        currentAcc: user,
         accessToken: accessToken,
       });
     } catch (error: any) {

@@ -1,8 +1,8 @@
-import type { User } from "./user";
+import type { Account } from "./account";
 
 export interface ChatMessage {
   id: string;
-  author: User;
+  author: Account;
   content: string;
   timestamp?: string;
 }

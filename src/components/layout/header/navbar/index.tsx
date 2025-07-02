@@ -21,7 +21,7 @@ const Navbar = () => {
             <NavigationItems />
           </nav>
           <div className="hidden md:flex items-center gap-2">
-            {auth.currentUser ? (
+            {auth.currentAcc ? (
               <>
                 <UserNav />
               </>

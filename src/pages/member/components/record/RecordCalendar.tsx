@@ -6,7 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Calendar } from "@/components/ui/calendar";
-import { type SmokingRecord } from "@/types/recordhabbit";
+import { type SmokingRecord } from "@/types/models/record";
 
 interface RecordCalendarProps {
   selectedDate: Date;

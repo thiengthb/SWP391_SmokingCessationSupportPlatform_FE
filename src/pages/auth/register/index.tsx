@@ -15,7 +15,7 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import {
   registerFormSchema,
   type RegisterFormData,
-} from "@/types/auth/register";
+} from "@/types/validations/auth/register";
 import FormInputError from "@/components/FormInputError";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { api } from "@/lib/axios";

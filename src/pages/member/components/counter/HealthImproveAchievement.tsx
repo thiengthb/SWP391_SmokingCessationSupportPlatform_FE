@@ -1,5 +1,5 @@
 import { Clock } from "lucide-react";
-import type { HealthImprovementLevel } from "./healthImprovements";
+import type { HealthImprovementLevel } from "../../../../data/health-improve.data";
 import { motion } from "framer-motion";
 import { formatDurationDisplay } from "@/utils/dateTimeUtil";
 

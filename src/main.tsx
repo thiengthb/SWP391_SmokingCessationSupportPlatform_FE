@@ -11,7 +11,7 @@ import router from "./router/index.tsx";
 import "./index.css";
 import { FTNDProvider } from "@/contexts/FTNDContext";
 import { SettingProvider } from "./contexts/SettingContext.tsx";
-import { Theme } from "./types/setting/index.ts";
+import { Theme } from "./types/models/setting.ts";
 import { Toaster } from "@/components/ui/sonner";
 
 if (process.env.NODE_ENV === "production") {

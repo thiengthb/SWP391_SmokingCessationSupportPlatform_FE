@@ -1,4 +1,4 @@
-import { Theme } from "@/types/setting";
+import { Theme } from "@/types/models/setting";
 import { Switch } from "../ui/switch";
 import { useSetting } from "@/contexts/SettingContext";
 

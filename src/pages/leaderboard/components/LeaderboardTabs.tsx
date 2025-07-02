@@ -7,7 +7,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useState } from "react";
-import type { LeaderboardTabsProps } from "@/types/leaderboard";
+import type { LeaderboardTabsProps } from "@/types/models/leaderboard";
 import { useTranslation } from "react-i18next";
 
 export function LeaderboardTabs({

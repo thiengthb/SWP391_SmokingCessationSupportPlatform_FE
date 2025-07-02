@@ -7,8 +7,8 @@ import { ChatMessage } from "./components/ChatMessage";
 import { OnlineUser } from "./components/OnlineUser";
 import { useWebSocket } from "@/contexts/WebSocketContext";
 import { useAuth } from "@/contexts/AuthContext";
-import type { ChatMessage as ChatMessageType } from "@/types/community/chat";
-import type { User } from "@/types/community/user";
+import type { ChatMessage as ChatMessageType } from "@/types/models/chat";
+import type { Account } from "@/types/models/account";
 import useApi from "@/hooks/useApi";
 
 import { useTranslation } from "react-i18next";
@@ -18,14 +18,13 @@ export default function CommunityPage() {
   const PAGE_SIZE = 50; // Number of messages per page
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<ChatMessageType[]>([]);
-  const [onlineUsers, setOnlineUsers] = useState<User[]>([]);
+  const [onlineUsers, setOnlineUsers] = useState<Account[]>([]);
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [shouldScrollToBottom, setShouldScrollToBottom] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const { sendMessage, subscribeToTopic } = useWebSocket();
   const { auth } = useAuth();
-
 
   const apiWithInterceptor = useApi();
 
@@ -44,12 +43,15 @@ export default function CommunityPage() {
           params: {
             page: newPage,
             size: PAGE_SIZE,
-            sortBy: 'createdAt',
-            direction: 'ASC'
+            sortBy: "createdAt",
+            direction: "ASC",
           },
         });
-        const newMessages: ChatMessageType[] = Array.isArray(response.data.result.content)
-          ? response.data.result.content : [];
+        const newMessages: ChatMessageType[] = Array.isArray(
+          response.data.result.content
+        )
+          ? response.data.result.content
+          : [];
         console.log("Fetched messages:", newMessages);
         if (newMessages.length > 0) {
           setMessages((prev) => [...newMessages, ...prev]);
@@ -57,7 +59,8 @@ export default function CommunityPage() {
           requestAnimationFrame(() => {
             if (scrollContainerRef.current) {
               const newScrollHeight = scrollContainerRef.current?.scrollHeight;
-              scrollContainerRef.current.scrollTop = newScrollHeight - scrollHeight;
+              scrollContainerRef.current.scrollTop =
+                newScrollHeight - scrollHeight;
             }
           });
           setPage(newPage);
@@ -70,11 +73,12 @@ export default function CommunityPage() {
     }
   };
 
-
   useEffect(() => {
     const fetchOnlineUsers = async () => {
       try {
-        const response = await apiWithInterceptor.get("/v1/accounts/online-users");
+        const response = await apiWithInterceptor.get(
+          "/v1/accounts/online-users"
+        );
         const data = response.data;
 
         if (Array.isArray(data.result)) {
@@ -85,7 +89,6 @@ export default function CommunityPage() {
           console.error("Unexpected online users format:", data);
           setOnlineUsers([]); // Fallback to empty array
         }
-
       } catch (error) {
         console.error("Failed to fetch online users", error);
       }
@@ -102,8 +105,11 @@ export default function CommunityPage() {
           },
         });
 
-        const initialMessages: ChatMessageType[] = Array.isArray(response.data.result.content)
-          ? response.data.result.content : [];
+        const initialMessages: ChatMessageType[] = Array.isArray(
+          response.data.result.content
+        )
+          ? response.data.result.content
+          : [];
         setMessages(initialMessages);
         setShouldScrollToBottom(true);
       } catch (err) {
@@ -115,7 +121,6 @@ export default function CommunityPage() {
 
     fetchOnlineUsers();
   }, []);
-
 
   useEffect(() => {
     if (!scrollContainerRef.current) return;
@@ -137,7 +142,7 @@ export default function CommunityPage() {
         const newMessage: ChatMessageType = JSON.parse(body);
         setMessages((prev) => [...prev, newMessage]);
 
-        if (newMessage.author.id === auth.currentUser?.id) {
+        if (newMessage.author.id === auth.currentAcc?.id) {
           setShouldScrollToBottom(true);
         }
       } catch (err) {
@@ -152,19 +157,18 @@ export default function CommunityPage() {
     };
   }, [subscribeToTopic]);
 
-
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
     if (!message.trim()) return;
 
     const chatMessage = {
-      accountId: auth.currentUser?.id,
+      accountId: auth.currentAcc?.id,
       content: message,
     };
 
     console.log("Sending message:", chatMessage);
     sendMessage("/app/chat/send", JSON.stringify(chatMessage));
-    setMessage("")
+    setMessage("");
     setShouldScrollToBottom(true);
   };
 
@@ -180,11 +184,17 @@ export default function CommunityPage() {
       <div className="grid lg:grid-cols-[1fr_250px] gap-8">
         <Card className="p-4">
           <div className="flex flex-col h-[60vh]">
-            <div className="flex-1 overflow-y-auto space-y-4 pr-2 scrollbar-hidden"
+            <div
+              className="flex-1 overflow-y-auto space-y-4 pr-2 scrollbar-hidden"
               ref={scrollContainerRef}
-              onScroll={handleScroll}>
+              onScroll={handleScroll}
+            >
               {messages.map((msg) => (
-                <ChatMessage key={msg.id} message={msg} isOwnMessage={msg.author.id === auth.currentUser?.id} />
+                <ChatMessage
+                  key={msg.id}
+                  message={msg}
+                  isOwnMessage={msg.author.id === auth.currentAcc?.id}
+                />
               ))}
               <div ref={scrollRef} />
             </div>

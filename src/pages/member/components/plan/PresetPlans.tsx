@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { PlanCard } from "./PlanCard";
 import { PlanGuide } from "./PlanGuide";
-import { presetPlans, createPresetPlan } from "@/data/presetPlanData";
+import { presetPlans, createPresetPlan } from "@/data/preset-plan.data";
 import type { QuitPlan } from "@/pages/member/PlanTrackingTab";
 import {
   Card,

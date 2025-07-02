@@ -28,7 +28,7 @@ const MobileMenu = () => {
   const { auth, handleLogout } = useAuth();
 
   const filteredItems = mainNav.filter((item) => {
-    if (auth.currentUser?.havingSubscription && item.id === "pricing") {
+    if (auth.currentAcc?.havingSubscription && item.id === "pricing") {
       return false;
     }
 
@@ -60,8 +60,8 @@ const MobileMenu = () => {
         <div className="flex flex-col space-y-2 p-4">
           <Link
             to={
-              auth.currentUser?.role
-                ? `/${auth.currentUser?.role.toLowerCase()}/dashboard`
+              auth.currentAcc?.role
+                ? `/${auth.currentAcc?.role.toLowerCase()}/dashboard`
                 : `/dashboard`
             }
             className="block text-base transition-colors hover:text-primary"

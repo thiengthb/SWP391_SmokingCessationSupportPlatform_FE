@@ -23,7 +23,7 @@ import AdminDashboard from "@/pages/dashboard/admin";
 import MemberDashboard from "@/pages/dashboard/member";
 import CoachDashboard from "@/pages/dashboard/coach";
 import RequireAuth from "@/components/RequireAuth";
-import { Role } from "@/types/user/user";
+import { Role } from "@/types/models/account";
 import AccessDenied from "@/components/AccessDenied";
 import PersistLogin from "@/components/PersistLogin";
 import PricingPage from "@/pages/pricing";

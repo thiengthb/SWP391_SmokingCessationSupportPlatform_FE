@@ -12,7 +12,7 @@ import {
   calculateProgress,
   validatePlan,
 } from "./utils/PlanUtils";
-import { DEFAULT_TIPS } from "@/data/presetPlanData";
+import { DEFAULT_TIPS } from "@/data/preset-plan.data";
 import useApi from "@/hooks/useApi";
 import PresetPlans from "./components/plan/PresetPlans";
 

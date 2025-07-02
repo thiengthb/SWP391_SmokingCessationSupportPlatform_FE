@@ -27,4 +27,24 @@ export const defaultMembership: Membership = {
     saved: 0,
 };
 
+export interface ProgramFeature {
+  title: string;
+  description: string;
+  free: boolean;
+  paid: boolean;
+}
+
+export interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+export interface Testimonial {
+  name: string;
+  role: string;
+  content: string;
+  avatar: string;
+  rating: number;
+}
+
 export type Currency = typeof Currency[keyof typeof Currency];

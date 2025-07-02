@@ -11,8 +11,8 @@ import TodayRecord from "@/pages/member/components/record/TodayRecord";
 import RecordCalendar from "@/pages/member/components/record/RecordCalendar";
 import RecordsList from "@/pages/member/components/record/RecordsList";
 import RecordDialog from "@/pages/member/components/record/RecordDialog";
-import type { SmokingRecord } from "@/types/recordhabbit";
-import { defaultPagination, type Pagination } from "@/types/pagination";
+import type { SmokingRecord } from "@/types/models/record";
+import { defaultPagination, type Pagination } from "@/types/models/pagination";
 import PlanTrackingTab from "./PlanTrackingTab";
 const RecordHabbitPage = () => {
   const { auth } = useAuth();
@@ -220,18 +220,18 @@ const RecordHabbitPage = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">
-        Welcome Back, {auth?.currentUser?.username}
+        Welcome Back, {auth?.currentAcc?.username}
       </h1>
 
       <Tabs defaultValue="overview" className="mb-6">
         <TabsList
           className={`grid ${
-            auth.currentUser?.havingSubscription ? "grid-cols-3" : "grid-cols-2"
+            auth.currentAcc?.havingSubscription ? "grid-cols-3" : "grid-cols-2"
           } mb-4`}
         >
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="records">Smoking Records</TabsTrigger>
-          {auth.currentUser?.havingSubscription && (
+          {auth.currentAcc?.havingSubscription && (
             <TabsTrigger value="plans">Plan</TabsTrigger>
           )}
         </TabsList>

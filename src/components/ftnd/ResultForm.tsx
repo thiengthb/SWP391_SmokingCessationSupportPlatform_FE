@@ -9,7 +9,10 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
-import { getFtndLevelDescription, getFtndLevelText } from "./ftndData";
+import {
+  getFtndLevelDescription,
+  getFtndLevelText,
+} from "../../data/ftnd.data";
 
 interface FTNDAssessmentFormProps {
   open: boolean;

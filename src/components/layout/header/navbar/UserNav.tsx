@@ -36,7 +36,7 @@ export function UserNav() {
 
     if (!item.displayMobile) return false;
 
-    if (auth.currentUser?.havingSubscription && item.id === "pricing") {
+    if (auth.currentAcc?.havingSubscription && item.id === "pricing") {
       return false;
     }
 
@@ -51,8 +51,8 @@ export function UserNav() {
           <Button variant="ghost" className="relative h-8 w-8 rounded-full">
             <Avatar className="h-8 w-8">
               <AvatarImage
-                src={auth.currentUser?.avatar ?? ""}
-                alt={auth.currentUser?.username ?? t("roles.user")}
+                src={auth.currentAcc?.avatar ?? ""}
+                alt={auth.currentAcc?.username ?? t("roles.user")}
               />
               <AvatarFallback>
                 <UserRound />
@@ -64,10 +64,10 @@ export function UserNav() {
           <DropdownMenuLabel className="font-normal">
             <div className="flex flex-col space-y-1">
               <p className="text-sm font-medium leading-none">
-                {auth.currentUser?.username || t("roles.guest")}
+                {auth.currentAcc?.username || t("roles.guest")}
               </p>
               <p className="text-xs leading-none text-muted-foreground">
-                {auth.currentUser?.email}
+                {auth.currentAcc?.email}
               </p>
             </div>
           </DropdownMenuLabel>
@@ -75,7 +75,7 @@ export function UserNav() {
           <DropdownMenuGroup>
             <DropdownMenuItem>
               <Link
-                to={`/${auth.currentUser?.role?.toLowerCase()}/dashboard`}
+                to={`/${auth.currentAcc?.role?.toLowerCase()}/dashboard`}
                 className="w-full"
               >
                 {t(`nav.dashboard.title`)}

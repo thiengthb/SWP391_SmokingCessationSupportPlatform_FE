@@ -28,7 +28,7 @@ import {
   MotivationFrequency,
   Theme,
   TrackingMode,
-} from "@/types/setting";
+} from "@/types/models/setting";
 
 export default function SettingsPage() {
   const {
