@@ -7,7 +7,7 @@ interface ChatMessageProps {
 }
 
 export function ChatMessage({ message }: ChatMessageProps) {
-  const initials = message.author.username
+  const initials = message.author.name
     .split(' ')
     .map(n => n[0])
     .join('')
@@ -19,12 +19,12 @@ export function ChatMessage({ message }: ChatMessageProps) {
     )}>
       {
         <Avatar>
-          <AvatarImage src={message.author.avatar} alt={message.author.username} />
+          <AvatarImage src={message.author.avatar} alt={message.author.name} />
           <AvatarFallback>{initials}</AvatarFallback>
         </Avatar>
       }
       <div className="flex-1">
-          <div className="text-sm font-medium">{message.author.username}</div>
+          <div className="text-sm font-medium">{message.author.name}</div>
         <p className={cn(
           "text-sm",
         )}>
