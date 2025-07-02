@@ -1,12 +1,14 @@
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import type { User } from "@/types/community/user";
+import { useTranslation } from "react-i18next";
 
 interface OnlineUserProps {
   user: User;
 }
 
 export function OnlineUser({ user }: OnlineUserProps) {
+  const { t } = useTranslation();
   const initials = user.name
     .split(' ')
     .map(n => n[0])
@@ -28,7 +30,7 @@ export function OnlineUser({ user }: OnlineUserProps) {
       <div className="flex flex-col">
         <span className="text-sm font-medium leading-none">{user.name}</span>
         <span className="text-xs text-muted-foreground">
-          {user.status === "online" ? "Active now" : "Away"}
+          {t(user.status === "online" ? "page.community.activeNow" : "page.community.away")}
         </span>
       </div>
     </div>

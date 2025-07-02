@@ -1,5 +1,5 @@
 import { api } from "@/lib/axios";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/contexts/AuthContext";
 
 const useRefreshToken = () => {
     const { setAuth } = useAuth();
@@ -10,6 +10,7 @@ const useRefreshToken = () => {
             ...prev,
             currentUser: response.data.result.user,
             accessToken: response.data.result.accessToken,
+            isAuthenticated: true,
         }));
         return response.data.result.accessToken;
     }

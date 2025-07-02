@@ -2,13 +2,14 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import MobileMenu from "./MobileMenu";
 import { NavigationItems } from "./NavigationItems";
-import { mainNav } from "./navbar.item";
 import { ModeToggle } from "@/components/theme/theme-toggle";
 import Logo from "../Logo";
 import { UserNav } from "./UserNav";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/contexts/AuthContext";
+import { useTranslation } from "react-i18next";
 
 const Navbar = () => {
+  const { t } = useTranslation();
   const { auth } = useAuth();
 
   return (
@@ -17,7 +18,7 @@ const Navbar = () => {
         <Logo />
         <div className="flex items-center justify-between md:gap-4 xl:gap-8 2xl:gap-12">
           <nav className="hidden md:flex">
-            <NavigationItems items={mainNav} />
+            <NavigationItems />
           </nav>
           <div className="hidden md:flex items-center gap-2">
             {auth.currentUser ? (
@@ -32,10 +33,10 @@ const Navbar = () => {
                   asChild
                   className="hidden lg:inline-flex"
                 >
-                  <Link to="/auth/login">Login</Link>
+                  <Link to="/auth/login">{t(`buttons.login`)}</Link>
                 </Button>
                 <Button size="sm" asChild>
-                  <Link to="/auth/register">Sign Up</Link>
+                  <Link to="/auth/register">{t(`buttons.signup`)}</Link>
                 </Button>
                 <div className="hidden lg:flex">
                   <ModeToggle />
@@ -43,7 +44,7 @@ const Navbar = () => {
               </>
             )}
           </div>
-          <MobileMenu items={mainNav} />
+          <MobileMenu />
         </div>
       </div>
     </header>

@@ -1,5 +1,6 @@
 import useRefreshToken from './useRefreshToken'
-import { useAuth } from '@/context/AuthContext';
+import { useAuth } from '@/contexts/AuthContext';
+import i18n from '@/lib/i18n';
 import { api } from '@/lib/axios';
 import { useEffect } from 'react';
 
@@ -11,6 +12,7 @@ const useApi = () => {
 
         const requestInterceptor = api.interceptors.request.use(
             config => {
+                config.headers["Accept-Language"] = i18n.language;
                 if (!config.headers['Authorization'] && auth?.accessToken) {
                     config.headers['Authorization'] = `Bearer ${auth.accessToken}`;
                 }

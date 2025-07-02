@@ -1,4 +1,4 @@
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { api } from "@/lib/axios";
 import { GoogleLogin, type CredentialResponse } from "@react-oauth/google";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -10,11 +10,12 @@ const GoogleButton = () => {
   const from = location.state?.from?.pathname || "/";
 
   const handleGoogleLogin = async (credentialResponse: CredentialResponse) => {
-    const idToken = credentialResponse.credential;
+    const token = credentialResponse.credential;
     try {
       const response = await api.post("/v1/auth/google/login", {
-        idToken,
+        token,
       });
+      console.log("Google login response:", response.data);
       setAuth({
         isAuthenticated: true,
         currentUser: response.data.user,

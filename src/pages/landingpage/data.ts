@@ -4,45 +4,63 @@ import type { Feature } from "./types";
 export const features: Feature[] = [
   {
     icon: Shield,
-    title: "Evidence-Based Methods",
-    description: "Scientifically proven techniques to help you quit",
+    title: "feature.shield.title",
+    description: "feature.shield.description",
   },
   {
     icon: Activity,
-    title: "Progress Tracking",
-    description: "Monitor your health improvements in real-time",
+    title: "feature.activity.title",
+    description: "feature.activity.description",
   },
   {
     icon: Users,
-    title: "Community Support",
-    description: "Connect with others on the same journey",
+    title: "feature.communitySupport.title",
+    description: "feature.communitySupport.description",
   },
   {
     icon: Heart,
-    title: "Health Improvement",
-    description: "Experience better health and wellness",
+    title: "feature.health.title",
+    description: "feature.health.description",
   },
   {
     icon: Clock,
-    title: "Time-Efficient",
-    description: "Quick and easy methods to track your progress",
+    title: "feature.timeEfficient.title",
+    description: "feature.timeEfficient.description",
   },
   {
     icon: Star,
-    title: "Proven Success",
-    description: "Join the ranks of our successful quitters",
+    title: "feature.success.title",
+    description: "feature.success.description",
   },
 ];
 
 export const successItems = [
-  "Over 100,000 successful quitters",
-  "90% success rate after 3 months",
-  "Average savings of $2,000 per year",
-  "Improved health within weeks",
+  "page.landingPage.successItems.item1",
+  "page.landingPage.successItems.item2",
+  "page.landingPage.successItems.item3",
+  "page.landingPage.successItems.item4",
 ];
 
 export const testimonials = [
-  { text: "Great service!", author: "Alice", rating: 5, role: "Customer", date: "2023-10-01" },
-  { text: "Loved the experience.", author: "Bob", rating: 4, role: "User", date: "2023-09-15" },
-  { text: "Highly recommend.", author: "Charlie", rating: 5, role: "Client", date: "2023-08-20" },
+  {
+    text: "testimonial.item1.text",
+    author: "Alice",
+    rating: 5,
+    role: "testimonial.item1.role",
+    date: "2023-10-01",
+  },
+  {
+    text: "testimonial.item2.text",
+    author: "Bob",
+    rating: 4,
+    role: "testimonial.item2.role",
+    date: "2023-09-15",
+  },
+  {
+    text: "testimonial.item3.text",
+    author: "Charlie",
+    rating: 5,
+    role: "testimonial.item3.role",
+    date: "2023-08-20",
+  },
 ];

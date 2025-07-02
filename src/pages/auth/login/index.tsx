@@ -16,10 +16,12 @@ import { loginSchema, type LoginFormData } from "@/types/auth/login";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import FormInputError from "@/components/FormInputError";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 const LoginPage = () => {
+  const { t } = useTranslation();
   const { persist, setPersist, handleLogin } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -70,10 +72,8 @@ const LoginPage = () => {
     <div className="w-full my-10 sm:my-16 lg:my-16 2xl:my-40 flex justify-center items-center">
       <Card className="w-[360px] lg:w-[400px] xl:w-[440px] mx-2 pb-10">
         <CardHeader>
-          <CardTitle>Welcome back</CardTitle>
-          <CardDescription>
-            Enter your credentials to access your account
-          </CardDescription>
+          <CardTitle>{t("page.login.title")}</CardTitle>
+          <CardDescription>{t("page.login.description")}</CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent className="grid gap-4">
@@ -89,11 +89,11 @@ const LoginPage = () => {
               <FormInputError field={errors.email} />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">{t("page.login.form.password")}</Label>
               <Input
                 id="password"
                 type="password"
-                placeholder="Enter your password"
+                placeholder={t("page.login.placeholderPassword")}
                 disabled={isSubmitting}
                 {...register("password")}
               />
@@ -108,27 +108,31 @@ const LoginPage = () => {
                   disabled={isSubmitting}
                 />
                 <label htmlFor="remember" className="text-sm leading-none">
-                  Remember me
+                  {t("page.login.rememberMe")}
                 </label>
               </div>
               <Button variant="link" className="px-0 text-sm">
-                <Link to="/auth/forgot-password">Forgot password?</Link>
+                <Link to="/auth/forgot-password">
+                  {t("page.login.forgotPassword")}
+                </Link>
               </Button>
             </div>
           </CardContent>
           <CardFooter className="flex flex-col gap-4">
             <div className="w-full flex flex-col items-center">
               <Button type="submit" className="w-full" disabled={isSubmitting}>
-                {isSubmitting ? "Signing in..." : "Sign In"}
+                {isSubmitting
+                  ? t("page.login.signingIn")
+                  : t("page.login.signIn")}
               </Button>
               <div className="flex items-center gap-2">
-                <span className="text-sm">Don't have account?</span>
+                <span className="text-sm">{t("page.login.noAccount")}</span>
                 <Button variant="link" className="px-0">
                   <Link
                     to="/auth/register"
                     className="text-sm text-muted-foreground hover:text-primary"
                   >
-                    Sign up
+                    {t("page.login.signUp")}
                   </Link>
                 </Button>
               </div>

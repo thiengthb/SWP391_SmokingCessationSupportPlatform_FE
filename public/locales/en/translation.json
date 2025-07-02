@@ -1,0 +1,386 @@
+{
+  "welcome": "Hello!",
+  "nav": {
+    "menu": {
+      "title": "Menu",
+      "description": "Explore our features and sections"
+    },
+    "toggleMenu": {
+      "title": "Toggle Menu",
+      "description": "Open or close the navigation menu"
+    },
+    "profile": {
+      "title": "Profile"
+    },
+    "settings": {
+      "title": "Settings"
+    },
+    "home": {
+      "title": "Home"
+    },
+    "pricing": {
+      "title": "Pricing",
+      "description": "Explore our plans and pricing options"
+    },
+    "blog": {
+      "title": "Blog",
+      "description": "News, articles, and resources"
+    },
+    "leaderboard": {
+      "title": "Leaderboard",
+      "description": "Explore top rankings and achievements",
+      "global": {
+        "title": "Global Ranking",
+        "description": "See the top achievers worldwide"
+      },
+      "hallOfFame": {
+        "title": "Hall of Fame",
+        "description": "Celebrating our greatest achievers"
+      }
+    },
+    "community": {
+      "title": "Community",
+      "description": "Connect with other members"
+    },
+    "about": {
+      "title": "About Us",
+      "description": "Learn more about our mission and team",
+      "team": {
+        "title": "Our Team",
+        "description": "Meet the people behind our platform"
+      },
+      "story": {
+        "title": "Our Story",
+        "description": "Discover our journey and values"
+      }
+    },
+    "contact": {
+      "title": "Contact Us"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "description": "Your personal dashboard"
+    }
+  },
+  "buttons": {
+    "login": "Login",
+    "logout": "Log out",
+    "signup": "Sign Up",
+    "forgotPassword": "Forgot Password?",
+    "resetPassword": "Reset Password",
+    "changePassword": "Change Password",
+    "register": "Register",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "theme": {
+    "title": "Theme",
+    "description": "Choose your preferred theme",
+    "light": "Light Mode",
+    "dark": "Dark Mode",
+    "system": "System Default"
+  },
+  "roles": {
+    "admin": "Administrator",
+    "user": "User",
+    "guest": "Guest",
+    "coach": "Coach"
+  },
+  "feature": {
+    "shield": {
+      "title": "Evidence-Based Methods",
+      "description": "Scientifically proven techniques to help you quit"
+    },
+    "activity": {
+      "title": "Activity Tracking",
+      "description": "Monitor your progress and stay motivated"
+    },
+    "communitySupport": {
+      "title": "Community Support",
+      "description": "Connect with others on the same journey"
+    },
+    "health": {
+      "title": "Health Improvement",
+      "description": "Experience better health and wellness"
+    },
+    "timeEfficient": {
+      "title": "Time-Efficient",
+      "description": "Quick and easy methods to track your progress"
+    },
+    "success": {
+      "title": "Proven Success",
+      "description": "Join the ranks of our successful quitters"
+    }
+  },
+  "testimonial": {
+    "item1": {
+      "text": "Dịch vụ tuyệt vời!",
+      "role": "Khách hàng"
+    },
+    "item2": {
+      "text": "Rất thích trải nghiệm.",
+      "role": "Người dùng"
+    },
+    "item3": {
+      "text": "Rất đáng để thử.",
+      "role": "Khách quen"
+    }
+  },
+  "page": {
+    "landingPage": {
+      "title": "🎉 Join 100,000+ users who quit smoking",
+      "description": "Your journey to a smoke-free life starts here",
+      "paragraph": "Experience personalized support, track your progress, and join a community of people committed to quitting smoking for good.",
+      "buttonStart": "Start Your Journey",
+      "buttonLearn": "Learn More",
+      "paragraph1": "Everything You Need to Quit",
+      "paragraph2": "Comprehensive tools and support to help you succeed in your journey",
+      "paragraph3": "Real People, Real Success",
+      "successItems": {
+        "item1": "Over 100,000 successful quitters",
+        "item2": "90% success rate after 3 months",
+        "item3": "Average savings of $2,000 per year",
+        "item4": "Improved health within weeks"
+      },
+      "text1": "Ready to Change Your Life?",
+      "text2": "Join our community and take the first step towards a healthier, smoke-free life.",
+      "buttonStartNow": "Get Started Now",
+      "buttonRead": "Read Success Stories"
+    },
+    "contact": {
+      "title": "Contact Us",
+      "description": "We'd love to hear from you. Send us a message and we'll respond as soon as possible.",
+      "form": {
+        "name": "Name",
+        "subject": "Subject",
+        "message": "Message",
+        "placeholderName": "Your Name",
+        "placeholderSubject": "Subject of your message",
+        "placeholderMessage": "Type your message here...",
+        "submit": "Send Message",
+        "sending": "Sending...",
+        "success": "Message sent successfully!"
+      },
+      "getInTouch": "Get in Touch",
+      "info": {
+        "email": "Email",
+        "phone": "Phone",
+        "address": "Address",
+        "social": "Social Media",
+        "followUs": "Follow us on our social media channels for updates and support."
+      }
+    },
+    "community": {
+      "title": "Community",
+      "description": "Connect and share with others on their journey",
+      "inputPlaceholder": "Type your message here...",
+      "onlineUsers": "Online Users",
+      "activeNow": "Active Now",
+      "away": "Away"
+    },
+    "story": {
+      "title": "Our Story",
+      "subtitle": "The journey of building a smoke-free future",
+      "missionTitle": "Our Mission",
+      "missionDescription": "We are committed to helping people break free from tobacco addiction through innovative technology, supportive community, and evidence-based methods.",
+      "goalsTitle": "Goals",
+      "joinTitle": "Join Our Mission",
+      "joinDescription": "Let's work together to create a healthier world. We can help more people quit smoking and live better lives.",
+      "buttonGetStarted": "Get Started Now"
+    },
+    "team": {
+      "title": "Our Team",
+      "description": "Meet the dedicated professionals working to help you quit smoking",
+      "getInTouchTitle": "Get in Touch",
+      "getInTouchDescription": "Have questions? We'd love to hear from you. Send us a message and we'll respond...",
+      "buttonContact": "Contact Us"
+    },
+    "forgotPassword": {
+      "title": "Forgot Password",
+      "description": "Enter your email address and we'll send you a link to reset your password.",
+      "buttonSend": "Send Reset Link",
+      "backToLogin": "Back to Login"
+    },
+    "login": {
+      "title": "Welcome back",
+      "description": "Enter your login information to access your account",
+      "placeholderEmail": "example@gmail.com",
+      "placeholderPassword": "Enter your password",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot password?",
+      "signingIn": "Signing in...",
+      "signIn": "Sign in",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign up",
+      "form": {
+        "password": "Password"
+      }
+    },
+    "register": {
+      "title": "Create an account",
+      "description": "Enter your information to create your account",
+      "placeholderPassword": "Enter your password",
+      "placeholderConfirm": "Re-enter your password",
+      "loading": "Loading...",
+      "signUp": "Sign Up",
+      "haveAccount": "Already have an account?",
+      "login": "Login",
+      "form": {
+        "password": "Password",
+        "confirmPassword": "Confirm Password"
+      }
+    },
+    "cigarette-tracker": {
+      "title": "Cigarette Tracker",
+      "description": "Track and manage your smoking habits",
+      "today": {
+        "title": "Today",
+        "subtitle": "{{date, EEEE, dd/MM/yyyy}}",
+        "tracking": "Tracking",
+        "unit": "cigarettes",
+        "notes": {
+          "label": "Notes",
+          "placeholder": "Add notes for today..."
+        },
+        "save": "Save information"
+      },
+      "chart": {
+        "title": "Tracking Chart",
+        "subtitle": "History of the last 14 days",
+        "line": "Line",
+        "bar": "Bar",
+        "tooltip": {
+          "label": "Date {{label}}",
+          "value": "{{value}} cigarettes"
+        }
+      },
+      "stat": {
+        "title": "Statistics",
+        "description": "Statistics about your smoking habits",
+        "week": "This week",
+        "avg": "Average/day"
+      },
+      "trend": {
+        "label": "Recent trend",
+        "down": "Decreasing",
+        "up": "Increasing",
+        "stable": "Stable"
+      },
+      "impact": {
+        "label": "Health impact",
+        "high": "High smoking levels can cause serious health harm. Consider reducing gradually.",
+        "medium": "Moderate smoking levels still impact health. Try to reduce further.",
+        "low": "Low smoking levels, but quitting entirely is best for your health."
+      },
+      "recent": {
+        "title": "Recent history",
+        "description": "Your recent records",
+        "empty": "No data yet. Start tracking today."
+      },
+      "notes": {
+        "none": "No notes"
+      }
+    },
+    "cigarett-tracker2": {
+      "health": {
+        "title": "Health Information",
+        "description": "Understand the harms of smoking and the benefits of quitting",
+        "harm": {
+          "title": "Harms of Smoking",
+          "description": "Smoking affects nearly every organ in the body",
+          "lungs": {
+            "title": "Effects on the lungs",
+            "1": "Lung cancer – Smoking causes up to 90% of deaths from lung cancer",
+            "2": "Chronic obstructive pulmonary disease (COPD), including chronic bronchitis and emphysema",
+            "3": "Increased risk of respiratory infections and worsened asthma symptoms"
+          },
+          "heart": {
+            "title": "Effects on the heart",
+            "1": "Coronary artery disease leading to chest pain and heart attack",
+            "2": "Increased blood pressure and heart rate",
+            "3": "Higher risk of stroke from blood clots or brain bleeding"
+          },
+          "brain": {
+            "title": "Effects on the brain",
+            "1": "Nicotine causes addiction and alters brain activity",
+            "2": "Increased risk of stroke with potential permanent brain damage",
+            "3": "Studies show a link between smoking and increased risk of Alzheimer’s disease"
+          }
+        },
+        "tabs": {
+          "lungs": "Lungs",
+          "heart": "Heart",
+          "brain": "Brain"
+        },
+        "benefit": {
+          "title": "Benefits of Quitting Smoking",
+          "description": "The body begins to recover immediately after quitting",
+          "timeline": {
+            "title": "Recovery Timeline",
+            "description": "Positive changes will occur over time"
+          }
+        },
+        "statistics": {
+          "title": "Smoking Statistics"
+        },
+        "economic": {
+          "title": "Economic Benefits of Quitting",
+          "note": "*Estimated based on smoking 1 pack per day at 30,000đ per pack",
+          "save1month": "Savings after 1 month",
+          "save1year": "Savings after 1 year",
+          "save10year": "Savings after 10 years",
+          "medical": "Reduced medical expenses"
+        },
+        "tracker": {
+          "title": "Start Tracking Your Smoking Habit",
+          "description": "The first step to quitting is understanding your current habit",
+          "start": "Start tracking now",
+          "link": {
+            "quitMethod": "Learn how to quit smoking",
+            "plan": "Create a quit-smoking plan"
+          }
+        }
+      }
+    },
+    "leaderboard": {
+      "title": "Leaderboard",
+      "description": "Top achievers in their smoke-free journey",
+      "tabs": {
+        "global": "Global Rankings",
+        "monthly": "Monthly Leaders"
+      },
+      "filter": {
+        "placeholder": "Filter by",
+        "all": "All Time",
+        "week": "This Week",
+        "month": "This Month",
+        "year": "This Year"
+      },
+      "period": {
+        "placeholder": "Select Month",
+        "current": "Current Month",
+        "last": "Last Month",
+        "previous": "Previous Months"
+      },
+      "global": {
+        "title": "Global Leaders",
+        "description": "Updated in real-time"
+      },
+      "monthly": {
+        "title": "Monthly Champions",
+        "description": "Rankings reset monthly"
+      },
+      "hallOfFame": {
+        "title": "Hall of Fame",
+        "subtitle": "Celebrating our greatest achievers",
+        "button": "Hall of Fame"
+      },
+      "yourRanking": "Your Ranking",
+      "daysSmokeFree": "days smoke-free",
+      "points": "pts"
+    }
+  }
+}

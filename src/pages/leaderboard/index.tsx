@@ -7,15 +7,25 @@ import { Link } from "react-router-dom";
 import { LeaderboardTabs } from "./components/LeaderboardTabs";
 import { leaderboardData } from "@/utils/mockdata/leaderboard";
 import { Separator } from "@/components/ui/separator";
+import { useTranslation } from "react-i18next";
 
 export default function LeaderboardPage() {
-  const getInitials = (name: string) => name.split(" ").map(n => n[0]).join("");
+  const { t } = useTranslation();
+  const getInitials = (name: string) =>
+    name
+      .split(" ")
+      .map((n) => n[0])
+      .join("");
   const getRankIcon = (rank: number) => {
     switch (rank) {
-      case 1: return <Trophy className="h-5 w-5 text-yellow-500" />;
-      case 2: return <Medal className="h-5 w-5 text-gray-400" />;
-      case 3: return <Medal className="h-5 w-5 text-amber-600" />;
-      default: return <span className="font-bold">{rank}</span>;
+      case 1:
+        return <Trophy className="h-5 w-5 text-yellow-500" />;
+      case 2:
+        return <Medal className="h-5 w-5 text-gray-400" />;
+      case 3:
+        return <Medal className="h-5 w-5 text-amber-600" />;
+      default:
+        return <span className="font-bold">{rank}</span>;
     }
   };
 
@@ -37,13 +47,18 @@ export default function LeaderboardPage() {
     <div className="container py-10 px-4 mx-auto">
       <div className="flex items-center justify-between mb-6 gap-4">
         <div>
-          <h1 className="text-4xl font-bold mb-2">Leaderboard</h1>
+          <h1 className="text-4xl font-bold mb-2">
+            {" "}
+            {t("page.leaderboard.title")}
+          </h1>
           <p className="text-muted-foreground">
-            Top achievers in their smoke-free journey
+            {t("page.leaderboard.description")}
           </p>
         </div>
         <Button asChild variant="outline">
-          <Link to="/leaderboard/hall-of-fame">Hall of Fame</Link>
+          <Link to="/leaderboard/hall-of-fame">
+            {t("page.leaderboard.hallOfFame.button")}
+          </Link>
         </Button>
       </div>
 
@@ -59,7 +74,7 @@ export default function LeaderboardPage() {
                   <div className="flex items-center justify-center w-12">
                     {getRankIcon(user.rank)}
                   </div>
-                  
+
                   <Avatar>
                     <AvatarImage src={user.avatar} />
                     <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
@@ -102,7 +117,7 @@ export default function LeaderboardPage() {
               <div className="flex items-center justify-center w-12">
                 <span className="font-bold">#{currentUser.rank}</span>
               </div>
-              
+
               <Avatar>
                 <AvatarImage src={currentUser.avatar} />
                 <AvatarFallback>{getInitials(currentUser.name)}</AvatarFallback>
@@ -111,7 +126,9 @@ export default function LeaderboardPage() {
               <div className="flex-1">
                 <div className="flex items-center justify-between mb-2">
                   <div>
-                    <h3 className="font-semibold text-primary">{currentUser.name}</h3>
+                    <h3 className="font-semibold text-primary">
+                      {currentUser.name}
+                    </h3>
                     <p className="text-sm text-muted-foreground">
                       {currentUser.smokeFreeDay} days smoke-free
                     </p>

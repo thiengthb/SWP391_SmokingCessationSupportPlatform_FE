@@ -7,8 +7,10 @@ import { Users, Send } from "lucide-react";
 import { onlineUsers, chatMessages } from "@/utils/mockdata/community";
 import { ChatMessage } from "./components/ChatMessage";
 import { OnlineUser } from "./components/OnlineUser";
+import { useTranslation } from "react-i18next";
 
 export default function CommunityPage() {
+  const { t } = useTranslation();
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState(chatMessages);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -35,9 +37,9 @@ export default function CommunityPage() {
   return (
     <div className="container py-10 px-4 mx-auto">
       <div className="mb-6 space-y-1">
-        <h1 className="text-4xl font-bold mb-2">Community</h1>
+        <h1 className="text-4xl font-bold mb-2">{t("page.community.title")}</h1>
         <p className="text-muted-foreground">
-          Connect and share with others on their journey
+          {t("page.community.description")}
         </p>
       </div>
 
@@ -60,7 +62,7 @@ export default function CommunityPage() {
               <Input
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                placeholder="Type a message..."
+                placeholder={t("page.community.inputPlaceholder")}
                 className="flex-1"
               />
               <Button type="submit" size="icon">
@@ -74,7 +76,9 @@ export default function CommunityPage() {
           <Card className="p-4 h-full">
             <div className="flex items-center gap-2 mb-4">
               <Users className="h-5 w-5" />
-              <h3 className="font-semibold">Online Users</h3>
+              <h3 className="font-semibold">
+                {t("page.community.onlineUsers")}
+              </h3>
             </div>
             <div className="space-y-1">
               {onlineUsers.map((user) => (

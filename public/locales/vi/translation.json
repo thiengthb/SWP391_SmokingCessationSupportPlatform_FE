@@ -1,0 +1,392 @@
+{
+  "welcome": "Xin chào!",
+  "nav": {
+    "menu": {
+      "title": "Menu",
+      "description": "Khám phá các tính năng và phần của chúng tôi"
+    },
+    "toggleMenu": {
+      "title": "Menu",
+      "description": "Mở hoặc đóng menu điều hướng"
+    },
+    "profile": {
+      "title": "Hồ sơ"
+    },
+    "settings": {
+      "title": "Cài đặt"
+    },
+    "home": {
+      "title": "Trang chủ"
+    },
+    "pricing": {
+      "title": "Giá cả",
+      "description": "Khám phá các gói và tùy chọn giá của chúng tôi"
+    },
+    "blog": {
+      "title": "Blog",
+      "description": "Tin tức, bài viết và tài nguyên"
+    },
+    "leaderboard": {
+      "title": "Xếp hạng",
+      "description": "Khám phá các xếp hạng và thành tích hàng đầu",
+      "global": {
+        "title": "Xếp hạng toàn cầu",
+        "description": "Xem những người xuất sắc nhất trên toàn thế giới"
+      },
+      "hallOfFame": {
+        "title": "Ngôi đền danh vọng",
+        "description": "Những thành tích vĩ đại nhất mọi thời đại"
+      }
+    },
+    "community": {
+      "title": "Cộng đồng",
+      "description": "Kết nối với các thành viên khác"
+    },
+    "about": {
+      "title": "Chúng tôi",
+      "description": "Tìm hiểu thêm về sứ mệnh và đội ngũ của chúng tôi",
+      "team": {
+        "title": "Đội ngũ của chúng tôi",
+        "description": "Gặp gỡ những người đứng sau nền tảng của chúng tôi"
+      },
+      "story": {
+        "title": "Câu chuyện của chúng tôi",
+        "description": "Khám phá hành trình và giá trị của chúng tôi"
+      }
+    },
+    "contact": {
+      "title": "Liên hệ"
+    },
+    "dashboard": {
+      "title": "Bảng điều khiển",
+      "description": "Bảng điều khiển cá nhân của bạn"
+    }
+  },
+  "buttons": {
+    "login": "Đăng nhập",
+    "logout": "Đăng xuất",
+    "signup": "Đăng ký",
+    "forgotPassword": "Quên mật khẩu?",
+    "resetPassword": "Đặt lại mật khẩu",
+    "register": "Đăng ký",
+    "submit": "Gửi",
+    "cancel": "Hủy",
+    "save": "Lưu",
+    "edit": "Chỉnh sửa",
+    "delete": "Xóa"
+  },
+  "theme": {
+    "title": "Chủ đề",
+    "light": "Sáng",
+    "dark": "Tối",
+    "system": "Hệ thống"
+  },
+  "roles": {
+    "admin": "Quản trị viên",
+    "user": "Người dùng",
+    "guest": "Khách",
+    "coach": "Huấn luyện viên"
+  },
+  "feature": {
+    "shield": {
+      "title": "Bảo vệ",
+      "description": "Bảo vệ tài khoản và dữ liệu của bạn"
+    },
+    "activity": {
+      "title": "Theo dõi hoạt động",
+      "description": "Theo dõi tiến trình của bạn và giữ động lực"
+    },
+    "communitySupport": {
+      "title": "Hỗ trợ cộng đồng",
+      "description": "Kết nối với những người khác trên cùng một hành trình"
+    },
+    "health": {
+      "title": "Cải thiện sức khỏe",
+      "description": "Trải nghiệm sức khỏe và thể chất tốt hơn"
+    },
+    "timeEfficient": {
+      "title": "Tiết kiệm thời gian",
+      "description": "Phương pháp nhanh chóng và dễ dàng để theo dõi tiến trình của bạn"
+    },
+    "success": {
+      "title": "Thành công đã được chứng minh",
+      "description": "Gia nhập hàng ngũ những người bỏ thuốc thành công"
+    }
+  },
+  "testimonial": {
+    "item1": {
+      "text": "Dịch vụ tuyệt vời!",
+      "role": "Khách hàng"
+    },
+    "item2": {
+      "text": "Rất thích trải nghiệm.",
+      "role": "Người dùng"
+    },
+    "item3": {
+      "text": "Đội ngũ hỗ trợ rất hữu ích.",
+      "role": "Người dùng"
+    }
+  },
+  "page": {
+    "landingPage": {
+      "title": "🎉 Tham gia cùng hơn 100.000 người dùng bỏ thuốc lá",
+      "description": "Nơi bạn có thể tìm thấy sự hỗ trợ và động lực để từ bỏ thuốc lá",
+      "paragraph": "Trải nghiệm hỗ trợ cá nhân hóa, theo dõi tiến trình và tham gia cộng đồng",
+      "buttonStart": "Bắt đầu ngay",
+      "buttonLearnMore": "Tìm hiểu thêm",
+      "paragraph1": "Mọi thứ bạn cần để bỏ thuốc lá",
+      "paragraph2": "Công cụ và hỗ trợ toàn diện để giúp bạn thành công",
+      "paragraph3": "Người thật, thành công thật",
+      "successItems": {
+        "item1": "Hơn 100.000 người bỏ thuốc thành công",
+        "item2": "Tỷ lệ thành công 90% sau 3 tháng",
+        "item3": "Tiết kiệm trung bình $2.000 mỗi năm",
+        "item4": "Cải thiện sức khỏe trong vòng vài tuần"
+      },
+      "text1": "Sẵn sàng thay đổi cuộc sống của bạn?",
+      "text2": "Tham gia cộng đồng của chúng tôi và bắt đầu hành trình",
+      "buttonStartNow": "Bắt đầu ngay",
+      "buttonRead": "Đọc câu chuyện thành công"
+    },
+    "contact": {
+      "title": "Liên hệ với chúng tôi",
+      "description": "Chúng tôi rất vui được nghe từ bạn. Gửi cho chúng tôi một tin nhắn và chúng tôi sẽ phản hồi sớm nhất có thể.",
+      "form": {
+        "name": "Tên",
+        "subject": "Chủ đề",
+        "message": "Tin nhắn",
+        "placeholderName": "Nhập tên của bạn",
+        "placeholderSubject": "Chủ đề bạn muốn gửi",
+        "placeholderMessage": "Nhập nội dung tin nhắn...",
+        "submit": "Gửi",
+        "sending": "Đang gửi...",
+        "successMessage": "Cảm ơn bạn đã liên hệ với chúng tôi! Chúng tôi sẽ sớm phản hồi."
+      },
+      "getInTouch": "Liên hệ với chúng tôi",
+      "info": {
+        "email": "Email",
+        "phone": "Số điện thoại",
+        "address": "Địa chỉ",
+        "social": "Mạng xã hội",
+        "followUs": "Theo dõi chúng tôi trên các kênh mạng xã hội để nhận cập nhật và hỗ trợ."
+      }
+    },
+    "community": {
+      "title": "Cộng đồng",
+      "description": "Kết nối và chia sẻ với những người cùng hành trình",
+      "inputPlaceholder": "Nhập tin nhắn...",
+      "onlineUsers": "Người dùng trực tuyến",
+      "activeNow": "Đang hoạt động",
+      "away": "Vắng mặt"
+    },
+    "story": {
+      "title": "Câu chuyện của chúng tôi",
+      "subtitle": "Hành trình xây dựng một tương lai không khói thuốc",
+      "missionTitle": "Sứ mệnh của chúng tôi",
+      "missionDescription": "Chúng tôi cam kết giúp mọi người thoát khỏi sự phụ thuộc thuốc lá bằng công nghệ sáng tạo, cộng đồng hỗ trợ và phương pháp khoa học.",
+      "goalsTitle": "Mục tiêu",
+      "joinTitle": "Tham gia sứ mệnh",
+      "joinDescription": "Hãy cùng chung tay xây dựng một thế giới khỏe mạnh hơn. Chúng ta có thể giúp nhiều người bỏ thuốc và sống tốt hơn.",
+      "buttonGetStarted": "Bắt đầu ngay"
+    },
+    "team": {
+      "title": "Đội ngũ của chúng tôi",
+      "description": "Gặp gỡ những người tận tâm đang giúp bạn từ bỏ thuốc lá",
+      "getInTouchTitle": "Liên hệ với chúng tôi",
+      "getInTouchDescription": "Bạn có câu hỏi? Chúng tôi rất vui khi được lắng nghe. Gửi tin nhắn và chúng tôi sẽ phản hồi sớm nhất.",
+      "buttonContact": "Liên hệ"
+    },
+    "forgotPassword": {
+      "title": "Quên mật khẩu",
+      "description": "Nhập địa chỉ email của bạn và chúng tôi sẽ gửi liên kết đặt lại mật khẩu.",
+      "buttonSend": "Gửi liên kết",
+      "backToLogin": "Quay lại đăng nhập"
+    },
+    "login": {
+      "title": "Chào mừng trở lại",
+      "description": "Nhập thông tin đăng nhập để truy cập tài khoản",
+      "placeholderEmail": "example@gmail.com",
+      "placeholderPassword": "Nhập mật khẩu của bạn",
+      "rememberMe": "Ghi nhớ tôi",
+      "forgotPassword": "Quên mật khẩu?",
+      "signingIn": "Đang đăng nhập...",
+      "signIn": "Đăng nhập",
+      "noAccount": "Bạn chưa có tài khoản?",
+      "signUp": "Đăng ký",
+      "form": {
+        "password": "Mật khẩu"
+      }
+    },
+    "register": {
+      "title": "Tạo tài khoản",
+      "description": "Nhập thông tin để tạo tài khoản của bạn",
+      "placeholderPassword": "Nhập mật khẩu của bạn",
+      "placeholderConfirm": "Nhập lại mật khẩu",
+      "loading": "Đang xử lý...",
+      "signUp": "Đăng ký",
+      "haveAccount": "Bạn đã có tài khoản?",
+      "login": "Đăng nhập",
+      "form": {
+        "password": "Mật khẩu",
+        "confirmPassword": "Xác nhận mật khẩu"
+      }
+    },
+    "cigarett-tracker": {
+      "title": "Theo Dõi Hút Thuốc",
+      "description": "Theo dõi và quản lý thói quen hút thuốc của bạn",
+      "today": {
+        "title": "Hôm Nay",
+        "subtitle": "{{date, EEEE, dd/MM/yyyy}}",
+        "tracking": "Đang theo dõi",
+        "unit": "điếu thuốc",
+        "notes": {
+          "label": "Ghi chú",
+          "placeholder": "Thêm ghi chú cho hôm nay..."
+        },
+        "save": "Lưu thông tin"
+      },
+      "chart": {
+        "title": "Biểu đồ theo dõi",
+        "subtitle": "Lịch sử 14 ngày gần nhất",
+        "line": "Đường",
+        "bar": "Cột",
+        "tooltip": {
+          "label": "Ngày {{label}}",
+          "value": "{{value}} điếu"
+        }
+      },
+      "stat": {
+        "title": "Thống kê",
+        "description": "Các số liệu thống kê về thói quen hút thuốc",
+        "week": "Tuần này",
+        "avg": "Trung bình/ngày"
+      },
+      "trend": {
+        "label": "Xu hướng gần đây",
+        "down": "Đang giảm",
+        "up": "Đang tăng",
+        "stable": "Ổn định"
+      },
+      "impact": {
+        "label": "Tác động sức khoẻ",
+        "high": "Mức hút thuốc cao có thể gây nhiều tác hại nghiêm trọng đến sức khoẻ. Hãy cân nhắc giảm dần.",
+        "medium": "Mức hút thuốc trung bình vẫn có tác động đến sức khoẻ. Cố gắng giảm thêm nữa.",
+        "low": "Mức hút thuốc thấp, nhưng không hút thuốc mới là tốt nhất cho sức khoẻ."
+      },
+      "recent": {
+        "title": "Lịch sử gần đây",
+        "description": "Các bản ghi gần đây của bạn",
+        "empty": "Chưa có dữ liệu. Bắt đầu theo dõi ngay từ hôm nay."
+      },
+      "notes": {
+        "none": "Không có ghi chú"
+      }
+    },
+    "cigarett-tracker2": {
+      "health": {
+        "title": "Thông Tin Sức Khoẻ",
+        "description": "Hiểu về tác hại của thuốc lá và lợi ích của việc bỏ thuốc",
+        "harm": {
+          "title": "Tác hại của thuốc lá",
+          "description": "Thuốc lá ảnh hưởng đến hầu như mọi cơ quan trong cơ thể",
+          "lungs": {
+            "title": "Tác hại đến phổi",
+            "1": "Ung thư phổi - Thuốc lá gây ra tới 90% các ca tử vong do ung thư phổi",
+            "2": "Bệnh phổi tắc nghẽn mãn tính (COPD) bao gồm viêm phế quản mãn tính và khí phế thũng",
+            "3": "Tăng nguy cơ nhiễm trùng đường hô hấp và làm trầm trọng các triệu chứng hen suyễn"
+          },
+          "heart": {
+            "title": "Tác hại đến tim mạch",
+            "1": "Bệnh mạch vành dẫn đến đau thắt ngực và đau tim",
+            "2": "Tăng huyết áp và làm tăng nhịp tim",
+            "3": "Tăng nguy cơ đột quỵ do tắc nghẽn mạch máu hoặc xuất huyết não"
+          },
+          "brain": {
+            "title": "Tác hại đến não bộ",
+            "1": "Nicotine gây nghiện và thay đổi hoạt động của não",
+            "2": "Tăng nguy cơ đột quỵ với khả năng gây tổn thương não vĩnh viễn",
+            "3": "Nghiên cứu cho thấy liên quan giữa hút thuốc và tăng nguy cơ mắc bệnh Alzheimer"
+          }
+        },
+        "tabs": {
+          "lungs": "Phổi",
+          "heart": "Tim",
+          "brain": "Não"
+        },
+        "benefit": {
+          "title": "Lợi ích khi bỏ thuốc lá",
+          "description": "Cơ thể bắt đầu phục hồi ngay sau khi bạn bỏ thuốc",
+          "timeline": {
+            "title": "Thời gian phục hồi",
+            "description": "Những thay đổi tích cực sẽ diễn ra theo thời gian"
+          }
+        },
+        "statistics": {
+          "title": "Thống kê về thuốc lá"
+        },
+        "economic": {
+          "title": "Lợi ích kinh tế từ việc bỏ thuốc",
+          "note": "*Tính toán dựa trên mức hút 1 gói thuốc mỗi ngày với giá 30.000đ/gói",
+          "save1month": "Tiết kiệm sau 1 tháng",
+          "save1year": "Tiết kiệm sau 1 năm",
+          "save10year": "Tiết kiệm sau 10 năm",
+          "medical": "Chi phí y tế giảm",
+          "unknown": "Không ước tính được"
+        },
+        "tracker": {
+          "title": "Bắt đầu theo dõi thói quen hút thuốc của bạn",
+          "description": "Bước đầu tiên để bỏ thuốc lá là hiểu được thói quen hiện tại của bạn",
+          "start": "Bắt đầu theo dõi ngay",
+          "link": {
+            "quitMethod": "Tìm hiểu cách bỏ thuốc lá",
+            "plan": "Lập kế hoạch cai thuốc"
+          }
+        }
+      }
+    },
+    "leaderboard": {
+      "title": "Bảng Xếp Hạng",
+      "description": "Những người đạt thành tích cao trong hành trình bỏ thuốc",
+
+      "tabs": {
+        "global": "Bảng Xếp Hạng Toàn Cầu",
+        "monthly": "Người Dẫn Đầu Tháng"
+      },
+
+      "filter": {
+        "placeholder": "Lọc theo",
+        "all": "Tất cả thời gian",
+        "week": "Tuần này",
+        "month": "Tháng này",
+        "year": "Năm nay"
+      },
+
+      "period": {
+        "placeholder": "Chọn tháng",
+        "current": "Tháng hiện tại",
+        "last": "Tháng trước",
+        "previous": "Các tháng trước"
+      },
+
+      "global": {
+        "title": "Nhà Vô Địch Toàn Cầu",
+        "description": "Cập nhật theo thời gian thực"
+      },
+
+      "monthly": {
+        "title": "Nhà Vô Địch Tháng",
+        "description": "Bảng xếp hạng được đặt lại mỗi tháng"
+      },
+
+      "hallOfFame": {
+        "title": "Vinh Danh Thành Tích",
+        "subtitle": "Tôn vinh những người xuất sắc nhất",
+        "button": "Vinh Danh"
+      },
+
+      "yourRanking": "Xếp Hạng Của Bạn",
+      "daysSmokeFree": "{{count}} ngày không hút thuốc",
+      "points": "điểm"
+    }
+  }
+}

@@ -1,9 +1,9 @@
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { type UserProfile } from '@/utils/mockdata/profile';
-import { CalendarIcon, MapPinIcon, MailIcon } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { type UserProfile } from "@/utils/mockdata/profile";
+import { CalendarIcon, MapPinIcon, MailIcon } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 interface ProfileHeaderProps {
   profile: UserProfile;
@@ -31,11 +31,13 @@ export default function ProfileHeader({ profile }: ProfileHeaderProps) {
               <div className="flex gap-4 mt-2">
                 <div className="flex items-center text-sm text-muted-foreground">
                   <CalendarIcon className="h-4 w-4 mr-1" />
-                  <span>Joined {new Date(profile.joinedDate).toLocaleDateString()}</span>
+                  <span>
+                    Joined {new Date(profile.joinedDate).toLocaleDateString()}
+                  </span>
                 </div>
                 <div className="flex items-center text-sm text-muted-foreground">
                   <MapPinIcon className="h-4 w-4 mr-1" />
-                  <span>{profile.address.split(',')[0]}</span>
+                  <span>{profile.address.split(",")[0]}</span>
                 </div>
               </div>
             </div>
@@ -50,10 +52,10 @@ export default function ProfileHeader({ profile }: ProfileHeaderProps) {
         </div>
 
         <div className="mt-4 flex flex-wrap gap-2 justify-center md:justify-start">
-          {Object.entries( {}).map(([platform]) => (
-            <a 
-              key={platform} 
-              target="_blank" 
+          {Object.entries({}).map(([platform]) => (
+            <a
+              key={platform}
+              target="_blank"
               rel="noopener noreferrer"
               className="flex items-center p-2 bg-muted rounded-md hover:bg-muted/80 transition-colors"
             >

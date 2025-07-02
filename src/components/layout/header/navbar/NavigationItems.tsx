@@ -6,18 +6,20 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu"
-import { Link } from "react-router-dom"
-import type { NavItems } from "./navbar.item"
+} from "@/components/ui/navigation-menu";
+import { Link } from "react-router-dom";
+import { mainNav } from "./navbar.item";
+import { useTranslation } from "react-i18next";
+import { useAuth } from "@/contexts/AuthContext";
 
 const ListItem = ({
   title,
   href,
   children,
 }: {
-  title: string
-  href: string
-  children: React.ReactNode
+  title: string;
+  href: string;
+  children: React.ReactNode;
 }) => (
   <li>
     <NavigationMenuLink asChild>
@@ -32,13 +34,28 @@ const ListItem = ({
       </Link>
     </NavigationMenuLink>
   </li>
-)
+);
 
-export function NavigationItems({ items }: NavItems) {
+export function NavigationItems() {
+  const { t } = useTranslation();
+  const { auth } = useAuth();
 
-  const filteredItems = items.filter(
-    (item) => !item.requireAuth
-  )
+  const filteredItems = mainNav.filter((item) => {
+    if (item.displayMobile) return false;
+
+    if (
+      auth.isAuthenticated &&
+      (item.id === "about" || item.id === "contact")
+    ) {
+      return false;
+    }
+
+    if (auth.currentUser?.havingSubscription && item.id === "pricing") {
+      return false;
+    }
+
+    return true;
+  });
 
   return (
     <div className="relative">
@@ -46,26 +63,29 @@ export function NavigationItems({ items }: NavItems) {
         <NavigationMenuList>
           {filteredItems.map((item) => (
             <NavigationMenuItem key={item.href}>
-              {item.items? (
+              {item.items ? (
                 <>
-                  <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>
+                  <NavigationMenuTrigger>{t(item.title)}</NavigationMenuTrigger>
                   <NavigationMenuContent className="absolute top-0 left-0 z-[999]">
                     <ul className="grid w-[180px] p-2 md:w-[220px] md:grid-cols-1">
                       {item.items.map((subItem) => (
                         <ListItem
                           key={subItem.href}
-                          title={subItem.title}
+                          title={t(subItem.title)}
                           href={subItem.href}
                         >
-                          {subItem.description}
+                          {t(subItem.description ? subItem.description : "")}
                         </ListItem>
                       ))}
                     </ul>
                   </NavigationMenuContent>
                 </>
               ) : (
-                <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                  <Link to={item.href}>{item.title}</Link>
+                <NavigationMenuLink
+                  asChild
+                  className={navigationMenuTriggerStyle()}
+                >
+                  <Link to={item.href}>{t(item.title)}</Link>
                 </NavigationMenuLink>
               )}
             </NavigationMenuItem>
@@ -73,5 +93,5 @@ export function NavigationItems({ items }: NavItems) {
         </NavigationMenuList>
       </NavigationMenu>
     </div>
-  )
+  );
 }

@@ -7,19 +7,19 @@ export const contactInfos = [
     content: "swp391team@gmail.com",
   },
   {
-    title: "Phone",
+    title: "page.contact.info.phone",
     icon: Phone,
     content: "+84 372 7321 80",
   },
   {
-    title: "Address",
+    title: "page.contact.info.address",
     icon: MapPin,
     content: "Lô E2a-7, Đường D1, Đ. D1, Long Thạnh Mỹ, Thành Phố Thủ Đức",
   },
   {
-    title: "Social Media",
+    title: "page.contact.info.social",
     icon: MessageSquare,
-    content: "Follow us on our social media channels for updates and support.",
+    content: "page.contact.info.followUs",
     links: [
       { name: "Facebook", url: "https://www.facebook.com/swp391", icon: Facebook },
       { name: "Instagram", url: "https://www.instagram.com/swp391", icon: Instagram },  
