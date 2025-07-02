@@ -19,6 +19,8 @@ import { mainNav } from "./navbar.item";
 import ThemeSwitch from "@/components/theme/theme-switch";
 import { useAuth } from "@/contexts/AuthContext";
 import { useTranslation } from "react-i18next";
+import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
+import { NavigationNotifications } from "./NavigationNotifications";
 
 const MobileMenu = () => {
   const navigate = useNavigate();
@@ -40,6 +42,11 @@ const MobileMenu = () => {
 
   return (
     <Sheet>
+      <div className="md:hidden">
+        <DropdownMenu>
+          <NavigationNotifications />
+        </DropdownMenu>
+      </div>
       <SheetTrigger asChild>
         <Button variant="secondary" size="icon" className="md:hidden">
           <Menu className="h-5 w-5" />

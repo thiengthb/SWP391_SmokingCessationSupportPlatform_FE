@@ -109,10 +109,4 @@ export const mainNav: NavigationType[] = [
     title: "nav.contact.title",
     href: "/contact",
   },
-  {
-    title: "nav.notifications.title",
-    href: "/notifications",
-    requireAuth: true,
-    description: "nav.notification.description",
-  },
 ]
