@@ -60,6 +60,10 @@
     "dashboard": {
       "title": "Dashboard",
       "description": "Your personal dashboard"
+    },
+    "notifications": {  
+      "title": "Notifications",
+      "description": "View your notifications and updates"
     }
   },
   "buttons": {

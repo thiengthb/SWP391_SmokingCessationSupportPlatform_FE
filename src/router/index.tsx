@@ -31,6 +31,7 @@ import CigaretteTracker from "@/pages/cigarette-tracker";
 import CigaretteHealthInfo from "@/pages/cigarette-tracker/info";
 import WaitingForApprovalPage from "@/pages/waiting-for-approval";
 import PaymentResult from "@/pages/payment/PaymentResult";
+import NotificationPage from "@/pages/notification";
 
 const router = createBrowserRouter([
   {
@@ -115,6 +116,14 @@ const router = createBrowserRouter([
               />
             ),
             children: [{ path: "", element: <ProfilePage /> }],
+          },
+          {
+            path: "notifications",
+            element: (
+              <RequireAuth allowedRoles={[Role.ADMIN, Role.MEMBER, Role.COACH]}>
+              </RequireAuth>
+            ),
+            children: [{ path: "", element: <NotificationPage/> }],
           },
         ],
       },
