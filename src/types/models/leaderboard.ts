@@ -26,3 +26,9 @@ export interface LeaderboardTabsProps {
   onFilterChange?: (filter: string) => void;
   onPeriodChange?: (period: string) => void;
 }
+
+export interface ScoreResponse{
+  username: string;
+  avatar?: string;
+  score: number;
+}

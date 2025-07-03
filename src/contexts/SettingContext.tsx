@@ -41,8 +41,9 @@ export function SettingProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const fetchSetting = async () => {
-      if (auth.accessToken) {
+      if (auth.accessToken && auth.currentUser?.id) {
         try {
+          console.log("Fetching settings for user:", auth.currentUser?.id);
           const response = await apiWithInterceptors.get(
             `/v1/settings/${auth.currentAcc?.id}`
           );
@@ -55,7 +56,7 @@ export function SettingProvider({ children }: { children: React.ReactNode }) {
     };
 
     fetchSetting();
-  }, [auth.accessToken]);
+  }, [auth.accessToken, auth.currentUser?.id]);
 
   const handleChangeTheme = async (newTheme: Theme) => {
     setTheme(newTheme);
@@ -83,26 +84,22 @@ export function SettingProvider({ children }: { children: React.ReactNode }) {
     setSetting((prev) => ({ ...prev, reportDeadline: newDeadline }));
   };
 
-  useEffect(() => {
-    const handleSaveSetting = async () => {
-      if (auth.accessToken) {
-        try {
-          await apiWithInterceptors.put(
-            `/v1/settings/${auth.currentAcc?.id}`,
-            setting
-          );
-          toast.success("Settings saved successfully!");
-          console.log("Settings saved:", setting);
-        } catch (error) {
-          console.error("Error saving settings:", error);
-          toast.error("Failed to save settings. Please try again later.");
-        }
-      } else {
-        toast.error("You need to be logged in to save settings.");
+  const handleSaveSetting = async () => {
+    if (auth.accessToken) {
+      console.log("Saving settings:", setting);
+      try {
+        await apiWithInterceptors.put(
+          `/v1/settings/${auth.currentUser?.id}`,
+          setting
+        );
+      } catch (error) {
+        console.error("Error saving settings:", error);
+        toast.error("Failed to save settings. Please try again later.");
       }
-    };
-    handleSaveSetting();
-  }, [setting]);
+    } else {
+      toast.error("You need to be logged in to save settings.");
+    }
+  };
 
   return (
     <SettingContext.Provider

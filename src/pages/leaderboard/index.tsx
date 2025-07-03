@@ -1,16 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Progress } from "@/components/ui/progress";
-import { Medal, Trophy, Award } from "lucide-react";
+import { Medal, Award, BarChart2 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { LeaderboardTabs } from "./components/LeaderboardTabs";
-import { leaderboardData } from "@/utils/mockdata/leaderboard";
-import { Separator } from "@/components/ui/separator";
 import { useTranslation } from "react-i18next";
+import { useEffect, useState } from "react";
+import type { ScoreResponse } from "@/types/leaderboard/index";
+import useApi from "@/hooks/useApi";
+import { Separator } from "@radix-ui/react-separator";
 
 export default function LeaderboardPage() {
   const { t } = useTranslation();
+  const [score, setScore] = useState<ScoreResponse[]>([]);
+  const [myScore, setMyScore] = useState<ScoreResponse | null>(null);
+  const apiWithInterceptor = useApi();
   const getInitials = (name: string) =>
     name
       .split(" ")
@@ -19,7 +22,7 @@ export default function LeaderboardPage() {
   const getRankIcon = (rank: number) => {
     switch (rank) {
       case 1:
-        return <Trophy className="h-5 w-5 text-yellow-500" />;
+        return <Medal className="h-5 w-5 text-yellow-500" />;
       case 2:
         return <Medal className="h-5 w-5 text-gray-400" />;
       case 3:
@@ -29,28 +32,48 @@ export default function LeaderboardPage() {
     }
   };
 
-  const currentUser = {
-    id: "current-user",
-    name: "You",
-    rank: 24,
-    score: 450,
-    smokeFreeDay: 15,
-    badge: "Bronze",
-    achievement: "Getting Started",
-    progress: 45,
-    avatar: "",
-  };
+  const fetchMyScore = async () => {
+    try {
+      const response = await apiWithInterceptor.get(`/v1/scores/me`);
+      console.log("Fetched my score:", response.data);
+      const myScore: ScoreResponse = response.data.result;
+      if (myScore) {
+        setMyScore(myScore);
+      }
+    } catch (error) {
+      console.error("Failed to fetch my score:", error);
+    }
+  }
 
-  const topTenUsers = leaderboardData.slice(0, 10);
+  const fetchScores = async () => {
+    try {
+      const response = await apiWithInterceptor.get(`/v1/scores`);
+      console.log("Fetched scores:", response.data);
+      const newScores: ScoreResponse[] = Array.isArray(response.data.result)
+        ? response.data.result
+        : [];
+      setScore(newScores);
+    } catch (error) {
+      console.error("Failed to fetch scores:", error);
+    }
+  }
+
+  useEffect(() => {
+    fetchScores();
+    fetchMyScore();
+  }, []);
 
   return (
     <div className="container py-10 px-4 mx-auto">
       <div className="flex items-center justify-between mb-6 gap-4">
         <div>
-          <h1 className="text-4xl font-bold mb-2">
-            {" "}
-            {t("page.leaderboard.title")}
-          </h1>
+          <div className="flex items-center gap-2 mb-2">
+            <BarChart2 />
+            <h1 className="text-4xl font-bold mb-2">
+              {" "}
+              {t("page.leaderboard.title")}
+            </h1>
+          </div>
           <p className="text-muted-foreground">
             {t("page.leaderboard.description")}
           </p>
@@ -62,45 +85,37 @@ export default function LeaderboardPage() {
         </Button>
       </div>
 
-      <LeaderboardTabs />
 
       <div className="max-w-4xl mx-auto">
         <div className="space-y-4">
-          {/* Top 10 Section */}
           <div className="space-y-4">
-            {topTenUsers.map((user) => (
-              <Card key={user.id} className="p-4">
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center justify-center w-12">
-                    {getRankIcon(user.rank)}
-                  </div>
+            {score.map((user, index) => {
+              const rank = index + 1;
+              return (
+                <Card key={user.username} className="p-4">
+                  <div className="flex items-center gap-4">
+                    <div className="w-3 text-center">
+                      {getRankIcon(rank)}
+                    </div>
+                    <Avatar>
+                      <AvatarImage src={user.avatar} />
+                      <AvatarFallback>{getInitials(user.username)}</AvatarFallback>
+                    </Avatar>
 
-                  <Avatar>
-                    <AvatarImage src={user.avatar} />
-                    <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
-                  </Avatar>
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between">
+                        <h3 className="font-semibold">{user.username}</h3>
 
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between mb-2">
-                      <div>
-                        <h3 className="font-semibold">{user.name}</h3>
-                        <p className="text-sm text-muted-foreground">
-                          {user.smokeFreeDay} days smoke-free
-                        </p>
-                      </div>
-                      <div className="text-right">
-                        <div className="font-bold">{user.score} pts</div>
-                        <div className="flex items-center gap-1">
-                          <Award className="h-4 w-4 text-primary" />
-                          <span className="text-sm">{user.badge}</span>
+                        <div className="flex items-center gap-2 text-right">
+                          <div className="font-bold">{user.score} pts</div>
+                          <Award className="h-4 w-4 text-primary relative top-[1px]" />
                         </div>
                       </div>
                     </div>
-                    <Progress value={user.progress} className="h-2" />
                   </div>
-                </div>
-              </Card>
-            ))}
+                </Card>
+              );
+            })}
           </div>
 
           {/* Separator with label */}
@@ -112,39 +127,27 @@ export default function LeaderboardPage() {
           </div>
 
           {/* Current User Section */}
-          <Card className="p-4 border-2 border-primary">
-            <div className="flex items-center gap-4">
-              <div className="flex items-center justify-center w-12">
-                <span className="font-bold">#{currentUser.rank}</span>
-              </div>
+          {myScore && (
+            <Card className="p-4 border-2 border-primary">
+              <div className="flex items-center gap-4">
+                <Avatar>
+                  <AvatarImage src={myScore.avatar} />
+                  <AvatarFallback>{getInitials(myScore.username)}</AvatarFallback>
+                </Avatar>
 
-              <Avatar>
-                <AvatarImage src={currentUser.avatar} />
-                <AvatarFallback>{getInitials(currentUser.name)}</AvatarFallback>
-              </Avatar>
+                <div className="flex-1">
+                  <div className="flex items-center justify-between">
+                    <h3 className="font-semibold">{myScore.username}</h3>
 
-              <div className="flex-1">
-                <div className="flex items-center justify-between mb-2">
-                  <div>
-                    <h3 className="font-semibold text-primary">
-                      {currentUser.name}
-                    </h3>
-                    <p className="text-sm text-muted-foreground">
-                      {currentUser.smokeFreeDay} days smoke-free
-                    </p>
-                  </div>
-                  <div className="text-right">
-                    <div className="font-bold">{currentUser.score} pts</div>
-                    <div className="flex items-center gap-1">
-                      <Award className="h-4 w-4 text-primary" />
-                      <span className="text-sm">{currentUser.badge}</span>
+                    <div className="flex items-center gap-2 text-right">
+                      <div className="font-bold">{myScore.score} pts</div>
+                      <Award className="h-4 w-4 text-primary relative top-[1px]" />
                     </div>
                   </div>
                 </div>
-                <Progress value={currentUser.progress} className="h-2" />
               </div>
-            </div>
-          </Card>
+            </Card>
+          )}
         </div>
       </div>
     </div>
