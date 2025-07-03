@@ -36,6 +36,7 @@ const MobileMenu = () => {
   });
 
   const submitLogout = async () => {
+    if (!auth.isAuthenticated) return;
     await handleLogout();
     navigate("/auth/login");
   };

@@ -2,6 +2,7 @@ import { defaultAuth, useAuth } from "@/contexts/AuthContext";
 import { api } from "@/lib/axios";
 import { GoogleLogin, type CredentialResponse } from "@react-oauth/google";
 import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const GoogleButton = () => {
   const { setAuth } = useAuth();
@@ -15,11 +16,17 @@ const GoogleButton = () => {
       const response = await api.post("/v1/auth/google/login", {
         token,
       });
-      console.log("Google login response:", response.data);
+      const { account, accessToken } = response.data.result;
+
       setAuth({
         isAuthenticated: true,
-        currentAcc: response.data.account,
-        accessToken: response.data.accessToken,
+        currentAcc: account,
+        accessToken: accessToken,
+      });
+
+      console.log("Login successful:", account);
+      toast.success("Đăng nhập thành công", {
+        description: "Chào mừng bạn trở lại!",
       });
       navigate(from, { replace: true });
     } catch (err) {
@@ -31,7 +38,10 @@ const GoogleButton = () => {
   return (
     <GoogleLogin
       onSuccess={handleGoogleLogin}
-      onError={() => console.log("Login Failed")}
+      onError={() => {
+        console.log("Login Failed");
+        toast.error("Đăng nhập thất bại");
+      }}
       shape="pill"
       logo_alignment="center"
       size="large"

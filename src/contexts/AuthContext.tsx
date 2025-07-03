@@ -2,6 +2,7 @@ import { api } from "@/lib/axios";
 import type { Account } from "@/types/models/account";
 import type { LoginFormData } from "@/types/validations/auth/login";
 import { createContext, useContext, useState } from "react";
+import { toast } from "sonner";
 
 export interface Auth {
   isAuthenticated: boolean;
@@ -35,14 +36,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const handleLogin = async (formData: LoginFormData) => {
     try {
       const response = await api.post("/v1/auth/login", formData);
-      const { user, accessToken } = response.data.result;
+      const { account, accessToken } = response.data.result;
 
-      console.log("Login successful:", user);
+      console.log("Login successful:", account);
 
       setAuth({
         isAuthenticated: true,
-        currentAcc: user,
+        currentAcc: account,
         accessToken: accessToken,
+      });
+
+      toast.success("Đăng nhập thành công", {
+        description: "Chào mừng bạn trở lại!",
       });
     } catch (error: any) {
       setAuth(defaultAuth);
@@ -53,18 +58,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const handleLogout = async () => {
     try {
-      const response = await api.post("/v1/auth/logout", null, {
+      await api.post("/v1/auth/logout", null, {
         headers: {
           Authorization: `Bearer ${auth.accessToken}`,
         },
       });
-      if (response.data.code !== 0) {
-        throw new Error(response.data.message || "Logout failed");
-      } else {
-        console.log("Logout successful");
-      }
+      console.log("Logout successful");
+      toast.success("Đăng xuất thành công", {
+        description: "Bạn đã đăng xuất thành công",
+      });
+      setAuth(defaultAuth);
     } catch (error: any) {
       console.error("Logout error:", error);
+      toast.error("Đăng xuất thất bại", {
+        description:
+          error.response?.data?.message || "Đã xảy ra lỗi khi đăng xuất",
+      });
       throw new Error(error.response?.data?.message || "Logout failed");
     } finally {
       setAuth(defaultAuth);

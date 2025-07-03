@@ -2,27 +2,35 @@ import { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { getMockProfile } from "@/utils/mockdata/profile";
 import ProfileHeader from "./components/ProfileHeader";
 import PersonalInfoTab from "./components/PersonalInfoTab";
-import AccountSettingsTab from "./components/AccountSettingsTab";
 import MembershipTab from "./components/MembershipTab";
 import FitnessStatsTab from "./components/FitnessStatsTab";
-import CoachDetailsTab from "./components/CoachDetailsTab";
+import useApi from "@/hooks/useApi";
+import {
+  defaultMemberProfile,
+  type MemberProfile,
+} from "@/types/models/member";
 
 export default function ProfilePage() {
-  const [profile, setProfile] = useState<any>(null);
+  const [profile, setProfile] = useState<MemberProfile>(defaultMemberProfile);
   const [isLoading, setIsLoading] = useState(true);
 
+  const apiWithInterceptor = useApi();
+
   useEffect(() => {
-    // In a real app, this would be an API call
-    // For development, we're using mock data
     try {
-      const mockProfile = getMockProfile("member");
-      setProfile(mockProfile);
-      setIsLoading(false);
+      const fetchProfileData = async () => {
+        setIsLoading(true);
+        const response = await apiWithInterceptor.get("/v1/members/my-profile");
+        console.log("Fetched profile data:", response.data.result);
+        setProfile(response.data.result);
+      };
+      fetchProfileData();
     } catch (error) {
-      console.error("Failed to fetch profile:", error);
+      console.error("Failed to fetch profile data:", error);
+      setProfile(defaultMemberProfile);
+    } finally {
       setIsLoading(false);
     }
   }, []);
@@ -55,19 +63,8 @@ export default function ProfilePage() {
       <Tabs defaultValue="personal-info" className="space-y-6">
         <TabsList className="grid grid-cols-2 md:grid-cols-5 gap-2">
           <TabsTrigger value="personal-info">Personal Info</TabsTrigger>
-          <TabsTrigger value="account">Account Settings</TabsTrigger>
-
-          {profile.role === "member" && (
-            <>
-              <TabsTrigger value="membership">Membership</TabsTrigger>
-              <TabsTrigger value="fitness">Fitness Stats</TabsTrigger>
-            </>
-          )}
-
-          {profile.role === "coach" && (
-            <TabsTrigger value="coach-details">Coach Details</TabsTrigger>
-          )}
-
+          <TabsTrigger value="membership">Membership</TabsTrigger>
+          <TabsTrigger value="fitness">Fitness Stats</TabsTrigger>
           <TabsTrigger value="security">Security</TabsTrigger>
         </TabsList>
 
@@ -75,27 +72,13 @@ export default function ProfilePage() {
           <PersonalInfoTab profile={profile} />
         </TabsContent>
 
-        <TabsContent value="account">
-          <AccountSettingsTab profile={profile} />
+        <TabsContent value="membership">
+          <MembershipTab profile={profile} />
         </TabsContent>
 
-        {profile.role === "member" && (
-          <>
-            <TabsContent value="membership">
-              <MembershipTab profile={profile} />
-            </TabsContent>
-
-            <TabsContent value="fitness">
-              <FitnessStatsTab profile={profile} />
-            </TabsContent>
-          </>
-        )}
-
-        {profile.role === "coach" && (
-          <TabsContent value="coach-details">
-            <CoachDetailsTab profile={profile} />
-          </TabsContent>
-        )}
+        <TabsContent value="fitness">
+          <FitnessStatsTab profile={profile} />
+        </TabsContent>
 
         <TabsContent value="security">
           <Card>
@@ -106,8 +89,8 @@ export default function ProfilePage() {
               <div className="space-y-4">
                 <h3 className="text-lg font-medium">Change Password</h3>
                 <p className="text-sm text-muted-foreground">
-                  Password management and two-factor authentication options will go
-                  here.
+                  Password management and two-factor authentication options will
+                  go here.
                 </p>
                 <Separator />
                 <p className="text-sm">This section is under development.</p>

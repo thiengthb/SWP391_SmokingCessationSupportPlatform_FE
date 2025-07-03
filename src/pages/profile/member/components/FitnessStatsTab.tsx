@@ -1,16 +1,23 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { type UserProfile } from '@/utils/mockdata/profile';
-import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { useState } from 'react';
-import { toast } from 'sonner';
-import { BarChart3, Target, TrendingUp, Edit } from 'lucide-react';
-import { Progress } from '@/components/ui/progress';
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useState } from "react";
+import { toast } from "sonner";
+import { BarChart3, Target, TrendingUp, Edit } from "lucide-react";
+import { Progress } from "@/components/ui/progress";
+import type { MemberProfile } from "@/types/models/member";
 
 interface FitnessStatsTabProps {
-  profile: UserProfile;
+  profile: MemberProfile;
 }
 
 export default function FitnessStatsTab({ profile }: FitnessStatsTabProps) {
@@ -34,8 +41,8 @@ export default function FitnessStatsTab({ profile }: FitnessStatsTabProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // In a real app, this would be an API call
-    console.log('Updated fitness stats:', stats);
-    toast.success('Fitness stats updated successfully');
+    console.log("Updated fitness stats:", stats);
+    toast.success("Fitness stats updated successfully");
     setIsEditing(false);
   };
 
@@ -47,18 +54,21 @@ export default function FitnessStatsTab({ profile }: FitnessStatsTabProps) {
   };
 
   const getBMIStatus = (bmi: number) => {
-    if (bmi < 18.5) return { label: 'Underweight', color: 'bg-blue-100 text-blue-800' };
-    if (bmi < 25) return { label: 'Normal', color: 'bg-green-100 text-green-800' };
-    if (bmi < 30) return { label: 'Overweight', color: 'bg-yellow-100 text-yellow-800' };
-    return { label: 'Obese', color: 'bg-red-100 text-red-800' };
+    if (bmi < 18.5)
+      return { label: "Underweight", color: "bg-blue-100 text-blue-800" };
+    if (bmi < 25)
+      return { label: "Normal", color: "bg-green-100 text-green-800" };
+    if (bmi < 30)
+      return { label: "Overweight", color: "bg-yellow-100 text-yellow-800" };
+    return { label: "Obese", color: "bg-red-100 text-red-800" };
   };
 
   // Mock data for fitness progress
   const fitnessProgress = [
-    { name: 'Strength', progress: 85 },
-    { name: 'Endurance', progress: 60 },
-    { name: 'Flexibility', progress: 40 },
-    { name: 'Speed', progress: 70 },
+    { name: "Strength", progress: 85 },
+    { name: "Endurance", progress: 60 },
+    { name: "Flexibility", progress: 40 },
+    { name: "Speed", progress: 70 },
   ];
 
   if (!profile.fitnessStats) {
@@ -82,7 +92,9 @@ export default function FitnessStatsTab({ profile }: FitnessStatsTabProps) {
         <CardHeader className="flex flex-row items-center justify-between">
           <div>
             <CardTitle>Body Metrics</CardTitle>
-            <CardDescription>Your physical measurements and statistics</CardDescription>
+            <CardDescription>
+              Your physical measurements and statistics
+            </CardDescription>
           </div>
           {!isEditing && (
             <Button variant="outline" onClick={() => setIsEditing(true)}>
@@ -98,15 +110,23 @@ export default function FitnessStatsTab({ profile }: FitnessStatsTabProps) {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="flex flex-col gap-1 p-4 border rounded-lg">
                   <span className="text-sm text-muted-foreground">Height</span>
-                  <span className="text-2xl font-bold">{profile.fitnessStats.height} cm</span>
+                  <span className="text-2xl font-bold">
+                    {profile.fitnessStats.height} cm
+                  </span>
                 </div>
                 <div className="flex flex-col gap-1 p-4 border rounded-lg">
                   <span className="text-sm text-muted-foreground">Weight</span>
-                  <span className="text-2xl font-bold">{profile.fitnessStats.weight} kg</span>
+                  <span className="text-2xl font-bold">
+                    {profile.fitnessStats.weight} kg
+                  </span>
                 </div>
                 <div className="flex flex-col gap-1 p-4 border rounded-lg">
-                  <span className="text-sm text-muted-foreground">Body Fat</span>
-                  <span className="text-2xl font-bold">{profile.fitnessStats.bodyFat}%</span>
+                  <span className="text-sm text-muted-foreground">
+                    Body Fat
+                  </span>
+                  <span className="text-2xl font-bold">
+                    {profile.fitnessStats.bodyFat}%
+                  </span>
                 </div>
               </div>
             ) : (
@@ -155,18 +175,16 @@ export default function FitnessStatsTab({ profile }: FitnessStatsTabProps) {
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-xl font-bold">{bmi}</span>
-                <Badge className={bmiStatus.color}>
-                  {bmiStatus.label}
-                </Badge>
+                <Badge className={bmiStatus.color}>{bmiStatus.label}</Badge>
               </div>
             </div>
           </CardContent>
 
           {isEditing && (
             <CardFooter className="flex justify-end space-x-2">
-              <Button 
-                variant="outline" 
-                type="button" 
+              <Button
+                variant="outline"
+                type="button"
                 onClick={() => setIsEditing(false)}
               >
                 Cancel
@@ -188,14 +206,20 @@ export default function FitnessStatsTab({ profile }: FitnessStatsTabProps) {
           <CardContent>
             <div className="flex flex-wrap gap-2">
               {profile.fitnessStats.goals?.map((goal, index) => (
-                <Badge key={index} variant="secondary" className="text-sm py-1.5">
+                <Badge
+                  key={index}
+                  variant="secondary"
+                  className="text-sm py-1.5"
+                >
                   {goal}
                 </Badge>
               ))}
             </div>
           </CardContent>
           <CardFooter>
-            <Button variant="outline" size="sm">Edit Goals</Button>
+            <Button variant="outline" size="sm">
+              Edit Goals
+            </Button>
           </CardFooter>
         </Card>
 
@@ -216,7 +240,9 @@ export default function FitnessStatsTab({ profile }: FitnessStatsTabProps) {
             </div>
           </CardContent>
           <CardFooter>
-            <Button variant="outline" size="sm">Edit Preferences</Button>
+            <Button variant="outline" size="sm">
+              Edit Preferences
+            </Button>
           </CardFooter>
         </Card>
       </div>
@@ -233,7 +259,9 @@ export default function FitnessStatsTab({ profile }: FitnessStatsTabProps) {
             <div key={item.name} className="space-y-2">
               <div className="flex justify-between">
                 <span className="text-sm font-medium">{item.name}</span>
-                <span className="text-sm text-muted-foreground">{item.progress}%</span>
+                <span className="text-sm text-muted-foreground">
+                  {item.progress}%
+                </span>
               </div>
               <Progress value={item.progress} className="h-2" />
             </div>

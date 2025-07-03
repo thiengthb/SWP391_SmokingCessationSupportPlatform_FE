@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -6,29 +6,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Label } from "@/components/ui/label";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
-import { format } from "date-fns";
-import { Clock } from "lucide-react";
 import { useSetting } from "@/contexts/SettingContext";
-import {
-  Language,
-  MotivationFrequency,
-  Theme,
-  TrackingMode,
-} from "@/types/models/setting";
+import { MotivationFrequency } from "@/types/models/setting";
+import { AnimatePresence, motion } from "framer-motion";
+
+// Import các component con
+import { SettingsHeader } from "./components/SettingsHeader";
+import { SettingSidebar } from "./components/SettingSidebar";
+import { AppearanceSettings } from "./components/AppearanceSettings";
+import { NotificationSettings } from "./components/NotificationSettings";
+import { TrackingSettings } from "./components/TrackingSettings";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 export default function SettingsPage() {
   const {
@@ -40,129 +28,159 @@ export default function SettingsPage() {
     handleChangeReportDeadline,
   } = useSetting();
 
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Preferences</CardTitle>
-        <CardDescription>
-          Manage your application preferences and notifications.
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-6">
-        <div className="space-y-2">
-          <Label>Theme</Label>
-          <Select value={setting.theme} onValueChange={handleChangeTheme}>
-            <SelectTrigger>
-              <SelectValue placeholder="Select theme" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value={Theme.LIGHT}>Light</SelectItem>
-              <SelectItem value={Theme.DARK}>Dark</SelectItem>
-              <SelectItem value={Theme.SYSTEM}>System</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="space-y-2">
-          <Label>Language</Label>
-          <Select value={setting.language} onValueChange={handleChangeLanguage}>
-            <SelectTrigger>
-              <SelectValue placeholder="Select language" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value={Language.EN}>English</SelectItem>
-              <SelectItem value={Language.VI}>Tiếng Việt</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="space-y-2">
-          <Label>Email Notification Frequency</Label>
-          <Select
-            value={setting.motivationFrequency}
-            onValueChange={handleChangeMotivationFrequency}
-          >
-            <SelectTrigger>
-              <SelectValue placeholder="Select frequency" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value={MotivationFrequency.NEVER}>Never</SelectItem>
-              <SelectItem value={MotivationFrequency.EVERY_6_HOURS}>
-                Every 6 hours
-              </SelectItem>
-              <SelectItem value={MotivationFrequency.EVERY_12_HOURS}>
-                Every 12 hours
-              </SelectItem>
-              <SelectItem value={MotivationFrequency.DAILY}>Daily</SelectItem>
-              <SelectItem value={MotivationFrequency.WEEKLY}>Weekly</SelectItem>
-              <SelectItem value={MotivationFrequency.MONTHLY}>
-                Monthly
-              </SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="space-y-2">
-          <Label>Tracking Mode</Label>
-          <Select
-            value={setting.trackingMode}
-            onValueChange={handleChangeTrackingMode}
-          >
-            <SelectTrigger>
-              <SelectValue placeholder="Select tracking mode" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value={TrackingMode.AUTO_COUNT}>Counter</SelectItem>
-              <SelectItem value={TrackingMode.DAILY_RECORD}>
-                Daily Tracking
-              </SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="space-y-2">
-          <Label>Daily Deadline</Label>
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-                className={cn(
-                  "w-[200px] justify-start text-left font-normal",
-                  !setting.reportDeadline && "text-muted-foreground"
-                )}
-              >
-                <Clock className="mr-2 h-4 w-4" />
-                {setting.reportDeadline
-                  ? format(
-                      new Date(`2000/01/01 ${setting.reportDeadline}`),
-                      "p"
-                    )
-                  : "Pick a time"}
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
-              <Select
-                value={setting.reportDeadline}
-                onValueChange={handleChangeReportDeadline}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select deadline" />
-                </SelectTrigger>
-                <SelectContent>
-                  {Array.from({ length: 24 }, (_, i) => {
-                    const hour = i.toString().padStart(2, "0");
-                    return (
-                      <SelectItem key={hour} value={`${hour}:00`}>
-                        {format(new Date(`2000/01/01 ${hour}:00`), "p")}
-                      </SelectItem>
-                    );
-                  })}
-                </SelectContent>
-              </Select>
-            </PopoverContent>
-          </Popover>
-        </div>
-      </CardContent>
-    </Card>
+  const [activeTab, setActiveTab] = useState("appearance");
+  const [haveNotification, setHaveNotification] = useState(
+    setting.motivationFrequency !== MotivationFrequency.NEVER
   );
+
+  const isDesktop = useMediaQuery("(min-width: 768px)");
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+
+  // Close mobile sidebar when changing to desktop view
+  useEffect(() => {
+    if (isDesktop) {
+      setIsMobileSidebarOpen(false);
+    }
+  }, [isDesktop]);
+
+  const handleEmailNotificationToggle = (checked: boolean) => {
+    setHaveNotification(checked);
+    if (!checked) {
+      handleChangeMotivationFrequency(MotivationFrequency.NEVER);
+    } else {
+      handleChangeMotivationFrequency(MotivationFrequency.DAILY);
+    }
+  };
+
+  // Function to handle tab change and close mobile sidebar
+  const handleTabChange = (tab: string) => {
+    setActiveTab(tab);
+    setIsMobileSidebarOpen(false);
+  };
+
+  return (
+    <div className="container py-8 px-4 sm:px-6 md:px-8 max-w-screen-xl mx-auto">
+      <SettingsHeader
+        onMobileMenuToggle={() => setIsMobileSidebarOpen(!isMobileSidebarOpen)}
+        isMobileMenuOpen={isMobileSidebarOpen}
+        isMobile={!isDesktop}
+      />
+
+      <div className="grid grid-cols-1 md:grid-cols-[280px_1fr] gap-6 mt-8">
+        {/* Sidebar - Only visible on desktop or when toggled on mobile */}
+        {(isDesktop || isMobileSidebarOpen) && (
+          <AnimatePresence>
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.2 }}
+              className={
+                isMobileSidebarOpen
+                  ? "fixed inset-0 z-40 bg-background/80 backdrop-blur-sm"
+                  : ""
+              }
+            >
+              <div
+                className={`${
+                  isMobileSidebarOpen
+                    ? "fixed left-0 top-0 z-50 h-full w-3/4 max-w-xs bg-background shadow-xl p-4"
+                    : ""
+                }`}
+              >
+                <SettingSidebar
+                  activeTab={activeTab}
+                  setActiveTab={handleTabChange}
+                  isMobile={!isDesktop && isMobileSidebarOpen}
+                  onCloseMobileMenu={() => setIsMobileSidebarOpen(false)}
+                />
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        )}
+
+        {/* Main content area - Always visible */}
+        <div className="flex-1">
+          <Card className="border-border/40 shadow-sm">
+            <CardHeader className="border-b bg-muted/30 pb-4">
+              <CardTitle className="text-xl">
+                {getTitleByTab(activeTab)}
+              </CardTitle>
+              <CardDescription>
+                {getDescriptionByTab(activeTab)}
+              </CardDescription>
+            </CardHeader>
+
+            <CardContent className="pt-6">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeTab}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {activeTab === "appearance" && (
+                    <AppearanceSettings
+                      theme={setting.theme}
+                      language={setting.language}
+                      onChangeTheme={handleChangeTheme}
+                      onChangeLanguage={handleChangeLanguage}
+                    />
+                  )}
+
+                  {activeTab === "notifications" && (
+                    <NotificationSettings
+                      motivationFrequency={setting.motivationFrequency}
+                      haveNotification={haveNotification}
+                      onChangeMotivationFrequency={
+                        handleChangeMotivationFrequency
+                      }
+                      onToggleEmailNotifications={handleEmailNotificationToggle}
+                    />
+                  )}
+
+                  {activeTab === "tracking" && (
+                    <TrackingSettings
+                      trackingMode={setting.trackingMode}
+                      reportDeadline={setting.reportDeadline}
+                      onChangeTrackingMode={handleChangeTrackingMode}
+                      onChangeReportDeadline={handleChangeReportDeadline}
+                    />
+                  )}
+                </motion.div>
+              </AnimatePresence>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Helper functions to get title and description based on active tab
+function getTitleByTab(tab: string): string {
+  switch (tab) {
+    case "appearance":
+      return "Giao diện & Ngôn ngữ";
+    case "notifications":
+      return "Thông báo";
+    case "tracking":
+      return "Theo dõi cai thuốc";
+    default:
+      return "Cài đặt";
+  }
+}
+
+function getDescriptionByTab(tab: string): string {
+  switch (tab) {
+    case "appearance":
+      return "Tùy chỉnh hiển thị và ngôn ngữ ứng dụng";
+    case "notifications":
+      return "Quản lý cách bạn nhận thông báo và nhắc nhở";
+    case "tracking":
+      return "Tùy chỉnh cách theo dõi tiến trình cai thuốc";
+    default:
+      return "Tùy chỉnh cài đặt ứng dụng";
+  }
 }

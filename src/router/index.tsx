@@ -8,7 +8,7 @@ import LoginPage from "@/pages/auth/login";
 import RegisterPage from "@/pages/auth/register";
 import ForgotPasswordPage from "@/pages/auth/forgot-password";
 import SettingsPage from "@/pages/setting";
-import ProfilePage from "@/pages/profile";
+import ProfilePage from "@/pages/profile/member";
 import ContactPage from "@/pages/contact";
 import TeamPage from "@/pages/about/team";
 import StoryPage from "@/pages/about/story";

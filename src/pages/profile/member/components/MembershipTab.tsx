@@ -1,13 +1,14 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { type UserProfile } from '@/utils/mockdata/profile';
-import { Badge } from '@/components/ui/badge';
+import { Button } from "@/components/ui/button";
 import {
-  CreditCard,
-  CalendarCheck,
-  Check,
-  X
-} from 'lucide-react';
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { CreditCard, CalendarCheck, Check, X } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -15,48 +16,49 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { Progress } from '@/components/ui/progress';
+} from "@/components/ui/table";
+import { Progress } from "@/components/ui/progress";
+import type { MemberProfile } from "@/types/models/member";
 
 interface MembershipTabProps {
-  profile: UserProfile;
+  profile: MemberProfile;
 }
 
 export default function MembershipTab({ profile }: MembershipTabProps) {
   // Mock billing history
   const billingHistory = [
     {
-      id: 'INV-001',
-      date: '2023-12-01',
-      amount: '$99.99',
-      status: 'paid',
-      paymentMethod: 'Credit Card'
+      id: "INV-001",
+      date: "2023-12-01",
+      amount: "$99.99",
+      status: "paid",
+      paymentMethod: "Credit Card",
     },
     {
-      id: 'INV-002',
-      date: '2023-11-01',
-      amount: '$99.99',
-      status: 'paid',
-      paymentMethod: 'Credit Card'
+      id: "INV-002",
+      date: "2023-11-01",
+      amount: "$99.99",
+      status: "paid",
+      paymentMethod: "Credit Card",
     },
     {
-      id: 'INV-003',
-      date: '2023-10-01',
-      amount: '$99.99',
-      status: 'paid',
-      paymentMethod: 'Credit Card'
-    }
+      id: "INV-003",
+      date: "2023-10-01",
+      amount: "$99.99",
+      status: "paid",
+      paymentMethod: "Credit Card",
+    },
   ];
 
   // Calculate days remaining in membership
   const calculateDaysRemaining = () => {
     if (!profile.membershipDetails) return 0;
-    
+
     const endDate = new Date(profile.membershipDetails.endDate);
     const currentDate = new Date();
     const timeDiff = endDate.getTime() - currentDate.getTime();
     const daysRemaining = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    
+
     return Math.max(0, daysRemaining);
   };
 
@@ -84,10 +86,18 @@ export default function MembershipTab({ profile }: MembershipTabProps) {
           <div className="flex justify-between items-center">
             <div>
               <CardTitle>Current Membership</CardTitle>
-              <CardDescription>Details about your active subscription</CardDescription>
+              <CardDescription>
+                Details about your active subscription
+              </CardDescription>
             </div>
-            <Badge className={membershipDetails.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}>
-              {membershipDetails.status === 'active' ? 'Active' : 'Expired'}
+            <Badge
+              className={
+                membershipDetails.status === "active"
+                  ? "bg-green-100 text-green-800"
+                  : "bg-red-100 text-red-800"
+              }
+            >
+              {membershipDetails.status === "active" ? "Active" : "Expired"}
             </Badge>
           </div>
         </CardHeader>
@@ -99,11 +109,15 @@ export default function MembershipTab({ profile }: MembershipTabProps) {
             </div>
             <div className="space-y-2">
               <p className="text-sm text-muted-foreground">Start Date</p>
-              <p className="font-medium">{new Date(membershipDetails.startDate).toLocaleDateString()}</p>
+              <p className="font-medium">
+                {new Date(membershipDetails.startDate).toLocaleDateString()}
+              </p>
             </div>
             <div className="space-y-2">
               <p className="text-sm text-muted-foreground">End Date</p>
-              <p className="font-medium">{new Date(membershipDetails.endDate).toLocaleDateString()}</p>
+              <p className="font-medium">
+                {new Date(membershipDetails.endDate).toLocaleDateString()}
+              </p>
             </div>
           </div>
 
@@ -123,9 +137,13 @@ export default function MembershipTab({ profile }: MembershipTabProps) {
               </div>
               <div className="flex items-center gap-2">
                 <CalendarCheck className="h-5 w-5 text-muted-foreground" />
-                <span>Auto Renew: {membershipDetails.autoRenew ? 
-                  <Check className="h-4 w-4 text-green-500 inline" /> : 
-                  <X className="h-4 w-4 text-red-500 inline" />}
+                <span>
+                  Auto Renew:{" "}
+                  {membershipDetails.autoRenew ? (
+                    <Check className="h-4 w-4 text-green-500 inline" />
+                  ) : (
+                    <X className="h-4 w-4 text-red-500 inline" />
+                  )}
                 </span>
               </div>
             </div>
@@ -133,7 +151,11 @@ export default function MembershipTab({ profile }: MembershipTabProps) {
         </CardContent>
         <CardFooter className="flex justify-between">
           <Button variant="outline">Change Plan</Button>
-          <Button>{membershipDetails.autoRenew ? 'Disable Auto Renew' : 'Enable Auto Renew'}</Button>
+          <Button>
+            {membershipDetails.autoRenew
+              ? "Disable Auto Renew"
+              : "Enable Auto Renew"}
+          </Button>
         </CardFooter>
       </Card>
 
@@ -158,16 +180,25 @@ export default function MembershipTab({ profile }: MembershipTabProps) {
               {billingHistory.map((invoice) => (
                 <TableRow key={invoice.id}>
                   <TableCell className="font-medium">{invoice.id}</TableCell>
-                  <TableCell>{new Date(invoice.date).toLocaleDateString()}</TableCell>
+                  <TableCell>
+                    {new Date(invoice.date).toLocaleDateString()}
+                  </TableCell>
                   <TableCell>{invoice.amount}</TableCell>
                   <TableCell>
-                    <Badge variant={invoice.status === 'paid' ? 'default' : 'destructive'} className="capitalize">
+                    <Badge
+                      variant={
+                        invoice.status === "paid" ? "default" : "destructive"
+                      }
+                      className="capitalize"
+                    >
                       {invoice.status}
                     </Badge>
                   </TableCell>
                   <TableCell>{invoice.paymentMethod}</TableCell>
                   <TableCell className="text-right">
-                    <Button variant="ghost" size="sm">Download</Button>
+                    <Button variant="ghost" size="sm">
+                      Download
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}
