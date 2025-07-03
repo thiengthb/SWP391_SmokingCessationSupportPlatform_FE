@@ -39,7 +39,7 @@ export function PricingCards({ plans }: PricingCardsProps) {
   }, [plans]);
 
   const handleSelectPlan = async (membershipName: string) => {
-    if (!auth.accessToken || !auth.currentUser) {
+    if (!auth.accessToken || !auth.currentAcc) {
       navigate("/auth/login");
       toast.error("Bạn cần đăng nhập để chọn gói thành viên.");
       return;
@@ -47,7 +47,7 @@ export function PricingCards({ plans }: PricingCardsProps) {
     const response = await apiWithInterceptor.post(
       "/v1/stripe-payment/checkout",
       {
-        accountId: auth.currentUser.id,
+        accountId: auth.currentAcc.id,
         membershipName,
       }
     );
@@ -86,7 +86,7 @@ export function PricingCards({ plans }: PricingCardsProps) {
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-16">
       {Array.isArray(plans) &&
         plans.map((plan) => {
           return (

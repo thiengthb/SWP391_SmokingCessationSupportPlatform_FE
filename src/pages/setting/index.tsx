@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Card,
   CardContent,
@@ -6,9 +6,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { useSetting } from "@/contexts/SettingContext";
 import { MotivationFrequency } from "@/types/models/setting";
 import { AnimatePresence, motion } from "framer-motion";
+import { Palette, Bell, BarChart3 } from "lucide-react";
 
 // Import các component con
 import { SettingsHeader } from "./components/SettingsHeader";
@@ -34,14 +36,6 @@ export default function SettingsPage() {
   );
 
   const isDesktop = useMediaQuery("(min-width: 768px)");
-  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
-
-  // Close mobile sidebar when changing to desktop view
-  useEffect(() => {
-    if (isDesktop) {
-      setIsMobileSidebarOpen(false);
-    }
-  }, [isDesktop]);
 
   const handleEmailNotificationToggle = (checked: boolean) => {
     setHaveNotification(checked);
@@ -52,59 +46,83 @@ export default function SettingsPage() {
     }
   };
 
-  // Function to handle tab change and close mobile sidebar
-  const handleTabChange = (tab: string) => {
-    setActiveTab(tab);
-    setIsMobileSidebarOpen(false);
-  };
+  const tabs = [
+    {
+      id: "appearance",
+      label: "Giao diện",
+      icon: Palette,
+    },
+    {
+      id: "notifications",
+      label: "Thông báo",
+      icon: Bell,
+    },
+    {
+      id: "tracking",
+      label: "Theo dõi",
+      icon: BarChart3,
+    },
+  ];
 
   return (
     <div className="container py-8 px-4 sm:px-6 md:px-8 max-w-screen-xl mx-auto">
       <SettingsHeader
-        onMobileMenuToggle={() => setIsMobileSidebarOpen(!isMobileSidebarOpen)}
-        isMobileMenuOpen={isMobileSidebarOpen}
-        isMobile={!isDesktop}
+        onMobileMenuToggle={() => {}}
+        isMobileMenuOpen={false}
+        isMobile={false}
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-[280px_1fr] gap-6 mt-8">
-        {/* Sidebar - Only visible on desktop or when toggled on mobile */}
-        {(isDesktop || isMobileSidebarOpen) && (
-          <AnimatePresence>
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.2 }}
-              className={
-                isMobileSidebarOpen
-                  ? "fixed inset-0 z-40 bg-background/80 backdrop-blur-sm"
-                  : ""
-              }
-            >
-              <div
-                className={`${
-                  isMobileSidebarOpen
-                    ? "fixed left-0 top-0 z-50 h-full w-3/4 max-w-xs bg-background shadow-xl p-4"
-                    : ""
+      {/* Mobile Tabbar - Only visible on mobile */}
+      {!isDesktop && (
+        <div className="flex gap-2 mb-6 mt-8 p-1 bg-muted/50 rounded-lg overflow-x-auto border">
+          {tabs.map((tab) => {
+            const IconComponent = tab.icon;
+            return (
+              <Button
+                key={tab.id}
+                variant={activeTab === tab.id ? "default" : "ghost"}
+                size="sm"
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex-1 flex flex-col items-center justify-center gap-1 px-4 py-3 h-auto min-w-[80px] text-xs font-medium transition-all duration-200 ${
+                  activeTab === tab.id
+                    ? "bg-primary text-primary-foreground shadow-sm"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
                 }`}
               >
-                <SettingSidebar
-                  activeTab={activeTab}
-                  setActiveTab={handleTabChange}
-                  isMobile={!isDesktop && isMobileSidebarOpen}
-                  onCloseMobileMenu={() => setIsMobileSidebarOpen(false)}
-                />
-              </div>
-            </motion.div>
-          </AnimatePresence>
+                <IconComponent className="h-4 w-4" />
+                <span className="whitespace-nowrap">{tab.label}</span>
+              </Button>
+            );
+          })}
+        </div>
+      )}
+
+      <div className="grid grid-cols-1 md:grid-cols-[280px_1fr] gap-6 mt-8">
+        {/* Desktop Sidebar - Only visible on desktop */}
+        {isDesktop && (
+          <SettingSidebar
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+            isMobile={false}
+            onCloseMobileMenu={() => {}}
+          />
         )}
 
         {/* Main content area - Always visible */}
         <div className="flex-1">
           <Card className="border-border/40 shadow-sm">
             <CardHeader className="border-b bg-muted/30 pb-4">
-              <CardTitle className="text-xl">
-                {getTitleByTab(activeTab)}
+              <CardTitle className="text-xl flex items-center gap-2">
+                {(() => {
+                  const currentTab = tabs.find((tab) => tab.id === activeTab);
+                  const IconComponent = currentTab?.icon || Palette;
+                  return (
+                    <>
+                      <IconComponent className="h-5 w-5 text-primary" />
+                      {getTitleByTab(activeTab)}
+                    </>
+                  );
+                })()}
               </CardTitle>
               <CardDescription>
                 {getDescriptionByTab(activeTab)}

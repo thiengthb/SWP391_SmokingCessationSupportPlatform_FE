@@ -49,8 +49,8 @@ export function NavigationNotifications() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon">
-          <Inbox className="h-5 w-5" />
+        <Button variant="outline" size="icon">
+          <Inbox className="h-8 w-8" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-64">

@@ -11,10 +11,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
-import { UserRound } from "lucide-react";
+import { Gauge, UserRound } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { mainNav } from "./navbar.item";
 import { NavigationNotifications } from "./NavigationNotifications";
+import { Badge } from "@/components/ui/badge";
 
 export function UserNav() {
   const navigate = useNavigate();
@@ -62,10 +63,15 @@ export function UserNav() {
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56" align="end" forceMount>
           <DropdownMenuLabel className="font-normal">
-            <div className="flex flex-col space-y-1">
-              <p className="text-sm font-medium leading-none">
-                {auth.currentAcc?.username || t("roles.guest")}
-              </p>
+            <div className="flex flex-col space-y-2">
+              <div className="flex items-center gap-2">
+                <p className="text-sm font-medium leading-none">
+                  {auth.currentAcc?.username || t("roles.guest")}
+                </p>
+                <Badge>
+                  {auth.currentAcc?.havingSubscription ? "Premium" : "Free"}
+                </Badge>
+              </div>
               <p className="text-xs leading-none text-muted-foreground">
                 {auth.currentAcc?.email}
               </p>
@@ -76,22 +82,24 @@ export function UserNav() {
             <DropdownMenuItem>
               <Link
                 to={`/${auth.currentAcc?.role?.toLowerCase()}/dashboard`}
-                className="w-full"
+                className="w-full flex items-center gap-2"
               >
+                <Gauge className="h-4 w-4" />
                 {t(`nav.dashboard.title`)}
               </Link>
             </DropdownMenuItem>
             {filteredItems.map((item) => (
               <DropdownMenuItem key={item.href}>
-                <Link to={item.href} className="w-full">
+                <Link to={item.href} className="w-full flex items-center gap-2">
+                  {item.icon && <item.icon className="h-4 w-4" />}
                   {t(item.title)}
                 </Link>
               </DropdownMenuItem>
             ))}
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={submitLogout}>
-            {t(`buttons.logout`)}
+          <DropdownMenuItem variant="destructive" onClick={submitLogout}>
+            <p className="pl-2">{t(`buttons.logout`)}</p>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

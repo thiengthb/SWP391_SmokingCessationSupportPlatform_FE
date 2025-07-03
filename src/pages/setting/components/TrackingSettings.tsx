@@ -63,7 +63,7 @@ export function TrackingSettings({
             >
               <div className="flex gap-3">
                 <div
-                  className={`rounded-full p-2 ${
+                  className={`w-12 h-12 rounded-full p-2 flex items-center justify-center ${
                     trackingMode === option.id ? "bg-primary/20" : "bg-muted"
                   }`}
                 >
