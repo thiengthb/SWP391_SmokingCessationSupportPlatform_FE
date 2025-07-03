@@ -60,6 +60,10 @@
     "dashboard": {
       "title": "Bảng điều khiển",
       "description": "Bảng điều khiển cá nhân của bạn"
+    },
+    "notifications": {  
+      "title": "Thông báo",
+      "description": "Xem thông báo và cập nhật của bạn"
     }
   },
   "buttons": {

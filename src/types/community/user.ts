@@ -1,7 +1,6 @@
 export interface User {
   id: string;
-  name: string;
+  username: string;
   avatar?: string;
-  status: 'online' | 'offline' | 'away';
-  lastSeen?: string;
+  status: 'ONLINE' | 'OFFLINE' | 'BANNED';
 }

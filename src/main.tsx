@@ -5,6 +5,7 @@ import { ThemeProvider } from "./components/theme/theme-provider.tsx";
 import { AuthProvider } from "./contexts/AuthContext.tsx";
 import { disableReactDevTools } from "@fvilers/disable-react-devtools";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { WebSocketProvider } from './contexts/WebSocketContext';
 import ReduxProvider from "./redux/provider/Provider.tsx";
 import router from "./router/index.tsx";
 import "./index.css";
@@ -21,16 +22,18 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
       <AuthProvider>
-        <ReduxProvider>
-          <ThemeProvider defaultTheme={Theme.SYSTEM} storageKey="vite-ui-theme">
-            <SettingProvider>
-              <FTNDProvider>
-                <Toaster />
-                <RouterProvider router={router} />
-              </FTNDProvider>
-            </SettingProvider>
-          </ThemeProvider>
-        </ReduxProvider>
+        <WebSocketProvider>
+          <ReduxProvider>
+            <ThemeProvider defaultTheme={Theme.SYSTEM} storageKey="vite-ui-theme">
+              <SettingProvider>
+                <FTNDProvider>
+                  <Toaster />
+                  <RouterProvider router={router} />
+                </FTNDProvider>
+              </SettingProvider>
+            </ThemeProvider>
+          </ReduxProvider>
+        </WebSocketProvider>
       </AuthProvider>
     </GoogleOAuthProvider>
   </StrictMode>
