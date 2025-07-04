@@ -52,18 +52,26 @@ export function ScheduleManagement() {
   useEffect(() => {
     const getTimetables = async () => {
       try {
-        const response = await api.get("/v1/timetables?page=0&size=100&direction=ASC");
-        console.log("✅ Fetched timetables:", JSON.stringify(response.data.result.content, null, 2));
+        const response = await api.get(
+          "/v1/timetables?page=0&size=100&direction=ASC"
+        );
         setTimetables(response.data.result.content || []);
       } catch (error) {
-        console.error("❌ Failed to fetch timetables", error);
+        console.error(" Failed to fetch timetables", error);
         navigate("/auth/login", {
           state: { from: location.pathname },
           replace: true,
         });
       }
     };
-    getTimetables();
+
+    if (location.state?.refresh) {
+      getTimetables();
+
+      window.history.replaceState({}, document.title);
+    } else {
+      getTimetables();
+    }
   }, []);
 
   const onSubmit: SubmitHandler<timeTableFormData> = async (data) => {
@@ -90,18 +98,14 @@ export function ScheduleManagement() {
         endedAt: format(endedAt, "yyyy-MM-dd'T'HH:mm"),
       };
 
-      console.log("📤 Submitting payload:", payload);
-
       if (editing) {
         const response = await api.put(`/v1/timetables/${editing.id}`, payload);
-        console.log("✅ Updated session:", response.data.result);
         setTimetables((prev) =>
           prev.map((t) => (t.id === editing.id ? response.data.result : t))
         );
         toast.success("Session updated!");
       } else {
         const response = await api.post("/v1/timetables", payload);
-        console.log("✅ Created session:", response.data.result);
         setTimetables((prev) => [...prev, response.data.result]);
         toast.success("Session created!");
       }
@@ -112,7 +116,9 @@ export function ScheduleManagement() {
     } catch (error: any) {
       setError("root", {
         type: "server",
-        message: error?.response?.data?.message || "Unexpected error. Please try again.",
+        message:
+          error?.response?.data?.message ||
+          "Unexpected error. Please try again.",
       });
     }
   };
@@ -152,17 +158,27 @@ export function ScheduleManagement() {
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
-              <DialogTitle>{editing ? "Edit Session" : "Add New Session"}</DialogTitle>
+              <DialogTitle>
+                {editing ? "Edit Session" : "Add New Session"}
+              </DialogTitle>
             </DialogHeader>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 py-4">
               <div className="grid gap-2">
                 <Label htmlFor="name">Name</Label>
-                <Input id="name" placeholder="Client Name" {...register("name")} />
+                <Input
+                  id="name"
+                  placeholder="Client Name"
+                  {...register("name")}
+                />
                 <FormInputError field={errors.name} />
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="description">Description</Label>
-                <Input id="description" placeholder="Session Description" {...register("description")} />
+                <Input
+                  id="description"
+                  placeholder="Session Description"
+                  {...register("description")}
+                />
                 <FormInputError field={errors.description} />
               </div>
               <div className="grid gap-2">
@@ -199,9 +215,11 @@ export function ScheduleManagement() {
           </CardHeader>
           <CardContent className="space-y-2 max-h-[650px] overflow-y-auto pr-2">
             {timetables
-              .filter((t) => new Date(t.startedAt).toDateString() === date.toDateString())
+              .filter(
+                (t) =>
+                  new Date(t.startedAt).toDateString() === date.toDateString()
+              )
               .map((t) => {
-                console.log("📅 Rendering session:", t);
                 return (
                   <div key={t.id} className="border-b py-2 px-1">
                     <div
@@ -209,12 +227,19 @@ export function ScheduleManagement() {
                       onClick={() => handleEdit(t)}
                     >
                       <div className="font-semibold text-base">
-                        {t.name || <span className="italic text-muted-foreground">No Name</span>}
+                        {t.name || (
+                          <span className="italic text-muted-foreground">
+                            No Name
+                          </span>
+                        )}
                       </div>
-                      <div className="text-sm text-muted-foreground">{t.description}</div>
+                      <div className="text-sm text-muted-foreground">
+                        {t.description}
+                      </div>
                       <div className="flex items-center text-sm text-muted-foreground mt-2">
                         <Clock className="mr-1 h-4 w-4" />
-                        {format(new Date(t.startedAt), "HH:mm")} - {format(new Date(t.endedAt), "HH:mm")}
+                        {format(new Date(t.startedAt), "HH:mm")} -{" "}
+                        {format(new Date(t.endedAt), "HH:mm")}
                       </div>
                       <div className="mt-2 flex justify-between items-center">
                         <Badge variant="default">confirmed</Badge>
