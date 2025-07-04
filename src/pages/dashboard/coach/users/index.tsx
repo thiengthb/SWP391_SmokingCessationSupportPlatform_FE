@@ -55,6 +55,7 @@ export function ScheduleManagement() {
         const response = await api.get(
           "/v1/timetables?page=0&size=100&direction=ASC"
         );
+        console.log("Fetched timetables:", response.data.result.content);
         setTimetables(response.data.result.content || []);
       } catch (error) {
         console.error(" Failed to fetch timetables", error);

@@ -35,6 +35,7 @@ export default function GoalManagement() {
   const [myGoals, setMyGoals] = useState<Goal[]>([]);
   const [publicGoals, setPublicGoals] = useState<Goal[]>([]);
   const [newGoal, setNewGoal] = useState<string>("");
+  const [selectedGoal, setSelectedGoal] = useState<Goal | null>(null);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -47,7 +48,6 @@ export default function GoalManagement() {
           api.get("/v1/goals/my-goals"),
           api.get("/v1/goals"),
         ]);
-
         setMyGoals(myGoalsRes.data.result || []);
         setPublicGoals(allGoalsRes.data.result || []);
       } catch (error) {
@@ -102,22 +102,70 @@ export default function GoalManagement() {
       typeof criteria === "number" && criteria > 0 && progressValue >= criteria;
 
     return (
-      <Card
+      <Dialog
         key={goal.id}
-        className={isCompleted ? "opacity-100" : "opacity-75"}
+        onOpenChange={(open) => setSelectedGoal(open ? goal : null)}
       >
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">{goal.name}</CardTitle>
-          {isCompleted && <Trophy className="h-4 w-4 text-primary" />}
-        </CardHeader>
-        <CardContent className="space-y-2">
-          <p className="text-sm text-muted-foreground">{goal.description}</p>
-          <Progress value={percentage} />
-          <p className="text-xs text-muted-foreground text-right">
-            {percentage.toFixed(0)}%
-          </p>
-        </CardContent>
-      </Card>
+        <DialogTrigger asChild>
+          <Card
+            className={
+              isCompleted
+                ? "opacity-100 cursor-pointer"
+                : "opacity-75 cursor-pointer"
+            }
+          >
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">{goal.name}</CardTitle>
+              {isCompleted && <Trophy className="h-4 w-4 text-primary" />}
+            </CardHeader>
+            <CardContent className="space-y-2">
+              <p className="text-sm text-muted-foreground line-clamp-2">
+                {goal.description}
+              </p>
+              <Progress value={percentage} />
+              <p className="text-xs text-muted-foreground text-right">
+                {percentage.toFixed(0)}%
+              </p>
+            </CardContent>
+          </Card>
+        </DialogTrigger>
+
+        {selectedGoal?.id === goal.id && (
+          <DialogContent className="sm:max-w-lg">
+            <DialogHeader>
+              <DialogTitle>Goal Details</DialogTitle>
+            </DialogHeader>
+
+            <div className="space-y-3 text-sm text-muted-foreground">
+              {goal.iconUrl && (
+                <img
+                  src={goal.iconUrl}
+                  alt="Icon"
+                  className="h-20 w-20 object-contain mx-auto mb-2"
+                />
+              )}
+
+              <p>
+                <strong>Name:</strong> {goal.name}
+              </p>
+              <p>
+                <strong>Description:</strong> {goal.description}
+              </p>
+
+              <div className="space-y-1">
+                <strong>Progress:</strong>
+                <Progress value={percentage} />
+              </div>
+            </div>
+
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button variant="outline">Close</Button>
+              </DialogClose>
+            </DialogFooter>
+          </DialogContent>
+        )}
+      </Dialog>
     );
   };
 
@@ -185,8 +233,12 @@ export default function GoalManagement() {
                       <SelectItem value="SMOKE_FREE">Smoke Free</SelectItem>
                       <SelectItem value="MONEY_SAVED">Money Saved</SelectItem>
                       <SelectItem value="PLAN_STREAK">Plan Streak</SelectItem>
-                      <SelectItem value="PLAN_COMPLETE">Plan Complete</SelectItem>
-                      <SelectItem value="PHASE_COMPLETE">Phase Complete</SelectItem>
+                      <SelectItem value="PLAN_COMPLETE">
+                        Plan Complete
+                      </SelectItem>
+                      <SelectItem value="PHASE_COMPLETE">
+                        Phase Complete
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                   <FormInputError field={errors.criteriaType} />
@@ -226,7 +278,9 @@ export default function GoalManagement() {
           {myGoals.length > 0 ? (
             myGoals.map(renderGoalCard)
           ) : (
-            <p className="text-sm text-muted-foreground">No personal goals yet.</p>
+            <p className="text-sm text-muted-foreground">
+              No personal goals yet.
+            </p>
           )}
         </div>
       </div>
@@ -237,7 +291,9 @@ export default function GoalManagement() {
           {publicGoals.length > 0 ? (
             publicGoals.map(renderGoalCard)
           ) : (
-            <p className="text-sm text-muted-foreground">No public goals available.</p>
+            <p className="text-sm text-muted-foreground">
+              No public goals available.
+            </p>
           )}
         </div>
       </div>
