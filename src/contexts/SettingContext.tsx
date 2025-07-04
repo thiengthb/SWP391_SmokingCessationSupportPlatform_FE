@@ -59,56 +59,48 @@ export function SettingProvider({ children }: { children: React.ReactNode }) {
 
   const handleChangeTheme = async (newTheme: Theme) => {
     setTheme(newTheme);
-    setSetting((prev) => ({ ...prev, theme: newTheme }));
-    (await handleSaveSetting()) && toast.success("Theme updated successfully!");
   };
 
   const handleChangeLanguage = async (newLanguage: Language) => {
     i18n.changeLanguage(newLanguage.toLowerCase());
     localStorage.setItem("language", newLanguage.toLowerCase());
     setSetting((prev) => ({ ...prev, language: newLanguage }));
-    (await handleSaveSetting()) &&
-      toast.success("Language updated successfully!");
   };
 
   const handleChangeTrackingMode = async (newTrackingMode: TrackingMode) => {
     setSetting((prev) => ({ ...prev, trackingMode: newTrackingMode }));
-    (await handleSaveSetting()) &&
-      toast.success("Tracking mode updated successfully!");
   };
 
   const handleChangeMotivationFrequency = async (
     newFrequency: MotivationFrequency
   ) => {
     setSetting((prev) => ({ ...prev, motivationFrequency: newFrequency }));
-    (await handleSaveSetting()) &&
-      toast.success("Motivation frequency updated successfully!");
   };
 
   const handleChangeReportDeadline = async (newDeadline: string) => {
     setSetting((prev) => ({ ...prev, reportDeadline: newDeadline }));
-    (await handleSaveSetting()) &&
-      toast.success("Report deadline updated successfully!");
   };
 
-  const handleSaveSetting = async () => {
-    if (auth.accessToken) {
-      try {
-        await apiWithInterceptors.put(
-          `/v1/settings/${auth.currentAcc?.id}`,
-          setting
-        );
-        return true;
-      } catch (error) {
-        console.error("Error saving settings:", error);
-        toast.error("Failed to save settings. Please try again later.");
-        return false;
+  useEffect(() => {
+    const handleSaveSetting = async () => {
+      if (auth.accessToken) {
+        try {
+          await apiWithInterceptors.put(
+            `/v1/settings/${auth.currentAcc?.id}`,
+            setting
+          );
+          toast.success("Settings saved successfully!");
+          console.log("Settings saved:", setting);
+        } catch (error) {
+          console.error("Error saving settings:", error);
+          toast.error("Failed to save settings. Please try again later.");
+        }
+      } else {
+        toast.error("You need to be logged in to save settings.");
       }
-    } else {
-      toast.error("You need to be logged in to save settings.");
-      return false;
-    }
-  };
+    };
+    handleSaveSetting();
+  }, [setting]);
 
   return (
     <SettingContext.Provider

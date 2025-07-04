@@ -9,7 +9,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
-import type { Phase } from "../../PlanTrackingTab";
+import type { Phase } from "@/types/models/plan";
 
 interface CurrentPhaseSummaryProps {
   currentPhase: Phase | null;
@@ -27,7 +27,7 @@ export function CurrentPhaseSummary({
       <CardHeader className="pb-2">
         <div className="flex justify-between items-center">
           <div>
-            <CardTitle>Giai đoạn hiện tại: {currentPhase.name}</CardTitle>
+            <CardTitle>Giai đoạn hiện tại: {currentPhase.phaseName}</CardTitle>
             <CardDescription>
               {format(currentPhase.startDate, "dd/MM/yyyy")} -{" "}
               {format(currentPhase.endDate, "dd/MM/yyyy")}
@@ -35,10 +35,10 @@ export function CurrentPhaseSummary({
           </div>
           <Badge
             variant={
-              currentPhase.targetCigarettes === 0 ? "secondary" : "default"
+              currentPhase.cigaretteBound === 0 ? "secondary" : "default"
             }
           >
-            {currentPhase.targetCigarettes} điếu/ngày
+            {currentPhase.cigaretteBound} điếu/ngày
           </Badge>
         </div>
       </CardHeader>
@@ -51,7 +51,7 @@ export function CurrentPhaseSummary({
           <ul className="list-disc pl-5 space-y-1.5">
             {currentPhase.tips.slice(0, 3).map((tip, index) => (
               <li key={index} className="text-sm">
-                {tip}
+                {tip.content}
               </li>
             ))}
           </ul>

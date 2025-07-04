@@ -2,7 +2,7 @@ import { LineChart, ListChecks, Award, BookOpen } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { format } from "date-fns";
-import type { Phase } from "../../PlanTrackingTab";
+import type { Phase } from "@/types/models/plan";
 
 interface MilestoneInfo {
   title: string;
@@ -60,11 +60,11 @@ export function PlanDashboardCards({
         <CardContent>
           <div className="flex flex-col gap-1">
             <p className="text-2xl font-bold">
-              {currentPhase?.name || "Chưa bắt đầu"}
+              {currentPhase?.phaseName || "Chưa bắt đầu"}
             </p>
             <p className="text-sm text-muted-foreground">
               {currentPhase
-                ? `Mục tiêu: ${currentPhase.targetCigarettes} điếu/ngày`
+                ? `Mục tiêu: ${currentPhase.cigaretteBound} điếu/ngày`
                 : "Thiết lập giai đoạn để bắt đầu"}
             </p>
           </div>

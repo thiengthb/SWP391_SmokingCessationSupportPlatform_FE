@@ -1,5 +1,5 @@
 import LandingPage from "@/pages/landingpage";
-import MemberHome from "@/pages/member";
+import MemberHome from "@/pages/tracking";
 import { useFTND } from "@/contexts/FTNDContext";
 import FTNDAssessmentForm from "@/components/ftnd/FTNDAssessmentForm";
 import { useAuth } from "./contexts/AuthContext";

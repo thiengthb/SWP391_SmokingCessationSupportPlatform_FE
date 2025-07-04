@@ -1,42 +1,43 @@
 import { addDays } from "date-fns";
-import type { QuitPlan } from "@/pages/member/PlanTrackingTab";
+import type { QuitPlan } from "@/pages/tracking/PlanTrackingTab";
+import type { Tip } from "@/types/models/plan";
 
 // Default tips for different phases
 export const DEFAULT_TIPS = {
   preparation: [
-    "Ghi lại những lý do bạn muốn bỏ thuốc lá",
-    "Thông báo cho bạn bè và gia đình về kế hoạch của bạn",
-    "Xác định những tình huống khiến bạn muốn hút thuốc",
-    "Chuẩn bị các biện pháp thay thế: kẹo cao su, snack lành mạnh...",
-    "Đặt ra một ngày cụ thể để bỏ thuốc hoàn toàn",
+   { content: "Ghi lại những lý do bạn muốn bỏ thuốc lá"},
+   { content: "Thông báo cho bạn bè và gia đình về kế hoạch của bạn"},
+   { content: "Xác định những tình huống khiến bạn muốn hút thuốc"},
+   { content: "Chuẩn bị các biện pháp thay thế: kẹo cao su, snack lành mạnh..."},
+   { content: "Đặt ra một ngày cụ thể để bỏ thuốc hoàn toàn"},
   ],
   reduction: [
-    "Giảm dần số lượng điếu thuốc mỗi ngày theo lịch trình",
-    "Trì hoãn điếu thuốc đầu tiên của ngày càng lâu càng tốt",
-    "Chỉ hút một nửa mỗi điếu thuốc",
-    "Không mang thuốc lá theo người",
-    "Tìm hoạt động thay thế khi thèm thuốc",
+   { content: "Giảm dần số lượng điếu thuốc mỗi ngày theo lịch trình"},
+   { content: "Trì hoãn điếu thuốc đầu tiên của ngày càng lâu càng tốt"},
+   { content: "Chỉ hút một nửa mỗi điếu thuốc"},
+   { content: "Không mang thuốc lá theo người"},
+   { content: "Tìm hoạt động thay thế khi thèm thuốc"},
   ],
   quit: [
-    "Vứt bỏ tất cả thuốc lá, bật lửa và gạt tàn",
-    "Tránh xa những yếu tố kích thích như rượu bia",
-    "Uống nhiều nước và tập thể dục nhẹ nhàng",
-    "Tham gia nhóm hỗ trợ hoặc cài đặt ứng dụng bỏ thuốc",
-    "Thưởng cho bản thân những thành tích nhỏ",
+   { content: "Vứt bỏ tất cả thuốc lá, bật lửa và gạt tàn"},
+   { content: "Tránh xa những yếu tố kích thích như rượu bia"},
+   { content: "Uống nhiều nước và tập thể dục nhẹ nhàng"},
+   { content: "Tham gia nhóm hỗ trợ hoặc cài đặt ứng dụng bỏ thuốc"},
+   { content: "Thưởng cho bản thân những thành tích nhỏ"},
   ],
   maintenance: [
-    "Tiếp tục tạo thói quen mới không liên quan đến thuốc lá",
-    "Dành tiền tiết kiệm được cho một phần thưởng đặc biệt",
-    "Theo dõi sức khỏe cải thiện của bản thân",
-    "Học cách đối phó với căng thẳng mà không cần thuốc lá",
-    "Tránh những tình huống có thể gây tái nghiện",
+   { content: "Tiếp tục tạo thói quen mới không liên quan đến thuốc lá"},
+   { content: "Dành tiền tiết kiệm được cho một phần thưởng đặc biệt"},
+   { content: "Theo dõi sức khỏe cải thiện của bản thân"},
+   { content: "Học cách đối phó với căng thẳng mà không cần thuốc lá"},
+   { content: "Tránh những tình huống có thể gây tái nghiện"},
   ],
   longterm: [
-    "Xây dựng bản sắc mới như một người không hút thuốc",
-    "Giúp đỡ người khác trong hành trình bỏ thuốc",
-    "Chú ý đến những thay đổi tích cực về sức khỏe",
-    "Lập kế hoạch đối phó với những tình huống có thể gây tái nghiện",
-    "Ăn mừng các cột mốc: 3 tháng, 6 tháng, 1 năm không hút thuốc",
+   { content: "Xây dựng bản sắc mới như một người không hút thuốc"},
+   { content: "Giúp đỡ người khác trong hành trình bỏ thuốc"},
+   { content: "Chú ý đến những thay đổi tích cực về sức khỏe"},
+   { content: "Lập kế hoạch đối phó với những tình huống có thể gây tái nghiện"},
+   { content: "Ăn mừng các cột mốc: 3 tháng, 6 tháng, 1 năm không hút thuốc"},
   ],
 };
 
@@ -60,7 +61,7 @@ export interface PlanPhaseTemplate {
   name: string;
   durationDays: number;
   cigarettes: number;
-  tips: string[];
+  tips: Tip[];
 }
 
 // Plan data
@@ -208,10 +209,10 @@ export const createPresetPlan = (planTemplate: PlanTemplate): QuitPlan => {
 
     return {
       id: crypto.randomUUID(),
-      name: phase.name,
+      phaseName: phase.name,
       startDate,
       endDate,
-      targetCigarettes: phase.cigarettes,
+      cigaretteBound: phase.cigarettes,
       description: `Giai đoạn ${phase.name} với mục tiêu ${phase.cigarettes} điếu thuốc mỗi ngày`,
       completed: false,
       tips: phase.tips,
@@ -223,7 +224,7 @@ export const createPresetPlan = (planTemplate: PlanTemplate): QuitPlan => {
     name: planTemplate.name,
     startDate: today,
     targetQuitDate:
-      createdPhases.find((p) => p.targetCigarettes === 0)?.startDate ||
+      createdPhases.find((p) => p.cigaretteBound === 0)?.startDate ||
       addDays(today, planTemplate.duration),
     phases: createdPhases,
     notes: `Kế hoạch mẫu "${planTemplate.name}" với tổng thời gian ${planTemplate.duration} ngày.`,

@@ -5,7 +5,8 @@ import { Plus, LineChart, ListChecks } from "lucide-react";
 import { CurrentPhaseSummary } from "./CurrentPhaseSummary";
 import { PlanOverview } from "./PlanOverview";
 import PlanPhase from "./PlanPhase";
-import type { Phase, QuitPlan } from "../../PlanTrackingTab";
+import type { QuitPlan } from "../../PlanTrackingTab";
+import type { Phase } from "@/types/models/plan";
 
 interface PlanTabsProps {
   activeTab: string;

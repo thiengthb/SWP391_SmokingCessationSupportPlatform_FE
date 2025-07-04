@@ -5,10 +5,10 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  CardFooter,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
-  ArrowRight,
   CheckCheck,
   Timer,
   Cigarette,
@@ -17,7 +17,7 @@ import {
   Scale,
 } from "lucide-react";
 import type { PlanTemplate } from "@/data/preset-plan.data";
-import type { QuitPlan } from "@/pages/member/PlanTrackingTab";
+import type { QuitPlan } from "@/pages/tracking/PlanTrackingTab";
 
 interface PlanCardProps {
   plan: PlanTemplate;
@@ -32,9 +32,13 @@ const iconMap: Record<string, React.ReactNode> = {
   Scale: <Scale className="h-5 w-5 text-green-600" />,
 };
 
-export function PlanCard({ plan, onApply, generatedPlan }: PlanCardProps) {
+export default function PlanCard({
+  plan,
+  onApply,
+  generatedPlan,
+}: PlanCardProps) {
   return (
-    <Card>
+    <Card className="h-full flex flex-col hover:shadow-md transition-shadow">
       <CardHeader className="pb-3">
         <div className="flex justify-between items-start mb-2">
           <div className={`rounded-full bg-${plan.bgColor}-100 p-2`}>
@@ -44,7 +48,7 @@ export function PlanCard({ plan, onApply, generatedPlan }: PlanCardProps) {
         <CardTitle>{plan.shortName}</CardTitle>
         <CardDescription>{plan.description}</CardDescription>
       </CardHeader>
-      <CardContent className="space-y-3">
+      <CardContent className="space-y-3 flex-1">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1">
             <Timer className="h-4 w-4 text-muted-foreground" />
@@ -68,16 +72,18 @@ export function PlanCard({ plan, onApply, generatedPlan }: PlanCardProps) {
             </li>
           ))}
         </ul>
-
-        <Button
-          onClick={() => onApply(generatedPlan)}
-          className="w-full mt-4"
-          variant="default"
-        >
-          Áp dụng kế hoạch
-          <ArrowRight className="ml-1 h-4 w-4" />
-        </Button>
       </CardContent>
+      <CardFooter className="flex gap-2 mt-auto">
+        <Button variant="outline" className="flex-1">
+          Xem chi tiết
+        </Button>
+        <Button
+          className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+          onClick={() => onApply(generatedPlan)}
+        >
+          Tùy chỉnh kế hoạch
+        </Button>
+      </CardFooter>
     </Card>
   );
 }

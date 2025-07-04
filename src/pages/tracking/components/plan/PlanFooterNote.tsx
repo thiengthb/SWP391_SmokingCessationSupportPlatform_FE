@@ -22,7 +22,7 @@ export function PlanFooterNote() {
           asChild
           className="border-amber-300"
         >
-          <a href="/cigarette-tracker">
+          <a href="/">
             <Cigarette className="mr-1.5 h-4 w-4" />
             Theo dõi hút thuốc
           </a>
@@ -33,7 +33,7 @@ export function PlanFooterNote() {
           asChild
           className="border-amber-300"
         >
-          <a href="/cigarette-tracker/info">
+          <a href="/tracking/info">
             <Info className="mr-1.5 h-4 w-4" />
             Thông tin hỗ trợ
           </a>

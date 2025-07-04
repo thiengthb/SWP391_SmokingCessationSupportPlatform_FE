@@ -26,7 +26,7 @@ import {
   PlusCircle,
   MinusCircle,
 } from "lucide-react";
-import { type Phase } from "@/pages/member/PlanTrackingTab";
+import type { Phase } from "@/types/models/plan";
 
 interface PlanPhaseProps {
   phase: Phase;
@@ -48,7 +48,7 @@ export default function PlanPhase({
   isCurrent,
 }: PlanPhaseProps) {
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    updatePhase(phase.id, { name: e.target.value });
+    updatePhase(phase.id, { phaseName: e.target.value });
   };
 
   const handleDescriptionChange = (
@@ -69,22 +69,22 @@ export default function PlanPhase({
     }
   };
 
-  const handleTargetCigarettesChange = (
+  const handleCigaretteBoundChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const value = parseInt(e.target.value);
     if (!isNaN(value) && value >= 0) {
-      updatePhase(phase.id, { targetCigarettes: value });
+      updatePhase(phase.id, { cigaretteBound: value });
     }
   };
 
   const incrementTarget = () => {
-    updatePhase(phase.id, { targetCigarettes: phase.targetCigarettes + 1 });
+    updatePhase(phase.id, { cigaretteBound: phase.cigaretteBound + 1 });
   };
 
   const decrementTarget = () => {
-    if (phase.targetCigarettes > 0) {
-      updatePhase(phase.id, { targetCigarettes: phase.targetCigarettes - 1 });
+    if (phase.cigaretteBound > 0) {
+      updatePhase(phase.id, { cigaretteBound: phase.cigaretteBound - 1 });
     }
   };
 
@@ -93,13 +93,13 @@ export default function PlanPhase({
   };
 
   const addTip = () => {
-    const newTips = [...phase.tips, "Mẹo mới..."];
+    const newTips = [...phase.tips, { content: "Mẹo mới..." }];
     updatePhase(phase.id, { tips: newTips });
   };
 
   const updateTip = (index: number, value: string) => {
     const newTips = [...phase.tips];
-    newTips[index] = value;
+    newTips[index] = { content: value };
     updatePhase(phase.id, { tips: newTips });
   };
 
@@ -115,7 +115,7 @@ export default function PlanPhase({
         <div className="space-y-1 flex-1">
           <div className="flex items-center gap-2">
             <Input
-              value={phase.name}
+              value={phase.phaseName}
               onChange={handleNameChange}
               className="text-xl font-semibold h-auto py-1 border-none focus-visible:ring-1"
             />
@@ -194,14 +194,14 @@ export default function PlanPhase({
               variant="outline"
               size="icon"
               onClick={decrementTarget}
-              disabled={phase.targetCigarettes <= 0}
+              disabled={phase.cigaretteBound <= 0}
             >
               <MinusCircle className="h-4 w-4" />
             </Button>
             <Input
               type="number"
-              value={phase.targetCigarettes}
-              onChange={handleTargetCigarettesChange}
+              value={phase.cigaretteBound}
+              onChange={handleCigaretteBoundChange}
               min={0}
               className="mx-2 w-20 text-center"
             />
@@ -238,7 +238,7 @@ export default function PlanPhase({
                   <Check className="h-3 w-3 text-primary" />
                 </div>
                 <Input
-                  value={tip}
+                  value={tip.content}
                   onChange={(e) => updateTip(index, e.target.value)}
                   className="flex-1"
                 />

@@ -27,11 +27,11 @@ import { Role } from "@/types/models/account";
 import AccessDenied from "@/components/AccessDenied";
 import PersistLogin from "@/components/PersistLogin";
 import PricingPage from "@/pages/pricing";
-import CigaretteTracker from "@/pages/cigarette-tracker";
-import CigaretteHealthInfo from "@/pages/cigarette-tracker/info";
+import CigaretteHealthInfo from "@/pages/tracking/info";
 import WaitingForApprovalPage from "@/pages/waiting-for-approval";
 import PaymentResult from "@/pages/payment/PaymentResult";
 import NotificationPage from "@/pages/notification";
+import CreatePlanPage from "@/pages/tracking/CreatePlanPage";
 
 const router = createBrowserRouter([
   {
@@ -65,8 +65,7 @@ const router = createBrowserRouter([
             ],
           },
           { path: "pricing", element: <PricingPage /> },
-          { path: "cigarette-tracker", element: <CigaretteTracker /> },
-          { path: "cigarette-tracker/info", element: <CigaretteHealthInfo /> },
+          { path: "tracking/info", element: <CigaretteHealthInfo /> },
           { path: "test", element: <Test /> },
           { path: "testimonials", element: <TestimonialsPage /> },
           { path: "community", element: <CommunityPage /> },
@@ -97,7 +96,10 @@ const router = createBrowserRouter([
           {
             path: "member",
             element: <RequireAuth allowedRoles={[Role.MEMBER]} />,
-            children: [{ path: "dashboard", element: <MemberDashboard /> }],
+            children: [
+              { path: "dashboard", element: <MemberDashboard /> },
+              { path: "tracking/create-plan", element: <CreatePlanPage /> },
+            ],
           },
           {
             path: "settings",
@@ -120,10 +122,11 @@ const router = createBrowserRouter([
           {
             path: "notifications",
             element: (
-              <RequireAuth allowedRoles={[Role.ADMIN, Role.MEMBER, Role.COACH]}>
-              </RequireAuth>
+              <RequireAuth
+                allowedRoles={[Role.ADMIN, Role.MEMBER, Role.COACH]}
+              ></RequireAuth>
             ),
-            children: [{ path: "", element: <NotificationPage/> }],
+            children: [{ path: "", element: <NotificationPage /> }],
           },
         ],
       },

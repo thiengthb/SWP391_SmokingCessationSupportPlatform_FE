@@ -36,7 +36,8 @@ import {
   Clock,
   Trophy,
 } from "lucide-react";
-import type { QuitPlan, Phase } from "@/pages/member/PlanTrackingTab";
+import type { QuitPlan } from "../../PlanTrackingTab";
+import type { Phase } from "@/types/models/plan";
 
 interface PlanOverviewProps {
   plan: QuitPlan;
@@ -101,7 +102,7 @@ export function PlanOverview({
     const phaseDays = differenceInDays(phase.endDate, phase.startDate) + 1;
     // Assuming baseline is 20 cigarettes per day
     const baseline = 20;
-    const saved = (baseline - phase.targetCigarettes) * phaseDays;
+    const saved = (baseline - phase.cigaretteBound) * phaseDays;
     return total + Math.max(0, saved);
   }, 0);
 
@@ -188,7 +189,7 @@ export function PlanOverview({
             <Label htmlFor="plan-notes">Ghi chú</Label>
             <Textarea
               id="plan-notes"
-              value={plan.notes}
+              value={plan.description}
               onChange={handleNotesChange}
               placeholder="Thêm ghi chú, lý do bạn muốn cai thuốc, mục tiêu cá nhân..."
               rows={4}
@@ -250,9 +251,9 @@ export function PlanOverview({
                     )}
                   </div>
                   <div>
-                    <div className="font-medium">{currentPhase.name}</div>
+                    <div className="font-medium">{currentPhase.phaseName}</div>
                     <div className="text-sm text-muted-foreground">
-                      Giai đoạn hiện tại: {currentPhase.targetCigarettes}{" "}
+                      Giai đoạn hiện tại: {currentPhase.cigaretteBound}{" "}
                       điếu/ngày
                     </div>
                   </div>

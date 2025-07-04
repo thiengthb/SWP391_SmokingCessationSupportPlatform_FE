@@ -1,8 +1,8 @@
 import { useMemo } from "react";
-import { PlanCard } from "./PlanCard";
+import { useNavigate } from "react-router-dom";
+import PlanCard from "./PlanCard";
 import { PlanGuide } from "./PlanGuide";
 import { presetPlans, createPresetPlan } from "@/data/preset-plan.data";
-import type { QuitPlan } from "@/pages/member/PlanTrackingTab";
 import {
   Card,
   CardContent,
@@ -12,14 +12,10 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Plus, Edit, ArrowRight } from "lucide-react";
-import { addDays } from "date-fns";
 
-interface PresetPlansProps {
-  applyPresetPlan: (plan: QuitPlan) => void;
-}
+export default function PresetPlans() {
+  const navigate = useNavigate();
 
-export default function PresetPlans({ applyPresetPlan }: PresetPlansProps) {
-  // Generate plan objects once to avoid regenerating on every render
   const generatedPlans = useMemo(() => {
     return presetPlans.map((plan) => ({
       template: plan,
@@ -27,37 +23,14 @@ export default function PresetPlans({ applyPresetPlan }: PresetPlansProps) {
     }));
   }, []);
 
-  // Function to create a custom empty plan
+  // Function to navigate to create plan page with custom plan
   const createCustomPlan = () => {
-    const today = new Date();
-    const targetQuitDate = addDays(today, 14); // Default 2 weeks
+    navigate("/member/tracking/create-plan");
+  };
 
-    const customPlan: QuitPlan = {
-      id: crypto.randomUUID(),
-      name: "Kế hoạch cá nhân",
-      startDate: today,
-      targetQuitDate: targetQuitDate,
-      phases: [
-        {
-          id: crypto.randomUUID(),
-          name: "Giai đoạn 1",
-          startDate: today,
-          endDate: addDays(today, 6),
-          targetCigarettes: 10,
-          description: "Giai đoạn đầu tiên của kế hoạch cá nhân",
-          completed: false,
-          tips: [
-            "Tự thiết lập mục tiêu phù hợp với bản thân",
-            "Điều chỉnh số lượng thuốc lá theo nhu cầu",
-            "Đặt ra lịch trình giảm dần phù hợp với thói quen",
-          ],
-        },
-      ],
-      notes:
-        "Kế hoạch cá nhân được tạo từ đầu, hãy điều chỉnh các giai đoạn để phù hợp với bạn.",
-    };
-
-    applyPresetPlan(customPlan);
+  // Function to navigate to create plan page with preset plan data
+  const handleApplyPresetPlan = (templateId: string) => {
+    navigate(`/member/tracking/create-plan?preset=${templateId}`);
   };
 
   return (
@@ -71,7 +44,6 @@ export default function PresetPlans({ applyPresetPlan }: PresetPlansProps) {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* Custom Plan Card */}
         <Card className="border-dashed border-2 bg-background hover:bg-muted/10 transition-colors">
           <CardHeader className="pb-3">
             <div className="flex justify-between items-start mb-2">
@@ -123,7 +95,7 @@ export default function PresetPlans({ applyPresetPlan }: PresetPlansProps) {
             key={template.id}
             plan={template}
             generatedPlan={plan}
-            onApply={applyPresetPlan}
+            onApply={() => handleApplyPresetPlan(template.id)}
           />
         ))}
       </div>
