@@ -32,6 +32,7 @@ export default function LeaderboardList({ onMyScoreUpdate }: LeaderboardListProp
 
         setTopScores(top10);
 
+        // myScore == undefined if the user is in the top 10
         if (myScore) {
             setMyScore(myScore);
             onMyScoreUpdate?.(myScore);
@@ -83,15 +84,14 @@ export default function LeaderboardList({ onMyScoreUpdate }: LeaderboardListProp
     return (
         <div className="space-y-4">
             {/* Top 10 */}
-            {topScores.map((user, index) => {
-                const rank = index + 1;
+            {topScores.map((user) => {
                 return (
                     <Card key={user.username} className={clsx(
                             "p-4 transition-all duration-300",
                             auth.currentUser?.username == user.username && "border-2 border-primary bg-muted"
                         )}>
                         <div className="flex items-center gap-4">
-                            <div className="w-3 text-center">{getRankIcon(rank)}</div>
+                            <div className="w-3 text-center">{getRankIcon(user.score_rank)}</div>
                             <Avatar>
                                 <AvatarImage src={user.avatar} />
                                 <AvatarFallback>{getInitials(user.username)}</AvatarFallback>
@@ -123,6 +123,7 @@ export default function LeaderboardList({ onMyScoreUpdate }: LeaderboardListProp
                     {/* Current User */}
                     <Card className="p-4 border-2 border-primary">
                         <div className="flex items-center gap-4">
+                            <div className="w-3 text-center">{getRankIcon(myScore.score_rank)}</div>
                             <Avatar>
                                 <AvatarImage src={myScore.avatar} />
                                 <AvatarFallback>{getInitials(myScore.username)}</AvatarFallback>
