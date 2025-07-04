@@ -59,6 +59,8 @@ export function SettingProvider({ children }: { children: React.ReactNode }) {
 
   const handleChangeTheme = async (newTheme: Theme) => {
     setTheme(newTheme);
+    localStorage.setItem("theme", newTheme.toLowerCase());
+    setSetting((prev) => ({ ...prev, theme: newTheme }));
   };
 
   const handleChangeLanguage = async (newLanguage: Language) => {

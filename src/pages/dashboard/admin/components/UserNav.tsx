@@ -20,9 +20,12 @@ export function UserNav() {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
-            <AvatarImage src={auth.currentUser?.avatar} alt={auth.currentUser?.email} />
+            <AvatarImage
+              src={auth.currentAcc?.avatar}
+              alt={auth.currentAcc?.email}
+            />
             <AvatarFallback>
-              {auth.currentUser?.email?.[0]?.toUpperCase() || "A"}
+              {auth.currentAcc?.email?.[0]?.toUpperCase() || "A"}
             </AvatarFallback>
           </Avatar>
         </Button>
@@ -31,10 +34,10 @@ export function UserNav() {
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none">
-              {auth.currentUser?.email}
+              {auth.currentAcc?.email}
             </p>
             <p className="text-xs leading-none text-muted-foreground">
-              {auth.currentUser?.role?.toUpperCase()}
+              {auth.currentAcc?.role?.toUpperCase()}
             </p>
           </div>
         </DropdownMenuLabel>

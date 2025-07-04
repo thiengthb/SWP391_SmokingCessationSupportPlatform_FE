@@ -227,6 +227,6 @@ export const createPresetPlan = (planTemplate: PlanTemplate): QuitPlan => {
       createdPhases.find((p) => p.cigaretteBound === 0)?.startDate ||
       addDays(today, planTemplate.duration),
     phases: createdPhases,
-    notes: `Kế hoạch mẫu "${planTemplate.name}" với tổng thời gian ${planTemplate.duration} ngày.`,
+    description: `Kế hoạch mẫu "${planTemplate.name}" với tổng thời gian ${planTemplate.duration} ngày.`,
   };
 };

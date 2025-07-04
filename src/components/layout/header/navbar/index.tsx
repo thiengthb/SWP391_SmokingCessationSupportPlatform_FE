@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import MobileMenu from "./MobileMenu";
 import { NavigationItems } from "./NavigationItems";
-import { ModeToggle } from "@/components/theme/theme-toggle";
+import AppearanceSetting from "./AppearenceSetting";
 import Logo from "../Logo";
 import { UserNav } from "./UserNav";
 import { useAuth } from "@/contexts/AuthContext";
@@ -39,7 +39,7 @@ const Navbar = () => {
                   <Link to="/auth/register">{t(`buttons.signup`)}</Link>
                 </Button>
                 <div className="hidden lg:flex">
-                  <ModeToggle />
+                  <AppearanceSetting />
                 </div>
               </>
             )}

@@ -12,10 +12,18 @@ import {
   SheetHeader,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Menu, ChevronsUpDown, Gauge, Palette, UserRound } from "lucide-react";
+import {
+  Menu,
+  ChevronsUpDown,
+  Gauge,
+  Palette,
+  UserRound,
+  Globe,
+} from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { mainNav } from "./navbar.item";
 import ThemeSwitch from "@/components/theme/theme-switch";
+import LanguageSelector from "@/components/language/LanguageSelector";
 import { useAuth } from "@/contexts/AuthContext";
 import { useTranslation } from "react-i18next";
 import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
@@ -150,15 +158,26 @@ const MobileMenu = () => {
 
           <Separator className="my-4 border-t-1" />
 
-          {!auth.isAuthenticated ? (
-            <div className="flex justify-between items-center">
-              <div className="flex items-center gap-2">
-                <Palette className="w-4 h-4" />
-                <p>{t(`theme.title`)}</p>
+          {!auth.isAuthenticated && (
+            <div className="space-y-3">
+              <div className="flex justify-between items-center">
+                <div className="flex items-center gap-2">
+                  <Palette className="w-4 h-4" />
+                  <p>{t(`theme.title`)}</p>
+                </div>
+                <ThemeSwitch />
               </div>
-              <ThemeSwitch />
+
+              <div className="flex justify-between items-center">
+                <div className="flex items-center gap-2">
+                  <Globe className="w-4 h-4" />
+                  <p>{t(`language.title`)}</p>
+                </div>
+                <LanguageSelector variant="compact" showLabel={false} />
+              </div>
             </div>
-          ) : null}
+          )}
+
           <SheetFooter>
             {auth.isAuthenticated ? (
               <SheetClose asChild>

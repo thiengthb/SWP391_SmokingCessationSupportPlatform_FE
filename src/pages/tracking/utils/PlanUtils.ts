@@ -5,7 +5,8 @@ import {
   isAfter,
   isSameDay,
 } from "date-fns";
-import type { Phase, QuitPlan } from "../PlanTrackingTab";
+import type { QuitPlan } from "../PlanTrackingTab";
+import type { Phase } from "@/types/models/plan";
 
 export function getCurrentPhase(plan: QuitPlan): Phase | null {
   const today = new Date();
@@ -171,7 +172,7 @@ export function validatePlan(plan: QuitPlan) {
     if (isAfter(phase.startDate, phase.endDate)) {
       return {
         isValid: false,
-        message: `Giai đoạn "${phase.name}": Ngày bắt đầu phải trước ngày kết thúc`
+        message: `Giai đoạn "${phase.phaseName}": Ngày bắt đầu phải trước ngày kết thúc`
       };
     }
 
@@ -181,7 +182,7 @@ export function validatePlan(plan: QuitPlan) {
       if (isBefore(phase.startDate, addDays(prevPhase.endDate, 1))) {
         return {
           isValid: false,
-          message: `Giai đoạn "${phase.name}" bị chồng lấn với giai đoạn trước`
+          message: `Giai đoạn "${phase.phaseName}" bị chồng lấn với giai đoạn trước`
         };
       }
     }
