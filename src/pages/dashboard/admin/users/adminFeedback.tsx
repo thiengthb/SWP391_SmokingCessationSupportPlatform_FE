@@ -70,10 +70,10 @@ export default function FeedbackManagement() {
       setFeedbacks(content || []);
       setTotalPages(Math.ceil(totalElements / size) || 1);
 
-      toast.success("Xoá thành công");
+      toast.success("Delete successful");
     } catch (error) {
       console.error("Xoá thất bại:", error);
-      toast.error("Không thể xoá phản hồi. Vui lòng thử lại.");
+      toast.error("Unable to delete comment. Please try again.");
     }
   };
 

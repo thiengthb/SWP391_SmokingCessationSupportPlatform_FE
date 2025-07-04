@@ -92,12 +92,12 @@ export function ScheduleManagement() {
       endedAt.setMilliseconds(0);
 
       const payload = {
-        name: data.name,
-        description: data.description,
+        name: data.name.trim(),
+        description: data.description.trim(),
         startedAt: format(startedAt, "yyyy-MM-dd'T'HH:mm"),
         endedAt: format(endedAt, "yyyy-MM-dd'T'HH:mm"),
       };
-
+      console.log("Submitting payload:", payload);
       if (editing) {
         const response = await api.put(`/v1/timetables/${editing.id}`, payload);
         setTimetables((prev) =>
@@ -106,6 +106,7 @@ export function ScheduleManagement() {
         toast.success("Session updated!");
       } else {
         const response = await api.post("/v1/timetables", payload);
+        console.log("API response:", response.data.result);
         setTimetables((prev) => [...prev, response.data.result]);
         toast.success("Session created!");
       }
@@ -227,7 +228,9 @@ export function ScheduleManagement() {
                       onClick={() => handleEdit(t)}
                     >
                       <div className="font-semibold text-base">
-                        {t.name || (
+                        {t.name?.trim() ? (
+                          t.name
+                        ) : (
                           <span className="italic text-muted-foreground">
                             No Name
                           </span>

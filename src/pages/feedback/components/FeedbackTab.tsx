@@ -13,9 +13,20 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import FormInputError from "@/components/FormInputError";
-import StarRatingInput from "./StarRating"; 
+import StarRatingInput from "./StarRating";
 import useApi from "@/hooks/useApi";
-import { feedbackSchema, type feedbackFormData } from "@/types/member/feedback";
+import {
+  feedbackSchema,
+  type feedbackFormData,
+} from "@/types/member/feedback";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"; // ✅ dùng từ UI chuẩn
+
 export default function FeedbackManagement() {
   const api = useApi();
 
@@ -32,6 +43,7 @@ export default function FeedbackManagement() {
     defaultValues: {
       comment: "",
       rating: 0,
+      feedbackType: "SYSTEM",
     },
   });
 
@@ -39,7 +51,7 @@ export default function FeedbackManagement() {
     try {
       await api.post("/v1/feedback", data);
       toast.success("Feedback submitted successfully!");
-      reset({ comment: "", rating: 0 });
+      reset({ comment: "", rating: 0, feedbackType: "SYSTEM" });
     } catch (error: any) {
       console.error("Error submitting feedback:", error);
       toast.error("Failed to send feedback");
@@ -74,6 +86,28 @@ export default function FeedbackManagement() {
               onChange={(val) => setValue("rating", val)}
             />
             <FormInputError field={errors.rating} />
+          </div>
+
+          <div className="grid gap-2">
+            <Label htmlFor="feedbackType">Feedback Type</Label>
+            <Select
+              value={watch("feedbackType")}
+              onValueChange={(val) =>
+                setValue("feedbackType", val as feedbackFormData["feedbackType"])
+              }
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select feedback type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="SYSTEM">System</SelectItem>
+                <SelectItem value="IMPROVEMENT">Improvement</SelectItem>
+                <SelectItem value="MEMBERSHIP">Membership</SelectItem>
+                <SelectItem value="STORY">Story</SelectItem>
+                <SelectItem value="OTHERS">Others</SelectItem>
+              </SelectContent>
+            </Select>
+            <FormInputError field={errors.feedbackType} />
           </div>
 
           <FormInputError field={errors.root} />

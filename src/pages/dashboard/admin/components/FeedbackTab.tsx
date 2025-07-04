@@ -25,6 +25,7 @@ export type Feedback = {
   username: string;
   comment: string;
   rating: number;
+  feedbackType: "SYSTEM" | "IMPROVEMENT" | "MEMBERSHIP" | "STORY" | "OTHERS";
 };
 
 export function FeedbackTab({
@@ -62,11 +63,11 @@ export function FeedbackTab({
           <TableHeader>
             <TableRow className="border-b">
               <TableHead className="w-16 text-center font-semibold text-gray-700 dark:text-gray-200">#</TableHead>
-              <TableHead className="w-1/4 font-semibold text-gray-700 dark:text-gray-200">Username</TableHead>
-              <TableHead className="w-1/2 font-semibold text-gray-700 dark:text-gray-200">Comment</TableHead>
+              <TableHead className="w-1/5 font-semibold text-gray-700 dark:text-gray-200">Username</TableHead>
+              <TableHead className="w-2/5 font-semibold text-gray-700 dark:text-gray-200">Comment</TableHead>
               <TableHead className="text-center font-semibold text-gray-700 dark:text-gray-200">Rating</TableHead>
+              <TableHead className="text-center font-semibold text-gray-700 dark:text-gray-200">Type</TableHead>
               <TableHead className="w-16 text-center font-semibold text-gray-700 dark:text-gray-200">Actions</TableHead>
-
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -98,6 +99,14 @@ export function FeedbackTab({
                   <div className="flex justify-center items-center">
                     <StarRatingDisplay value={fb.rating} />
                   </div>
+                </TableCell>
+                <TableCell
+                  className="py-4 text-center cursor-pointer"
+                  onClick={() => handleRowClick(fb)}
+                >
+                  <span className="uppercase text-sm text-muted-foreground">
+                    {fb.feedbackType}
+                  </span>
                 </TableCell>
                 <TableCell className="text-center py-4">
                   <Button
@@ -145,6 +154,14 @@ export function FeedbackTab({
                   </span>
                   <StarRatingDisplay value={selectedFeedback.rating} />
                 </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-medium min-w-[60px]">
+                    Type:
+                  </span>
+                  <span className="uppercase text-sm text-muted-foreground">
+                    {selectedFeedback.feedbackType}
+                  </span>
+                </div>
               </div>
             )}
             <DialogFooter>
@@ -158,4 +175,3 @@ export function FeedbackTab({
     </Card>
   );
 }
-
