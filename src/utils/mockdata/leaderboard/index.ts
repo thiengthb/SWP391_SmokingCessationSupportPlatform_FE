@@ -1,4 +1,4 @@
-import type { HallOfFameMember, LeaderboardUser } from "@/types/leaderboard";
+import type { HallOfFameMember, LeaderboardUser } from "@/types/models/leaderboard";
 
 export const leaderboardData: LeaderboardUser[] = [
   {

@@ -1,28 +1,17 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useAuth } from "./AuthContext";
 import useApi from "@/hooks/useApi";
-import { Role } from "@/types/user/user";
-import { ftndLevels } from "@/components/ftnd/ftndData";
+import { Role } from "@/types/models/account";
+import { ftndLevels } from "@/data/ftnd.data";
+import { defaultHealthValue, type Health } from "@/types/models/health";
 
 interface FTNDContextType {
   showFTNDAssessment: boolean;
   hasCompletedFTND: boolean;
-  assessmentResults: Record<number, number> | null;
-  cigarettesPerDay: number;
-  cigarettesPerPack: number;
-  packPrice: number;
-  ftndLevel: number;
-  smokeYear: number;
-  reasonToQuit: string;
+  healthData: Health;
   setShowFTNDAssessment: React.Dispatch<React.SetStateAction<boolean>>;
   setHasCompletedFTND: React.Dispatch<React.SetStateAction<boolean>>;
-  setAssessmentResults: (results: Record<number, number>) => void;
-  setCigarettesPerDay: (value: number) => void;
-  setCigarettesPerPack: (value: number) => void;
-  setPackPrice: (value: number) => void;
-  setFtndLevel: (value: number) => void;
-  setSmokeYear: (value: number) => void;
-  setReasonToQuit: (value: string) => void;
+  setHealthData: React.Dispatch<React.SetStateAction<Health>>;
   giveFtndLevelGuide: (level: number) => {
     description: string;
     advice: string;
@@ -36,24 +25,21 @@ export const FTNDProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [showFTNDAssessment, setShowFTNDAssessment] = useState(false);
   const [hasCompletedFTND, setHasCompletedFTND] = useState(false);
-  const [assessmentResults, setAssessmentResults] = useState<Record<
-    number,
-    number
-  > | null>(null);
-
-  const [cigarettesPerDay, setCigarettesPerDay] = useState(0);
-  const [cigarettesPerPack, setCigarettesPerPack] = useState(0);
-  const [packPrice, setPackPrice] = useState(0);
-  const [ftndLevel, setFtndLevel] = useState(0);
-  const [smokeYear, setSmokeYear] = useState(0);
-  const [reasonToQuit, setReasonToQuit] = useState("");
+  const [healthData, setHealthData] = useState<Health>(defaultHealthValue);
 
   const { auth } = useAuth();
   const apiWithInterceptors = useApi();
 
   useEffect(() => {
+    if (!auth?.accessToken || auth?.currentAcc?.role !== Role.MEMBER) {
+      console.warn(
+        "User is not authenticated or not a member, skipping FTND check."
+      );
+      return;
+    }
+
     const checkFTNDStatus = async () => {
-      if (auth?.accessToken && auth?.currentUser?.role === Role.MEMBER) {
+      if (auth?.accessToken && auth?.currentAcc?.role === Role.MEMBER) {
         try {
           const response = await apiWithInterceptors.get(
             "/v1/healths/ftnd-status"
@@ -88,27 +74,38 @@ export const FTNDProvider: React.FC<{ children: React.ReactNode }> = ({
     return { description: "Unknown level", advice: "No advice available" };
   };
 
+  useEffect(() => {
+    if (!auth?.accessToken || !hasCompletedFTND) {
+      console.warn("User is not authenticated or has not completed FTND.");
+      setHealthData(defaultHealthValue);
+      return;
+    }
+
+    const fetchHealthData = async () => {
+      if (auth?.accessToken && auth?.currentAcc?.role === Role.MEMBER) {
+        try {
+          const response = await apiWithInterceptors.get("/v1/healths/mine");
+          console.log("Fetched health data:", response.data.result);
+          setHealthData(response.data.result);
+        } catch (error) {
+          console.error("Failed to fetch health data:", error);
+          setHealthData(defaultHealthValue);
+        }
+      }
+    };
+
+    fetchHealthData();
+  }, [auth?.accessToken, hasCompletedFTND]);
+
   return (
     <FTNDContext.Provider
       value={{
         showFTNDAssessment,
         hasCompletedFTND,
-        assessmentResults,
-        cigarettesPerDay,
-        cigarettesPerPack,
-        packPrice,
-        ftndLevel,
-        smokeYear,
-        reasonToQuit,
+        healthData,
         setShowFTNDAssessment,
         setHasCompletedFTND,
-        setAssessmentResults,
-        setCigarettesPerDay,
-        setCigarettesPerPack,
-        setPackPrice,
-        setFtndLevel,
-        setSmokeYear,
-        setReasonToQuit,
+        setHealthData,
         giveFtndLevelGuide,
       }}
     >

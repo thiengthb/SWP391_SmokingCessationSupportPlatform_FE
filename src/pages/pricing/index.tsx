@@ -5,10 +5,10 @@ import { BenefitCards } from "@/pages/pricing/components/BenefitCards";
 import { Testimonials } from "@/pages/pricing/components/Testimonials";
 import { FAQ } from "@/pages/pricing/components/FAQ";
 import { PricingCTA } from "@/pages/pricing/components/PricingCTA";
-import { faqs, testimonials, programFeatures } from "@/data/pricingData";
+import { faqs, testimonials, programFeatures } from "@/data/pricing.data";
 import { useEffect, useState } from "react";
 import { api } from "@/lib/axios";
-import type { Membership } from "@/types/membership";
+import type { Membership } from "@/types/models/membership";
 
 export default function PricingPage() {
   const [memberships, setMemberships] = useState<Membership[]>([]);

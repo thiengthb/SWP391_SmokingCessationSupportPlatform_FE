@@ -4,7 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { type FAQItem } from "@/types/pricing.ts";
+import { type FAQItem } from "@/types/models/membership";
 
 interface FAQProps {
   faqs: FAQItem[];

@@ -32,11 +32,11 @@ export default function PaymentResult() {
 
   useEffect(() => {
     const fetchMembershipInfo = async () => {
-      if (isSuccess && auth?.currentUser?.id) {
+      if (isSuccess && auth?.currentAcc?.id) {
         try {
           setLoading(true);
           const response = await apiWithInterceptor.get(
-            `/v1/users/${auth.currentUser.id}/membership`
+            `/v1/users/${auth.currentAcc.id}/membership`
           );
           if (response.data.success) {
             setMembershipInfo({

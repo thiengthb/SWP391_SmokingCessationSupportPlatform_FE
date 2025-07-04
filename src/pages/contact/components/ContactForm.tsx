@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
-import type { ContactFormData } from "@/types/contact";
+import type { ContactFormData } from "@/types/models/contact";
 import { useTranslation } from "react-i18next";
 
 export function ContactForm() {

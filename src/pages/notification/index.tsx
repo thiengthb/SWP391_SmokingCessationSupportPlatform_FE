@@ -1,54 +1,56 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import type { NotificationResponse} from "@/types/notification/notification";
+import type { NotificationResponse } from "@/types/models/notification";
 import useApi from "@/hooks/useApi";
 import { BellIcon } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import clsx from "clsx";
 
-
 export default function NotificationPage() {
-    const PAGE_SIZE = 10;
-    const [page, setPage] = useState(0);
-    const [totalPages, setTotalPages] = useState(0);
-    const { t } = useTranslation();
-    const [notifications, setNotifications] = useState<NotificationResponse[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+  const PAGE_SIZE = 10;
+  const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const { t } = useTranslation();
+  const [notifications, setNotifications] = useState<NotificationResponse[]>(
+    []
+  );
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
+  const apiWithInterceptor = useApi();
 
-    const apiWithInterceptor = useApi();
+  const fetchNotifications = async (pageNumber: number) => {
+    setLoading(true);
+    try {
+      const response = await apiWithInterceptor.get(`/v1/notifications`, {
+        params: {
+          page: pageNumber,
+          size: PAGE_SIZE,
+          sortBy: "sentAt",
+          direction: "DESC",
+        },
+      });
+      console.log("Fetched notifications:", response.data);
 
-    const fetchNotifications = async (pageNumber: number) => {
-        setLoading(true);
-        try {
-            const response = await apiWithInterceptor.get(`/v1/notifications`, {
-                params: {
-                    page: pageNumber,
-                    size: PAGE_SIZE,
-                    sortBy: 'sentAt',
-                    direction: 'DESC',
-                },
-            });
-            console.log("Fetched notifications:", response.data);
+      const newNotifications: NotificationResponse[] = Array.isArray(
+        response.data.result.content
+      )
+        ? response.data.result.content
+        : [];
 
-            const newNotifications: NotificationResponse[] = Array.isArray(response.data.result.content)
-                ? response.data.result.content
-                : [];
-                
-            setNotifications(newNotifications);
-            setTotalPages(response.data.result?.totalPages || 0);
-            setPage(pageNumber);
-        } catch (error) {
-            console.error("Failed to fetch notifications:", error);
-            setError("Failed to fetch notifications");
-        } finally {
-            setLoading(false);
-        }
+      setNotifications(newNotifications);
+      setTotalPages(response.data.result?.totalPages || 0);
+      setPage(pageNumber);
+    } catch (error) {
+      console.error("Failed to fetch notifications:", error);
+      setError("Failed to fetch notifications");
+    } finally {
+      setLoading(false);
     }
+  };
 
-    useEffect(() => {
+  useEffect(() => {
     fetchNotifications(0);
   }, []);
 
@@ -60,7 +62,10 @@ export default function NotificationPage() {
           {t("page.notifications.title", "Notifications")}
         </h1>
         <p className="text-muted-foreground">
-          {t("page.notifications.description", "Stay informed about your goals and achievements.")}
+          {t(
+            "page.notifications.description",
+            "Stay informed about your goals and achievements."
+          )}
         </p>
       </div>
 
@@ -72,30 +77,35 @@ export default function NotificationPage() {
         ) : error ? (
           <p className="text-red-600">{error}</p>
         ) : notifications.length === 0 ? (
-          <p className="text-gray-500 text-center">{t("page.notifications.empty", "No notifications yet.")}</p>
+          <p className="text-gray-500 text-center">
+            {t("page.notifications.empty", "No notifications yet.")}
+          </p>
         ) : (
-            <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1">
             {notifications.map((notification) => (
-            <div
-              key={notification.id}
-              className={clsx(
-                "p-3 rounded-md border transition-colors",
-                !notification.isRead 
-                ? "bg-gray-100 text-black border-gray-300 hover:bg-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700"
-                : "bg-gray-200 text-gray-500 border-gray-300 dark:bg-gray-900 dark:text-gray-400 dark:border-gray-700"
-              )}
-            >
-              <div className="flex justify-between items-start">
-                <div>
-                  <p>{notification.content}</p>
-                  <p className="text-sm">{t("page.notifications.type")}: {notification.notificationType}</p>
+              <div
+                key={notification.id}
+                className={clsx(
+                  "p-3 rounded-md border transition-colors",
+                  !notification.isRead
+                    ? "bg-gray-100 text-black border-gray-300 hover:bg-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700"
+                    : "bg-gray-200 text-gray-500 border-gray-300 dark:bg-gray-900 dark:text-gray-400 dark:border-gray-700"
+                )}
+              >
+                <div className="flex justify-between items-start">
+                  <div>
+                    <p>{notification.content}</p>
+                    <p className="text-sm">
+                      {t("page.notifications.type")}:{" "}
+                      {notification.notificationType}
+                    </p>
+                  </div>
+                  <p className="text-sm text-gray-500 whitespace-nowrap">
+                    {new Date(notification.sentAt).toLocaleString()}
+                  </p>
                 </div>
-                <p className="text-sm text-gray-500 whitespace-nowrap">
-                  {new Date(notification.sentAt).toLocaleString()}
-                </p>
               </div>
-            </div>
-          ))}
+            ))}
           </div>
         )}
 
@@ -109,7 +119,8 @@ export default function NotificationPage() {
           </Button>
 
           <span className="text-sm text-gray-600">
-            {t("page.notifications.page", "Page")} {page + 1} / {totalPages || 1}
+            {t("page.notifications.page", "Page")} {page + 1} /{" "}
+            {totalPages || 1}
           </span>
 
           <Button

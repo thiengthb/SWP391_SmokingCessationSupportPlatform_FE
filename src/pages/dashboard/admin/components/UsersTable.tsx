@@ -16,9 +16,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
-import { AccountStatus, type User } from "@/types/user/user";
+import { AccountStatus, type Account } from "@/types/models/account";
 
-export function UsersTab({ users }: { users: User[] }) {
+export function UsersTab({ users }: { users: Account[] }) {
   const getStatusBadge = (status: string) => {
     const variants = {
       active: "default",
