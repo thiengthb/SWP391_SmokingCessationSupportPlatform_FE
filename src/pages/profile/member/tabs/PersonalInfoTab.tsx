@@ -26,26 +26,40 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useState } from "react";
-import { toast } from "sonner";
-import { Gender, type MemberProfile } from "@/types/models/member";
+import { useState, useEffect } from "react";
+import { Gender } from "@/types/models/member";
 import { toCapitalizedWords } from "@/utils/stringFormatUtils";
+import { useProfile } from "@/contexts/ProfileContext";
 
-interface PersonalInfoTabProps {
-  profile: MemberProfile;
-}
-
-export default function PersonalInfoTab({ profile }: PersonalInfoTabProps) {
+export default function PersonalInfoTab() {
   const [isEditing, setIsEditing] = useState(false);
+  const { memberProfile, handleUpdateMemberProfile } = useProfile();
+
+  console.log("Member Profile:", memberProfile);
+
   const [formState, setFormState] = useState({
-    fullName: profile.fullName,
-    email: profile.email,
-    phoneNumber: profile.phoneNumber,
-    address: profile.address,
-    dob: profile.dob || "",
-    gender: profile.gender,
-    bio: profile.bio,
+    fullName: memberProfile?.fullName || "",
+    email: memberProfile?.email || "",
+    phoneNumber: memberProfile?.phoneNumber || "",
+    address: memberProfile?.address || "",
+    dob: memberProfile?.dob || "",
+    gender: memberProfile?.gender || "",
+    bio: memberProfile?.bio || "",
   });
+
+  useEffect(() => {
+    if (memberProfile) {
+      setFormState({
+        fullName: memberProfile.fullName || "",
+        email: memberProfile.email || "",
+        phoneNumber: memberProfile.phoneNumber || "",
+        address: memberProfile.address || "",
+        dob: memberProfile.dob || "",
+        gender: memberProfile.gender || "",
+        bio: memberProfile.bio || "",
+      });
+    }
+  }, [memberProfile]);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -64,11 +78,17 @@ export default function PersonalInfoTab({ profile }: PersonalInfoTabProps) {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, this would be an API call
-    console.log("Updated profile:", formState);
-    toast.success("Profile updated successfully");
+    handleUpdateMemberProfile({
+      fullName: formState.fullName,
+      email: formState.email,
+      phoneNumber: formState.phoneNumber,
+      address: formState.address,
+      dob: new Date(formState.dob),
+      gender: formState.gender,
+      bio: formState.bio,
+    });
     setIsEditing(false);
   };
 
@@ -78,7 +98,11 @@ export default function PersonalInfoTab({ profile }: PersonalInfoTabProps) {
       icon: UserIcon,
       value: formState.fullName || "...",
     },
-    { name: "Email Address", icon: MailIcon, value: formState.email || "..." },
+    {
+      name: "Email Address",
+      icon: MailIcon,
+      value: formState.email || "...",
+    },
     {
       name: "Phone Number",
       icon: PhoneIcon,
@@ -87,15 +111,31 @@ export default function PersonalInfoTab({ profile }: PersonalInfoTabProps) {
     {
       name: "Date of Birth",
       icon: CalendarIcon,
-      value: new Date(formState.dob).toLocaleDateString(),
+      value: formState.dob
+        ? new Date(formState.dob).toLocaleDateString()
+        : "...",
     },
     {
       name: "Gender",
       icon: VenusAndMars,
-      value: toCapitalizedWords(formState.gender),
+      value: formState.gender ? toCapitalizedWords(formState.gender) : "...",
     },
-    { name: "Address", icon: MapPinIcon, value: formState.address || "..." },
+    {
+      name: "Address",
+      icon: MapPinIcon,
+      value: formState.address || "...",
+    },
   ];
+
+  if (!memberProfile) {
+    return (
+      <Card>
+        <CardContent className="flex items-center justify-center h-32">
+          <div className="text-muted-foreground">Loading profile...</div>
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <Card>
@@ -136,7 +176,7 @@ export default function PersonalInfoTab({ profile }: PersonalInfoTabProps) {
                   </div>
                 </div>
                 <div className="ml-6">
-                  {profile.bio || "No bio description."}
+                  {formState.bio || "No bio description."}
                 </div>
               </div>
             </>
@@ -145,10 +185,11 @@ export default function PersonalInfoTab({ profile }: PersonalInfoTabProps) {
             <>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <Label htmlFor="name">Full Name</Label>
+                  <Label htmlFor="fullName">Full Name</Label>
                   <Input
-                    id="name"
-                    name="name"
+                    id="fullName"
+                    name="fullName"
+                    type="text"
                     value={formState.fullName}
                     onChange={handleInputChange}
                   />
@@ -176,10 +217,10 @@ export default function PersonalInfoTab({ profile }: PersonalInfoTabProps) {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="dateOfBirth">Date of Birth</Label>
+                  <Label htmlFor="dob">Date of Birth</Label>
                   <Input
-                    id="dateOfBirth"
-                    name="dateOfBirth"
+                    id="dob"
+                    name="dob"
                     type="date"
                     value={formState.dob.toString()}
                     onChange={handleInputChange}
@@ -233,7 +274,7 @@ export default function PersonalInfoTab({ profile }: PersonalInfoTabProps) {
         </CardContent>
 
         {isEditing && (
-          <CardFooter className="flex justify-end space-x-2">
+          <CardFooter className="flex mt-4 justify-end space-x-2">
             <Button
               variant="outline"
               type="button"

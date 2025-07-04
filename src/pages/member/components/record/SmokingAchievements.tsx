@@ -1,74 +1,47 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { Card, CardContent } from "@/components/ui/card";
+import { Activity, Calendar, Cigarette } from "lucide-react";
 
-interface SmokingAchievementsProps {
-  quitDate: Date | null;
-  cigarettesAvoided: number;
-  savings: number;
-  statsData: { name: string; value: number }[];
-}
-
-export function SmokingAchievements({
-  quitDate,
-  cigarettesAvoided,
-  savings,
-  statsData,
-}: SmokingAchievementsProps) {
+export function SmokingAchievements() {
   return (
-    <Card className="shadow-lg">
-      <CardHeader>
-        <CardTitle>Your Achievements</CardTitle>
-        <CardDescription>
-          See the positive impact of your decision
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        {quitDate ? (
-          <>
-            <div className="grid grid-cols-2 gap-4 mb-6">
-              <div className="text-center p-4 bg-blue-50 rounded-lg">
-                <p className="text-sm text-gray-500">Cigarettes Avoided</p>
-                <p className="text-2xl font-bold">{cigarettesAvoided}</p>
-              </div>
-              <div className="text-center p-4 bg-green-50 rounded-lg">
-                <p className="text-sm text-gray-500">Money Saved</p>
-                <p className="text-2xl font-bold">${savings.toFixed(2)}</p>
-              </div>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <Card>
+        <CardContent className="p-4">
+          <div className="flex items-center gap-2">
+            <Activity className="h-5 w-5 text-blue-600" />
+            <div>
+              <p className="text-sm text-muted-foreground">Total Reports</p>
+              <p className="text-2xl font-bold">20</p>
             </div>
-
-            <div className="h-64">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={statsData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Bar dataKey="value" fill="#4C51BF" />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </>
-        ) : (
-          <div className="text-center py-10">
-            <p>Set a quit date to see your stats</p>
           </div>
-        )}
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardContent className="p-4">
+          <div className="flex items-center gap-2">
+            <Cigarette className="h-5 w-5 text-orange-600" />
+            <div>
+              <p className="text-sm text-muted-foreground">
+                Avg Cigarettes/Day
+              </p>
+              <p className="text-2xl font-bold">20</p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardContent className="p-4">
+          <div className="flex items-center gap-2">
+            <Calendar className="h-5 w-5 text-purple-600" />
+            <div>
+              <p className="text-sm text-muted-foreground">Days Tracked</p>
+              <p className="text-2xl font-bold">30</p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 }
 

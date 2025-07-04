@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
-import { differenceInDays, isSameDay } from "date-fns";
-import { useFTND } from "@/contexts/FTNDContext";
+import { isSameDay } from "date-fns";
 import { useAuth } from "@/contexts/AuthContext";
 import { api } from "@/lib/axios";
 import { toast } from "sonner";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import QuitSmokingJourney from "@/pages/member/components/record/QuitSmokingJourney";
 import SmokingAchievements from "@/pages/member/components/record/SmokingAchievements";
 import TodayRecord from "@/pages/member/components/record/TodayRecord";
 import RecordCalendar from "@/pages/member/components/record/RecordCalendar";
@@ -16,10 +14,6 @@ import { defaultPagination, type Pagination } from "@/types/models/pagination";
 import PlanTrackingTab from "./PlanTrackingTab";
 const RecordHabbitPage = () => {
   const { auth } = useAuth();
-  const { assessmentResults } = useFTND();
-  const [quitDate, setQuitDate] = useState<Date | null>(null);
-  const [savings, setSavings] = useState(0);
-  const [cigarettesAvoided, setCigarettesAvoided] = useState(0);
   const [loading, setLoading] = useState(false);
   const [pagination, setPagination] = useState<Pagination>(defaultPagination);
 
@@ -31,43 +25,6 @@ const RecordHabbitPage = () => {
   );
   const [newCigarettesCount, setNewCigarettesCount] = useState<number>(0);
   const [newNote, setNewNote] = useState<string>("");
-
-  useEffect(() => {
-    const fetchQuitDate = async () => {
-      try {
-        const response = await api.get("/v1/records?page=0&size=1");
-        console.log("Quit date response:", response);
-        const records = response.data.result.content;
-
-        const quitRecord = records.find((r: any) => r.cigarettesSmoked === 0);
-        if (quitRecord) {
-          setQuitDate(new Date(quitRecord.date));
-        }
-      } catch (error) {
-        console.error("Failed to fetch quit date:", error);
-      }
-    };
-
-    if (auth?.accessToken) {
-      fetchQuitDate();
-    }
-  }, [auth, showRecordDialog]);
-
-  useEffect(() => {
-    if (quitDate) {
-      const cigarettesPerDay = assessmentResults?.[7] || 20;
-      const pricePerPack = assessmentResults?.[9] || 7;
-      const cigarettesPerPack = assessmentResults?.[8] || 20;
-
-      const daysQuit = differenceInDays(new Date(), quitDate);
-      const cigarettesNotSmoked = daysQuit * cigarettesPerDay;
-      const costSaved =
-        (cigarettesNotSmoked / cigarettesPerPack) * pricePerPack;
-
-      setCigarettesAvoided(cigarettesNotSmoked);
-      setSavings(costSaved);
-    }
-  }, [quitDate, assessmentResults]);
 
   useEffect(() => {
     const fetchSmokingRecords = async () => {
@@ -109,17 +66,6 @@ const RecordHabbitPage = () => {
       setSmokingRecords([]);
     }
   }, [auth, pagination.pageNumber, pagination.pageSize, showRecordDialog]);
-
-  const getStatsData = () => {
-    if (!quitDate) return [];
-
-    const daysQuit = differenceInDays(new Date(), quitDate);
-    return [
-      { name: "Days Quit", value: daysQuit },
-      { name: "Cigarettes Avoided", value: cigarettesAvoided },
-      { name: "Money Saved ($)", value: Math.round(savings) },
-    ];
-  };
 
   const handleDateSelect = (date: Date | undefined) => {
     if (!date) return;
@@ -237,16 +183,7 @@ const RecordHabbitPage = () => {
         </TabsList>
 
         <TabsContent value="overview">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <QuitSmokingJourney quitDate={quitDate} />
-
-            <SmokingAchievements
-              quitDate={quitDate}
-              cigarettesAvoided={cigarettesAvoided}
-              savings={savings}
-              statsData={getStatsData()}
-            />
-          </div>
+          <SmokingAchievements />
         </TabsContent>
 
         <TabsContent value="records">

@@ -1,9 +1,6 @@
 import i18n from "@/lib/i18n";
-
-export const Currency = {
-    VND: "VND",
-    USD: "USD",
-} as const;
+import { Currency } from "./transaction";
+import { Language } from "./setting";
 
 export interface Membership {
     id: string;
@@ -21,7 +18,7 @@ export const defaultMembership: Membership = {
     name: "",
     description: "",
     price: 0,
-    currency: i18n.language === "vi" ? Currency.VND : Currency.USD,
+    currency: i18n.language === Language.VI.toLowerCase() ? Currency.VND : Currency.USD,
     durationDays: 0,
     highlighted: false,
     saved: 0,
@@ -46,5 +43,3 @@ export interface Testimonial {
   avatar: string;
   rating: number;
 }
-
-export type Currency = typeof Currency[keyof typeof Currency];

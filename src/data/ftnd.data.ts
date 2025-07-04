@@ -1,4 +1,6 @@
 import i18n from "@/lib/i18n";
+import { Language } from "@/types/models/setting";
+import { Currency } from "@/types/models/transaction";
 
 export interface FTNDQuestion {
   id: number;
@@ -7,6 +9,7 @@ export interface FTNDQuestion {
   options?: { value: number; label: string }[];
   type?: "radio" | "number" | "text";
   unit?: string;
+  isPriceQuestion?: boolean;
 }
 
 export const ftndQuestions: FTNDQuestion[] = [
@@ -80,7 +83,8 @@ export const ftndQuestions: FTNDQuestion[] = [
     name: "packPrice",
     question: "What is the average price you pay for a pack of cigarettes?",
     type: "number",
-    unit: i18n.language === "vi" ? "Đồng" : "USD",
+    unit: i18n.language === Language.VI ? Currency.VND : Currency.USD,
+    isPriceQuestion: true,
   },
   {
     id: 9,

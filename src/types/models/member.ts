@@ -12,6 +12,16 @@ export interface MemberProfile {
   createdAt: Date;
 }
 
+export interface MemberInfoUpdate {
+  fullName?: string;
+  email?: string;
+  phoneNumber?: string;
+  address?: string;
+  dob?: Date;
+  gender: Gender;
+  bio?: string;
+}
+
 export const Gender = {
   MALE: "MALE",
   FEMALE: "FEMALE",

@@ -47,7 +47,6 @@ export function PricingCards({ plans }: PricingCardsProps) {
     const response = await apiWithInterceptor.post(
       "/v1/stripe-payment/checkout",
       {
-        accountId: auth.currentAcc.id,
         membershipName,
       }
     );
