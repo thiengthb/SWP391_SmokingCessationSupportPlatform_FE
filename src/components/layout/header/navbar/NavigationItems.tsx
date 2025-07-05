@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { mainNav } from "./navbar.item";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/contexts/AuthContext";
+import { forRoles, toForRoles } from "@/utils/TabUtil";
 
 const ListItem = ({
   title,
@@ -42,22 +43,12 @@ export function NavigationItems() {
   const { t } = useTranslation();
   const { auth } = useAuth();
 
-  const filteredItems = mainNav.filter((item) => {
-    if (item.displayMobile) return false;
-
-    if (
-      auth.isAuthenticated &&
-      (item.id === "about" || item.id === "contact")
-    ) {
-      return false;
-    }
-
-    if (auth.currentAcc?.havingSubscription && item.id === "pricing") {
-      return false;
-    }
-
-    return true;
-  });
+  const filteredItems = mainNav.filter(
+    (item) =>
+      item.navbarLoginDisplay &&
+      (item.forRoles.includes(toForRoles(auth.currentAcc?.role)) ||
+        item.forRoles.includes(forRoles.ALL))
+  );
 
   return (
     <div className="relative">

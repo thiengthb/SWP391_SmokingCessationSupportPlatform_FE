@@ -15,7 +15,8 @@ import { Gauge, UserRound } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { mainNav } from "./navbar.item";
 import { NavigationNotifications } from "./NavigationNotifications";
-import { Badge } from "@/components/ui/badge";
+import UserInfoCard from "./UserInfoCard";
+import { forRoles, toForRoles } from "@/utils/TabUtil";
 
 export function UserNav() {
   const navigate = useNavigate();
@@ -27,22 +28,12 @@ export function UserNav() {
     navigate("/auth/login");
   };
 
-  const filteredItems = mainNav.filter((item) => {
-    if (
-      auth.isAuthenticated &&
-      (item.id === "about" || item.id === "contact")
-    ) {
-      return true;
-    }
-
-    if (!item.displayMobile) return false;
-
-    if (auth.currentAcc?.havingSubscription && item.id === "pricing") {
-      return false;
-    }
-
-    return true;
-  });
+  const filteredItems = mainNav.filter(
+    (item) =>
+      item.userNavDisplay &&
+      (item.forRoles.includes(toForRoles(auth.currentAcc?.role)) ||
+        item.forRoles.includes(forRoles.ALL))
+  );
 
   return (
     <div className="flex items-center space-x-4">
@@ -63,19 +54,7 @@ export function UserNav() {
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56" align="end" forceMount>
           <DropdownMenuLabel className="font-normal">
-            <div className="flex flex-col space-y-2">
-              <div className="flex items-center gap-2">
-                <p className="text-sm font-medium leading-none">
-                  {auth.currentAcc?.username || t("roles.guest")}
-                </p>
-                <Badge>
-                  {auth.currentAcc?.havingSubscription ? "Premium" : "Free"}
-                </Badge>
-              </div>
-              <p className="text-xs leading-none text-muted-foreground">
-                {auth.currentAcc?.email}
-              </p>
-            </div>
+            <UserInfoCard />
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>

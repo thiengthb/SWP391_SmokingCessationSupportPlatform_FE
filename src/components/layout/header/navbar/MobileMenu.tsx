@@ -21,36 +21,29 @@ import {
   Globe,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { mainNav } from "./navbar.item";
+import { forRoles, mainNav } from "./navbar.item";
 import ThemeSwitch from "@/components/theme/theme-switch";
 import LanguageSelector from "@/components/language/LanguageSelector";
 import { useAuth } from "@/contexts/AuthContext";
 import { useTranslation } from "react-i18next";
 import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
 import { NavigationNotifications } from "./NavigationNotifications";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@radix-ui/react-separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import UserInfoCard from "./UserInfoCard";
+import { toForRoles } from "@/utils/TabUtil";
 
 const MobileMenu = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { auth, handleLogout } = useAuth();
 
-  const filteredItems = mainNav.filter((item) => {
-    if (
-      !auth.isAuthenticated &&
-      (item.id === "profile" || item.id === "settings")
-    ) {
-      return false;
-    }
-
-    if (auth.currentAcc?.havingSubscription && item.id === "pricing") {
-      return false;
-    }
-
-    return true;
-  });
+  const filteredItems = mainNav.filter(
+    (item) =>
+      item.displayMobile &&
+      (item.forRoles.includes(toForRoles(auth.currentAcc?.role)) ||
+        item.forRoles.includes(forRoles.ALL))
+  );
 
   const submitLogout = async () => {
     if (!auth.isAuthenticated) return;
@@ -86,19 +79,7 @@ const MobileMenu = () => {
                   </AvatarFallback>
                 </Avatar>
               </div>
-              <div className="flex flex-col space-y-2">
-                <div className="flex items-center gap-2">
-                  <p className="text-sm font-medium leading-none">
-                    {auth.currentAcc.username || t("roles.guest")}
-                  </p>
-                  <Badge>
-                    {auth.currentAcc.havingSubscription ? "Premium" : "Free"}
-                  </Badge>
-                </div>
-                <p className="text-xs leading-none text-muted-foreground">
-                  {auth.currentAcc?.email}
-                </p>
-              </div>
+              <UserInfoCard />
             </div>
           ) : (
             "Menu"

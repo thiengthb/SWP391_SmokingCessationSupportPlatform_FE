@@ -1,3 +1,4 @@
+import { forRoles } from "@/utils/TabUtil";
 import { BadgeInfo, BookMarked, BookOpenText, Earth, Gem, House, Landmark, LandPlot, LibraryBig, MessageCircleMore, Send, Settings, User, type LucideIcon } from "lucide-react";
 
 export type NavItem = {
@@ -5,17 +6,12 @@ export type NavItem = {
   title: string;
   href: string;
   icon: LucideIcon;
-  description?: string;
-  items?: {
-    title: string;
-    href: string;
-    description?: string;
-  }[];
-  displayMobile?: boolean;
-}
-
-export interface NavItems {
-    items: NavItem[];
+  description: string | null;
+  navbarLoginDisplay: boolean;
+  userNavDisplay: boolean;
+  displayMobile: boolean;
+  forRoles: forRoles[];
+  items: NavItem[] | null;
 }
 
 export const aboutItems: NavItem[] = [
@@ -24,14 +20,24 @@ export const aboutItems: NavItem[] = [
     title: "nav.about.team.title",
     icon: BadgeInfo,
     href: "/about-us/team",
-    description: "nav.about.team.description"
+    description: "nav.about.team.description",
+    navbarLoginDisplay: true,
+    userNavDisplay: false,
+    displayMobile: true,
+    forRoles: [forRoles.ALL],
+    items: null,
   },
   {
     id: "about-story",
     title: "nav.about.story.title",
     icon: LibraryBig,
     href: "/about-us/story",
-    description: "nav.about.story.description"
+    description: "nav.about.story.description",
+    navbarLoginDisplay: true,
+    userNavDisplay: false,
+    displayMobile: true,
+    forRoles: [forRoles.ALL],
+    items: null,
   },
 ]
 
@@ -41,47 +47,63 @@ export const leaderboardItems: NavItem[] = [
     title: "nav.leaderboard.global.title",
     icon: Earth,
     href: "/leaderboard",
-    description: "nav.leaderboard.global.description"
+    description: "nav.leaderboard.global.description",
+    navbarLoginDisplay: true,
+    userNavDisplay: false,
+    displayMobile: true,
+    forRoles: [forRoles.ALL],
+    items: null,
   },
   {
     id: "leaderboard-hall-of-fame",
     title: "nav.leaderboard.hallOfFame.title",
     icon: Landmark,
     href: "/leaderboard/hall-of-fame",
-    description: "nav.leaderboard.hallOfFame.description"
+    description: "nav.leaderboard.hallOfFame.description",
+    navbarLoginDisplay: true,
+    userNavDisplay: false,
+    displayMobile: true,
+    forRoles: [forRoles.ALL],
+    items: null,
   }
 ]
 
-export type NavigationType = {
-  id: string;
-  title: string;
-  icon: LucideIcon;
-  href: string;
-  displayMobile?: boolean;
-  description?: string;
-  items?: NavItem[];
-};
-
-export const mainNav: NavigationType[] = [
+export const mainNav: NavItem[] = [
   {
     id: "profile",
     title: "nav.profile.title",
     icon: User,
     href: "/profile",
+    description: null,
+    navbarLoginDisplay: false,
+    userNavDisplay: true,
     displayMobile: true,
+    forRoles: [forRoles.COACH, forRoles.MEMBER],
+    items: null,
   },
   {
     id: "settings",
     title: "nav.settings.title",
     icon: Settings,
     href: "/settings",
+    description: null,
+    navbarLoginDisplay: false,
+    userNavDisplay: true,
     displayMobile: true,
+    forRoles: [forRoles.COACH, forRoles.MEMBER, forRoles.ADMIN],
+    items: null,
   },
   {
     id: "home",
     title: "nav.home.title",
     icon: House,
     href: "/",
+    description: null,
+    navbarLoginDisplay: true,
+    userNavDisplay: false,
+    displayMobile: true,
+    forRoles: [forRoles.ALL],
+    items: null,
   },
   {
     id: "pricing",
@@ -89,6 +111,11 @@ export const mainNav: NavigationType[] = [
     icon: Gem,
     href: "/pricing",
     description: "nav.pricing.description",
+    navbarLoginDisplay: false,
+    userNavDisplay: true,
+    displayMobile: true,
+    forRoles: [forRoles.ALL],
+    items: null,
   },
   {
     id: "blog",
@@ -96,6 +123,11 @@ export const mainNav: NavigationType[] = [
     icon: BookMarked,
     href: "/blog",
     description: "nav.blog.description",
+    navbarLoginDisplay: true,
+    userNavDisplay: false,
+    displayMobile: true,
+    forRoles: [forRoles.ALL],
+    items: null,
   },
   {
     id: "leaderboard",
@@ -103,6 +135,10 @@ export const mainNav: NavigationType[] = [
     icon: LandPlot,
     href: "/leaderboard",
     description: "nav.leaderboard.description",
+    navbarLoginDisplay: true,
+    userNavDisplay: false,
+    displayMobile: true,
+    forRoles: [forRoles.ALL],
     items: leaderboardItems
   },
   {
@@ -111,6 +147,11 @@ export const mainNav: NavigationType[] = [
     icon: MessageCircleMore,
     href: "/community",
     description: "nav.community.description",
+    navbarLoginDisplay: true,
+    userNavDisplay: false,
+    displayMobile: true,
+    forRoles: [forRoles.ALL],
+    items: null
   },
   {
     id: "about",
@@ -118,12 +159,24 @@ export const mainNav: NavigationType[] = [
     icon: BookOpenText,
     href: "/about-us",
     description: "nav.about.description",
-    items: aboutItems
+    navbarLoginDisplay: false,
+    userNavDisplay: true,
+    displayMobile: true,
+    forRoles: [forRoles.ALL],
+    items: aboutItems,
   },
   {
     id: "contact",
     icon: Send,
     title: "nav.contact.title",
     href: "/contact",
+    description: null,
+    navbarLoginDisplay: false,
+    userNavDisplay: true,
+    displayMobile: true,
+    forRoles: [forRoles.ALL],
+    items: null,
   },
 ]
+
+export { forRoles };
