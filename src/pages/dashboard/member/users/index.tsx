@@ -36,6 +36,8 @@ export default function GoalManagement() {
   const [publicGoals, setPublicGoals] = useState<Goal[]>([]);
   const [newGoal, setNewGoal] = useState<string>("");
   const [selectedGoal, setSelectedGoal] = useState<Goal | null>(null);
+  const [openGoalId, setOpenGoalId] = useState<string | null>(null);
+  const [loadingGoalDetail, setLoadingGoalDetail] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -89,6 +91,19 @@ export default function GoalManagement() {
     }
   };
 
+  const fetchGoalDetails = async (id: string) => {
+    setLoadingGoalDetail(true);
+    try {
+      const res = await api.get(`/v1/goals/goal-details/${id}`);
+      setSelectedGoal(res.data.result);
+    } catch (err) {
+      toast.error("Failed to load goal details");
+      setSelectedGoal(null);
+    } finally {
+      setLoadingGoalDetail(false);
+    }
+  };
+
   const renderGoalCard = (goal: Goal) => {
     const progressValue = goal.goalProgress?.progress || 0;
     const criteria = goal.criteriaValue;
@@ -104,15 +119,22 @@ export default function GoalManagement() {
     return (
       <Dialog
         key={goal.id}
-        onOpenChange={(open) => setSelectedGoal(open ? goal : null)}
+        open={openGoalId === goal.id}
+        onOpenChange={(open) => {
+          if (open) {
+            setOpenGoalId(goal.id);
+            fetchGoalDetails(goal.id);
+          } else {
+            setOpenGoalId(null);
+            setSelectedGoal(null);
+          }
+        }}
       >
         <DialogTrigger asChild>
           <Card
-            className={
-              isCompleted
-                ? "opacity-100 cursor-pointer"
-                : "opacity-75 cursor-pointer"
-            }
+            className={`cursor-pointer ${
+              isCompleted ? "opacity-100" : "opacity-75"
+            }`}
           >
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">{goal.name}</CardTitle>
@@ -130,41 +152,49 @@ export default function GoalManagement() {
           </Card>
         </DialogTrigger>
 
-        {selectedGoal?.id === goal.id && (
-          <DialogContent className="sm:max-w-lg">
-            <DialogHeader>
-              <DialogTitle>Goal Details</DialogTitle>
-            </DialogHeader>
+        <DialogContent className="sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle>Goal Details</DialogTitle>
+          </DialogHeader>
 
+          {loadingGoalDetail ? (
+            <p className="text-sm text-muted-foreground">Loading...</p>
+          ) : selectedGoal ? (
             <div className="space-y-3 text-sm text-muted-foreground">
-              {goal.iconUrl && (
+              {selectedGoal.iconUrl && (
                 <img
-                  src={goal.iconUrl}
+                  src={selectedGoal.iconUrl}
                   alt="Icon"
                   className="h-20 w-20 object-contain mx-auto mb-2"
                 />
               )}
-
               <p>
-                <strong>Name:</strong> {goal.name}
+                <strong>Name:</strong> {selectedGoal.name}
               </p>
               <p>
-                <strong>Description:</strong> {goal.description}
+                <strong>Description:</strong> {selectedGoal.description}
               </p>
-
+              <p>
+                <strong>Criteria Type:</strong> {selectedGoal.criteriaType}
+              </p>
+              <p>
+                <strong>Criteria Value:</strong> {selectedGoal.criteriaValue}
+              </p>
               <div className="space-y-1">
                 <strong>Progress:</strong>
-                <Progress value={percentage} />
+                <Progress value={selectedGoal.goalProgress?.progress ?? 0} />
               </div>
             </div>
+          ) : (
+            <p className="text-sm text-red-500">Failed to load goal.</p>
+          )}
 
-            <DialogFooter>
-              <DialogClose asChild>
-                <Button variant="outline">Close</Button>
-              </DialogClose>
-            </DialogFooter>
-          </DialogContent>
-        )}
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button variant="outline">Close</Button>
+            </DialogClose>
+          </DialogFooter>
+        </DialogContent>
       </Dialog>
     );
   };
