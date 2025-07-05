@@ -37,7 +37,7 @@ export const ChatMessage = ({ message, loading }: ChatMessageProps) => {
       )}>
         <p className="text-sm whitespace-pre-wrap break-words">
           {message.text}
-        </p>
+        </p>1
       </div>
 
       {!isBot && (

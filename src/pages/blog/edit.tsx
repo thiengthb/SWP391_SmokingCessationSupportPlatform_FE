@@ -1,17 +1,17 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import Editor from '@/components/Editor';
-import type { BlogPost } from '@/types/blog';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import Editor from "@/components/Editor";
+import type { BlogPost } from "@/types/models/blog";
 
 const BlogEditPage = () => {
   const [post, setPost] = useState<Partial<BlogPost>>({
-    title: '',
-    excerpt: '',
-    content: '',
+    title: "",
+    excerpt: "",
+    content: "",
     tags: [],
-    category: 'Tips',
+    category: "Tips",
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -46,7 +46,7 @@ const BlogEditPage = () => {
         <div className="space-y-2">
           <Label>Content</Label>
           <Editor
-            value={post.content || ''}
+            value={post.content || ""}
             onChange={(content) => setPost({ ...post, content })}
           />
         </div>

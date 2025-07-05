@@ -1,4 +1,4 @@
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/contexts/AuthContext";
 import useRefreshToken from "@/hooks/useRefreshToken";
 import { useEffect, useState } from "react";
 import Loading from "./Loading";

@@ -8,7 +8,7 @@ import LoginPage from "@/pages/auth/login";
 import RegisterPage from "@/pages/auth/register";
 import ForgotPasswordPage from "@/pages/auth/forgot-password";
 import SettingsPage from "@/pages/setting";
-import ProfilePage from "@/pages/profile";
+import ProfilePage from "@/pages/profile/member";
 import ContactPage from "@/pages/contact";
 import TeamPage from "@/pages/about/team";
 import StoryPage from "@/pages/about/story";
@@ -23,14 +23,15 @@ import AdminDashboard from "@/pages/dashboard/admin";
 import MemberDashboard from "@/pages/dashboard/member";
 import CoachDashboard from "@/pages/dashboard/coach";
 import RequireAuth from "@/components/RequireAuth";
-import { Role } from "@/types/admin/user";
+import { Role } from "@/types/models/account";
 import AccessDenied from "@/components/AccessDenied";
 import PersistLogin from "@/components/PersistLogin";
 import PricingPage from "@/pages/pricing";
-import TimerPage from "@/pages/timer";
-import CigaretteTracker from "@/pages/cigarette-tracker";
-import CigaretteHealthInfo from "@/pages/cigarette-tracker/info";
-import QuitSmokingPlanPage from "@/pages/quit-smoking-plan";
+import CigaretteHealthInfo from "@/pages/tracking/info";
+import WaitingForApprovalPage from "@/pages/waiting-for-approval";
+import PaymentResult from "@/pages/payment/PaymentResult";
+import NotificationPage from "@/pages/notification";
+import CreatePlanPage from "@/pages/tracking/CreatePlanPage";
 
 const router = createBrowserRouter([
   {
@@ -43,8 +44,10 @@ const router = createBrowserRouter([
           { path: "login", element: <LoginPage /> },
           { path: "register", element: <RegisterPage /> },
           { path: "forgot-password", element: <ForgotPasswordPage /> },
+          { path: "waiting-for-approval", element: <WaitingForApprovalPage /> },
         ],
       },
+      { path: "/payment", element: <PaymentResult /> },
       { path: "/access-denied", element: <AccessDenied /> },
       { path: "*", element: <NotFoundPage /> },
       {
@@ -54,18 +57,15 @@ const router = createBrowserRouter([
           { path: "", element: <App /> },
           { path: "contact", element: <ContactPage /> },
           {
-            path: "about",
-            element: <AboutPage />,
+            path: "about-us",
             children: [
+              { path: "", element: <AboutPage /> },
               { path: "team", element: <TeamPage /> },
               { path: "story", element: <StoryPage /> },
             ],
           },
           { path: "pricing", element: <PricingPage /> },
-          { path: "timer", element: <TimerPage /> },
-          { path: "cigarette-tracker", element: <CigaretteTracker /> },
-          { path: "cigarette-tracker/info", element: <CigaretteHealthInfo /> },
-          { path: "quit-smoking-plan", element: <QuitSmokingPlanPage /> },
+          { path: "tracking/info", element: <CigaretteHealthInfo /> },
           { path: "test", element: <Test /> },
           { path: "testimonials", element: <TestimonialsPage /> },
           { path: "community", element: <CommunityPage /> },
@@ -96,10 +96,13 @@ const router = createBrowserRouter([
           {
             path: "member",
             element: <RequireAuth allowedRoles={[Role.MEMBER]} />,
-            children: [{ path: "dashboard", element: <MemberDashboard /> }],
+            children: [
+              { path: "dashboard", element: <MemberDashboard /> },
+              { path: "tracking/create-plan", element: <CreatePlanPage /> },
+            ],
           },
           {
-            path: "setting",
+            path: "settings",
             element: (
               <RequireAuth
                 allowedRoles={[Role.ADMIN, Role.MEMBER, Role.COACH]}
@@ -115,6 +118,15 @@ const router = createBrowserRouter([
               />
             ),
             children: [{ path: "", element: <ProfilePage /> }],
+          },
+          {
+            path: "notifications",
+            element: (
+              <RequireAuth
+                allowedRoles={[Role.ADMIN, Role.MEMBER, Role.COACH]}
+              ></RequireAuth>
+            ),
+            children: [{ path: "", element: <NotificationPage /> }],
           },
         ],
       },

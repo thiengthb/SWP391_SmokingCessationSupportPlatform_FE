@@ -9,17 +9,18 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 const ForgotPasswordPage = () => {
+  const { t } = useTranslation();
   return (
     <div className="w-full my-10 sm:my-16 lg:my-16 2xl:my-40 flex justify-center items-center">
       <Card className="w-[360px] lg:w-[400px] xl:w-[440px] mx-2">
         <CardHeader>
-          <CardTitle>Forgot Password</CardTitle>
+          <CardTitle>{t("page.forgotPassword.title")}</CardTitle>
           <CardDescription>
-            Enter your email address and we&apos;ll send you a link to reset
-            your password.
+            {t("page.forgotPassword.description")}
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4">
@@ -29,12 +30,14 @@ const ForgotPasswordPage = () => {
           </div>
         </CardContent>
         <CardFooter className="flex flex-col gap-4">
-          <Button className="w-full">Send Reset Link</Button>
+          <Button className="w-full">
+            {t("page.forgotPassword.buttonSend")}
+          </Button>
           <Link
             to="/auth/login"
             className="text-sm text-muted-foreground hover:text-primary"
           >
-            Back to login
+            {t("page.forgotPassword.backToLogin")}
           </Link>
         </CardFooter>
       </Card>

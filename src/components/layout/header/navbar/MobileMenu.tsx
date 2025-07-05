@@ -10,57 +10,123 @@ import {
   SheetContent,
   SheetFooter,
   SheetHeader,
-  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Menu, ChevronsUpDown } from "lucide-react";
+import {
+  Menu,
+  ChevronsUpDown,
+  Gauge,
+  Palette,
+  UserRound,
+  Globe,
+} from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import type { NavItems } from "./navbar.item";
+import { mainNav } from "./navbar.item";
 import ThemeSwitch from "@/components/theme/theme-switch";
-import { useAuth } from "@/context/AuthContext";
+import LanguageSelector from "@/components/language/LanguageSelector";
+import { useAuth } from "@/contexts/AuthContext";
+import { useTranslation } from "react-i18next";
+import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
+import { NavigationNotifications } from "./NavigationNotifications";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@radix-ui/react-separator";
+import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 
-const MobileMenu = ({ items }: NavItems) => {
+const MobileMenu = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { auth, handleLogout } = useAuth();
 
-  const filteredItems = items.filter(
-    (item) => !item.requireAuth || (item.requireAuth && auth.isAuthenticated)
-  );
+  const filteredItems = mainNav.filter((item) => {
+    if (
+      !auth.isAuthenticated &&
+      (item.id === "profile" || item.id === "settings")
+    ) {
+      return false;
+    }
+
+    if (auth.currentAcc?.havingSubscription && item.id === "pricing") {
+      return false;
+    }
+
+    return true;
+  });
 
   const submitLogout = async () => {
+    if (!auth.isAuthenticated) return;
     await handleLogout();
     navigate("/auth/login");
   };
 
   return (
     <Sheet>
+      <div className="md:hidden mr-2">
+        <DropdownMenu>
+          <NavigationNotifications />
+        </DropdownMenu>
+      </div>
       <SheetTrigger asChild>
         <Button variant="secondary" size="icon" className="md:hidden">
           <Menu className="h-5 w-5" />
-          <span className="sr-only">Toggle menu</span>
+          <span className="sr-only">{t(`nav.menu.toggleMenu`)}</span>
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className="w-72 p-0">
         <SheetHeader className="p-4 border-b">
-          <SheetTitle>Menu</SheetTitle>
+          {auth.currentAcc ? (
+            <div className="flex items-center gap-2">
+              <div className=" rounded-full h-8 w-8 overflow-hidden">
+                <Avatar>
+                  <AvatarImage
+                    src={auth.currentAcc?.avatar ?? ""}
+                    alt={auth.currentAcc?.username ?? t("roles.user")}
+                  />
+                  <AvatarFallback>
+                    <UserRound />
+                  </AvatarFallback>
+                </Avatar>
+              </div>
+              <div className="flex flex-col space-y-2">
+                <div className="flex items-center gap-2">
+                  <p className="text-sm font-medium leading-none">
+                    {auth.currentAcc.username || t("roles.guest")}
+                  </p>
+                  <Badge>
+                    {auth.currentAcc.havingSubscription ? "Premium" : "Free"}
+                  </Badge>
+                </div>
+                <p className="text-xs leading-none text-muted-foreground">
+                  {auth.currentAcc?.email}
+                </p>
+              </div>
+            </div>
+          ) : (
+            "Menu"
+          )}
         </SheetHeader>
-        <div className="flex flex-col space-y-2 p-4">
-          <Link
-            to={
-              auth.currentUser?.role
-                ? `/${auth.currentUser?.role.toLowerCase()}/dashboard`
-                : `/dashboard`
-            }
-            className="block text-base transition-colors hover:text-primary"
-          >
-            Dashboard
-          </Link>
+        <div className="flex flex-col space-y-2 px-4">
+          {auth.isAuthenticated && (
+            <Link
+              to={
+                auth.currentAcc?.role
+                  ? `/${auth.currentAcc?.role.toLowerCase()}/dashboard`
+                  : `/dashboard`
+              }
+              className="flex items-center gap-2 text-base transition-colors hover:text-primary"
+            >
+              <Gauge className="h-4 w-4" />
+              {t(`nav.dashboard.title`)}
+            </Link>
+          )}
           {filteredItems.map((item) => (
             <div key={item.href} className="space-y-3">
               {item.items ? (
                 <Collapsible>
                   <CollapsibleTrigger className="flex w-full items-center justify-between text-base">
-                    {item.title}
+                    <div className="flex items-center">
+                      {item.icon && <item.icon className="mr-2 h-4 w-4" />}
+                      {t(item.title)}
+                    </div>
                     <ChevronsUpDown className="h-4 w-4" />
                   </CollapsibleTrigger>
                   <CollapsibleContent className="pl-4 mt-2 space-y-2 border-l">
@@ -68,9 +134,12 @@ const MobileMenu = ({ items }: NavItems) => {
                       <Link
                         key={subItem.href}
                         to={subItem.href}
-                        className="block text-sm text-muted-foreground hover:text-primary"
+                        className="flex items-center text-sm text-muted-foreground hover:text-primary"
                       >
-                        {subItem.title}
+                        {subItem.icon && (
+                          <subItem.icon className="mr-2 h-4 w-4" />
+                        )}
+                        {t(subItem.title)}
                       </Link>
                     ))}
                   </CollapsibleContent>
@@ -78,36 +147,54 @@ const MobileMenu = ({ items }: NavItems) => {
               ) : (
                 <Link
                   to={item.href}
-                  className="block text-base transition-colors hover:text-primary"
+                  className="flex items-center text-base transition-colors hover:text-primary"
                 >
-                  {item.title}
+                  {item.icon && <item.icon className="mr-2 h-4 w-4" />}
+                  {t(item.title)}
                 </Link>
               )}
             </div>
           ))}
-          {!auth.isAuthenticated ? (
-            <div className="flex justify-between items-center">
-              <p>Theme</p>
-              <ThemeSwitch />
+
+          <Separator className="my-4 border-t-1" />
+
+          {!auth.isAuthenticated && (
+            <div className="space-y-3">
+              <div className="flex justify-between items-center">
+                <div className="flex items-center gap-2">
+                  <Palette className="w-4 h-4" />
+                  <p>{t(`theme.title`)}</p>
+                </div>
+                <ThemeSwitch />
+              </div>
+
+              <div className="flex justify-between items-center">
+                <div className="flex items-center gap-2">
+                  <Globe className="w-4 h-4" />
+                  <p>{t(`language.title`)}</p>
+                </div>
+                <LanguageSelector variant="compact" showLabel={false} />
+              </div>
             </div>
-          ) : null}
+          )}
+
           <SheetFooter>
             {auth.isAuthenticated ? (
               <SheetClose asChild>
-                <Button variant="secondary" onClick={submitLogout}>
-                  Logout
+                <Button variant="destructive" onClick={submitLogout}>
+                  {t("buttons.logout")}
                 </Button>
               </SheetClose>
             ) : (
               <>
                 <SheetClose asChild>
                   <Button asChild>
-                    <Link to="/auth/register">Sign Up</Link>
+                    <Link to="/auth/register">{t(`buttons.signup`)}</Link>
                   </Button>
                 </SheetClose>
                 <SheetClose asChild>
                   <Button variant="secondary" asChild>
-                    <Link to="/auth/login">Login</Link>
+                    <Link to="/auth/login">{t(`buttons.login`)}</Link>
                   </Button>
                 </SheetClose>
               </>

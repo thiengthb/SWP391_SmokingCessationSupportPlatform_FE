@@ -1,17 +1,18 @@
+import { Theme } from "@/types/models/setting";
 import { Switch } from "../ui/switch";
-import { useTheme } from "./theme-provider";
+import { useSetting } from "@/contexts/SettingContext";
 
 export default function ThemeSwitch() {
-    const { theme, setTheme } = useTheme();
-    
-    const handleToggleTheme = (checked: boolean) => {
-        setTheme(checked ? "dark" : "light");
-    };
+  const { setting, handleChangeTheme } = useSetting();
 
-    return (
-        <Switch 
-            checked={theme === "dark"}
-            onCheckedChange={handleToggleTheme}
-        />
-    );
+  const handleToggleTheme = (checked: boolean) => {
+    handleChangeTheme(checked ? Theme.DARK : Theme.LIGHT);
+  };
+
+  return (
+    <Switch
+      checked={setting.theme === Theme.DARK}
+      onCheckedChange={handleToggleTheme}
+    />
+  );
 }

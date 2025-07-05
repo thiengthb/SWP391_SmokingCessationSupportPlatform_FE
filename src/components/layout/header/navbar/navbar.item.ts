@@ -1,13 +1,17 @@
+import { BadgeInfo, BookMarked, BookOpenText, Earth, Gem, House, Landmark, LandPlot, LibraryBig, MessageCircleMore, Send, Settings, User, type LucideIcon } from "lucide-react";
+
 export type NavItem = {
-  title: string
-  href: string
-  description?: string
+  id: string;
+  title: string;
+  href: string;
+  icon: LucideIcon;
+  description?: string;
   items?: {
-    title: string
-    href: string
-    description?: string
-  }[]
-  requireAuth?: boolean
+    title: string;
+    href: string;
+    description?: string;
+  }[];
+  displayMobile?: boolean;
 }
 
 export interface NavItems {
@@ -16,81 +20,110 @@ export interface NavItems {
 
 export const aboutItems: NavItem[] = [
   {
-    title: "Our Team",
-    href: "/about/team",
-    description: "Meet the amazing people behind our success"
+    id: "about-us",
+    title: "nav.about.team.title",
+    icon: BadgeInfo,
+    href: "/about-us/team",
+    description: "nav.about.team.description"
   },
   {
-    title: "Our Story",
-    href: "/about/story",
-    description: "Learn about our journey and mission"
+    id: "about-story",
+    title: "nav.about.story.title",
+    icon: LibraryBig,
+    href: "/about-us/story",
+    description: "nav.about.story.description"
   },
 ]
 
 export const leaderboardItems: NavItem[] = [
   {
-    title: "Global Rankings",
+    id: "leaderboard-global",
+    title: "nav.leaderboard.global.title",
+    icon: Earth,
     href: "/leaderboard",
-    description: "See top performers worldwide"
+    description: "nav.leaderboard.global.description"
   },
   {
-    title: "Hall of Fame",
+    id: "leaderboard-hall-of-fame",
+    title: "nav.leaderboard.hallOfFame.title",
+    icon: Landmark,
     href: "/leaderboard/hall-of-fame",
-    description: "All-time greatest performances"
+    description: "nav.leaderboard.hallOfFame.description"
   }
 ]
 
 export type NavigationType = {
+  id: string;
   title: string;
+  icon: LucideIcon;
   href: string;
-  requireAuth?: boolean;
+  displayMobile?: boolean;
   description?: string;
   items?: NavItem[];
 };
 
 export const mainNav: NavigationType[] = [
   {
-    title: "Profile",
+    id: "profile",
+    title: "nav.profile.title",
+    icon: User,
     href: "/profile",
-    requireAuth: true,
+    displayMobile: true,
   },
   {
-    title: "Settings",
-    href: "/setting",
-    requireAuth: true,
+    id: "settings",
+    title: "nav.settings.title",
+    icon: Settings,
+    href: "/settings",
+    displayMobile: true,
   },
   {
-    title: "Home",
+    id: "home",
+    title: "nav.home.title",
+    icon: House,
     href: "/",
   },
   {
-    title: "Pricing",
+    id: "pricing",
+    title: "nav.pricing.title",
+    icon: Gem,
     href: "/pricing",
+    description: "nav.pricing.description",
   },
   {
-    title: "Blog",
+    id: "blog",
+    title: "nav.blog.title",
+    icon: BookMarked,
     href: "/blog",
-    description: "News, articles, and resources",
+    description: "nav.blog.description",
   },
   {
-    title: "Leaderboard",
+    id: "leaderboard",
+    title: "nav.leaderboard.title",
+    icon: LandPlot,
     href: "/leaderboard",
-    description: "Explore top rankings and achievements",
+    description: "nav.leaderboard.description",
     items: leaderboardItems
   },
   {
-    title: "Community",
+    id: "community",
+    title: "nav.community.title",
+    icon: MessageCircleMore,
     href: "/community",
-    description: "Connect with other members",
+    description: "nav.community.description",
   },
   {
-    title: "About Us",
-    href: "/about",
-    description: "Learn more about our company",
+    id: "about",
+    title: "nav.about.title",
+    icon: BookOpenText,
+    href: "/about-us",
+    description: "nav.about.description",
     items: aboutItems
   },
   {
-    title: "Contact",
+    id: "contact",
+    icon: Send,
+    title: "nav.contact.title",
     href: "/contact",
   },
 ]
