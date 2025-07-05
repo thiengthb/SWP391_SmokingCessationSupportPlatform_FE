@@ -16,7 +16,7 @@ import TestimonialsPage from "@/pages/testimonials";
 import AboutPage from "@/pages/about";
 import CommunityPage from "@/pages/community";
 import LeaderboardPage from "@/pages/leaderboard";
-import HallOfFamePage from "@/pages/leaderboard/HallOfFame";
+// import HallOfFamePage from "@/pages/leaderboard/HallOfFame";
 import BlogPage from "@/pages/blog";
 import BlogPostPage from "@/pages/blog/[slug]";
 import AdminDashboard from "@/pages/dashboard/admin";
@@ -73,7 +73,7 @@ const router = createBrowserRouter([
             path: "leaderboard",
             children: [
               { path: "", element: <LeaderboardPage /> },
-              { path: "hall-of-fame", element: <HallOfFamePage /> },
+              // { path: "hall-of-fame", element: <HallOfFamePage /> },
             ],
           },
           {

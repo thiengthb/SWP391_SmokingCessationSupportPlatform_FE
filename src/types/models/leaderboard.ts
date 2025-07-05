@@ -1,15 +1,3 @@
-export interface LeaderboardUser {
-  id: string;
-  name: string;
-  avatar?: string;
-  rank: number;
-  score: number;
-  smokeFreeDay: number;
-  badge?: string;
-  achievement: string;
-  progress: number;
-}
-
 export interface HallOfFameMember {
   id: string;
   name: string;
@@ -25,4 +13,11 @@ export interface HallOfFameMember {
 export interface LeaderboardTabsProps {
   onFilterChange?: (filter: string) => void;
   onPeriodChange?: (period: string) => void;
+}
+
+export interface ScoreResponse{
+  username: string;
+  avatar?: string;
+  score: number;
+  score_rank: number;
 }
