@@ -2,7 +2,7 @@ export interface User {
   id: string;
   username: string;
   email: string;
-  phone?: string;
+  phoneNumber?: string;
   avatar?: string;
   role: Role;
   status: AccountStatus;

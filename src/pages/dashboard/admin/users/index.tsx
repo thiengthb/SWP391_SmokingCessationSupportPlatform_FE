@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Search } from "lucide-react";
+import { Search, UserPlus } from "lucide-react";
 import { UsersTab } from "../components/UsersTable";
 import useApi from "@/hooks/useApi";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -34,6 +34,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
   DialogClose,
 } from "@/components/ui/dialog";
 
@@ -50,6 +51,8 @@ export default function UserManagement() {
   const [isViewDialogOpen, setViewDialogOpen] = useState(false);
   const [editingUser, setEditingUser] = useState<User | null>(null);
   const [isEditDialogOpen, setEditDialogOpen] = useState(false);
+
+  const [isAddDialogOpen, setAddDialogOpen] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -149,6 +152,21 @@ export default function UserManagement() {
     resolver: zodResolver(userFormSchema),
   });
 
+  const onSubmit: SubmitHandler<userFormData> = async (data) => {
+    try {
+      const response = await api.post("v1/accounts", data as userFormData);
+      const { username } = response.data.result;
+      toast("User created successfully!");
+      setNewUser(username);
+      setAddDialogOpen(false);
+    } catch (error: any) {
+      setError("root", {
+        type: "server",
+        message: error.response?.data?.message ?? "Unexpected error",
+      });
+    }
+  };
+
   const onUpdateUser: SubmitHandler<userFormData> = async (data) => {
     if (!editingUser) return;
     try {
@@ -180,6 +198,70 @@ export default function UserManagement() {
             Manage and monitor user accounts
           </p>
         </div>
+        <Dialog open={isAddDialogOpen} onOpenChange={setAddDialogOpen}>
+          <DialogTrigger asChild>
+            <Button>
+              <UserPlus className="mr-2 h-4 w-4" />
+              Add New User
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle>Add New User</DialogTitle>
+              <DialogDescription>
+                Enter details for the new user
+              </DialogDescription>
+            </DialogHeader>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="grid gap-4 py-4">
+                <div className="grid gap-2">
+                  <Label>Email</Label>
+                  <Input type="email" {...register("email")} />
+                  <FormInputError field={errors.email} />
+                </div>
+                <div className="grid gap-2">
+                  <Label>Password</Label>
+                  <Input type="password" {...register("password")} />
+                  <FormInputError field={errors.password} />
+                </div>
+                <div className="grid gap-2">
+                  <Label>Phone Number</Label>
+                  <Input {...register("phoneNumber")} />
+                  <FormInputError field={errors.phoneNumber} />
+                </div>
+                <div className="grid gap-2">
+                  <Label>Role</Label>
+                  <Select
+                    onValueChange={(val: userFormData["role"]) =>
+                      setValue("role", val)
+                    }
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select role" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="ADMIN">Admin</SelectItem>
+                      <SelectItem value="COACH">Coach</SelectItem>
+                      <SelectItem value="MEMBER">Member</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormInputError field={errors.role} />
+                </div>
+              </div>
+              <DialogFooter className="flex justify-end gap-2">
+                <DialogClose asChild>
+                  <Button type="button" variant="outline">
+                    Cancel
+                  </Button>
+                </DialogClose>
+                <Button type="submit" disabled={isSubmitting}>
+                  {isSubmitting ? "Creating..." : "Create"}
+                </Button>
+              </DialogFooter>
+              <FormInputError field={errors.root} />
+            </form>
+          </DialogContent>
+        </Dialog>
       </div>
 
       <div className="flex flex-col md:flex-row gap-4">
@@ -278,7 +360,7 @@ export default function UserManagement() {
                 <b>Email:</b> {viewedUser.email}
               </div>
               <div>
-                <b>Phone Number:</b> {viewedUser.phone}
+                <b>Phone Number:</b> {viewedUser.phoneNumber}
               </div>
               <div>
                 <b>Role:</b> {viewedUser.role}
