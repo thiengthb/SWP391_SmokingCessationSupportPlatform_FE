@@ -8,6 +8,7 @@ export interface User {
   status: AccountStatus;
   createdAt: string;
   updatedAt: string;
+  havingSubscription?: boolean;
 }
 
 export const Role = {

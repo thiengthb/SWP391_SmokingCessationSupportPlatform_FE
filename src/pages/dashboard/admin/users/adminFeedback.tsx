@@ -39,14 +39,7 @@ import {
 import { Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import StarRatingDisplay from "@/pages/feedback/components/StarRatingDisplay";
-
-export type Feedback = {
-  id: string;
-  username: string;
-  comment: string;
-  rating: number;
-  feedbackType: "SYSTEM" | "IMPROVEMENT" | "MEMBERSHIP" | "STORY" | "OTHERS";
-};
+import type { Feedback } from "@/types/member/feedbackType"; // ✅ Dùng từ file chung
 
 export default function FeedbackManagement() {
   const navigate = useNavigate();
@@ -54,8 +47,8 @@ export default function FeedbackManagement() {
   const api = useApi();
 
   const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);
-  const [page, setPage] = useState<number>(0);
-  const [totalPages, setTotalPages] = useState<number>(1);
+  const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [selectedFeedback, setSelectedFeedback] = useState<Feedback | null>(null);
   const [openDelete, setOpenDelete] = useState(false);
@@ -146,8 +139,11 @@ export default function FeedbackManagement() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {feedbacks?.map((fb, index) => (
-                <TableRow key={fb.id} className="group hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors border-b cursor-pointer">
+              {feedbacks.map((fb, index) => (
+                <TableRow
+                  key={fb.id}
+                  className="group hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors border-b cursor-pointer"
+                >
                   <TableCell className="text-center py-4">{page * size + index + 1}</TableCell>
                   <TableCell className="py-4" onClick={() => setSelectedFeedback(fb)}>
                     {truncateString(fb.username, 20)}

@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { UserPlus, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import { UsersTab } from "../components/UsersTable";
 import useApi from "@/hooks/useApi";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -34,7 +34,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
   DialogClose,
 } from "@/components/ui/dialog";
 
@@ -46,6 +45,11 @@ export default function UserManagement() {
   const [page, setPage] = useState<number>(0);
   const [totalPages, setTotalPages] = useState<number>(1);
   const size = 10;
+
+  const [viewedUser, setViewedUser] = useState<User | null>(null);
+  const [isViewDialogOpen, setViewDialogOpen] = useState(false);
+  const [editingUser, setEditingUser] = useState<User | null>(null);
+  const [isEditDialogOpen, setEditDialogOpen] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -73,46 +77,68 @@ export default function UserManagement() {
   }, [newUser, page]);
 
   const handlePrevious = () => {
-    if (page > 0) {
-      setPage(page - 1);
-    }
-  };
-  const handleNext = () => {
-    if (page < totalPages - 1) {
-      setPage(page + 1);
-    }
+    if (page > 0) setPage(page - 1);
   };
 
-  function generatePageNumbers(
+  const handleNext = () => {
+    if (page < totalPages - 1) setPage(page + 1);
+  };
+
+  const generatePageNumbers = (
     current: number,
     total: number
-  ): (number | "...")[] {
+  ): (number | "...")[] => {
     const pages: (number | "...")[] = [];
-
     if (total <= 5) {
       for (let i = 1; i <= total; i++) pages.push(i);
     } else {
-      if (current > 3) {
-        pages.push(1, "...");
-      }
-
+      if (current > 3) pages.push(1, "...");
       const start = Math.max(1, current - 1);
       const end = Math.min(total, current + 1);
-
-      for (let i = start; i <= end; i++) {
-        pages.push(i);
-      }
-
-      if (current < total - 2) {
-        pages.push("...", total);
-      } else if (!pages.includes(total)) {
-        pages.push(total);
-      }
+      for (let i = start; i <= end; i++) pages.push(i);
+      if (current < total - 2) pages.push("...", total);
+      else if (!pages.includes(total)) pages.push(total);
     }
-
     return pages;
-  }
-  
+  };
+
+  const onViewUser = async (id: string) => {
+    try {
+      const res = await api.get(`/v1/accounts/${id}`);
+      setViewedUser(res.data.result);
+      setViewDialogOpen(true);
+    } catch {
+      toast.error("Failed to fetch user details");
+    }
+  };
+
+  const onEditUser = async (id: string) => {
+    try {
+      const res = await api.get(`/v1/accounts/${id}`);
+      const userData = res.data.result;
+      setEditingUser(userData);
+
+      setValue("email", userData.email);
+      setValue("phoneNumber", userData.phoneNumber);
+      setValue("password", "");
+      setValue("role", userData.role);
+
+      setEditDialogOpen(true);
+    } catch {
+      toast.error("Failed to load user for editing");
+    }
+  };
+
+  const onToggleBan = async (id: string, isBanned: boolean) => {
+    try {
+      await api.put(`/v1/accounts/ban/${id}`);
+      toast.success(`${isBanned ? "Unbanned" : "Banned"} successfully`);
+      setNewUser(Date.now().toString());
+    } catch {
+      toast.error("Failed to change ban status");
+    }
+  };
+
   const {
     register,
     handleSubmit,
@@ -123,25 +149,25 @@ export default function UserManagement() {
     resolver: zodResolver(userFormSchema),
   });
 
-  const onSubmit: SubmitHandler<userFormData> = async (data) => {
+  const onUpdateUser: SubmitHandler<userFormData> = async (data) => {
+    if (!editingUser) return;
     try {
-      const response = await api.post("v1/accounts", data as userFormData);
-      const { username } = response.data.result;
-      toast("User created successfully!");
-      setNewUser(username);
+      const { email, password, phoneNumber } = data;
+
+      await api.put(`/v1/accounts/${editingUser.id}`, {
+        email,
+        password,
+        phoneNumber,
+      });
+
+      toast.success("User updated successfully!");
+      setEditDialogOpen(false);
+      setNewUser(Date.now().toString());
     } catch (error: any) {
-      console.error("Error during user creation:", error);
-      if (error.response?.data?.message) {
-        setError("root", {
-          type: "server",
-          message: error.response.data.message,
-        });
-      } else {
-        setError("root", {
-          type: "server",
-          message: "An unexpected error occurred. Please try again.",
-        });
-      }
+      setError("root", {
+        type: "server",
+        message: error.response?.data?.message ?? "Unexpected error",
+      });
     }
   };
 
@@ -154,86 +180,6 @@ export default function UserManagement() {
             Manage and monitor user accounts
           </p>
         </div>
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button>
-              <UserPlus className="mr-2 h-4 w-4" />
-              Add New User
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
-            <DialogHeader>
-              <DialogTitle>Add New User</DialogTitle>
-              <DialogDescription>
-                Enter details for the new user
-              </DialogDescription>
-            </DialogHeader>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="grid gap-4 py-4">
-                <div className="grid gap-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="you@example.com"
-                    {...register("email")}
-                  />
-                  <FormInputError field={errors.email} />
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="password">Password</Label>
-                  <Input
-                    id="password"
-                    type="password"
-                    placeholder="Enter password"
-                    {...register("password")}
-                  />
-                  <FormInputError field={errors.password} />
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="phoneNumber">Phone Number</Label>
-                  <Input
-                    id="phoneNumber"
-                    placeholder="0123456789"
-                    {...register("phoneNumber")}
-                  />
-                  <FormInputError field={errors.phoneNumber} />
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="role">Role</Label>
-                  <Select
-                    onValueChange={(val: userFormData["role"]) =>
-                      setValue("role", val)
-                    }
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select role" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="ADMIN">Admin</SelectItem>
-                      <SelectItem value="COACH">Coach</SelectItem>
-                      <SelectItem value="MEMBER">Member</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormInputError field={errors.role} />
-                </div>
-              </div>
-              <DialogFooter className="flex justify-end gap-2">
-                <DialogClose asChild>
-                  <Button type="button" variant="outline">
-                    Cancel
-                  </Button>
-                </DialogClose>
-                <DialogClose asChild>
-                  <Button type="submit" disabled={isSubmitting}>
-                    {isSubmitting ? "Creating..." : "Create"}
-                  </Button>
-                </DialogClose>
-              </DialogFooter>
-              <FormInputError field={errors.root} />
-            </form>
-          </DialogContent>
-        </Dialog>
       </div>
 
       <div className="flex flex-col md:flex-row gap-4">
@@ -256,14 +202,21 @@ export default function UserManagement() {
             <SelectValue placeholder="Filter by role" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="admin">Admin</SelectItem>
-            <SelectItem value="coach">Coach</SelectItem>
-            <SelectItem value="member">Member</SelectItem>
+            <SelectItem value="ADMIN">Admin</SelectItem>
+            <SelectItem value="COACH">Coach</SelectItem>
+            <SelectItem value="MEMBER">Member</SelectItem>
           </SelectContent>
         </Select>
       </div>
 
-      <UsersTab users={users} page={page} size={size} />
+      <UsersTab
+        users={users}
+        page={page}
+        size={size}
+        onEditUser={onEditUser}
+        onViewUser={onViewUser}
+        onToggleBan={onToggleBan}
+      />
 
       {totalPages > 1 && (
         <div className="flex justify-center mt-4">
@@ -309,6 +262,88 @@ export default function UserManagement() {
           </Pagination>
         </div>
       )}
+
+      {/* View Dialog */}
+      <Dialog open={isViewDialogOpen} onOpenChange={setViewDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>User Details</DialogTitle>
+          </DialogHeader>
+          {viewedUser && (
+            <div className="grid gap-3 text-sm text-muted-foreground">
+              <div>
+                <b>Username:</b> {viewedUser.username}
+              </div>
+              <div>
+                <b>Email:</b> {viewedUser.email}
+              </div>
+              <div>
+                <b>Phone Number:</b> {viewedUser.phone}
+              </div>
+              <div>
+                <b>Role:</b> {viewedUser.role}
+              </div>
+              <div>
+                <b>Status:</b> {viewedUser.status}
+              </div>
+              <div>
+                <b>Subscription:</b>{" "}
+                {viewedUser.havingSubscription ? "Yes" : "No"}
+              </div>
+              <div>
+                <b>Created At:</b>{" "}
+                {new Date(viewedUser.createdAt).toLocaleString()}
+              </div>
+              <div>
+                <b>Updated At:</b>{" "}
+                {new Date(viewedUser.updatedAt).toLocaleString()}
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Edit Dialog */}
+      <Dialog open={isEditDialogOpen} onOpenChange={setEditDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Edit User</DialogTitle>
+            <DialogDescription>
+              Update email, password and phone number
+            </DialogDescription>
+          </DialogHeader>
+          <form onSubmit={handleSubmit(onUpdateUser)}>
+            <div className="grid gap-4 py-4">
+              <div className="grid gap-2">
+                <Label>Email</Label>
+                <Input type="email" {...register("email")} />
+                <FormInputError field={errors.email} />
+              </div>
+              <div className="grid gap-2">
+                <Label>Password</Label>
+                <Input type="password" {...register("password")} />
+                <FormInputError field={errors.password} />
+              </div>
+              <div className="grid gap-2">
+                <Label>Phone Number</Label>
+                <Input {...register("phoneNumber")} />
+                <FormInputError field={errors.phoneNumber} />
+              </div>
+            </div>
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button type="button" variant="outline">
+                  Cancel
+                </Button>
+              </DialogClose>
+              <Button type="submit" disabled={isSubmitting}>
+                {isSubmitting ? "Updating..." : "Update"}
+              </Button>
+            </DialogFooter>
+            <FormInputError field={errors.root} />
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

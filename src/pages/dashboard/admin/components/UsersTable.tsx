@@ -22,10 +22,16 @@ export function UsersTab({
   users,
   page,
   size,
+  onEditUser,
+  onViewUser,
+  onToggleBan,
 }: {
   users: User[];
   page: number;
   size: number;
+  onEditUser: (id: string) => void;
+  onViewUser: (id: string) => void;
+  onToggleBan: (id: string, isBanned: boolean) => void;
 }) {
   const getStatusBadge = (status: string) => {
     const variants = {
@@ -74,19 +80,34 @@ export function UsersTab({
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                      <DropdownMenuItem>Edit</DropdownMenuItem>
-                      <DropdownMenuItem>View Details</DropdownMenuItem>
-                      {user.status !== AccountStatus.BANNED ? (
-                        <DropdownMenuItem className="text-destructive">
-                          <Ban className="h-4 w-4 mr-2" />
-                          Ban User
-                        </DropdownMenuItem>
-                      ) : (
-                        <DropdownMenuItem>
-                          <CheckCircle className="h-4 w-4 mr-2" />
-                          Unban User
-                        </DropdownMenuItem>
-                      )}
+                      <DropdownMenuItem onClick={() => onEditUser(user.id)}>
+                        Edit
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => onViewUser(user.id)}>
+                        View Details
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        onClick={() =>
+                          onToggleBan(user.id, user.status === AccountStatus.BANNED)
+                        }
+                        className={
+                          user.status !== AccountStatus.BANNED
+                            ? "text-destructive"
+                            : ""
+                        }
+                      >
+                        {user.status !== AccountStatus.BANNED ? (
+                          <>
+                            <Ban className="h-4 w-4 mr-2" />
+                            Ban User
+                          </>
+                        ) : (
+                          <>
+                            <CheckCircle className="h-4 w-4 mr-2" />
+                            Unban User
+                          </>
+                        )}
+                      </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </TableCell>
