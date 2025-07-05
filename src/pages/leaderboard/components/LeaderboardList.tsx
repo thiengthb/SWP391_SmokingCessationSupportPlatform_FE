@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Medal, Award } from "lucide-react";
 import { useWebSocket } from "@/contexts/WebSocketContext";
-import type { ScoreResponse } from "@/types/leaderboard";
+import type { ScoreResponse } from "@/types/models/leaderboard";
 import { Separator } from "@radix-ui/react-separator";
 import clsx from "clsx";
 import { useAuth } from "@/contexts/AuthContext";
@@ -94,7 +94,7 @@ export default function LeaderboardList({
             key={user.username}
             className={clsx(
               "p-4 transition-all duration-300",
-              auth.currentUser?.username == user.username &&
+              auth.currentAcc?.username == user.username &&
                 "border-2 border-primary bg-muted"
             )}
           >

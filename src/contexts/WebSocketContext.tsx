@@ -10,7 +10,7 @@ import { Client } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 import { useAuth } from "./AuthContext";
 import { toast } from "sonner";
-import type { ScoreResponse } from "@/types/leaderboard";
+import type { ScoreResponse } from "@/types/models/leaderboard";
 
 type WebSocketContextType = {
   client: Client | null;
@@ -18,7 +18,7 @@ type WebSocketContextType = {
   subscribeToTopic: (
     topic: string,
     callback: (messageBody: string) => void
-  ) => (() => void) | void;
+  ) => () => void;
   leaderboardData: ScoreResponse[];
 };
 
@@ -38,27 +38,18 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({
   >([]);
 
   useEffect(() => {
-    const accountId = auth.currentUser?.id;
+    const accountId = auth.currentAcc?.id;
+    if (!accountId) return;
 
-    if (!accountId) {
-      return;
-    }
-    if (!accountId) {
-      return;
-    }
-
-    const client = new Client({
-      webSocketFactory: () => new SockJS(import.meta.env.VITE_WS_URL),
-      reconnectDelay: 5000,
     const client = new Client({
       webSocketFactory: () => new SockJS(import.meta.env.VITE_WS_URL),
       reconnectDelay: 5000,
 
       onConnect: () => {
-        console.log("WebSocket connected");
+        console.log("✅ WebSocket connected");
         setConnectedClient(client);
 
-        // Process queued subs
+        // Apply queued subscriptions
         pendingSubscriptions.forEach(({ topic, callback }) => {
           client.subscribe(topic, (message) => {
             callback(message.body);
@@ -66,13 +57,7 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({
         });
         setPendingSubscriptions([]);
 
-        client.subscribe(`/topic/notifications/${accountId}`, (message) => {
-          const data = JSON.parse(message.body);
-          toast(data.title || "You have a new notification", {
-            description: data.content || "",
-            duration: 5000,
-          });
-        });
+        // Personal notifications
         client.subscribe(`/topic/notifications/${accountId}`, (message) => {
           const data = JSON.parse(message.body);
           toast(data.title || "You have a new notification", {
@@ -81,6 +66,7 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({
           });
         });
 
+        // Global announcements
         client.subscribe(`/topic/notifications/`, (message) => {
           const data = JSON.parse(message.body);
           toast(data.title || "🌐 Announcement", {
@@ -89,15 +75,17 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({
           });
         });
 
+        // Leaderboard updates
         client.subscribe("/topic/leaderboard", (message) => {
           console.log("📡 Leaderboard update received:", message.body);
           const updatedScores: ScoreResponse[] = JSON.parse(message.body);
           setLeaderboardData(updatedScores);
         });
       },
+
       onStompError: (frame) => {
-        console.error("Broker reported error:", frame.headers["message"]);
-        console.error("Additional details:", frame.body);
+        console.error("❌ Broker error:", frame.headers["message"]);
+        console.error("Details:", frame.body);
       },
     });
 
@@ -105,45 +93,39 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({
     clientRef.current = client;
 
     return () => {
-      if (clientRef.current) {
-        clientRef.current.deactivate();
-        console.log("WebSocket disconnected");
-      }
+      client.deactivate();
+      clientRef.current = null;
+      setConnectedClient(null);
+      console.log("🔌 WebSocket disconnected");
     };
-  }, [auth.currentUser?.id]);
+  }, [auth.currentAcc?.id]);
 
-  const sendMessage = (destination: string, body: string) => {
+  const sendMessage = useCallback((destination: string, body: string) => {
     if (!clientRef.current?.connected) {
-      console.warn("Cannot send message. WebSocket not connected yet.");
+      console.warn("⚠️ Cannot send message. WebSocket not connected.");
       return;
     }
-
     clientRef.current.publish({ destination, body });
-  };
-    clientRef.current.publish({ destination, body });
-  };
+  }, []);
 
   const subscribeToTopic = useCallback(
     (
       topic: string,
       callback: (messageBody: string) => void
-    ): (() => void) | void => {
+    ): () => void => {
       const client = clientRef.current;
 
       if (!client || !client.connected) {
-        console.warn(
-          "WebSocket not connected yet. Queuing subscription to:",
-          topic
-        );
+        console.warn("⏳ WebSocket not connected. Queuing:", topic);
         setPendingSubscriptions((prev) => [...prev, { topic, callback }]);
-        return;
+        return () => {}; // Return no-op unsubscribe for now
       }
 
       const subscription = client.subscribe(topic, (message) => {
         callback(message.body);
       });
 
-      return () => subscription.unsubscribe();
+      return () => subscription.unsubscribe(); // ✅ clean unsubscribe
     },
     []
   );
