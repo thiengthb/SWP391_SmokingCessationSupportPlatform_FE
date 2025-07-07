@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { SunMedium, Bell, BarChart2, X } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
-import { fitlerTabItems, forRoles } from "@/utils/TabUtil";
+import { fitlerTabItems, ForRoles } from "@/utils/TabUtil";
 import { useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -18,19 +18,19 @@ const menuItems = [
     id: "appearance",
     icon: <SunMedium className="w-4 h-4" />,
     label: "Giao diện & Ngôn ngữ",
-    forRoles: [forRoles.ALL],
+    forRoles: [ForRoles.ALL],
   },
   {
     id: "notifications",
     icon: <Bell className="w-4 h-4" />,
     label: "Thông báo",
-    forRoles: [forRoles.ALL],
+    forRoles: [ForRoles.ALL],
   },
   {
     id: "tracking",
     icon: <BarChart2 className="w-4 h-4" />,
     label: "Theo dõi cai thuốc",
-    forRoles: [forRoles.MEMBER],
+    forRoles: [ForRoles.MEMBER],
   },
 ];
 

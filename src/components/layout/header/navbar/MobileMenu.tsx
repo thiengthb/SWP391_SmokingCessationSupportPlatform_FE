@@ -21,7 +21,7 @@ import {
   Globe,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { forRoles, mainNav } from "./navbar.item";
+import { ForDisplay, mainNav, routeRoleDashboard } from "./navbar.item";
 import ThemeSwitch from "@/components/theme/theme-switch";
 import LanguageSelector from "@/components/language/LanguageSelector";
 import { useAuth } from "@/contexts/AuthContext";
@@ -31,24 +31,34 @@ import { NavigationNotifications } from "./NavigationNotifications";
 import { Separator } from "@radix-ui/react-separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import UserInfoCard from "./UserInfoCard";
-import { toForRoles } from "@/utils/TabUtil";
+import { ForRoles, toForRoles } from "@/utils/TabUtil";
+import { Paths } from "@/router/path";
 
 const MobileMenu = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { auth, handleLogout } = useAuth();
 
-  const filteredItems = mainNav.filter(
-    (item) =>
-      item.displayMobile &&
-      (item.forRoles.includes(toForRoles(auth.currentAcc?.role)) ||
-        item.forRoles.includes(forRoles.ALL))
-  );
+  const filteredItems = mainNav
+    .filter(
+      (item) =>
+        item.forDisplays?.includes(ForDisplay.ALL) ||
+        item.forDisplays?.includes(ForDisplay.ALL_MOBILE) ||
+        (!auth.isAuthenticated &&
+          item.forDisplays?.includes(ForDisplay.MOBILE_GUEST)) ||
+        (auth.isAuthenticated &&
+          item.forDisplays?.includes(ForDisplay.MOBILE_AUTHENTICATED))
+    )
+    .filter(
+      (item) =>
+        item.forRoles?.includes(toForRoles(auth.currentAcc?.role)) ||
+        item.forRoles?.includes(ForRoles.ALL)
+    );
 
   const submitLogout = async () => {
     if (!auth.isAuthenticated) return;
     await handleLogout();
-    navigate("/auth/login");
+    navigate(Paths.AUTH.LOGIN);
   };
 
   return (
@@ -88,11 +98,7 @@ const MobileMenu = () => {
         <div className="flex flex-col space-y-2 px-4">
           {auth.isAuthenticated && (
             <Link
-              to={
-                auth.currentAcc?.role
-                  ? `/${auth.currentAcc?.role.toLowerCase()}/dashboard`
-                  : `/dashboard`
-              }
+              to={routeRoleDashboard(auth.currentAcc?.role)}
               className="flex items-center gap-2 text-base transition-colors hover:text-primary"
             >
               <Gauge className="h-4 w-4" />
@@ -170,12 +176,12 @@ const MobileMenu = () => {
               <>
                 <SheetClose asChild>
                   <Button asChild>
-                    <Link to="/auth/register">{t(`buttons.signup`)}</Link>
+                    <Link to={Paths.AUTH.REGISTER}>{t(`buttons.signup`)}</Link>
                   </Button>
                 </SheetClose>
                 <SheetClose asChild>
                   <Button variant="secondary" asChild>
-                    <Link to="/auth/login">{t(`buttons.login`)}</Link>
+                    <Link to={Paths.AUTH.LOGIN}>{t(`buttons.login`)}</Link>
                   </Button>
                 </SheetClose>
               </>

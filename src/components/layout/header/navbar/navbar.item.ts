@@ -1,16 +1,43 @@
-import { forRoles } from "@/utils/TabUtil";
+import { Paths } from "@/router/path";
+import { Role } from "@/types/models/account";
+import { ForRoles } from "@/utils/TabUtil";
 import { BadgeInfo, BookMarked, BookOpenText, Earth, Gem, House, Landmark, LandPlot, LibraryBig, MessageCircleMore, Send, Settings, User, type LucideIcon } from "lucide-react";
 
-export type NavItem = {
+export const ForDisplay = {
+  NAVBAR_GUEST: 1,
+  NAVBAR_AUTHENTICATED: 2,
+  USER_NAV: 3,
+  MOBILE_GUEST: 4,
+  MOBILE_AUTHENTICATED: 5,
+  ALL: 6,
+  ALL_NAVBAR: 7,
+  ALL_MOBILE: 8,
+} as const;
+
+export type ForDisplay = (typeof ForDisplay)[keyof typeof ForDisplay];
+
+export const routeRoleDashboard = (role: Role | undefined) => {
+  if (!role) return Paths.HOME;
+  switch (role) {
+    case Role.ADMIN:
+      return Paths.ADMIN.DASHBOARD;
+    case Role.COACH:
+      return Paths.COACH.DASHBOARD;
+    case Role.MEMBER:
+      return Paths.MEMBER.DASHBOARD;
+    default:
+      return Paths.HOME;
+  }
+};
+
+export interface NavItem {
   id: string;
   title: string;
   href: string;
   icon: LucideIcon;
   description: string | null;
-  navbarLoginDisplay: boolean;
-  userNavDisplay: boolean;
-  displayMobile: boolean;
-  forRoles: forRoles[];
+  forDisplays: ForDisplay[];
+  forRoles: ForRoles[];
   items: NavItem[] | null;
 }
 
@@ -19,24 +46,20 @@ export const aboutItems: NavItem[] = [
     id: "about-us",
     title: "nav.about.team.title",
     icon: BadgeInfo,
-    href: "/about-us/team",
+    href: Paths.PUBLIC.ABOUT.TEAM,
     description: "nav.about.team.description",
-    navbarLoginDisplay: true,
-    userNavDisplay: false,
-    displayMobile: true,
-    forRoles: [forRoles.ALL],
+    forDisplays: [ForDisplay.ALL],
+    forRoles: [ForRoles.ALL],
     items: null,
   },
   {
     id: "about-story",
     title: "nav.about.story.title",
     icon: LibraryBig,
-    href: "/about-us/story",
+    href: Paths.PUBLIC.ABOUT.STORY,
     description: "nav.about.story.description",
-    navbarLoginDisplay: true,
-    userNavDisplay: false,
-    displayMobile: true,
-    forRoles: [forRoles.ALL],
+    forDisplays: [ForDisplay.ALL],
+    forRoles: [ForRoles.ALL],
     items: null,
   },
 ]
@@ -46,24 +69,20 @@ export const leaderboardItems: NavItem[] = [
     id: "leaderboard-global",
     title: "nav.leaderboard.global.title",
     icon: Earth,
-    href: "/leaderboard",
+    href: Paths.PUBLIC.LEADERBOARD.RANKINGS,
     description: "nav.leaderboard.global.description",
-    navbarLoginDisplay: true,
-    userNavDisplay: false,
-    displayMobile: true,
-    forRoles: [forRoles.ALL],
+    forDisplays: [ForDisplay.ALL],
+    forRoles: [ForRoles.ALL],
     items: null,
   },
   {
     id: "leaderboard-hall-of-fame",
     title: "nav.leaderboard.hallOfFame.title",
     icon: Landmark,
-    href: "/leaderboard/hall-of-fame",
+    href: Paths.PUBLIC.LEADERBOARD.HALL_OF_FAME,
     description: "nav.leaderboard.hallOfFame.description",
-    navbarLoginDisplay: true,
-    userNavDisplay: false,
-    displayMobile: true,
-    forRoles: [forRoles.ALL],
+    forDisplays: [ForDisplay.ALL],
+    forRoles: [ForRoles.ALL],
     items: null,
   }
 ]
@@ -73,110 +92,90 @@ export const mainNav: NavItem[] = [
     id: "profile",
     title: "nav.profile.title",
     icon: User,
-    href: "/profile",
+    href: Paths.ACCOUNT.PROFILE,
     description: null,
-    navbarLoginDisplay: false,
-    userNavDisplay: true,
-    displayMobile: true,
-    forRoles: [forRoles.COACH, forRoles.MEMBER],
+    forDisplays: [ForDisplay.USER_NAV, ForDisplay.MOBILE_AUTHENTICATED],
+    forRoles: [ForRoles.COACH, ForRoles.MEMBER],
     items: null,
   },
   {
     id: "settings",
     title: "nav.settings.title",
     icon: Settings,
-    href: "/settings",
+    href: Paths.ACCOUNT.SETTING,
     description: null,
-    navbarLoginDisplay: false,
-    userNavDisplay: true,
-    displayMobile: true,
-    forRoles: [forRoles.COACH, forRoles.MEMBER, forRoles.ADMIN],
+    forDisplays: [ForDisplay.USER_NAV, ForDisplay.MOBILE_AUTHENTICATED],
+    forRoles: [ForRoles.COACH, ForRoles.MEMBER, ForRoles.ADMIN],
     items: null,
   },
   {
     id: "home",
     title: "nav.home.title",
     icon: House,
-    href: "/",
+    href: Paths.PUBLIC.ROOT,
     description: null,
-    navbarLoginDisplay: true,
-    userNavDisplay: false,
-    displayMobile: true,
-    forRoles: [forRoles.ALL],
+    forDisplays: [ForDisplay.ALL_MOBILE, ForDisplay.ALL_NAVBAR],
+    forRoles: [ForRoles.ALL],
     items: null,
   },
   {
     id: "pricing",
     title: "nav.pricing.title",
     icon: Gem,
-    href: "/pricing",
+    href: Paths.PUBLIC.PRICING,
     description: "nav.pricing.description",
-    navbarLoginDisplay: false,
-    userNavDisplay: true,
-    displayMobile: true,
-    forRoles: [forRoles.ALL],
+    forDisplays: [ForDisplay.ALL_MOBILE, ForDisplay.NAVBAR_GUEST, ForDisplay.USER_NAV],
+    forRoles: [ForRoles.ALL],
     items: null,
   },
   {
     id: "blog",
     title: "nav.blog.title",
     icon: BookMarked,
-    href: "/blog",
+    href: Paths.PUBLIC.BLOG.ROOT,
     description: "nav.blog.description",
-    navbarLoginDisplay: true,
-    userNavDisplay: false,
-    displayMobile: true,
-    forRoles: [forRoles.ALL],
+    forDisplays: [ForDisplay.ALL_MOBILE, ForDisplay.ALL_NAVBAR],
+    forRoles: [ForRoles.ALL],
     items: null,
   },
   {
     id: "leaderboard",
     title: "nav.leaderboard.title",
     icon: LandPlot,
-    href: "/leaderboard",
+    href: Paths.PUBLIC.LEADERBOARD.ROOT,
     description: "nav.leaderboard.description",
-    navbarLoginDisplay: true,
-    userNavDisplay: false,
-    displayMobile: true,
-    forRoles: [forRoles.ALL],
+    forDisplays: [ForDisplay.ALL_MOBILE, ForDisplay.ALL_NAVBAR],
+    forRoles: [ForRoles.ALL],
     items: leaderboardItems
   },
   {
     id: "community",
     title: "nav.community.title",
     icon: MessageCircleMore,
-    href: "/community",
+    href: Paths.PUBLIC.COMMUNITY,
     description: "nav.community.description",
-    navbarLoginDisplay: true,
-    userNavDisplay: false,
-    displayMobile: true,
-    forRoles: [forRoles.ALL],
+    forDisplays: [ForDisplay.ALL_MOBILE, ForDisplay.ALL_NAVBAR],
+    forRoles: [ForRoles.ALL],
     items: null
   },
   {
     id: "about",
     title: "nav.about.title",
     icon: BookOpenText,
-    href: "/about-us",
+    href: Paths.PUBLIC.ABOUT.ROOT,
     description: "nav.about.description",
-    navbarLoginDisplay: false,
-    userNavDisplay: true,
-    displayMobile: true,
-    forRoles: [forRoles.ALL],
+    forDisplays: [ForDisplay.ALL_MOBILE, ForDisplay.NAVBAR_GUEST, ForDisplay.USER_NAV],
+    forRoles: [ForRoles.ALL],
     items: aboutItems,
   },
   {
     id: "contact",
     icon: Send,
     title: "nav.contact.title",
-    href: "/contact",
+    href: Paths.PUBLIC.CONTACT,
     description: null,
-    navbarLoginDisplay: false,
-    userNavDisplay: true,
-    displayMobile: true,
-    forRoles: [forRoles.ALL],
+    forDisplays: [ForDisplay.ALL_MOBILE, ForDisplay.NAVBAR_GUEST, ForDisplay.USER_NAV],
+    forRoles: [ForRoles.ALL],
     items: null,
   },
 ]
-
-export { forRoles };

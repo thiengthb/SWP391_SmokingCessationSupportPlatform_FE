@@ -7,6 +7,7 @@ import Logo from "../Logo";
 import { UserNav } from "./UserNav";
 import { useAuth } from "@/contexts/AuthContext";
 import { useTranslation } from "react-i18next";
+import { Paths } from "@/router/path";
 
 const Navbar = () => {
   const { t } = useTranslation();
@@ -33,10 +34,10 @@ const Navbar = () => {
                   asChild
                   className="hidden lg:inline-flex"
                 >
-                  <Link to="/auth/login">{t(`buttons.login`)}</Link>
+                  <Link to={Paths.AUTH.LOGIN}>{t(`buttons.login`)}</Link>
                 </Button>
                 <Button size="sm" asChild>
-                  <Link to="/auth/register">{t(`buttons.signup`)}</Link>
+                  <Link to={Paths.AUTH.REGISTER}>{t(`buttons.signup`)}</Link>
                 </Button>
                 <div className="hidden lg:flex">
                   <AppearanceSetting />

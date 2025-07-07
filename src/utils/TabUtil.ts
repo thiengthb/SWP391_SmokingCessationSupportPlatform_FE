@@ -1,28 +1,37 @@
 import { useAuth } from "@/contexts/AuthContext";
 import { Role } from "@/types/models/account";
 
-export const forRoles = {
-  MEMBER: Role.MEMBER,
+export const ForRoles = {
   ADMIN: Role.ADMIN,
   COACH: Role.COACH,
+  MEMBER: Role.MEMBER,
+  PREMIUM: "PREMIUM",
+  AUTHENTICATED: "AUTHENTICATED",
   GUEST: "GUEST",
   ALL: "ALL",
 } as const;
 
-export type forRoles = (typeof forRoles)[keyof typeof forRoles];
+export type ForRoles = (typeof ForRoles)[keyof typeof ForRoles];
 
-export const toForRoles = (role: Role | string | undefined): forRoles => {
+export const toForRoles = (role: Role | string | undefined, havingSubscription:boolean = false): ForRoles => {
+  if (role === Role.MEMBER && havingSubscription) 
+    return ForRoles.PREMIUM;
+  
   switch (role) {
-    case Role.MEMBER:
-      return forRoles.MEMBER;
     case Role.ADMIN:
-      return forRoles.ADMIN;
+      return ForRoles.ADMIN;
     case Role.COACH:
-      return forRoles.COACH;
+      return ForRoles.COACH;
+    case Role.MEMBER:
+      return ForRoles.MEMBER;
+    case "PREMIUM":
+      return ForRoles.PREMIUM;
+    case "AUTHENTICATED":
+      return ForRoles.AUTHENTICATED;
     case "GUEST":
-      return forRoles.GUEST;
+      return ForRoles.GUEST;
     default:
-      return forRoles.ALL;
+      return ForRoles.ALL;
   }
 }
 
@@ -30,8 +39,8 @@ export const fitlerTabItems = (items: any) => {
     const {auth} = useAuth();
 
     return items.filter(
-        (item: any) =>
-        (item.forRoles.includes(toForRoles(auth.currentAcc?.role)) ||
-            item.forRoles.includes(forRoles.ALL))
+        (item: any) => 
+        (item.forRoles?.includes(toForRoles(auth.currentAcc?.role)) ||
+            item.forRoles?.includes(ForRoles.ALL))
     );
 }

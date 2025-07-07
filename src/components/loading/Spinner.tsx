@@ -12,7 +12,7 @@ interface LoadingProps {
   fullscreen?: boolean;
 }
 
-export function Loading({
+export function Spinner({
   size = 36,
   className,
   text = "Loading...",
@@ -45,4 +45,4 @@ export function Loading({
   );
 }
 
-export default Loading;
+export default Spinner;

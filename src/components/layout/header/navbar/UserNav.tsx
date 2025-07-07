@@ -13,10 +13,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Gauge, UserRound } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { mainNav } from "./navbar.item";
+import { ForDisplay, mainNav, routeRoleDashboard } from "./navbar.item";
 import { NavigationNotifications } from "./NavigationNotifications";
 import UserInfoCard from "./UserInfoCard";
-import { forRoles, toForRoles } from "@/utils/TabUtil";
+import { ForRoles, toForRoles } from "@/utils/TabUtil";
+import { Paths } from "@/router/path";
 
 export function UserNav() {
   const navigate = useNavigate();
@@ -25,15 +26,20 @@ export function UserNav() {
 
   const submitLogout = async () => {
     await handleLogout();
-    navigate("/auth/login");
+    navigate(Paths.AUTH.LOGIN);
   };
 
-  const filteredItems = mainNav.filter(
-    (item) =>
-      item.userNavDisplay &&
-      (item.forRoles.includes(toForRoles(auth.currentAcc?.role)) ||
-        item.forRoles.includes(forRoles.ALL))
-  );
+  const filteredItems = mainNav
+    .filter(
+      (item) =>
+        item.forDisplays?.includes(ForDisplay.ALL) ||
+        item.forDisplays?.includes(ForDisplay.USER_NAV)
+    )
+    .filter(
+      (item) =>
+        item.forRoles?.includes(toForRoles(auth.currentAcc?.role)) ||
+        item.forRoles?.includes(ForRoles.ALL)
+    );
 
   return (
     <div className="flex items-center space-x-4">
@@ -60,7 +66,7 @@ export function UserNav() {
           <DropdownMenuGroup>
             <DropdownMenuItem>
               <Link
-                to={`/${auth.currentAcc?.role?.toLowerCase()}/dashboard`}
+                to={routeRoleDashboard(auth.currentAcc?.role)}
                 className="w-full flex items-center gap-2"
               >
                 <Gauge className="h-4 w-4" />

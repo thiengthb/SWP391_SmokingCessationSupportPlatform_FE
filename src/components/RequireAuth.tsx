@@ -1,22 +1,48 @@
 import { useLocation, Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
-import { Role } from "@/types/models/account";
+import { ForRoles, toForRoles } from "@/utils/TabUtil";
+import { Paths } from "@/router/path";
 
 type RequireAuthProps = {
-  allowedRoles: Role[];
+  allowedRoles: ForRoles[];
 };
 
 const RequireAuth = ({ allowedRoles }: RequireAuthProps) => {
   const { auth } = useAuth();
   const location = useLocation();
-  const role = auth.currentAcc?.role;
 
-  return role && allowedRoles?.includes(role) ? (
+  const currentRole = toForRoles(
+    auth.currentAcc?.role,
+    auth.currentAcc?.havingSubscription
+  );
+
+  const checkAccess = (): boolean => {
+    if (allowedRoles?.includes(currentRole)) return true;
+
+    if (
+      allowedRoles?.includes(ForRoles.MEMBER) &&
+      currentRole === ForRoles.PREMIUM
+    )
+      return true;
+
+    if (
+      allowedRoles?.includes(ForRoles.AUTHENTICATED) &&
+      (currentRole === ForRoles.COACH ||
+        currentRole === ForRoles.MEMBER ||
+        currentRole === ForRoles.PREMIUM ||
+        currentRole === ForRoles.ADMIN)
+    )
+      return true;
+
+    return false;
+  };
+
+  return checkAccess() ? (
     <Outlet />
   ) : auth.currentAcc ? (
-    <Navigate to="/access-denied" state={{ from: location }} replace />
+    <Navigate to={Paths.ACCESS_DENIED} state={{ from: location }} replace />
   ) : (
-    <Navigate to="/auth/login" state={{ from: location }} replace />
+    <Navigate to={Paths.AUTH.LOGIN} state={{ from: location }} replace />
   );
 };
 

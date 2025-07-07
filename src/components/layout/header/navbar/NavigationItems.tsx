@@ -8,10 +8,10 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { Link } from "react-router-dom";
-import { mainNav } from "./navbar.item";
+import { ForDisplay, mainNav } from "./navbar.item";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/contexts/AuthContext";
-import { forRoles, toForRoles } from "@/utils/TabUtil";
+import { ForRoles, toForRoles } from "@/utils/TabUtil";
 
 const ListItem = ({
   title,
@@ -43,12 +43,21 @@ export function NavigationItems() {
   const { t } = useTranslation();
   const { auth } = useAuth();
 
-  const filteredItems = mainNav.filter(
-    (item) =>
-      item.navbarLoginDisplay &&
-      (item.forRoles.includes(toForRoles(auth.currentAcc?.role)) ||
-        item.forRoles.includes(forRoles.ALL))
-  );
+  const filteredItems = mainNav
+    .filter(
+      (item) =>
+        item.forDisplays?.includes(ForDisplay.ALL) ||
+        item.forDisplays?.includes(ForDisplay.ALL_NAVBAR) ||
+        (!auth.isAuthenticated &&
+          item.forDisplays?.includes(ForDisplay.NAVBAR_GUEST)) ||
+        (auth.isAuthenticated &&
+          item.forDisplays?.includes(ForDisplay.NAVBAR_AUTHENTICATED))
+    )
+    .filter(
+      (item) =>
+        item.forRoles?.includes(toForRoles(auth.currentAcc?.role)) ||
+        item.forRoles?.includes(ForRoles.ALL)
+    );
 
   return (
     <div className="relative">

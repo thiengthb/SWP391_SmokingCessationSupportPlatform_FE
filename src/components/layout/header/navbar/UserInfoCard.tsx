@@ -1,6 +1,6 @@
+import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/contexts/AuthContext";
 import { Role } from "@/types/models/account";
-import { Badge } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 const UserInfoCard = () => {

@@ -1,18 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import Editor from "@/components/Editor";
+import Editor from "@/pages/blog/components/Editor";
 import type { BlogPost } from "@/types/models/blog";
+import useApi from "@/hooks/useApi";
+import type { Category } from "@/types/models/category";
 
 const BlogEditPage = () => {
+  const apiWithInterceptor = useApi();
+  const [categories, setCategories] = useState<Category[]>([]);
   const [post, setPost] = useState<Partial<BlogPost>>({
     title: "",
     excerpt: "",
     content: "",
-    tags: [],
-    category: "Tips",
+    categoryName: "",
   });
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await apiWithInterceptor.get(
+          "/v1/categories/list-all"
+        );
+        console.log("Fetched categories:", response.data);
+        setCategories(response.data.result.content);
+      } catch (error) {
+        console.error("Failed to fetch categories", error);
+      }
+    };
+    fetchCategories();
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
