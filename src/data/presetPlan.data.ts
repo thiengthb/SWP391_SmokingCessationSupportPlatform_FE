@@ -1,6 +1,6 @@
 import { addDays } from "date-fns";
 import type { QuitPlan } from "@/pages/tracking/PlanTrackingTab";
-import type { Tip } from "@/types/models/plan";
+import type { Tip } from "@/types/models/Plan";
 
 // Default tips for different phases
 export const DEFAULT_TIPS = {

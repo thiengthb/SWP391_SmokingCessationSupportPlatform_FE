@@ -1,6 +1,6 @@
 import i18n from "@/lib/i18n";
-import { Currency } from "./transaction";
-import { Language } from "./setting";
+import { Language } from "../enums/Language";
+import { Currency } from "../enums/Currency";
 
 export interface Health {
   id: string;

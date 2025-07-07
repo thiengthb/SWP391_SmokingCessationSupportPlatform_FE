@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { CheckCircle } from "lucide-react";
 import { format } from "date-fns";
 import { vi } from "date-fns/locale";
-import type { Phase } from "@/types/models/plan";
+import type { Phase } from "@/types/models/Plan";
 
 interface PlanPhasesListProps {
   phases: Phase[];

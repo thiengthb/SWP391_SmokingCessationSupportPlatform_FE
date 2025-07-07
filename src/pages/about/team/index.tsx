@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { teamMembers } from "../../../data/about-us.info";
+import { teamMembers } from "../../../data/aboutUs.info";
 import { useTranslation } from "react-i18next";
 
 export default function TeamPage() {

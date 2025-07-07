@@ -7,8 +7,8 @@ import { ChatMessage } from "./components/ChatMessage";
 import { OnlineUser } from "./components/OnlineUser";
 import { useWebSocket } from "@/contexts/WebSocketContext";
 import { useAuth } from "@/contexts/AuthContext";
-import type { ChatMessage as ChatMessageType } from "@/types/models/chat";
-import type { Account } from "@/types/models/account";
+import type { ChatMessage as ChatMessageType } from "@/types/models/Chat";
+import type { Account } from "@/types/models/Account";
 import useApi from "@/hooks/useApi";
 
 import { useTranslation } from "react-i18next";

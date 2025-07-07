@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Language, Theme } from "@/types/models/setting";
+import { Language, Theme } from "@/types/models/Setting";
 
 interface AppearanceSettingsProps {
   theme: Theme;

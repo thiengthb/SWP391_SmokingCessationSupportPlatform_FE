@@ -1,5 +1,5 @@
 import { useAuth } from "@/contexts/AuthContext";
-import { Role } from "@/types/models/account";
+import { Role } from "@/types/enums/Role";
 
 export const ForRoles = {
   ADMIN: Role.ADMIN,

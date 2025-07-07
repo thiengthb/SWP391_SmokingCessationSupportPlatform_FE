@@ -9,8 +9,8 @@ import TodayRecord from "@/pages/tracking/components/record/TodayRecord";
 import RecordCalendar from "@/pages/tracking/components/record/RecordCalendar";
 import RecordsList from "@/pages/tracking/components/record/RecordsList";
 import RecordDialog from "@/pages/tracking/components/record/RecordDialog";
-import type { SmokingRecord } from "@/types/models/record";
-import { defaultPagination, type Pagination } from "@/types/models/pagination";
+import type { SmokingRecord } from "@/types/models/Record";
+import { defaultPagination, type Pagination } from "@/types/pagination";
 import PlanTrackingTab from "./PlanTrackingTab";
 const RecordHabbitPage = () => {
   const { auth } = useAuth();

@@ -21,7 +21,7 @@ import useApi from "@/hooks/useApi";
 import {
   TransactionStatus,
   type BillingTransaction,
-} from "@/types/models/transaction";
+} from "@/types/models/Transaction";
 
 interface PaginationResponse {
   content: BillingTransaction[];

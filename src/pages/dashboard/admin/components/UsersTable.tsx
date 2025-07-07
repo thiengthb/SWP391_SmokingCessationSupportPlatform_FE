@@ -16,7 +16,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
-import { AccountStatus, type Account } from "@/types/models/account";
+import { AccountStatus, type Account } from "@/types/models/Account";
 
 export function UsersTab({ users }: { users: Account[] }) {
   const getStatusBadge = (status: string) => {

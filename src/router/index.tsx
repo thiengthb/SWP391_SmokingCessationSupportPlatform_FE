@@ -9,14 +9,14 @@ const RequireAuth = LazyLoad("./components/RequireAuth");
 const AccessDenied = LazyLoad("./components/error/AccessDenied");
 const PersistLogin = LazyLoad("./components/PersistLogin");
 
-import { ForRoles } from "@/utils/TabUtil";
+import { ForRoles } from "@/utils/tab.util";
 import { authRoutes } from "./routes/auth.routes";
 import { accountRoutes } from "./routes/account.routes";
 import { publicRoutes } from "./routes/public.routes";
 import { adminRoutes } from "./routes/admin.routes";
 import { coachRoutes } from "./routes/coach.routes";
 import { memberRoutes, premiumRoutes } from "./routes/member.routes";
-import { Paths } from "./path";
+import { Paths } from "../constants/path";
 
 const router = createBrowserRouter([
   {

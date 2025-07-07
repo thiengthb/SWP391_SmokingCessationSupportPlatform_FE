@@ -1,3 +1,6 @@
+import type { AccountStatus } from "../enums/AccountStatus";
+import type { Role } from "../enums/Role";
+
 export interface Account {
   id: string;
   username: string;
@@ -10,18 +13,3 @@ export interface Account {
   createdAt: string;
   updatedAt: string;
 }
-
-export const Role = {
-  ADMIN: "ADMIN",
-  COACH: "COACH",
-  MEMBER: "MEMBER",
-} as const;
-
-export const AccountStatus = {
-  ONLINE: "ONLINE",
-  OFFLINE: "OFFLINE",
-  BANNED: "BANNED",
-} as const;
-
-export type Role = (typeof Role)[keyof typeof Role];
-export type AccountStatus = (typeof AccountStatus)[keyof typeof AccountStatus];

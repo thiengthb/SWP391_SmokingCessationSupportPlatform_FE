@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { differenceInSeconds } from "date-fns";
 import { toast } from "sonner";
 import useApi from "@/hooks/useApi";
-import { getHealthImprovementLevel } from "../../data/health-improve.data";
+import { getHealthImprovementLevel } from "../../data/healthImprove.data";
 import HealthImproveAchievement from "./components/counter/HealthImproveAchievement";
 import ResetButton from "./components/counter/ResetButton";
 import DisplayClock from "./components/counter/DisplayClock";

@@ -1,5 +1,5 @@
 import { useSetting } from "@/contexts/SettingContext";
-import { TrackingMode } from "@/types/models/setting";
+import { TrackingMode } from "@/types/models/Setting";
 import RecordHabbitPage from "./RecordHabbitPage";
 import AutoTrackingPage from "./AutoTrackingPage";
 

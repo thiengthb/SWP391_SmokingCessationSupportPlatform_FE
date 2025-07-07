@@ -1,6 +1,6 @@
 import i18n from "@/lib/i18n";
-import { Language } from "@/types/models/setting";
-import { Currency } from "@/types/models/transaction";
+import { Currency } from "@/types/enums/Currency";
+import { Language } from "@/types/enums/Language";
 
 export interface FTNDQuestion {
   id: number;

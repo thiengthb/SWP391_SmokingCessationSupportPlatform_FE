@@ -24,8 +24,8 @@ import { toast } from "sonner";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import PlanPhase from "./components/plan/PlanPhase";
 import { addDays, startOfToday } from "date-fns";
-import { presetPlans, createPresetPlan } from "@/data/preset-plan.data";
-import type { Phase, PlanFormData } from "@/types/models/plan";
+import { presetPlans, createPresetPlan } from "@/data/presetPlan.data";
+import type { Phase, PlanFormData } from "@/types/models/Plan";
 import useApi from "@/hooks/useApi";
 
 export default function CreatePlanPage() {

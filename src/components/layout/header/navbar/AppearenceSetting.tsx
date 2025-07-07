@@ -10,9 +10,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
 import { Settings, Sun, Moon, Monitor, Check } from "lucide-react";
-import { Theme, Language } from "@/types/models/setting";
 import { useTheme } from "@/components/theme/theme-provider";
 import i18n from "@/lib/i18n";
+import { Language } from "@/types/enums/Language";
+import { Theme } from "@/types/enums/Theme";
 
 interface AppearanceSettings {
   theme: Theme;

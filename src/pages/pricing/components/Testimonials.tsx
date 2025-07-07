@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { type Testimonial } from "@/types/models/membership";
+import { type Testimonial } from "@/types/models/Membership";
 
 interface TestimonialsProps {
   testimonials: Testimonial[];

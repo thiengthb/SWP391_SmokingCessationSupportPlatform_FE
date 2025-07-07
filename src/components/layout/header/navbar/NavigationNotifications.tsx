@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Inbox } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import useApi from "@/hooks/useApi";
-import type { NotificationResponse } from "@/types/models/notification";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,7 +10,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { Paths } from "@/router/path";
+import { Paths } from "@/constants/path";
+import type { NotificationResponse } from "@/types/models/notification";
 
 export function NavigationNotifications() {
   const { auth } = useAuth();

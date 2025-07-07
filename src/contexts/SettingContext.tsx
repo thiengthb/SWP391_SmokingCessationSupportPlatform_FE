@@ -1,16 +1,14 @@
 import useApi from "@/hooks/useApi";
-import {
-  Language,
-  MotivationFrequency,
-  Theme,
-  TrackingMode,
-  type Setting,
-} from "@/types/models/setting";
 import { useAuth } from "./AuthContext";
 import { createContext, useContext, useState, useEffect } from "react";
 import { toast } from "sonner";
 import { useTheme } from "@/components/theme/theme-provider";
 import i18n from "@/lib/i18n";
+import type { Setting } from "@/types/models/setting";
+import { Theme } from "@/types/enums/Theme";
+import { Language } from "@/types/enums/Language";
+import { TrackingMode } from "@/types/enums/TrackingMode";
+import { MotivationFrequency } from "@/types/enums/MotivationFrequency";
 
 export interface SettingContext {
   setting: Setting;

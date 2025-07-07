@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Medal, Award } from "lucide-react";
 import { useWebSocket } from "@/contexts/WebSocketContext";
-import type { ScoreResponse } from "@/types/models/leaderboard";
+import type { ScoreResponse } from "@/types/models/Leaderboard";
 import { Separator } from "@radix-ui/react-separator";
 import clsx from "clsx";
 import { useAuth } from "@/contexts/AuthContext";

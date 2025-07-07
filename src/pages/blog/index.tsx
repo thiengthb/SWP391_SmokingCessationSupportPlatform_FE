@@ -14,9 +14,9 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { useAuth } from "@/contexts/AuthContext";
-import { Role } from "@/types/models/account";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
+import { Role } from "@/types/enums/Role";
 
 const ITEMS_PER_PAGE = 6;
 

@@ -12,7 +12,7 @@ import useApi from "@/hooks/useApi";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import type { Membership } from "@/types/models/membership";
+import type { Membership } from "@/types/models/Membership";
 import { useEffect, useState } from "react";
 
 interface PricingCardsProps {

@@ -1,3 +1,5 @@
+import type { PlanStatus } from "../enums/PlanStatus";
+
 export interface PhaseTemplate {
     phaseNo: number;
     phaseName: string;
@@ -52,14 +54,3 @@ export interface PlanListItem {
     endDate: Date;
     status: PlanStatus;
 } 
-
-export const PlanStatus = {
-    ACTIVE: "ACTIVE",
-    COMPLETED: "COMPLETED",
-    PENDING: "PENDING",
-    INACTIVE: "INACTIVE",
-    CANCELLED: "CANCELLED",
-    FAILED: "FAILED",
-} as const;
-
-export type PlanStatus = (typeof PlanStatus)[keyof typeof PlanStatus];

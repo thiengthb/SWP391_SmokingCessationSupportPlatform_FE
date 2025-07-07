@@ -1,4 +1,6 @@
 import { lazy, Suspense, type ComponentType } from "react";
+import Spinner from "./components/loading/Spinner";
+import DelayedFallback from "./components/loading/DelayedFallback";
 
 const LazyLoad = (
   importPath: string,
@@ -14,10 +16,10 @@ const LazyLoad = (
     }
   });
 
-  const Fallback = fallbackComponent || (() => null);
+  const Fallback = fallbackComponent || Spinner;
 
   return (props: any) => (
-    <Suspense fallback={<Fallback />}>
+    <Suspense fallback={<DelayedFallback fallback={<Fallback />} />}>
       <LazyComponent {...props} />
     </Suspense>
   );

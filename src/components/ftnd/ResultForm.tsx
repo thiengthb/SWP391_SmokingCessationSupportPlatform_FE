@@ -13,7 +13,7 @@ import {
   getFtndLevelDescription,
   getFtndLevelText,
 } from "../../data/ftnd.data";
-import { Paths } from "@/router/path";
+import { Paths } from "@/constants/path";
 
 interface FTNDAssessmentFormProps {
   open: boolean;

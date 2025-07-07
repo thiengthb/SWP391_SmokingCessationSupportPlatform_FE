@@ -109,10 +109,7 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({
   }, []);
 
   const subscribeToTopic = useCallback(
-    (
-      topic: string,
-      callback: (messageBody: string) => void
-    ): () => void => {
+    (topic: string, callback: (messageBody: string) => void): (() => void) => {
       const client = clientRef.current;
 
       if (!client || !client.connected) {

@@ -11,7 +11,7 @@ import {
   type CoachInfoUpdate,
   type CoachProfile,
 } from "@/types/models/coach";
-import { Role } from "@/types/models/account";
+import { Role } from "@/types/enums/Role";
 
 export interface ProfileContext {
   memberProfile: MemberProfile;

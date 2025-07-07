@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { AlertCircle } from "lucide-react";
 import { format } from "date-fns";
 import { vi } from "date-fns/locale";
-import type { PlanListItem } from "@/types/models/plan";
+import type { PlanListItem } from "@/types/models/Plan";
 import type { QuitPlan } from "../../PlanTrackingTab";
 
 interface PlansListProps {

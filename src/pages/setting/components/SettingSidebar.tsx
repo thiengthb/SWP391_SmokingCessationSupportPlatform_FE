@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { SunMedium, Bell, BarChart2, X } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
-import { fitlerTabItems, ForRoles } from "@/utils/TabUtil";
+import { fitlerTabItems, ForRoles } from "@/utils/tab.util";
 import { useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 

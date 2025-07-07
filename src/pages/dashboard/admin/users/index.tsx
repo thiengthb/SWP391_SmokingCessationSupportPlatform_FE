@@ -12,7 +12,7 @@ import { UserPlus, Search } from "lucide-react";
 import { UsersTab } from "../components/UsersTable";
 import useApi from "@/hooks/useApi";
 import { useLocation, useNavigate } from "react-router-dom";
-import { type Account } from "@/types/models/account";
+import { type Account } from "@/types/models/Account";
 
 export default function UserManagement() {
   const [search, setSearch] = useState("");

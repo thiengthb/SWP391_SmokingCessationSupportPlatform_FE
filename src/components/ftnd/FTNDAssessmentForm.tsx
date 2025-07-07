@@ -22,7 +22,7 @@ import {
 } from "@/types/models/health";
 import { ResultForm } from "./ResultForm";
 import { useFTND } from "@/contexts/FTNDContext";
-import type { Currency } from "@/types/models/transaction";
+import type { Currency } from "@/types/enums/Currency";
 
 interface FTNDAssessmentFormProps {
   open: boolean;

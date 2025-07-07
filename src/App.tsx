@@ -1,8 +1,8 @@
 import LandingPage from "@/pages/landingpage";
 import { useFTND } from "@/contexts/FTNDContext";
 import { useAuth } from "./contexts/AuthContext";
-import { Role } from "./types/models/account";
 import LazyLoad from "./lazyload";
+import { Role } from "./types/enums/Role";
 
 const MemberHome = LazyLoad("./pages/tracking");
 const FTNDAssessmentForm = LazyLoad("./components/ftnd/FTNDAssessmentForm");

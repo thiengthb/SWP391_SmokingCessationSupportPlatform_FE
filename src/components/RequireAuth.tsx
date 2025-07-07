@@ -1,7 +1,7 @@
 import { useLocation, Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
-import { ForRoles, toForRoles } from "@/utils/TabUtil";
-import { Paths } from "@/router/path";
+import { ForRoles, toForRoles } from "@/utils/tab.util";
+import { Paths } from "@/constants/path";
 
 type RequireAuthProps = {
   allowedRoles: ForRoles[];

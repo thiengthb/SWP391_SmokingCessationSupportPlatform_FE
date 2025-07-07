@@ -16,8 +16,8 @@ import { useTranslation } from "react-i18next";
 import { ForDisplay, mainNav, routeRoleDashboard } from "./navbar.item";
 import { NavigationNotifications } from "./NavigationNotifications";
 import UserInfoCard from "./UserInfoCard";
-import { ForRoles, toForRoles } from "@/utils/TabUtil";
-import { Paths } from "@/router/path";
+import { ForRoles, toForRoles } from "@/utils/tab.util";
+import { Paths } from "@/constants/path";
 
 export function UserNav() {
   const navigate = useNavigate();

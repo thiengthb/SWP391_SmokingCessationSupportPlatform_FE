@@ -1,9 +1,9 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useAuth } from "./AuthContext";
 import useApi from "@/hooks/useApi";
-import { Role } from "@/types/models/account";
 import { ftndLevels } from "@/data/ftnd.data";
 import { defaultHealthValue, type Health } from "@/types/models/health";
+import { Role } from "@/types/enums/Role";
 
 interface FTNDContextType {
   showFTNDAssessment: boolean;

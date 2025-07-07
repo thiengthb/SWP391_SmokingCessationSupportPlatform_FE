@@ -27,9 +27,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useState, useEffect } from "react";
-import { Gender } from "@/types/models/member";
-import { toCapitalizedWords } from "@/utils/stringFormatUtils";
+import { toCapitalizedWords } from "@/utils/stringFormat.util";
 import { useProfile } from "@/contexts/ProfileContext";
+import { Gender } from "@/types/enums/Gender";
 
 export default function PersonalInfoTab() {
   const [isEditing, setIsEditing] = useState(false);

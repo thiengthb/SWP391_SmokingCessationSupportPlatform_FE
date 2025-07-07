@@ -8,7 +8,7 @@ import { PricingCTA } from "@/pages/pricing/components/PricingCTA";
 import { faqs, testimonials, programFeatures } from "@/data/pricing.data";
 import { useEffect, useState } from "react";
 import { api } from "@/lib/axios";
-import type { Membership } from "@/types/models/membership";
+import type { Membership } from "@/types/models/Membership";
 
 export default function PricingPage() {
   const [memberships, setMemberships] = useState<Membership[]>([]);

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { milestones } from "../../../data/about-us.info";
+import { milestones } from "../../../data/aboutUs.info";
 import { useTranslation } from "react-i18next";
 
 export default function StoryPage() {

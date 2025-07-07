@@ -1,4 +1,4 @@
-import { Paths } from "@/router/path";
+import { Paths } from "@/constants/path";
 import { CigaretteOff } from "lucide-react";
 import { Link } from "react-router-dom";
 
