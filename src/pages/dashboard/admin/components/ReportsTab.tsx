@@ -23,11 +23,11 @@ import { format, subDays } from "date-fns";
 
 
 const COLORS = [
-  "hsl(var(--primary))",
-  "hsl(var(--secondary))",
-  "hsl(var(--accent))",
-  "hsl(var(--destructive))",
+  '#00FF85',
+  '#1E90FF',
+  '#FF0099',
 ];
+
 
 
 export function ReportsTab() {
@@ -35,6 +35,19 @@ export function ReportsTab() {
   const [userDistribution, setUserDistribution] = useState<UserDistributionResponse | null>(null);
   const apiWithInterceptor = useApi();
   const [selectedRange, setSelectedRange] = useState<TimeRange>('30-days');
+
+  function getLastNDays(n: number): string[] {
+    const days = [];
+    const today = new Date();
+
+    for (let i = n - 1; i >= 0; i--) {
+      const day = subDays(today, i);
+      days.push(format(day, "yyyy-MM-dd")); // match the format in your API data
+    }
+
+    return days;
+  }
+
 
   const getDateRange = (range: TimeRange) => {
     const now = new Date();
@@ -61,6 +74,8 @@ export function ReportsTab() {
         };
     }
   };
+
+
 
   const fetchUserActivityData = async () => {
     const { from, to } = getDateRange(selectedRange);
@@ -125,12 +140,16 @@ export function ReportsTab() {
                 <BarChart data={userActivityData}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="date" />
-                  <YAxis />
+                  <YAxis allowDecimals={false} />
                   <Tooltip />
-                  <Legend />
+                  <Legend
+                    verticalAlign="bottom"
+                    align="center"
+                    iconType="circle"
+                  />
                   <Bar
                     dataKey="newAccounts"
-                    fill="#0A0A0A"
+                    fill="#1E90FF"
                     name="New Users"
                     barSize={24}
                   />
@@ -177,7 +196,6 @@ export function ReportsTab() {
                       innerRadius={60}
                       outerRadius={90}
                       fill="#0A0A0A"
-                      paddingAngle={5}
                       label={(entry) => entry.name}
                     >
                       {pieData.map((_, index: any) => (
