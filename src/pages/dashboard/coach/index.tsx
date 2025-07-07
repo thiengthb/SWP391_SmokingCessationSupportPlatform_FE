@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ClientsTab } from "./components/ClientsTab";
-import { ScheduleTab } from "./components/ScheduleTab";
 import { OverviewTab } from "./components/OverviewTab";
+import { ScheduleManagement } from "./users";
+import BookingManagement from "./users/bookingManagement";
 
 export default function CoachDashboard() {
   return (
@@ -13,13 +13,13 @@ export default function CoachDashboard() {
       <Tabs defaultValue="overview" className="space-y-4">
         <TabsList>
           <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="clients">Clients</TabsTrigger>
+          <TabsTrigger value="bookings">Bookings</TabsTrigger>
           <TabsTrigger value="schedule">Schedule</TabsTrigger>
         </TabsList>
         
         <TabsContent value="overview"><OverviewTab /></TabsContent>
-        <TabsContent value="clients"><ClientsTab /></TabsContent>
-        <TabsContent value="schedule"><ScheduleTab /></TabsContent>
+        <TabsContent value="bookings"><BookingManagement /></TabsContent>
+        <TabsContent value="schedule"><ScheduleManagement /></TabsContent>
       </Tabs>
     </div>
   );

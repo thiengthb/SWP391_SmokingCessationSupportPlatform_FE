@@ -1,8 +1,8 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { OverviewTab } from "./components/OverviewTab";
-import { GoalsTab } from "./components/GoalsTab";
 import { AchievementsTab } from "./components/AchievementsTab";
-
+import GoalManagement from "./users";
+import { BookingsTab } from "./components/BookingTab";
 export default function MemberDashboard() {
   return (
     <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
@@ -15,16 +15,20 @@ export default function MemberDashboard() {
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="goals">Goals</TabsTrigger>
           <TabsTrigger value="achievements">Achievements</TabsTrigger>
+          <TabsTrigger value="bookings">Bookings</TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview">
           <OverviewTab />
         </TabsContent>
         <TabsContent value="goals">
-          <GoalsTab />
+          <GoalManagement />
         </TabsContent>
         <TabsContent value="achievements">
           <AchievementsTab />
+        </TabsContent>
+        <TabsContent value="bookings">
+          <BookingsTab />
         </TabsContent>
       </Tabs>
     </div>

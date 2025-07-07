@@ -2,13 +2,14 @@ export interface Account {
   id: string;
   username: string;
   email: string;
-  phone?: string;
+  phoneNumber?: string;
   avatar?: string;
   role: Role;
   status: AccountStatus;
   havingSubscription: boolean;
   createdAt: string;
   updatedAt: string;
+  havingSubscription?: boolean;
 }
 
 export const Role = {

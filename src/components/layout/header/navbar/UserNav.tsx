@@ -86,6 +86,13 @@ export function UserNav() {
           <DropdownMenuItem variant="destructive" onClick={submitLogout}>
             <p className="pl-2">{t(`buttons.logout`)}</p>
           </DropdownMenuItem>
+          {auth.currentAcc?.role !== "ADMIN" && (
+            <DropdownMenuItem>
+              <Link to="/feedback" className="w-full">
+                Feedback
+              </Link>
+            </DropdownMenuItem>
+          )}
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
