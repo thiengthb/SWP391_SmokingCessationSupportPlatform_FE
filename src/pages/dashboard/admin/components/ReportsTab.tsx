@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
@@ -16,12 +17,10 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
-import {
-  userActivityData,
-  successRateData,
-  userDistributionData,
-  reports,
-} from "@/utils/mockdata/admin";
+import useApi from "@/hooks/useApi";
+import type { UserActivityData, UserDistributionResponse, TimeRange } from "@/types/models/report";
+import { format, subDays } from "date-fns";
+
 
 const COLORS = [
   "hsl(var(--primary))",
@@ -30,9 +29,91 @@ const COLORS = [
   "hsl(var(--destructive))",
 ];
 
+
 export function ReportsTab() {
+  const [userActivityData, setUserActivityData] = useState<UserActivityData[]>([]);
+  const [userDistribution, setUserDistribution] = useState<UserDistributionResponse | null>(null);
+  const apiWithInterceptor = useApi();
+  const [selectedRange, setSelectedRange] = useState<TimeRange>('30-days');
+
+  const getDateRange = (range: TimeRange) => {
+    const now = new Date();
+    switch (range) {
+      case '7-days':
+        return {
+          from: format(subDays(now, 6), "yyyy-MM-dd'T'00:00:00"),
+          to: format(now, "yyyy-MM-dd'T'HH:mm:ss"),
+        };
+      case '30-days':
+        return {
+          from: format(subDays(now, 29), "yyyy-MM-dd'T'00:00:00"),
+          to: format(now, "yyyy-MM-dd'T'HH:mm:ss"),
+        };
+      case '12-months':
+        return {
+          from: format(subDays(now, 365), "yyyy-MM-dd'T'00:00:00"),
+          to: format(now, "yyyy-MM-dd'T'HH:mm:ss"),
+        };
+      case 'since-launch':
+        return {
+          from: "2024-01-01T00:00:00", // Replace with actual launch date
+          to: format(now, "yyyy-MM-dd'T'HH:mm:ss"),
+        };
+    }
+  };
+
+  const fetchUserActivityData = async () => {
+    const { from, to } = getDateRange(selectedRange);
+
+    try {
+      const response = await apiWithInterceptor.get('/v1/reports/user-growth', {
+        params: { from, to },
+      });
+
+      if (response.data.result && Array.isArray(response.data.result)) {
+        setUserActivityData(response.data.result);
+      } else {
+        console.error("Invalid data format:", response.data);
+      }
+    } catch (error) {
+      console.error("Failed to fetch user activity data:", error);
+    }
+  };
+
+  const fetchUserDistribution = async () => {
+    try {
+      const response = await apiWithInterceptor.get('/v1/reports/user-distribution');
+      if (response.data.result) {
+        setUserDistribution(response.data.result);
+      }
+    } catch (error) {
+      console.error("Failed to fetch distribution", error);
+    }
+  };
+
+  const pieData = userDistribution ? [
+    { name: "Online", value: userDistribution.onlineAccounts },
+    { name: "Offline", value: userDistribution.offlineAccounts },
+    { name: "Inactive", value: userDistribution.inactiveAccounts },
+  ] : [];
+
+  useEffect(() => {
+    fetchUserActivityData();
+    fetchUserDistribution();
+  }, [selectedRange]);
+
   return (
     <div className="space-y-6">
+      <select
+        value={selectedRange}
+        onChange={(e) => setSelectedRange(e.target.value as TimeRange)}
+        className="rounded-md border px-2 py-1"
+      >
+        <option value="7-days">Past 7 Days</option>
+        <option value="30-days">Past 30 Days</option>
+        <option value="12-months">Past 12 Months</option>
+        <option value="since-launch">Since Launch</option>
+      </select>
       <div className="grid gap-6">
         <Card>
           <CardHeader>
@@ -41,32 +122,26 @@ export function ReportsTab() {
           <CardContent>
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={userActivityData}>
+                <BarChart data={userActivityData}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="date" />
                   <YAxis />
                   <Tooltip />
                   <Legend />
-                  <Line
-                    type="monotone"
-                    dataKey="active"
-                    stroke="#000"
-                    name="Active Users"
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="new"
-                    stroke="#000"
+                  <Bar
+                    dataKey="newAccounts"
+                    fill="#0A0A0A"
                     name="New Users"
+                    barSize={24}
                   />
-                </LineChart>
+                </BarChart>
               </ResponsiveContainer>
             </div>
           </CardContent>
         </Card>
 
         <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
-          <Card>
+          {/* <Card>
             <CardHeader>
               <CardTitle>Success Rate by Week</CardTitle>
             </CardHeader>
@@ -83,7 +158,7 @@ export function ReportsTab() {
                 </ResponsiveContainer>
               </div>
             </CardContent>
-          </Card>
+          </Card> */}
 
           <Card>
             <CardHeader>
@@ -91,21 +166,21 @@ export function ReportsTab() {
             </CardHeader>
             <CardContent>
               <div className="h-[300px]">
-                <ResponsiveContainer width="100%" height="100%">
+                {userDistribution && (<ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
-                      data={userDistributionData}
+                      data={pieData}
                       dataKey="value"
                       nameKey="name"
-                      cx="50%"
-                      cy="50%"
+                      cx={200}
+                      cy={150}
                       innerRadius={60}
-                      outerRadius={80}
-                      fill="#8884d8"
+                      outerRadius={90}
+                      fill="#0A0A0A"
                       paddingAngle={5}
                       label={(entry) => entry.name}
                     >
-                      {userDistributionData.map((_, index: any) => (
+                      {pieData.map((_, index: any) => (
                         <Cell
                           key={`cell-${index}`}
                           fill={COLORS[index % COLORS.length]}
@@ -113,6 +188,26 @@ export function ReportsTab() {
                         />
                       ))}
                     </Pie>
+                    <text
+                      x={205}
+                      y={150}
+                      textAnchor="middle"
+                      fontSize={20}
+                      fontWeight="bold"
+                      fill="#333"
+                    >
+                      {userDistribution?.totalAccounts}
+                    </text>
+                    <text
+                      x={205}
+                      y={170}
+                      textAnchor="middle"
+                      fontSize={12}
+                      fill="#666"
+                    >
+                      Total Users
+                    </text>
+
                     <Tooltip />
                     <Legend
                       verticalAlign="middle"
@@ -120,14 +215,14 @@ export function ReportsTab() {
                       layout="vertical"
                     />
                   </PieChart>
-                </ResponsiveContainer>
+                </ResponsiveContainer>)}
               </div>
             </CardContent>
           </Card>
         </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      {/* <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {reports.map((report: any) => (
           <Card key={report.title}>
             <CardHeader>
@@ -149,7 +244,7 @@ export function ReportsTab() {
             </CardContent>
           </Card>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }
