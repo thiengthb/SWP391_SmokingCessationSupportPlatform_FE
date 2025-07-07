@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
+import { Paths } from "@/router/path";
 
 export function NavigationNotifications() {
   const { auth } = useAuth();
@@ -68,7 +69,7 @@ export function NavigationNotifications() {
         )}
         <DropdownMenuItem asChild>
           <Link
-            to="/notifications"
+            to={Paths.ACCOUNT.NOTIFICATION}
             className="w-full text-center text-primary hover:underline"
           >
             See more

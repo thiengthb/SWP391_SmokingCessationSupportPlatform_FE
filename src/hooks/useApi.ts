@@ -24,7 +24,7 @@ const useApi = () => {
             response => response,
             async error => {
                 const originalRequest = error.config;
-                if (error.response && error.response.status === 403 && !originalRequest?.sent) {
+                if (error.response && error.response.status === 401 && !originalRequest?.sent) {
                         originalRequest.sent = true;
                         const newAccessToken = await refresh();
                         originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;

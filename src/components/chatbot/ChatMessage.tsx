@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import { BotMessageSquare, UserRound } from "lucide-react";
 
 interface Message {
-  sender: 'user' | 'bot';
+  sender: "user" | "bot";
   text: string;
 }
 
@@ -12,10 +12,10 @@ interface ChatMessageProps {
 }
 
 export const ChatMessage = ({ message, loading }: ChatMessageProps) => {
-  const isBot = message.sender === 'bot';
+  const isBot = message.sender === "bot";
 
   return (
-    <div 
+    <div
       className={cn(
         "flex gap-2 items-end animate-in slide-in-from-bottom-2",
         !isBot && "justify-end"
@@ -26,18 +26,20 @@ export const ChatMessage = ({ message, loading }: ChatMessageProps) => {
           <BotMessageSquare className="h-4 w-4 text-primary" />
         </div>
       )}
-      
-      <div className={cn(
-        "px-4 py-2 rounded-2xl max-w-[70%] shadow-sm",
-        "transition-all duration-200",
-        isBot ? 
-          "bg-muted/50 text-foreground rounded-bl-none" : 
-          "bg-primary text-primary-foreground rounded-br-none",
-        loading && "animate-pulse"
-      )}>
+
+      <div
+        className={cn(
+          "px-4 py-2 rounded-2xl max-w-[70%] shadow-sm",
+          "transition-all duration-200",
+          isBot
+            ? "bg-muted/50 text-foreground rounded-bl-none"
+            : "bg-primary text-primary-foreground rounded-br-none",
+          loading && "animate-pulse"
+        )}
+      >
         <p className="text-sm whitespace-pre-wrap break-words">
           {message.text}
-        </p>1
+        </p>
       </div>
 
       {!isBot && (

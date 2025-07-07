@@ -1,4 +1,3 @@
-import React from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -11,7 +10,7 @@ import {
 import { CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const WaitingForApprovalPage: React.FC = () => {
+const WaitingForApprovalPage = () => {
   return (
     <div className="w-full min-h-screen flex justify-center items-center p-4">
       <Card className="w-full max-w-md">

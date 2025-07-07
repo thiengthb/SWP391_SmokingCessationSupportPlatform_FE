@@ -1,10 +1,12 @@
 import LandingPage from "@/pages/landingpage";
-import MemberHome from "@/pages/tracking";
 import { useFTND } from "@/contexts/FTNDContext";
-import FTNDAssessmentForm from "@/components/ftnd/FTNDAssessmentForm";
 import { useAuth } from "./contexts/AuthContext";
 import { Role } from "./types/models/account";
 import AdminDashboard from "./pages/dashboard/admin";
+import LazyLoad from "./lazyload";
+
+const MemberHome = LazyLoad("./pages/tracking");
+const FTNDAssessmentForm = LazyLoad("./components/ftnd/FTNDAssessmentForm");
 
 function App() {
   const { auth } = useAuth();

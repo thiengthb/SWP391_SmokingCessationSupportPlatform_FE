@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Paths } from "@/router/path";
 import { ShieldX } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -42,7 +43,7 @@ export function AccessDenied({
             {backText}
           </Button>
           <Button asChild>
-            <Link to="/auth/login">{loginText}</Link>
+            <Link to={Paths.AUTH.LOGIN}>{loginText}</Link>
           </Button>
         </div>
       </div>

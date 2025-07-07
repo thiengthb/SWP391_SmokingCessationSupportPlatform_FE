@@ -8,7 +8,7 @@ const Layout = () => {
   return (
     <>
       <Navbar />
-      <main className="max-w-[1248px] bg-background text-foreground xl:mx-auto">
+      <main className="max-w-[1248px] min-h-[90%] bg-background text-foreground xl:mx-auto">
         <Outlet />
       </main>
       <Footer />
