@@ -1,6 +1,6 @@
 import { Button } from "../../ui/button";
 import { Input } from "../../ui/input";
-
+import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <footer className="w-full border-t bg-background">
@@ -16,34 +16,48 @@ const Footer = () => {
           <div className="space-y-3">
             <h4 className="text-lg font-semibold">Quick Links</h4>
             <ul className="space-y-2 text-sm grid grid-cols-2 sm:grid-cols-1">
-              {["Home", "About", "Contact", "Blog", "Terms", "Privacy"].map(
-                (item) => (
-                  <li key={item}>
-                    <a
-                      href="#"
-                      className="text-muted-foreground hover:text-primary transition-colors"
-                    >
-                      {item}
-                    </a>
-                  </li>
-                )
-              )}
+              {[
+                { name: "Home", to: "/" },
+                { name: "About", to: "/about-us" },
+                { name: "Contact", to: "/contact" },
+                { name: "Blog", to: "/blog" },
+                { name: "Terms", to: "/terms" },
+                { name: "Privacy", to: "/privacy" },
+                { name: "FAQ", to: "/faq" },
+              ].map(({ name, to }) => (
+                <li key={name}>
+                  <Link
+                    to={to}
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    {name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
           <div className="space-y-3">
             <h4 className="text-lg font-semibold">Connect</h4>
             <div className="flex flex-wrap gap-4">
-              {["Twitter", "Facebook", "Instagram", "LinkedIn"].map(
-                (social) => (
-                  <a
-                    key={social}
-                    href="#"
-                    className="text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    {social}
-                  </a>
-                )
-              )}
+              {[
+                { name: "Twitter", href: "https://x.com/home" },
+                { name: "Facebook", href: "https://facebook.com" },
+                { name: "Instagram", href: "https://instagram.com" },
+                {
+                  name: "LinkedIn",
+                  href: "https://linkedin.com",
+                },
+              ].map(({ name, href }) => (
+                <a
+                  key={name}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
+                  {name}
+                </a>
+              ))}
             </div>
           </div>
           <div className="space-y-3">
@@ -63,12 +77,12 @@ const Footer = () => {
             © 2024 ABC Music. All rights reserved.
           </p>
           <div className="flex space-x-4 text-sm text-muted-foreground">
-            <a href="#" className="hover:text-primary">
+            <Link to="/terms" className="hover:text-primary">
               Terms
-            </a>
-            <a href="#" className="hover:text-primary">
+            </Link>
+            <Link to="/privacy" className="hover:text-primary">
               Privacy
-            </a>
+            </Link>
             <a href="#" className="hover:text-primary">
               Cookies
             </a>

@@ -32,6 +32,9 @@ import WaitingForApprovalPage from "@/pages/waiting-for-approval";
 import PaymentResult from "@/pages/payment/PaymentResult";
 import NotificationPage from "@/pages/notification";
 import CreatePlanPage from "@/pages/tracking/CreatePlanPage";
+import TermsPage from "@/pages/legal/term";
+import PrivacyPolicyPage from "@/pages/legal/privacy";
+import FAQPage from "@/pages/legal/faq";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +53,7 @@ const router = createBrowserRouter([
       { path: "/payment", element: <PaymentResult /> },
       { path: "/access-denied", element: <AccessDenied /> },
       { path: "*", element: <NotFoundPage /> },
+
       {
         path: "",
         element: <PersistLogin />,
@@ -124,10 +128,15 @@ const router = createBrowserRouter([
             element: (
               <RequireAuth
                 allowedRoles={[Role.ADMIN, Role.MEMBER, Role.COACH]}
-              ></RequireAuth>
+              />
             ),
             children: [{ path: "", element: <NotificationPage /> }],
           },
+
+          // 👇 ADDITIONAL LEGAL ROUTES
+          { path: "terms", element: <TermsPage /> },
+          { path: "privacy", element: <PrivacyPolicyPage /> },
+          {path: "faq", element: <FAQPage/>},
         ],
       },
     ],
