@@ -628,6 +628,7 @@
   "footer": {
     "about": {
       "title": "About Us",
+      "social": "Social Media",
       "description": "At Smoking Project, we support individuals on their journey to quit smoking through technology and community."
     },
     "links": {
@@ -637,7 +638,8 @@
       "contact": "Contact",
       "blog": "Blog",
       "terms": "Terms",
-      "privacy": "Privacy"
+      "privacy": "Privacy",
+       "faq" : "FAQ"
     },
     "subscribe": {
       "title": "Subscribe",
@@ -708,7 +710,7 @@
     "subtitle": "User Agreement",
     "updated": "Last updated: {{date}}",
     "noteLabel": "Note:",
-   
+
     "alert": "Important Notice: Please read these terms carefully before using the system. By accessing and using the service, you agree to the entire content of this Terms of Service.",
     "notice": {
       "strong": "Important Notice:",
@@ -759,8 +761,73 @@
       "Intentional system disruption",
       "Using the system for improper purposes"
     ],
-
     "10.title": "Governing Law",
     "10.description": "These terms are governed by the laws of the Socialist Republic of Vietnam. For questions or concerns, please contact the development team via email or internal support channels."
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Find answers during your quitting journey",
+
+    "1.title": "About the quitting process",
+    "1.1.q": "What is the S.T.A.R method?",
+    "1.1.a": "This is a four-step quit-smoking planning method:\n\nSet a quit date\n\nTell others\n\nAnticipate challenges\n\nRemove tobacco",
+    "1.2.q": "How addicted am I to nicotine?",
+    "1.2.a": "You can self-assess by looking at how often you smoke, how soon after waking you smoke, and how uncomfortable you feel without smoking.",
+    "1.3.q": "Can I smoke just one last cigarette?",
+    "1.3.a": "No! 'Just one' often becomes an excuse that leads to relapse and going back to the old habit.",
+    "1.4.q": "What is the 'cold turkey' method?",
+    "1.4.a": "It means quitting completely and immediately without any aids. It works for some people but can be very stressful.",
+    "1.5.q": "What are the health benefits of quitting?",
+    "1.5.a": "After just 20 minutes, your blood pressure drops. After 2–3 weeks, blood circulation improves. After a few months, the risks of heart and lung diseases significantly decrease.",
+    "1.6.q": "How can I get through the first smoke-free day?",
+    "1.6.a": "Avoid triggers, keep your hands and mouth busy (chew gum, drink water), and remind yourself why you're quitting.",
+    "1.7.q": "I'm very irritable and anxious when quitting – what should I do?",
+    "1.7.a": "Practice deep breathing, light meditation, exercise, or talk to a friend, loved one, coach, or support group.",
+    "1.8.q": "What should I do during smoke breaks at work?",
+    "1.8.a": "You can take a walk, listen to music, drink water, eat fruit, or use nicotine gum as a substitute.",
+    "1.9.q": "Are nicotine patches effective?",
+    "1.9.a": "Yes. They help reduce withdrawal symptoms by delivering nicotine slowly and steadily.",
+    "1.10.q": "Are nicotine gums helpful?",
+    "1.10.a": "Yes, they can be used throughout the day. But use the correct dose and timing to avoid dependency.",
+    "1.11.q": "Should I use e-cigarettes to quit?",
+    "1.11.a": "Not recommended. E-cigarettes still contain nicotine and may lead to relapse.",
+    "1.12.q": "Does acupuncture help with quitting?",
+    "1.12.a": "Some people find it helpful, but there's no solid scientific proof of its long-term effectiveness.",
+    "1.13.q": "Is hypnosis effective?",
+    "1.13.a": "It depends on the individual. Its effectiveness isn’t widely proven and shouldn’t replace medical methods.",
+    "1.14.q": "Is laser therapy proven to work?",
+    "1.14.a": "Similar to acupuncture, clinical evidence is still lacking.",
+    "1.15.q": "Are there good books to read while quitting?",
+    "1.15.a": "Yes. Some books like \"Allen Carr’s Easy Way to Stop Smoking\" are highly rated.",
+    "1.16.q": "Where can I find more information?",
+    "1.16.a": "You can look in the app, online support groups, or consult official medical resources.",
+
+    "2.title": "About the application",
+    "2.1.q": "How does the system work?",
+    "2.1.a": "This is a quit-smoking support website that helps you:\n\nTrack your progress,\n\nLog your smoking history,\n\nSet goals and view stats,\n\nInteract with coaches or the community.",
+    "2.2.q": "How do I access the system?",
+    "2.2.a": "You can access it via a web browser at our website address.",
+    "2.3.q": "Can I back up my data?",
+    "2.3.a": "Yes. When you log in with your personal account (email or Google), your data is securely and automatically stored on our system.",
+    "2.4.q": "Can I change the language?",
+    "2.4.a": "Yes. You can change the language in the 'Settings' section.",
+    "2.5.q": "What languages does the system support?",
+    "2.5.a": "Currently supports Vietnamese, English, and may expand to other languages in the future.",
+
+    "3.title": "About PRO features",
+    "3.1.q": "What are the features of PRO?",
+    "3.1.a": "Personalized quit plan\nTailored roadmap based on your habits and goals.\n\nAddiction analysis\nTrack progress, assess effectiveness, and receive deep insights.\n\nOnline consultation\nGet support from experts who accompany you during your journey.\n\nAI companion\nA 24/7 intelligent assistant to keep you motivated and informed.\n\nAdvanced reports & statistics\nDetailed data visualization about your quit-smoking progress.",
+    "3.2.q": "Is PRO a one-time purchase or subscription?",
+    "3.2.a": "It is a monthly/yearly subscription.",
+
+    "4.title": "Quitters community",
+    "4.1.q": "What are the community rules?",
+    "4.1.a": "Be respectful, no spam, no conflict, and no misinformation.",
+    "4.2.q": "I can't chat – what should I do?",
+    "4.2.a": "Check your internet connection or verify your email before joining the chat.",
+
+    "5.title": "Account and registration",
+    "5.1.q": "I didn’t receive the activation email",
+    "5.1.a": "Check your spam folder. If not found, request to resend the confirmation email."
   }
 }
