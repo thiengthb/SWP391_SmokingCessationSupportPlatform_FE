@@ -3,8 +3,6 @@ import { Badge } from "@/components/ui/badge";
 import {
   Shield,
   Clock,
-  Mail,
-  MapPin,
   FileText,
   CheckCircle,
 } from "lucide-react";
@@ -146,47 +144,7 @@ const PrivacyPolicyPage = () => {
           ))}
         </div>
 
-        <Card className="mt-12 bg-gradient-to-r from-emerald-600 to-teal-600 border-0 text-white">
-          <CardHeader>
-            <CardTitle className="text-center text-2xl">
-              <div className="flex items-center justify-center gap-2">
-                <Mail className="w-6 h-6" />
-                Contact Information
-              </div>
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="flex items-center gap-3">
-                <div className="flex items-center justify-center w-10 h-10 bg-white/20 rounded-full">
-                  <Mail className="w-5 h-5" />
-                </div>
-                <div>
-                  <p className="text-sm opacity-90">Email</p>
-                  <a
-                    href="mailto:swp391team@gmail.com"
-                    className="font-medium hover:underline"
-                  >
-                    swp391team@gmail.com
-                  </a>
-                </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="flex items-center justify-center w-10 h-10 bg-white/20 rounded-full">
-                  <MapPin className="w-5 h-5" />
-                </div>
-                <div>
-                  <p className="text-sm opacity-90">Address</p>
-                  <p className="font-medium text-sm">
-                    Lot E2a-7, D1 Street, Hi-Tech Park
-                    <br />
-                    Long Thanh My Ward, Thu Duc City, Ho Chi Minh City
-                  </p>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+       
       </div>
     </div>
   );
