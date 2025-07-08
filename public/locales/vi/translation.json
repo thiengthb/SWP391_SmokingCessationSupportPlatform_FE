@@ -704,5 +704,64 @@
 
     "10.title": "Thay đổi chính sách",
     "10.content.1": "Chính sách này có thể được điều chỉnh để phản ánh các thay đổi pháp lý hoặc kỹ thuật. Những thay đổi quan trọng sẽ được thông báo trực tiếp trong hệ thống."
+  },
+  "terms": {
+    "title": "Điều khoản dịch vụ",
+    "subtitle": "Thỏa thuận người dùng",
+    "updated": "Cập nhật lần cuối: {{date}}",
+    "noteLabel": "Lưu ý:",
+    "alert": "Lưu ý quan trọng: Vui lòng đọc kỹ điều khoản trước khi sử dụng hệ thống. Việc bạn truy cập và sử dụng dịch vụ đồng nghĩa với việc bạn đồng ý với toàn bộ nội dung của Điều khoản dịch vụ này.",
+    "notice": {
+      "strong": "Lưu ý quan trọng:",
+      "content": "Vui lòng đọc kỹ điều khoản trước khi sử dụng hệ thống. Việc bạn truy cập và sử dụng dịch vụ đồng nghĩa với việc bạn đồng ý với toàn bộ nội dung của Điều khoản dịch vụ này."
+    },
+
+    "1.title": "Phạm vi áp dụng",
+    "1.description": "Điều khoản này áp dụng cho việc sử dụng hệ thống hỗ trợ cai thuốc lá, bao gồm các tính năng sau:",
+    "1.items": [
+      "Tạo kế hoạch cai thuốc",
+      "Theo dõi tiến độ và số liệu sức khỏe",
+      "Đặt lịch hẹn với huấn luyện viên",
+      "Nhật ký hút thuốc hằng ngày",
+      "Nhận thông báo và phần thưởng"
+    ],
+    "1.note": "Hệ thống chỉ dành cho mục đích cá nhân và giáo dục, không sử dụng cho mục đích thương mại hoặc y tế chuyên nghiệp.",
+
+    "2.title": "Không phải dịch vụ y tế",
+    "2.description": "Hệ thống không cung cấp chẩn đoán hoặc điều trị y tế. Tất cả nội dung chỉ mang tính tham khảo. Nếu cần hỗ trợ y tế, hãy liên hệ bác sĩ hoặc chuyên gia y tế.",
+
+    "3.title": "Không dùng trong trường hợp khẩn cấp",
+    "3.description": "Nếu bạn đang gặp tình huống sức khỏe nghiêm trọng hoặc khẩn cấp, đừng sử dụng hệ thống này. Thay vào đó, hãy đến cơ sở y tế gần nhất hoặc gọi 115 ngay lập tức.",
+
+    "4.title": "Tài khoản người dùng",
+    "4.items": [
+      "Người dùng phải từ 18 tuổi trở lên để tạo tài khoản.",
+      "Bạn chịu trách nhiệm bảo mật tài khoản và mật khẩu của mình.",
+      "Không chia sẻ tài khoản với người khác.",
+      "Nếu phát hiện truy cập trái phép, hãy thông báo ngay cho nhóm phát triển."
+    ],
+
+    "5.title": "Chính sách quyền riêng tư",
+    "5.description": "Chúng tôi cam kết bảo vệ thông tin cá nhân của bạn. Dữ liệu bạn cung cấp (họ tên, email, số điện thoại, thói quen hút thuốc...) chỉ được sử dụng để hỗ trợ quá trình cai thuốc và không chia sẻ với bên thứ ba.",
+
+    "6.title": "Quyền sở hữu trí tuệ",
+    "6.description": "Toàn bộ nội dung, thiết kế và mã nguồn của hệ thống thuộc về nhóm phát triển. Bạn không được sao chép, sử dụng lại hoặc sửa đổi hệ thống nếu không có sự cho phép.",
+
+    "7.title": "Thay đổi nội dung hệ thống",
+    "7.description": "Hệ thống có thể được cập nhật hoặc thay đổi tính năng bất kỳ lúc nào nhằm cải thiện trải nghiệm học tập và hỗ trợ người dùng. Những thay đổi quan trọng sẽ được thông báo công khai nếu cần.",
+
+    "8.title": "Giới hạn trách nhiệm",
+    "8.description": "Hệ thống được cung cấp \"như hiện tại.\" Nhóm phát triển không chịu trách nhiệm với bất kỳ rủi ro nào phát sinh do sử dụng sai mục đích hoặc hiểu nhầm nội dung.",
+
+    "9.title": "Tạm khóa hoặc xóa tài khoản",
+    "9.description": "Chúng tôi có quyền tạm khóa hoặc xóa tài khoản người dùng nếu phát hiện một trong các hành vi sau:",
+    "9.items": [
+      "Vi phạm quy định hoặc pháp luật",
+      "Cố ý gây rối hệ thống",
+      "Sử dụng hệ thống vào mục đích không đúng đắn"
+    ],
+
+    "10.title": "Luật điều chỉnh",
+    "10.description": "Các điều khoản này được điều chỉnh theo pháp luật của nước Cộng hòa Xã hội Chủ nghĩa Việt Nam. Nếu có thắc mắc, vui lòng liên hệ nhóm phát triển qua email hoặc kênh hỗ trợ nội bộ."
   }
 }
