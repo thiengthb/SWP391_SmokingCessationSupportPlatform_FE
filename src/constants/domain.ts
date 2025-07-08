@@ -1,4 +1,4 @@
-export const Endpoints = {
+export const Domains = {
     ACCOUNT: "/v1/accounts",
     AUTH: "/v1/auth",
     BLOG: "/v1/blogs",

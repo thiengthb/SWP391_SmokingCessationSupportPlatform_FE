@@ -1,33 +1,30 @@
-import useApi from "@/hooks/useApi";
 import {
   defaultMemberProfile,
-  type MemberInfoUpdate,
   type MemberProfile,
-} from "@/types/models/member";
+} from "@/types/models/Member";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useAuth } from "./AuthContext";
-import {
-  defaultCoachProfile,
-  type CoachInfoUpdate,
-  type CoachProfile,
-} from "@/types/models/coach";
+import { defaultCoachProfile, type CoachProfile } from "@/types/models/Coach";
 import { Role } from "@/types/enums/Role";
+import { memberService } from "@/services/api/member.service";
+import { coachService } from "@/services/api/coach.service";
 
 export interface ProfileContext {
   memberProfile: MemberProfile;
   setMemberProfile: React.Dispatch<React.SetStateAction<MemberProfile>>;
   handleUpdateMemberProfile: (
-    updatedProfile: MemberInfoUpdate
+    updatedProfile: Partial<MemberProfile>
   ) => Promise<void>;
   coachProfile: CoachProfile;
   setCoachProfile: React.Dispatch<React.SetStateAction<CoachProfile>>;
-  handleUpdateCoachProfile: (updatedProfile: CoachInfoUpdate) => Promise<void>;
+  handleUpdateCoachProfile: (
+    updatedProfile: Partial<CoachProfile>
+  ) => Promise<void>;
 }
 
 const ProfileContext = createContext<ProfileContext>({} as ProfileContext);
 
 export function ProfileProvider({ children }: { children: React.ReactNode }) {
-  const apiWithInterceptor = useApi();
   const { auth } = useAuth();
   const [memberProfile, setMemberProfile] =
     useState<MemberProfile>(defaultMemberProfile);
@@ -46,9 +43,8 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
     }
     try {
       const fetchProfileData = async () => {
-        const response = await apiWithInterceptor.get("/v1/members/my-profile");
-        console.log("Fetched profile data:", response.data.result);
-        setMemberProfile(response.data.result);
+        const data = await memberService.getMyProfile();
+        setMemberProfile(data);
       };
       fetchProfileData();
     } catch (error) {
@@ -58,16 +54,12 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
   }, [auth]);
 
   const handleUpdateMemberProfile = async (
-    updatedProfile: MemberInfoUpdate
+    updatedProfile: Partial<MemberProfile>
   ) => {
     console.log("Updating profile with:", updatedProfile);
     try {
-      const response = await apiWithInterceptor.put(
-        "/v1/members/my-profile",
-        updatedProfile
-      );
-      console.log("Updated profile data:", response.data.result);
-      setMemberProfile(response.data.result);
+      const data = await memberService.updateMyProfile(updatedProfile);
+      setMemberProfile(data);
     } catch (error) {
       console.error("Failed to update profile data:", error);
       throw new Error("Failed to update profile data");
@@ -86,9 +78,8 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
     }
     try {
       const fetchCoachProfile = async () => {
-        const response = await apiWithInterceptor.get(`/v1/coaches/my-profile`);
-        console.log("Fetched coach profile data:", response.data.result);
-        setCoachProfile(response.data.result);
+        const data = await coachService.getMyProfile();
+        setCoachProfile(data);
       };
       fetchCoachProfile();
     } catch (error) {
@@ -97,15 +88,13 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
     }
   }, [auth]);
 
-  const handleUpdateCoachProfile = async (updatedProfile: CoachInfoUpdate) => {
+  const handleUpdateCoachProfile = async (
+    updatedProfile: Partial<CoachProfile>
+  ) => {
     console.log("Updating coach profile with:", updatedProfile);
     try {
-      const response = await apiWithInterceptor.put(
-        "/v1/coaches/my-profile",
-        updatedProfile
-      );
-      console.log("Updated coach profile data:", response.data.result);
-      setCoachProfile(response.data.result);
+      const data = await coachService.updateMyProfile(updatedProfile);
+      setCoachProfile(data);
     } catch (error) {
       console.error("Failed to update coach profile data:", error);
       throw new Error("Failed to update coach profile data");

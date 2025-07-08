@@ -15,17 +15,6 @@ export interface Health {
   createdAt: Date;
 }
 
-export interface HealthInfoUpdate {
-  ftndAnswers?: string;
-  ftndLevel?: number;
-  cigarettesPerDay?: number;
-  cigarettesPerPack?: number;
-  packPrice?: number;
-  currency?: Currency;
-  reasonToQuit?: string;
-  smokeYear?: number;
-}
-
 export interface HealthListItem {
   id: string;
   ftndLevel: number;

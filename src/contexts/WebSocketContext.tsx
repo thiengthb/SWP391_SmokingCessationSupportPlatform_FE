@@ -10,7 +10,7 @@ import { Client } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 import { useAuth } from "./AuthContext";
 import { toast } from "sonner";
-import type { ScoreResponse } from "@/types/models/leaderboard";
+import type { ScoreResponse } from "@/types/models/Leaderboard";
 
 type WebSocketContextType = {
   client: Client | null;

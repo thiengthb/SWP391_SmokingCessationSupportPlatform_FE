@@ -1,4 +1,4 @@
-import type { ProgramFeature, FAQItem, Testimonial } from "@/types/models/membership";
+import type { ProgramFeature, FAQItem, Testimonial } from "@/types/models/Membership";
 
 export const programFeatures: ProgramFeature[] = [
   {

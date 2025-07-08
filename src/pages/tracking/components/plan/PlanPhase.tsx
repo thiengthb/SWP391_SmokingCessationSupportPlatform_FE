@@ -29,7 +29,7 @@ import {
   ChevronUp,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import type { Phase } from "@/types/models/Plan";
+import type { Phase } from "@/types/models/phase";
 
 interface PlanPhaseProps {
   phase: Phase;

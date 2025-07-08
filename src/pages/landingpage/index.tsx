@@ -5,6 +5,7 @@ import { FeaturesSection } from "./components/FeaturesSection";
 import { SuccessStoriesSection } from "./components/SuccessStoriesSection";
 import { CTASection } from "./components/CTASection";
 import { useTranslation } from "react-i18next";
+import { Paths } from "@/constants/path";
 
 interface SectionProps {
   className?: string;
@@ -15,15 +16,15 @@ export default function LandingPage({ className }: SectionProps) {
   const navigate = useNavigate();
 
   const handleGetStarted = () => {
-    navigate("/auth/register");
+    navigate(Paths.AUTH.REGISTER);
   };
 
   const handleLearnMore = () => {
-    navigate("/about");
+    navigate(Paths.PUBLIC.ABOUT.ROOT);
   };
 
   const handleReadStories = () => {
-    navigate("/testimonials");
+    navigate(Paths.PUBLIC.TESTIMONIALS);
   };
 
   return (

@@ -1,5 +1,5 @@
 export interface ApiResponse<T> {
-  code: number;      // e.g. 1000
+  code: number;    
   message?: string;
   result: T;         
 }

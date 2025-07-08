@@ -1,9 +1,9 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useAuth } from "./AuthContext";
-import useApi from "@/hooks/useApi";
 import { ftndLevels } from "@/data/ftnd.data";
-import { defaultHealthValue, type Health } from "@/types/models/health";
 import { Role } from "@/types/enums/Role";
+import { defaultHealthValue, type Health } from "@/types/models/Health";
+import { healthService } from "@/services/api/heath.service";
 
 interface FTNDContextType {
   showFTNDAssessment: boolean;
@@ -23,12 +23,11 @@ const FTNDContext = createContext<FTNDContextType | undefined>(undefined);
 export const FTNDProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [showFTNDAssessment, setShowFTNDAssessment] = useState(false);
-  const [hasCompletedFTND, setHasCompletedFTND] = useState(false);
-  const [healthData, setHealthData] = useState<Health>(defaultHealthValue);
-
   const { auth } = useAuth();
-  const apiWithInterceptors = useApi();
+
+  const [showFTNDAssessment, setShowFTNDAssessment] = useState(false);
+  const [hasCompletedFTND, setHasCompletedFTND] = useState<boolean>(false);
+  const [healthData, setHealthData] = useState<Health>(defaultHealthValue);
 
   useEffect(() => {
     if (!auth?.accessToken || auth?.currentAcc?.role !== Role.MEMBER) {
@@ -41,13 +40,10 @@ export const FTNDProvider: React.FC<{ children: React.ReactNode }> = ({
     const checkFTNDStatus = async () => {
       if (auth?.accessToken && auth?.currentAcc?.role === Role.MEMBER) {
         try {
-          const response = await apiWithInterceptors.get(
-            "/v1/healths/ftnd-status"
-          );
-          console.log("FTND status response:", response);
-          setHasCompletedFTND(response.data.result);
+          const data = await healthService.getHealthFntdStatus();
+          setHasCompletedFTND(data);
 
-          if (!response.data.result) {
+          if (!data) {
             const timer = setTimeout(() => {
               setShowFTNDAssessment(true);
             }, 3000);
@@ -84,9 +80,9 @@ export const FTNDProvider: React.FC<{ children: React.ReactNode }> = ({
     const fetchHealthData = async () => {
       if (auth?.accessToken && auth?.currentAcc?.role === Role.MEMBER) {
         try {
-          const response = await apiWithInterceptors.get("/v1/healths/mine");
-          console.log("Fetched health data:", response.data.result);
-          setHealthData(response.data.result);
+          const data = await healthService.getMyHealth();
+          console.log("Fetched health data:", data);
+          setHealthData(data);
         } catch (error) {
           console.error("Failed to fetch health data:", error);
           setHealthData(defaultHealthValue);

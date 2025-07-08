@@ -1,6 +1,6 @@
 import type { NotificationType } from "../enums/NotificationType";
 
-export interface NotificationResponse {
+export interface Notification {
     id: string;
     accountId: string;
     content: string;

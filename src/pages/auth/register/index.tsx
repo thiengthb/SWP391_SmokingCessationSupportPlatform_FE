@@ -18,8 +18,8 @@ import {
 } from "@/types/validations/auth/register";
 import FormInputError from "@/components/FormInputError";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { api } from "@/lib/axios";
 import { useTranslation } from "react-i18next";
+import authService from "@/services/api/auth.service";
 
 const RegisterPage = () => {
   const { t } = useTranslation();
@@ -38,7 +38,7 @@ const RegisterPage = () => {
 
   const onSubmit: SubmitHandler<RegisterFormData> = async (data) => {
     try {
-      await api.post("/v1/auth/register", data as RegisterFormData);
+      authService.register(data);
 
       navigate(from, { replace: true });
     } catch (error: any) {

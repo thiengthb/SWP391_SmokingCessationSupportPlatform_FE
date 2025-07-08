@@ -25,12 +25,12 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import PlanPhase from "./components/plan/PlanPhase";
 import { addDays, startOfToday } from "date-fns";
 import { presetPlans, createPresetPlan } from "@/data/presetPlan.data";
-import type { Phase, PlanFormData } from "@/types/models/Plan";
-import useApi from "@/hooks/useApi";
+import type { PlanFormData } from "@/types/models/Plan";
+import type { PhaseFormData } from "@/types/models/phase";
+import { PhaseStatus } from "@/types/enums/PhaseStatus";
 
 export default function CreatePlanPage() {
   const navigate = useNavigate();
-  const apiWithInterceptor = useApi();
   const [searchParams] = useSearchParams();
   const presetPlanId = searchParams.get("preset");
 
@@ -65,14 +65,13 @@ export default function CreatePlanPage() {
         ...prev,
         phases: [
           {
-            id: crypto.randomUUID(),
             phaseName: "Giai đoạn chuẩn bị",
             description:
               "Chuẩn bị tinh thần và môi trường để bắt đầu cai thuốc",
             startDate: startOfToday(),
             endDate: addDays(startOfToday(), 7),
             cigaretteBound: 15,
-            completed: false,
+            phaseStatus: PhaseStatus.INACTIVE,
             tips: [
               {
                 content:
@@ -99,14 +98,12 @@ export default function CreatePlanPage() {
 
   const addPhase = () => {
     const lastPhase = planData.phases[planData.phases.length - 1];
-    const newPhase: Phase = {
-      id: crypto.randomUUID(),
+    const newPhase: PhaseFormData = {
       phaseName: `Giai đoạn ${planData.phases.length + 1}`,
       description: "",
       startDate: addDays(lastPhase.endDate, 1),
       endDate: addDays(lastPhase.endDate, 8),
       cigaretteBound: Math.max(0, lastPhase.cigaretteBound - 5),
-      completed: false,
       tips: [],
     };
 
@@ -116,26 +113,26 @@ export default function CreatePlanPage() {
     }));
   };
 
-  const updatePhase = (id: string, phaseUpdate: Partial<Phase>) => {
-    setPlanData((prev) => ({
-      ...prev,
-      phases: prev.phases.map((phase) =>
-        phase.id === id ? { ...phase, ...phaseUpdate } : phase
-      ),
-    }));
-  };
+  // const updatePhase = (id: string, phaseUpdate: Partial<Phase>) => {
+  //   setPlanData((prev) => ({
+  //     ...prev,
+  //     phases: prev.phases.map((phase) =>
+  //       phase.id === id ? { ...phase, ...phaseUpdate } : phase
+  //     ),
+  //   }));
+  // };
 
-  const deletePhase = (id: string) => {
-    if (planData.phases.length <= 1) {
-      toast.error("Kế hoạch phải có ít nhất một giai đoạn");
-      return;
-    }
+  // const deletePhase = (id: string) => {
+  //   if (planData.phases.length <= 1) {
+  //     toast.error("Kế hoạch phải có ít nhất một giai đoạn");
+  //     return;
+  //   }
 
-    setPlanData((prev) => ({
-      ...prev,
-      phases: prev.phases.filter((phase) => phase.id !== id),
-    }));
-  };
+  //   setPlanData((prev) => ({
+  //     ...prev,
+  //     phases: prev.phases.filter((phase) => phase.id !== id),
+  //   }));
+  // };
 
   const formatDateToLocalDate = (date: Date) => {
     // Sử dụng múi giờ địa phương để tránh lệch ngày
@@ -316,7 +313,7 @@ export default function CreatePlanPage() {
             <AnimatePresence>
               {planData.phases.map((phase, index) => (
                 <motion.div
-                  key={phase.id}
+                  key={index}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
@@ -325,8 +322,8 @@ export default function CreatePlanPage() {
                   <PlanPhase
                     phase={phase}
                     phaseIndex={index}
-                    updatePhase={updatePhase}
-                    deletePhase={deletePhase}
+                    // updatePhase={updatePhase}
+                    // deletePhase={deletePhase}
                     isFirst={index === 0}
                     isLast={index === planData.phases.length - 1}
                     isCurrent={index === 0}

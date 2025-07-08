@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import type { ChatMessage } from "@/types/models/Chat";
+import type { ChatMessage } from "@/types/models/chat";
 import {
   Tooltip,
   TooltipContent,

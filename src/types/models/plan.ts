@@ -1,49 +1,25 @@
 import type { PlanStatus } from "../enums/PlanStatus";
-
-export interface PhaseTemplate {
-    phaseNo: number;
-    phaseName: string;
-    duration: number;
-    cigarettesBound: number;
-    description: string;
-    tips: Tip[];
-}
-
-export interface PlanTemplate {
-    planName: string;
-    description: string;
-    totalDuration: number;
-    phases: PhaseTemplate[];
-}
-
-export interface Tip {
-    content: string;
-}
-
-export interface Phase {
-    id: string;
-    phaseName: string;
-    startDate: Date;
-    endDate: Date;
-    cigaretteBound: number;
-    description: string;
-    completed?: boolean;
-    tips: Tip[];
-}
-
-export interface PhaseFormData {
-    phaseName: string;
-    startDate: Date; 
-    endDate: Date;
-    cigaretteBound: number;
-    description: string;
-    tips: Tip[];
-}
+import type { Phase, PhaseFormData } from "./phase";
 
 export interface PlanFormData {
     planName: string;
     description: string;
     duration: number;
+    phases: PhaseFormData[];
+}
+
+export interface Plan {
+    id: string;
+    accountId: string;
+    planName: string;
+    successRate: number;
+    description: string;
+    startDate: Date;
+    endDate: Date;
+    createdAt: Date;
+    updatedAt: Date;
+    status: PlanStatus;
+    progress: number;
     phases: Phase[];
 }
 

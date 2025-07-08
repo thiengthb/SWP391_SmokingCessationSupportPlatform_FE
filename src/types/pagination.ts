@@ -1,13 +1,36 @@
-export interface Pagination {
-  pageNumber: number;
-  pageSize: number; 
-  totalElements: number;
-  totalPages: number;
+export const Direction = {
+  ASC: "asc",
+  DESC: "desc",
+} as const;
+
+export type Direction = (typeof Direction)[keyof typeof Direction];
+
+export type PaginationParams = {
+    page?: number;
+    size?: number;
+    sortBy?: string;
+    direction?: Direction;
 }
 
-export const defaultPagination: Pagination = {
-  pageNumber: 0,
-  pageSize: 10,
-  totalElements: 0,
-  totalPages: 0,
+export type PaginationResponse<T> = {
+    content: T[];
+    page: number;
+    size: number;
+    totalElements: number;
+    totalPages: number;
+}
+
+export const defaultPaginationParams: PaginationParams = {
+    page: 0,
+    size: 10,
+    sortBy: "createdAt",
+    direction: Direction.DESC,
+};
+
+export const defaultPaginationResponse: PaginationResponse<any> = {
+    content: [],
+    page: 0,
+    size: 10,
+    totalElements: 0,
+    totalPages: 0,
 };
