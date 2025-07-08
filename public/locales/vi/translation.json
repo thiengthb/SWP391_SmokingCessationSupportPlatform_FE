@@ -23,7 +23,7 @@
       "description": "Khám phá các gói và tùy chọn giá của chúng tôi"
     },
     "blog": {
-      "title": "Blog",
+      "title": "Bài viết",
       "description": "Tin tức, bài viết và tài nguyên"
     },
     "leaderboard": {
@@ -31,12 +31,10 @@
       "description": "Khám phá các xếp hạng và thành tích hàng đầu",
       "global": {
         "title": "Xếp hạng toàn cầu",
-        "href": "/leaderboard/global",
         "description": "Xem những người xuất sắc nhất trên toàn thế giới"
       },
       "hallOfFame": {
         "title": "Ngôi đền danh vọng",
-        "href": "/leaderboard/hall-of-fame",
         "description": "Những thành tích vĩ đại nhất mọi thời đại"
       }
     },
@@ -62,6 +60,10 @@
     "dashboard": {
       "title": "Bảng điều khiển",
       "description": "Bảng điều khiển cá nhân của bạn"
+    },
+    "notifications": {  
+      "title": "Thông báo",
+      "description": "Xem thông báo và cập nhật của bạn"
     }
   },
   "buttons": {

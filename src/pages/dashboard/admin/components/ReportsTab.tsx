@@ -113,7 +113,7 @@ export function ReportsTab() {
                       paddingAngle={5}
                       label={(entry) => entry.name}
                     >
-                      {userDistributionData.map((_, index) => (
+                      {userDistributionData.map((_, index: any) => (
                         <Cell
                           key={`cell-${index}`}
                           fill={COLORS[index % COLORS.length]}
@@ -136,7 +136,7 @@ export function ReportsTab() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {reports.map((report) => (
+        {reports.map((report: any) => (
           <Card key={report.title}>
             <CardHeader>
               <CardTitle className="text-lg">{t(report.title)}</CardTitle>

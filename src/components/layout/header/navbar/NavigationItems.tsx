@@ -8,8 +8,9 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { Link } from "react-router-dom";
-import type { NavItems } from "./navbar.item";
+import { mainNav } from "./navbar.item";
 import { useTranslation } from "react-i18next";
+import { useAuth } from "@/contexts/AuthContext";
 
 const ListItem = ({
   title,
@@ -19,26 +20,44 @@ const ListItem = ({
   title: string;
   href: string;
   children: React.ReactNode;
-}) => (
-  <li>
-    <NavigationMenuLink asChild>
-      <Link
-        to={href}
-        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-      >
-        <div className="text-sm font-medium leading-none">{title}</div>
-        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-          {children}
-        </p>
-      </Link>
-    </NavigationMenuLink>
-  </li>
-);
+}) => {
+  return (
+    <li>
+      <NavigationMenuLink asChild>
+        <Link
+          to={href}
+          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+        >
+          <div className="text-sm font-medium leading-none">{title}</div>
+          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+            {children}
+          </p>
+        </Link>
+      </NavigationMenuLink>
+    </li>
+  );
+};
 
-export function NavigationItems({ items }: NavItems) {
+export function NavigationItems() {
   const { t } = useTranslation();
+  const { auth } = useAuth();
 
-  const filteredItems = items.filter((item) => !item.requireAuth);
+  const filteredItems = mainNav.filter((item) => {
+    if (item.displayMobile) return false;
+
+    if (
+      auth.isAuthenticated &&
+      (item.id === "about" || item.id === "contact")
+    ) {
+      return false;
+    }
+
+    if (auth.currentAcc?.havingSubscription && item.id === "pricing") {
+      return false;
+    }
+
+    return true;
+  });
 
   return (
     <div className="relative">

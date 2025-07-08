@@ -3,10 +3,10 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { stats, features } from "./data";
+import { stats, features } from "../../data/about-us.info";
 
 export default function AboutPage() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleGetStarted = () => {
     navigate("/auth/register");
@@ -24,14 +24,16 @@ export default function AboutPage() {
             <span className="text-primary">Smoke-Free Life</span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-            We're dedicated to helping people quit smoking through personalized support,
-            community engagement, and evidence-based methods.
+            We're dedicated to helping people quit smoking through personalized
+            support, community engagement, and evidence-based methods.
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto">
             {stats.map((stat) => (
               <div key={stat.label}>
                 <div className="text-3xl font-bold">{stat.value}</div>
-                <div className="text-sm text-muted-foreground">{stat.label}</div>
+                <div className="text-sm text-muted-foreground">
+                  {stat.label}
+                </div>
               </div>
             ))}
           </div>
@@ -45,9 +47,10 @@ export default function AboutPage() {
             <div>
               <h2 className="text-3xl font-bold mb-6">Our Mission</h2>
               <p className="text-muted-foreground mb-6">
-                We believe everyone deserves the support and tools needed to break free
-                from smoking. Our platform combines technology, community, and expertise
-                to make your journey easier and more successful.
+                We believe everyone deserves the support and tools needed to
+                break free from smoking. Our platform combines technology,
+                community, and expertise to make your journey easier and more
+                successful.
               </p>
               <Button className="gap-2" onClick={handleGetStarted}>
                 Start Your Journey <ArrowRight className="h-4 w-4" />
@@ -77,18 +80,21 @@ export default function AboutPage() {
               {
                 step: "01",
                 title: "Personalized Plan",
-                description: "Get a customized quitting plan based on your habits and goals"
+                description:
+                  "Get a customized quitting plan based on your habits and goals",
               },
               {
                 step: "02",
                 title: "Expert Support",
-                description: "Access to professional coaches and medical experts"
+                description:
+                  "Access to professional coaches and medical experts",
               },
               {
                 step: "03",
                 title: "Track Progress",
-                description: "Monitor your achievements and health improvements"
-              }
+                description:
+                  "Monitor your achievements and health improvements",
+              },
             ].map((item) => (
               <div key={item.step} className="text-left">
                 <div className="text-primary font-bold mb-2">{item.step}</div>

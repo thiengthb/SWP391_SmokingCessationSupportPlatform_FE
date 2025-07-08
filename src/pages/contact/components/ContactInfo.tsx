@@ -1,12 +1,14 @@
 import { useTranslation } from "react-i18next";
-import { contactInfos } from "../contact.infos";
+import { contactInfos } from "../../../data/contact.info";
 
 export function ContactInfo() {
   const { t } = useTranslation();
   return (
     <div className="space-y-6 lg:space-y-10">
       <div className="space-y-6">
-        <h2 className="text-2xl font-semibold tracking-tight">{t("page.contact.getInTouch")}</h2>
+        <h2 className="text-2xl font-semibold tracking-tight">
+          {t("page.contact.getInTouch")}
+        </h2>
         <div className="space-y-6">
           {contactInfos.map((info) => (
             <div key={info.title} className="flex items-start space-x-4">

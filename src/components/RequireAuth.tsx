@@ -1,6 +1,6 @@
 import { useLocation, Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
-import { Role } from "@/types/user/user";
+import { Role } from "@/types/models/account";
 
 type RequireAuthProps = {
   allowedRoles: Role[];
@@ -9,11 +9,11 @@ type RequireAuthProps = {
 const RequireAuth = ({ allowedRoles }: RequireAuthProps) => {
   const { auth } = useAuth();
   const location = useLocation();
-  const role = auth.currentUser?.role;
+  const role = auth.currentAcc?.role;
 
   return role && allowedRoles?.includes(role) ? (
     <Outlet />
-  ) : auth.currentUser ? (
+  ) : auth.currentAcc ? (
     <Navigate to="/access-denied" state={{ from: location }} replace />
   ) : (
     <Navigate to="/auth/login" state={{ from: location }} replace />

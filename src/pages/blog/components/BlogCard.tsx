@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Clock } from "lucide-react";
 import { ImageOff } from "lucide-react";
 import { useState } from "react";
-import type { BlogPost } from "@/types/blog";
+import type { BlogPost } from "@/types/models/blog";
 
 function FallbackImage() {
   return (
@@ -41,7 +41,9 @@ export function BlogCard({ post }: { post: BlogPost }) {
         </p>
         <div className="flex items-center mt-auto pt-4">
           <Clock className="w-4 h-4 mr-2" />
-          <span className="text-sm text-muted-foreground">{post.readingTime}</span>
+          <span className="text-sm text-muted-foreground">
+            {post.readingTime}
+          </span>
         </div>
       </div>
     </Card>

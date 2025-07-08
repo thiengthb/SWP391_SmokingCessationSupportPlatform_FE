@@ -1,6 +1,6 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import { Language } from '../types/setting';
+import { Language } from '../types/models/setting';
 import HttpBackend from 'i18next-http-backend';
 
 i18n

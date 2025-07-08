@@ -12,7 +12,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import GoogleButton from "@/pages/auth/GoogleButton";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { loginSchema, type LoginFormData } from "@/types/auth/login";
+import {
+  loginSchema,
+  type LoginFormData,
+} from "@/types/validations/auth/login";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import FormInputError from "@/components/FormInputError";

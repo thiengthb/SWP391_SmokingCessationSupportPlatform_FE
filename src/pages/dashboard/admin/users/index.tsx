@@ -12,14 +12,15 @@ import { UserPlus, Search } from "lucide-react";
 import { UsersTab } from "../components/UsersTable";
 import useApi from "@/hooks/useApi";
 import { useLocation, useNavigate } from "react-router-dom";
-import { type User } from "@/types/user/user";
+
 import { useTranslation } from "react-i18next";
+import { type Account } from "@/types/models/account";
 
 export default function UserManagement() {
   const { t } = useTranslation();
   const [search, setSearch] = useState("");
   const [role, setRole] = useState<string | null>(null);
-  const [users, setUsesrs] = useState<User[]>([]);
+  const [users, setUsesrs] = useState<Account[]>([]);
   const navigate = useNavigate();
   const location = useLocation();
   const api = useApi();
@@ -84,9 +85,15 @@ export default function UserManagement() {
             />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="admin">{t("page.dashboard.userManagement.roles.admin")}</SelectItem>
-            <SelectItem value="coach">{t("page.dashboard.userManagement.roles.coach")}</SelectItem>
-            <SelectItem value="member">{t("page.dashboard.userManagement.roles.member")}</SelectItem>
+            <SelectItem value="admin">
+              {t("page.dashboard.userManagement.roles.admin")}
+            </SelectItem>
+            <SelectItem value="coach">
+              {t("page.dashboard.userManagement.roles.coach")}
+            </SelectItem>
+            <SelectItem value="member">
+              {t("page.dashboard.userManagement.roles.member")}
+            </SelectItem>
           </SelectContent>
         </Select>
       </div>

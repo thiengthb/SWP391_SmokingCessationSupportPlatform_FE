@@ -31,11 +31,11 @@
       "description": "Explore top rankings and achievements",
       "global": {
         "title": "Global Ranking",
-        "href": "/leaderboard/global"
+        "description": "See the top achievers worldwide"
       },
       "hallOfFame": {
         "title": "Hall of Fame",
-        "href": "/leaderboard/hall-of-fame"
+        "description": "Celebrating our greatest achievers"
       }
     },
     "community": {
@@ -60,6 +60,10 @@
     "dashboard": {
       "title": "Dashboard",
       "description": "Your personal dashboard"
+    },
+    "notifications": {  
+      "title": "Notifications",
+      "description": "View your notifications and updates"
     }
   },
   "buttons": {

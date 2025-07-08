@@ -8,8 +8,9 @@ const useRefreshToken = () => {
         const response = await api.post("/v1/auth/refresh-token");
         setAuth((prev) => ({
             ...prev,
-            currentUser: response.data.result.user,
+            currentAcc: response.data.result.account,
             accessToken: response.data.result.accessToken,
+            isAuthenticated: true,
         }));
         return response.data.result.accessToken;
     }

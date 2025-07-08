@@ -1,7 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Button } from "../../ui/button";
 import { Input } from "../../ui/input";
-
 const Footer = () => {
   const { t } = useTranslation();
   return (
@@ -17,14 +16,14 @@ const Footer = () => {
           <div className="space-y-3">
             <h4 className="text-lg font-semibold">{t("footer.links.title")}</h4>
             <ul className="space-y-2 text-sm grid grid-cols-2 sm:grid-cols-1">
-              {["home", "about", "contact", "blog", "terms", "privacy"].map(
+              {["Home", "About", "Contact", "Blog", "Terms", "Privacy"].map(
                 (item) => (
                   <li key={item}>
                     <a
                       href="#"
                       className="text-muted-foreground hover:text-primary transition-colors"
                     >
-                      {t(`footer.links.${item}`)}
+                      {item}
                     </a>
                   </li>
                 )
@@ -36,17 +35,25 @@ const Footer = () => {
               {t("footer.connect.title")}
             </h4>
             <div className="flex flex-wrap gap-4">
-              {["Twitter", "Facebook", "Instagram", "LinkedIn"].map(
-                (social) => (
-                  <a
-                    key={social}
-                    href="#"
-                    className="text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    {social}
-                  </a>
-                )
-              )}
+              {[
+                { name: "Twitter", href: "https://x.com/home" },
+                { name: "Facebook", href: "https://facebook.com" },
+                { name: "Instagram", href: "https://instagram.com" },
+                {
+                  name: "LinkedIn",
+                  href: "https://linkedin.com",
+                },
+              ].map(({ name, href }) => (
+                <a
+                  key={name}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
+                  {name}
+                </a>
+              ))}
             </div>
           </div>
           <div className="space-y-3">
@@ -72,10 +79,10 @@ const Footer = () => {
           </p>
           <div className="flex space-x-4 text-sm text-muted-foreground">
             <a href="#" className="hover:text-primary">
-              {t("footer.bottom.terms")}
+              Terms
             </a>
             <a href="#" className="hover:text-primary">
-              {t("footer.bottom.privacy")}
+              Privacy
             </a>
             <a href="#" className="hover:text-primary">
               {t("footer.bottom.cookies")}
