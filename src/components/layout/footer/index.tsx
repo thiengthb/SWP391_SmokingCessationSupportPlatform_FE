@@ -23,6 +23,7 @@ const Footer = () => {
                 { name: "Blog", to: "/blog" },
                 { name: "Terms", to: "/terms" },
                 { name: "Privacy", to: "/privacy" },
+                { name: "FAQ", to: "/faq" },
               ].map(({ name, to }) => (
                 <li key={name}>
                   <Link

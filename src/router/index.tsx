@@ -34,6 +34,7 @@ import NotificationPage from "@/pages/notification";
 import CreatePlanPage from "@/pages/tracking/CreatePlanPage";
 import TermsPage from "@/pages/legal/term";
 import PrivacyPolicyPage from "@/pages/legal/privacy";
+import FAQPage from "@/pages/legal/faq";
 
 const router = createBrowserRouter([
   {
@@ -135,6 +136,7 @@ const router = createBrowserRouter([
           // 👇 ADDITIONAL LEGAL ROUTES
           { path: "terms", element: <TermsPage /> },
           { path: "privacy", element: <PrivacyPolicyPage /> },
+          {path: "faq", element: <FAQPage/>},
         ],
       },
     ],
