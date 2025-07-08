@@ -16,4 +16,4 @@ export interface RevenueResponse {
   revenue: number
 }
 
-export type TimeRange = '7-days' | '30-days' | '12-months' | 'since-launch';
+export type TimeRange = 'Weekly' | 'Monthly' | 'Yearly';

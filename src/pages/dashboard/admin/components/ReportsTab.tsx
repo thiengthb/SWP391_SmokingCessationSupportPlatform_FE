@@ -18,6 +18,7 @@ import {
 import useApi from "@/hooks/useApi";
 import type { UserActivityData, UserDistributionResponse, TimeRange, RevenueResponse } from "@/types/models/report";
 import { startOfWeek, endOfWeek, startOfMonth, endOfMonth, startOfYear, endOfYear, format, parseISO } from "date-fns";
+import { Button } from "@/components/ui/button";
 
 
 
@@ -27,6 +28,11 @@ const COLORS = [
   '#FF0099',
 ];
 
+type DrillContext = {
+  level: TimeRange;
+  from: string;
+  to: string;
+};
 
 
 export function ReportsTab() {
@@ -34,14 +40,16 @@ export function ReportsTab() {
   const [userDistribution, setUserDistribution] = useState<UserDistributionResponse | null>(null);
   const [revenue, setRevenue] = useState<RevenueResponse[]>([])
   const apiWithInterceptor = useApi();
-  const [selectedRange, setSelectedRange] = useState<TimeRange>('30-days');
+  const [selectedRange, setSelectedRange] = useState<TimeRange>('Monthly');
+  const [drillStack, setDrillStack] = useState<DrillContext[]>([]);
+
 
 
   const getDateRange = (range: TimeRange) => {
     const now = new Date();
 
     switch (range) {
-      case '7-days': {
+      case 'Weekly': {
         const start = startOfWeek(now, { weekStartsOn: 0 }); // Sunday
         const end = endOfWeek(now, { weekStartsOn: 0 });     // Saturday
         return {
@@ -50,7 +58,7 @@ export function ReportsTab() {
         };
       }
 
-      case '30-days': {
+      case 'Monthly': {
         const start = startOfMonth(now);
         const end = endOfMonth(now);
         return {
@@ -59,7 +67,7 @@ export function ReportsTab() {
         };
       }
 
-      case '12-months': {
+      case 'Yearly': {
         const start = startOfYear(now);
         const end = endOfYear(now);
         return {
@@ -72,6 +80,12 @@ export function ReportsTab() {
     }
   };
   const { from, to } = getDateRange(selectedRange);
+
+  const currentDrill = drillStack[drillStack.length - 1] ?? {
+    level: selectedRange,
+    from,
+    to,
+  };
 
   function generateDateLabels(from: string, to: string): string[] {
     const labels = [];
@@ -92,8 +106,8 @@ export function ReportsTab() {
       const date = parseISO(item.date);
       let key = item.date;
 
-      if (range === "30-days") {
-        // Group by ISO week
+      if (range === "Monthly") {
+        // Group by week
         const weekOfMonth = Math.ceil(date.getDate() / 7);
 
         const start = new Date(date.getFullYear(), date.getMonth(), (weekOfMonth - 1) * 7 + 1);
@@ -107,10 +121,10 @@ export function ReportsTab() {
         }
 
         key = `W${weekOfMonth} (${format(start, "MMM d")}–${format(end, "d")})`;
-      } else if (range === "12-months") {
+      } else if (range === "Yearly") {
         // Group by month
         key = format(date, "MMM");
-      } else if (range === "7-days") {
+      } else if (range === "Weekly") {
         key = `${format(date, "MMM d")}\n${format(date, "EEE")}`; // date + weekday
       }
 
@@ -137,15 +151,16 @@ export function ReportsTab() {
     }));
   }
 
-  const fetchUserActivityData = async () => {
+  const fetchUserActivityData = async (drill?: DrillContext) => {
+    const context = drill ?? currentDrill;
     try {
       const response = await apiWithInterceptor.get('/v1/reports/user-growth', {
-        params: { from, to },
+        params: { from: context.from, to: context.to },
       });
 
       if (response.data.result && Array.isArray(response.data.result)) {
-        const filled = fillMissingDates(response.data.result, from, to);
-        const grouped = groupDataByRangeUnit(filled, selectedRange);
+        const filled = fillMissingDates(response.data.result, context.from, context.to);
+        const grouped = groupDataByRangeUnit(filled, context.level);
         setUserActivityData(grouped);
       } else {
         console.error("Invalid data format:", response.data);
@@ -185,6 +200,45 @@ export function ReportsTab() {
     { name: "Inactive", value: userDistribution.inactiveAccounts },
   ] : [];
 
+  const handleDrillDown = (barData: UserActivityData) => {
+    if (currentDrill.level == "Yearly") {
+      const month = new Date(`${barData.date} 1, ${new Date().getFullYear()}`);
+      const from = format(startOfMonth(month), "yyyy-MM-dd'T'00:00:00");
+      const to = format(endOfMonth(month), "yyyy-MM-dd'T'23:59:59");
+
+      const newContext: DrillContext = {
+        level: 'Monthly',
+        from,
+        to,
+      };
+      setDrillStack([...drillStack, newContext]);
+      fetchUserActivityData(newContext);
+    } else if (currentDrill.level == "Monthly") {
+      const match = barData.date.match(/\(([^)]+)\)/);
+      if (match) {
+        const [startStr, endStr] = match[1].split("–");
+        const currentYear = new Date().getFullYear();
+        const month = barData.date.match(/\w{3}/)?.[0] ?? "Jul";
+
+        if (!startStr || !endStr || !month) {
+          console.warn("Malformed date range in bar label:", barData.date);
+          return;
+        }
+
+        const from = format(new Date(`${month} ${startStr.trim()}, ${currentYear}`), "yyyy-MM-dd'T'00:00:00");
+        const to = format(new Date(`${month} ${endStr.trim()}, ${currentYear}`), "yyyy-MM-dd'T'23:59:59");
+
+        const newContext: DrillContext = {
+          level: 'Weekly',
+          from,
+          to,
+        };
+        setDrillStack([...drillStack, newContext]);
+        fetchUserActivityData(newContext);
+      }
+    }
+  }
+
   useEffect(() => {
     fetchUserActivityData();
     fetchUserDistribution();
@@ -198,9 +252,9 @@ export function ReportsTab() {
         onChange={(e) => setSelectedRange(e.target.value as TimeRange)}
         className="rounded-md border px-2 py-1"
       >
-        <option value="7-days">Weekly</option>
-        <option value="30-days">Monthly</option>
-        <option value="12-months">Yearly</option>
+        <option value="Weekly">Weekly</option>
+        <option value="Monthly">Monthly</option>
+        <option value="Yearly">Yearly</option>
       </select>
       <div className="grid gap-6">
         <Card>
@@ -228,10 +282,29 @@ export function ReportsTab() {
                     fill="#1E90FF"
                     name="New Users"
                     barSize={24}
+                    onClick={(data: any) => handleDrillDown(data)}
                   />
                 </BarChart>
               </ResponsiveContainer>
             </div>
+            {drillStack.length > 0 && (
+              <Button
+                variant="outline"
+                onClick={() => {
+                  const updated = [...drillStack];
+                  updated.pop();
+                  const previousDrill = updated[updated.length - 1] ?? {
+                    level: selectedRange,
+                    ...getDateRange(selectedRange),
+                  };
+
+                  setDrillStack(updated);
+                  fetchUserActivityData(previousDrill);
+                }}
+              >
+                ← Back to {drillStack.at(-2)?.level ?? selectedRange}
+              </Button>
+            )}
           </CardContent>
         </Card>
 
