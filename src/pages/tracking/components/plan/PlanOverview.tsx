@@ -37,7 +37,7 @@ import {
   Trophy,
 } from "lucide-react";
 import type { QuitPlan } from "../../PlanTrackingTab";
-import type { Phase } from "@/types/models/plan";
+import type { Phase } from "@/types/models/Plan";
 
 interface PlanOverviewProps {
   plan: QuitPlan;

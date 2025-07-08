@@ -1,6 +1,6 @@
 import LazyLoad from "@/lazyload";
 import { Navigate, type RouteObject } from "react-router-dom";
-import { Paths } from "../path";
+import { Paths } from "../../constants/path";
 
 const LoginPage = LazyLoad("./pages/auth/login");
 const RegisterPage = LazyLoad("./pages/auth/register");

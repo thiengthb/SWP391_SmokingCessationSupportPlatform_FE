@@ -31,8 +31,8 @@ import { NavigationNotifications } from "./NavigationNotifications";
 import { Separator } from "@radix-ui/react-separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import UserInfoCard from "./UserInfoCard";
-import { ForRoles, toForRoles } from "@/utils/TabUtil";
-import { Paths } from "@/router/path";
+import { ForRoles, toForRoles } from "@/utils/tab.util";
+import { Paths } from "@/constants/path";
 
 const MobileMenu = () => {
   const navigate = useNavigate();

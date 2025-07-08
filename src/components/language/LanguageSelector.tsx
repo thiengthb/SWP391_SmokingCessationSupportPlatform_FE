@@ -7,8 +7,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Globe, Check } from "lucide-react";
-import { Language } from "@/types/models/setting";
 import i18n from "@/lib/i18n";
+import { Language } from "@/types/enums/Language";
 
 interface LanguageOption {
   value: Language;

@@ -16,7 +16,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
-import { AccountStatus, type Account } from "@/types/models/account";
+import { type Account } from "@/types/models/account";
+import { AccountStatus } from "@/types/enums/AccountStatus";
 
 export function UsersTab({
   users,

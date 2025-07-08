@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { isSameDay } from "date-fns";
 import { useAuth } from "@/contexts/AuthContext";
-import { api } from "@/lib/axios";
 import { toast } from "sonner";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SmokingAchievements from "@/pages/tracking/components/record/SmokingAchievements";
@@ -9,13 +8,21 @@ import TodayRecord from "@/pages/tracking/components/record/TodayRecord";
 import RecordCalendar from "@/pages/tracking/components/record/RecordCalendar";
 import RecordsList from "@/pages/tracking/components/record/RecordsList";
 import RecordDialog from "@/pages/tracking/components/record/RecordDialog";
-import type { SmokingRecord } from "@/types/models/record";
-import { defaultPagination, type Pagination } from "@/types/models/pagination";
+import type { SmokingRecord } from "@/types/models/Record";
+import {
+  defaultPaginationResponse,
+  type PaginationResponse,
+} from "@/types/pagination";
 import PlanTrackingTab from "./PlanTrackingTab";
+import useApi from "@/hooks/useApi";
 const RecordHabbitPage = () => {
   const { auth } = useAuth();
   const [loading, setLoading] = useState(false);
-  const [pagination, setPagination] = useState<Pagination>(defaultPagination);
+  const [pagination, setPagination] = useState<PaginationResponse<void>>(
+    defaultPaginationResponse
+  );
+
+  const apiWithInterceptor = useApi();
 
   const [smokingRecords, setSmokingRecords] = useState<SmokingRecord[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
@@ -30,8 +37,8 @@ const RecordHabbitPage = () => {
     const fetchSmokingRecords = async () => {
       setLoading(true);
       try {
-        const response = await api.get(
-          `/v1/records?page=${pagination.pageNumber}&size=${pagination.pageSize}`
+        const response = await apiWithInterceptor.get(
+          `/v1/records?page=${pagination.page}&size=${pagination.size}`
         );
         console.log("Smoking records response:", response);
         const data = response.data.result;
@@ -45,8 +52,9 @@ const RecordHabbitPage = () => {
 
         setSmokingRecords(validRecords);
         setPagination({
-          pageNumber: data.pageNumber || 0,
-          pageSize: data.pageSize || 30,
+          ...pagination,
+          page: data.pageNumber || 0,
+          size: data.pageSize || 30,
           totalElements: data.totalElements || 0,
           totalPages: data.totalPages || 1,
         });
@@ -65,7 +73,7 @@ const RecordHabbitPage = () => {
       // If not authenticated, make sure smoking records is an empty array
       setSmokingRecords([]);
     }
-  }, [auth, pagination.pageNumber, pagination.pageSize, showRecordDialog]);
+  }, [auth, pagination.page, pagination.size, showRecordDialog]);
 
   const handleDateSelect = (date: Date | undefined) => {
     if (!date) return;
@@ -106,7 +114,7 @@ const RecordHabbitPage = () => {
       };
 
       if (currentRecord) {
-        const response = await api.put(
+        const response = await apiWithInterceptor.put(
           `/v1/records/${currentRecord.id}`,
           payload
         );
@@ -117,7 +125,7 @@ const RecordHabbitPage = () => {
         );
         toast.success("Smoking record updated successfully");
       } else {
-        const response = await api.post("/v1/records", payload);
+        const response = await apiWithInterceptor.post("/v1/records", payload);
         setSmokingRecords((records) => [...records, response.data.data]);
         toast.success("Smoking record added successfully");
       }
@@ -134,7 +142,7 @@ const RecordHabbitPage = () => {
     if (!currentRecord) return;
 
     try {
-      await api.delete(`/v1/records/${currentRecord.id}`);
+      await apiWithInterceptor.delete(`/v1/records/${currentRecord.id}`);
       setSmokingRecords((records) =>
         records.filter((record) => record.id !== currentRecord.id)
       );

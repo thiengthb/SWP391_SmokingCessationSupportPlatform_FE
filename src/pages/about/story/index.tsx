@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { milestones } from "../../../data/about-us.info";
+import { milestones } from "../../../data/aboutUs.info";
 import { useTranslation } from "react-i18next";
+import { Paths } from "@/constants/path";
 
 export default function StoryPage() {
   const { t } = useTranslation();
@@ -57,7 +58,9 @@ export default function StoryPage() {
                 {t("page.story.joinDescription")}
               </p>
               <Button size="lg" asChild>
-                <a href="/auth/register">{t("page.story.buttonGetStarted")}</a>
+                <a href={Paths.AUTH.REGISTER}>
+                  {t("page.story.buttonGetStarted")}
+                </a>
               </Button>
             </div>
           </CardContent>

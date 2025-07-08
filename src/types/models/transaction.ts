@@ -1,3 +1,7 @@
+import { Currency } from "../enums/Currency";
+import { TransactionMethod } from "../enums/TransactionMethod";
+import { TransactionStatus } from "../enums/TransactionStatus";
+
 export interface BillingTransaction {
     id: string;
     accountId: string;
@@ -8,21 +12,6 @@ export interface BillingTransaction {
     createdAt: Date;
 }
 
-export const Currency = {
-    USD: "USD",
-    VND: "VND"
-} as const;
-
-export const TransactionStatus = {
-    PENDING: "PENDING",
-    COMPLETED: "COMPLETED",
-    FAILED: "FAILED",
-} as const;
-
-export const TransactionMethod = {
-    CARD: "CARD",
-} as const;
-
 export const defaultTransaction: BillingTransaction = {
     id: "",
     accountId: "",
@@ -32,7 +21,3 @@ export const defaultTransaction: BillingTransaction = {
     method: TransactionMethod.CARD,
     createdAt: new Date(),
 };
-
-export type Currency = (typeof Currency)[keyof typeof Currency];
-export type TransactionStatus = (typeof TransactionStatus)[keyof typeof TransactionStatus];
-export type TransactionMethod = (typeof TransactionMethod)[keyof typeof TransactionMethod];

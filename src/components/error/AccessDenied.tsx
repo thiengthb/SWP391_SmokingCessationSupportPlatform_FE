@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Paths } from "@/router/path";
+import { Paths } from "@/constants/path";
 import { ShieldX } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 

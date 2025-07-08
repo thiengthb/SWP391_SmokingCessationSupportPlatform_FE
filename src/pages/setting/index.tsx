@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useSetting } from "@/contexts/SettingContext";
-import { MotivationFrequency } from "@/types/models/setting";
+import { MotivationFrequency } from "@/types/models/Setting";
 import { AnimatePresence, motion } from "framer-motion";
 import { Palette, Bell, BarChart3 } from "lucide-react";
 

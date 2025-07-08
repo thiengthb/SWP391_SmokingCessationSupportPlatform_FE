@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import { ForDisplay, mainNav } from "./navbar.item";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/contexts/AuthContext";
-import { ForRoles, toForRoles } from "@/utils/TabUtil";
+import { ForRoles, toForRoles } from "@/utils/tab.util";
 
 const ListItem = ({
   title,

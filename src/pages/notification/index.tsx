@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import type { NotificationResponse } from "@/types/models/notification";
+import type { NotificationResponse } from "@/types/models/Notification";
 import useApi from "@/hooks/useApi";
 import { BellIcon } from "lucide-react";
 import { Card } from "@/components/ui/card";

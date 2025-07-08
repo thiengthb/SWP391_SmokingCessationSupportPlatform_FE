@@ -1,6 +1,6 @@
 import LazyLoad from "@/lazyload";
 import { Navigate } from "react-router-dom";
-import { Paths } from "../path";
+import { Paths } from "../../constants/path";
 
 const AdminDashboard = LazyLoad("./pages/dashboard/admin");
 const BlogEditPage = LazyLoad("./pages/blog/management/tabs/edit");

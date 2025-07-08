@@ -1,4 +1,4 @@
-import type { BlogPost } from "@/types/models/blog";
+import type { BlogPost } from "@/types/models/Blog";
 
 export const blogPosts: BlogPost[] = [
   // Health Category

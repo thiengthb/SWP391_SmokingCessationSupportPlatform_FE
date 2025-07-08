@@ -1,7 +1,9 @@
-import { api } from "@/lib/axios";
+import useRefreshToken from "@/hooks/useRefreshToken";
+import { setUpAuthInterceptors } from "@/lib/axios";
+import { login, logout } from "@/services/api/auth.service";
 import type { Account } from "@/types/models/account";
 import type { LoginFormData } from "@/types/validations/auth/login";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 export interface Auth {
@@ -28,26 +30,35 @@ export interface AuthContext {
 const AuthContext = createContext<AuthContext>({} as AuthContext);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
+  const refresh = useRefreshToken();
+
   const [auth, setAuth] = useState<Auth>(defaultAuth);
   const [persist, setPersist] = useState<boolean>(
     JSON.parse(localStorage.getItem("persist") || "true")
   );
 
+  useEffect(() => {
+    const eject = setUpAuthInterceptors(
+      () => auth.accessToken || null,
+      refresh
+    );
+    return () => eject();
+  }, [auth.accessToken, refresh]);
+
   const handleLogin = async (formData: LoginFormData) => {
     try {
-      const response = await api.post("/v1/auth/login", formData);
-      const { account, accessToken } = response.data.result;
+      const data = await login(formData);
+      const { account, accessToken } = data;
 
       console.log("Login successful:", account);
+      toast.success("Đăng nhập thành công", {
+        description: "Chào mừng bạn trở lại!",
+      });
 
       setAuth({
         isAuthenticated: true,
         currentAcc: account,
         accessToken: accessToken,
-      });
-
-      toast.success("Đăng nhập thành công", {
-        description: "Chào mừng bạn trở lại!",
       });
     } catch (error: any) {
       setAuth(defaultAuth);
@@ -58,15 +69,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const handleLogout = async () => {
     try {
-      await api.post("/v1/auth/logout", null, {
-        headers: {
-          Authorization: `Bearer ${auth.accessToken}`,
-        },
-      });
+      await logout();
+
       console.log("Logout successful");
       toast.success("Đăng xuất thành công", {
         description: "Bạn đã đăng xuất thành công",
       });
+
       setAuth(defaultAuth);
     } catch (error: any) {
       console.error("Logout error:", error);

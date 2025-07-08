@@ -10,7 +10,7 @@ import { Client } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 import { useAuth } from "./AuthContext";
 import { toast } from "sonner";
-import type { ScoreResponse } from "@/types/models/leaderboard";
+import type { ScoreResponse } from "@/types/models/Leaderboard";
 
 type WebSocketContextType = {
   client: Client | null;
@@ -109,10 +109,7 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({
   }, []);
 
   const subscribeToTopic = useCallback(
-    (
-      topic: string,
-      callback: (messageBody: string) => void
-    ): () => void => {
+    (topic: string, callback: (messageBody: string) => void): (() => void) => {
       const client = clientRef.current;
 
       if (!client || !client.connected) {

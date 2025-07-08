@@ -1,6 +1,6 @@
 import LazyLoad from "@/lazyload";
 import { Navigate, type RouteObject } from "react-router-dom";
-import { Paths } from "../path";
+import { Paths } from "../../constants/path";
 import { BlogPageSkeleton } from "@/components/skeleton/BlogSkeleton";
 
 const ContactPage = LazyLoad("./pages/contact");

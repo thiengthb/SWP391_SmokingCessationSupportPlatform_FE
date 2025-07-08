@@ -15,7 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { TrackingMode } from "@/types/models/setting";
+import { TrackingMode } from "@/types/models/Setting";
 import { Separator } from "@/components/ui/separator";
 
 interface TrackingSettingsProps {

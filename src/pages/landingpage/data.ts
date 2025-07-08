@@ -1,5 +1,11 @@
 import { Shield, Activity, Users, Heart, Clock, Star } from "lucide-react";
-import type { Feature } from "./types";
+import type { ElementType } from "react";
+
+export interface Feature {
+  icon: ElementType;
+  title: string;
+  description: string;
+}
 
 export const features: Feature[] = [
   {

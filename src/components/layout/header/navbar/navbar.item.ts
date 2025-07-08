@@ -1,6 +1,6 @@
-import { Paths } from "@/router/path";
-import { Role } from "@/types/models/account";
-import { ForRoles } from "@/utils/TabUtil";
+import { Paths } from "@/constants/path";
+import { Role } from "@/types/enums/Role";
+import { ForRoles } from "@/utils/tab.util";
 import { BadgeInfo, BookMarked, BookOpenText, Earth, Gem, House, Landmark, LandPlot, LibraryBig, MessageCircleMore, Send, Settings, User, type LucideIcon } from "lucide-react";
 
 export const ForDisplay = {
