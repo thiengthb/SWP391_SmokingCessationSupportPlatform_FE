@@ -32,7 +32,7 @@ export function BlogCard({ post }: { post: BlogPost }) {
         )}
       </div>
       <div className="p-6 flex flex-col gap-3">
-        <Badge className="w-fit">{post.category}</Badge>
+        <Badge className="w-fit">{post.categoryName}</Badge>
         <h2 className="text-xl font-semibold overflow-hidden text-ellipsis line-clamp-2 hover:text-primary transition-colors">
           {post.title}
         </h2>

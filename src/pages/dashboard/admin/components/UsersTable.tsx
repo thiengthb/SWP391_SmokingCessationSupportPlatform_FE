@@ -26,7 +26,7 @@ export function UsersTab({
   onViewUser,
   onToggleBan,
 }: {
-  users: User[];
+  users: Account[];
   page: number;
   size: number;
   onEditUser: (id: string) => void;

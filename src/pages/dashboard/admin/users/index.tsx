@@ -12,9 +12,9 @@ import { Search, UserPlus } from "lucide-react";
 import { UsersTab } from "../components/UsersTable";
 import useApi from "@/hooks/useApi";
 import { useLocation, useNavigate } from "react-router-dom";
-import { type User } from "@/types/admin/user";
+import { type Account } from "@/types/models/account";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { userFormSchema, type userFormData } from "@/types/auth/user";
+import { userFormSchema, type userFormData } from "@/types/validations/auth/user";
 import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import FormInputError from "@/components/FormInputError";
@@ -41,15 +41,15 @@ import {
 export default function UserManagement() {
   const [search, setSearch] = useState("");
   const [role, setRole] = useState<string | null>(null);
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<Account[]>([]);
   const [newUser, setNewUser] = useState<string>("");
   const [page, setPage] = useState<number>(0);
   const [totalPages, setTotalPages] = useState<number>(1);
   const size = 10;
 
-  const [viewedUser, setViewedUser] = useState<User | null>(null);
+  const [viewedUser, setViewedUser] = useState<Account | null>(null);
   const [isViewDialogOpen, setViewDialogOpen] = useState(false);
-  const [editingUser, setEditingUser] = useState<User | null>(null);
+  const [editingUser, setEditingUser] = useState<Account | null>(null);
   const [isEditDialogOpen, setEditDialogOpen] = useState(false);
 
   const [isAddDialogOpen, setAddDialogOpen] = useState(false);

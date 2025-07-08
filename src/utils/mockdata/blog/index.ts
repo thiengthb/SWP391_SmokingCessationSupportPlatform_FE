@@ -8,16 +8,11 @@ export const blogPosts: BlogPost[] = [
     slug: "first-30-days-after-quitting",
     excerpt: "A comprehensive guide to the physical and mental changes in your first month smoke-free.",
     content: "Detailed content about the journey...",
-    category: "Health",
-    author: {
-      name: "Dr. Sarah Johnson",
-      role: "Health Expert",
-      avatar: "/avatars/sarah.jpg"
-    },
-    publishedAt: "2024-03-15",
-    readingTime: "8 min",
+    categoryName: "Health",
+    authorName: "Dr. Sarah Johnson",
+    publishedAt: new Date("2024-03-15"),
+    readingTime: 8,
     coverImage: "/blog/health-1.jpg",
-    tags: ["health", "beginner", "recovery"]
   },
   {
     id: "health-1",
@@ -25,16 +20,11 @@ export const blogPosts: BlogPost[] = [
     slug: "nicotine-withdrawal-guide",
     excerpt: "Follow our comprehensive guide to understand and manage withdrawal symptoms effectively.",
     content: "Detailed medical content...",
-    category: "Health",
-    author: {
-      name: "Dr. Rachel Chen",
-      role: "Addiction Specialist",
-      avatar: "/avatars/rachel.jpg"
-    },
-    publishedAt: "2024-03-20",
-    readingTime: "8 min",
+    categoryName: "Health",
+    authorName: "Dr. Rachel Chen",
+    publishedAt: new Date("2024-03-20"),
+    readingTime: 8,
     coverImage: "/blog/withdrawal-guide.jpg",
-    tags: ["health", "withdrawal", "medical"]
   },
   {
     id: "health-2",
@@ -42,16 +32,11 @@ export const blogPosts: BlogPost[] = [
     slug: "smoking-heart-health",
     excerpt: "Learn how quitting smoking can dramatically improve your cardiovascular health.",
     content: "Heart health details...",
-    category: "Health",
-    author: {
-      name: "Dr. Mark Thompson",
-      role: "Cardiologist",
-      avatar: "/avatars/mark.jpg"
-    },
-    publishedAt: "2024-03-19",
-    readingTime: "6 min",
+    categoryName: "Health",
+    authorName: "Dr. Mark Thompson",
+    publishedAt: new Date("2024-03-19"),
+    readingTime: 6,
     coverImage: "/blog/heart-health.jpg",
-    tags: ["health", "heart", "cardiovascular"]
   },
   {
     id: "health-3",
@@ -59,16 +44,11 @@ export const blogPosts: BlogPost[] = [
     slug: "breathing-exercises",
     excerpt: "Simple yet effective breathing techniques to improve lung capacity.",
     content: "Exercise instructions...",
-    category: "Health",
-    author: {
-      name: "Sarah Miller",
-      role: "Respiratory Therapist",
-      avatar: "/avatars/sarah-m.jpg"
-    },
-    publishedAt: "2024-03-18",
-    readingTime: "5 min",
+    categoryName: "Health",
+    authorName: "Sarah Miller",
+    publishedAt: new Date("2024-03-18"),
+    readingTime: 5,
     coverImage: "/blog/breathing.jpg",
-    tags: ["health", "exercise", "lungs"]
   },
   {
     id: "health-4",
@@ -76,16 +56,11 @@ export const blogPosts: BlogPost[] = [
     slug: "nutrition-for-quitting",
     excerpt: "What to eat and drink to support your body during smoking cessation.",
     content: "Nutrition guidance...",
-    category: "Health",
-    author: {
-      name: "Emma Davis",
-      role: "Nutritionist",
-      avatar: "/avatars/emma-d.jpg"
-    },
-    publishedAt: "2024-03-17",
-    readingTime: "7 min",
+    categoryName: "Health",
+    authorName: "Emma Davis",
+    publishedAt: new Date("2024-03-17"),
+    readingTime: 7,
     coverImage: "/blog/nutrition.jpg",
-    tags: ["health", "nutrition", "diet"]
   },
 
   // Tips Category
@@ -95,16 +70,11 @@ export const blogPosts: BlogPost[] = [
     slug: "handle-nicotine-cravings",
     excerpt: "Learn proven techniques to manage and overcome your cravings.",
     content: "Detailed strategies...",
-    category: "Tips",
-    author: {
-      name: "Michael Chen",
-      role: "Cessation Counselor",
-      avatar: "/avatars/michael.jpg"
-    },
-    publishedAt: "2024-03-16",
-    readingTime: "5 min",
+    categoryName: "Tips",
+    authorName: "Michael Chen",
+    publishedAt: new Date("2024-03-16"),
+    readingTime: 5,
     coverImage: "/blog/tips-1.jpg",
-    tags: ["tips", "cravings", "strategies"]
   },
 
   // Stories Category
@@ -114,16 +84,11 @@ export const blogPosts: BlogPost[] = [
     slug: "emma-success-story",
     excerpt: "How one woman transformed her life after quitting smoking.",
     content: "Emma's inspiring journey...",
-    category: "Stories",
-    author: {
-      name: "Emma Wilson",
-      role: "Community Member",
-      avatar: "/avatars/emma.jpg"
-    },
-    publishedAt: "2024-03-17",
-    readingTime: "6 min",
+    categoryName: "Stories",
+    authorName: "Emma Wilson",
+    publishedAt: new Date("2024-03-17"),
+    readingTime: 6,
     coverImage: "/blog/story-1.jpg",
-    tags: ["success", "motivation", "fitness"]
   },
 
   // Additional posts for each category...
@@ -132,16 +97,11 @@ export const blogPosts: BlogPost[] = [
     title: "Understanding Withdrawal Symptoms",
     slug: "understanding-withdrawal",
     excerpt: "A medical perspective on managing withdrawal symptoms effectively.",
-    category: "Health",
-    author: {
-      name: "Dr. Lisa Park",
-      role: "Medical Researcher",
-      avatar: "/avatars/lisa.jpg"
-    },
-    publishedAt: "2024-03-19",
-    readingTime: "7 min",
+    categoryName: "Health",
+    authorName: "Dr. Lisa Park",
+    publishedAt: new Date("2024-03-19"),
+    readingTime: 7,
     coverImage: "/blog/health-2.jpg",
-    tags: ["health", "withdrawal", "symptoms"],
     content: "Detailed medical information..."
   }
 ];

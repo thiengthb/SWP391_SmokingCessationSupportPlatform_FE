@@ -6,7 +6,6 @@ export interface Account {
   avatar?: string;
   role: Role;
   status: AccountStatus;
-  havingSubscription: boolean;
   createdAt: string;
   updatedAt: string;
   havingSubscription?: boolean;
