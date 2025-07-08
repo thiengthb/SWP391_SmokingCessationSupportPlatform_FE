@@ -67,22 +67,22 @@ export const stats = [
 export const features = [
   {
     icon: Heart,
-    title: "Health-First Approach",
-    description: "Evidence-based methods and personalized plans for successful quitting"
+    title: "aboutus.features.feature1.title",
+    description: "aboutus.features.feature1.description"
   },
   {
     icon: Users,
-    title: "Community Support",
-    description: "Connect with others on the same journey and share experiences"
+    title: "aboutus.features.feature2.title",
+    description: "aboutus.features.feature2.description"
   },
   {
     icon: Shield,
-    title: "Expert Guidance",
-    description: "Professional coaches and medical experts to support your journey"
+    title: "aboutus.features.feature3.title",
+    description: "aboutus.features.feature3.description"
   },
   {
     icon: Target,
-    title: "Goal Tracking",
-    description: "Set and track your goals with detailed progress analytics"
+    title: "aboutus.features.feature4.title",
+    description: "aboutus.features.feature4.description"
   }
 ];
