@@ -1,8 +1,8 @@
-import { useTranslation } from "react-i18next";
+import { useTranslate } from "@/hooks/useTranslate";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
-  const { t } = useTranslation();
+  const { tFooter } = useTranslate();
 
   const linkItems = [
     { name: "home", to: "/" },
@@ -26,14 +26,14 @@ const Footer = () => {
       <div className="lg:max-w-[1248px] mx-auto px-4 md:px-6 py-8 md:py-12 lg:py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-10 gap-x-8">
           <div className="space-y-3 max-w-sm">
-            <h4 className="text-lg font-semibold">{t("footer.about.title")}</h4>
+            <h4 className="text-lg font-semibold">{tFooter("footer.about.title")}</h4>
             <p className="text-sm text-muted-foreground">
-              {t("footer.about.description")}
+              {tFooter("footer.about.description")}
             </p>
           </div>
 
           <div className="space-y-3">
-            <h4 className="text-lg font-semibold">{t("footer.links.title")}</h4>
+            <h4 className="text-lg font-semibold">{tFooter("footer.links.title")}</h4>
             <ul className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
               {linkItems.map(({ name, to }) => (
                 <li key={name}>
@@ -41,7 +41,7 @@ const Footer = () => {
                     to={to}
                     className="text-muted-foreground hover:text-primary transition-colors"
                   >
-                    {t(`footer.links.${name}`)}
+                    {tFooter(`footer.links.${name}`)}
                   </Link>
                 </li>
               ))}
@@ -50,7 +50,7 @@ const Footer = () => {
 
           <div className="space-y-3">
             <h4 className="text-lg font-semibold">
-              {t("footer.about.social")}
+              {tFooter("footer.about.social")}
             </h4>
             <div className="flex flex-wrap gap-4">
               {socialItems.map(({ name, href }) => (
@@ -69,16 +69,16 @@ const Footer = () => {
         </div>
 
         <div className="mt-12 border-t pt-6 text-center text-sm text-muted-foreground space-y-2">
-          <p>© 2024 Smoking Project. {t("footer.bottom.copyright")}</p>
+          <p>© 2024 Smoking Project. {tFooter("footer.bottom.copyright")}</p>
           <div className="flex justify-center space-x-4">
             <Link to="/terms" className="hover:text-primary">
-              {t("footer.bottom.terms")}
+              {tFooter("footer.bottom.terms")}
             </Link>
             <Link to="/privacy" className="hover:text-primary">
-              {t("footer.bottom.privacy")}
+              {tFooter("footer.bottom.privacy")}
             </Link>
             <a href="#" className="hover:text-primary">
-              {t("footer.bottom.cookies")}
+              {tFooter("footer.bottom.cookies")}
             </a>
           </div>
         </div>

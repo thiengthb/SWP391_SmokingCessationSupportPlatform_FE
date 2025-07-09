@@ -532,35 +532,6 @@
       }
     }
   },
-  "footer": {
-    "about": {
-      "title": "About Us",
-      "social": "Social Media",
-      "description": "At Smoking Project, we support individuals on their journey to quit smoking through technology and community."
-    },
-    "links": {
-      "title": "Quick Links",
-      "home": "Home",
-      "about": "About",
-      "contact": "Contact",
-      "blog": "Blog",
-      "terms": "Terms",
-      "privacy": "Privacy",
-      "faq": "FAQ"
-    },
-    "subscribe": {
-      "title": "Subscribe",
-      "description": "Subscribe to our newsletter for updates and health tips.",
-      "placeholder": "Enter your email",
-      "button": "Subscribe"
-    },
-    "bottom": {
-      "copyright": "All rights reserved.",
-      "terms": "Terms",
-      "privacy": "Privacy",
-      "cookies": "Cookies"
-    }
-  },
   "privacy": {
     "title": "Privacy Policy",
     "updated": "Last updated: {{date}}",
