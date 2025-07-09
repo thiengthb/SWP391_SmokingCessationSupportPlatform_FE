@@ -6,4 +6,5 @@ export const I18nNamespace = {
   DATA: 'data',
   CONTEXT: 'context',
   ABOUTUS: 'aboutus',
+  AUTH: 'auth',
 }

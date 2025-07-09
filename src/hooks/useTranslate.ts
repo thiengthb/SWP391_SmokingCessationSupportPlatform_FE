@@ -9,6 +9,7 @@ export const useTranslate = () => {
   const { t: tData } = useTranslation(I18nNamespace.DATA);
   const { t: tContext } = useTranslation(I18nNamespace.CONTEXT);
   const { t: tAboutus } = useTranslation(I18nNamespace.ABOUTUS);
+  const { t: tAuth } = useTranslation(I18nNamespace.AUTH);
   return {
     tCommon,
     tNavbar,
@@ -17,5 +18,6 @@ export const useTranslate = () => {
     tData,
     tContext,
     tAboutus,
+    tAuth,
   };
 };

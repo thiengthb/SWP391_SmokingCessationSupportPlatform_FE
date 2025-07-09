@@ -21,10 +21,10 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import FormInputError from "@/components/FormInputError";
 import { useAuth } from "@/contexts/AuthContext";
 import { useEffect } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslate } from "@/hooks/useTranslate";
 
 const LoginPage = () => {
-  const { t } = useTranslation();
+  const { tAuth } = useTranslate();
   const { persist, setPersist, handleLogin } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -75,8 +75,8 @@ const LoginPage = () => {
     <div className="w-full my-10 sm:my-16 lg:my-16 2xl:my-40 flex justify-center items-center">
       <Card className="w-[360px] lg:w-[400px] xl:w-[440px] mx-2 pb-10">
         <CardHeader>
-          <CardTitle>{t("page.login.title")}</CardTitle>
-          <CardDescription>{t("page.login.description")}</CardDescription>
+          <CardTitle>{tAuth("auth.login.title")}</CardTitle>
+          <CardDescription>{tAuth("auth.login.description")}</CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent className="grid gap-4">
@@ -92,11 +92,11 @@ const LoginPage = () => {
               <FormInputError field={errors.email} />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="password">{t("page.login.form.password")}</Label>
+              <Label htmlFor="password">{tAuth("auth.login.form.password")}</Label>
               <Input
                 id="password"
                 type="password"
-                placeholder={t("page.login.placeholderPassword")}
+                placeholder={tAuth("auth.login.placeholderPassword")}
                 disabled={isSubmitting}
                 {...register("password")}
               />
@@ -111,12 +111,12 @@ const LoginPage = () => {
                   disabled={isSubmitting}
                 />
                 <label htmlFor="remember" className="text-sm leading-none">
-                  {t("page.login.rememberMe")}
+                  {tAuth("auth.login.rememberMe")}
                 </label>
               </div>
               <Button variant="link" className="px-0 text-sm">
                 <Link to="/auth/forgot-password">
-                  {t("page.login.forgotPassword")}
+                  {tAuth("auth.login.forgotPassword")}
                 </Link>
               </Button>
             </div>
@@ -125,17 +125,17 @@ const LoginPage = () => {
             <div className="w-full flex flex-col items-center">
               <Button type="submit" className="w-full" disabled={isSubmitting}>
                 {isSubmitting
-                  ? t("page.login.signingIn")
-                  : t("page.login.signIn")}
+                  ? tAuth("auth.login.signingIn")
+                  : tAuth("auth.login.signIn")}
               </Button>
               <div className="flex items-center gap-2">
-                <span className="text-sm">{t("page.login.noAccount")}</span>
+                <span className="text-sm">{tAuth("auth.login.noAccount")}</span>
                 <Button variant="link" className="px-0">
                   <Link
                     to="/auth/register"
                     className="text-sm text-muted-foreground hover:text-primary"
                   >
-                    {t("page.login.signUp")}
+                    {tAuth("auth.login.signUp")}
                   </Link>
                 </Button>
               </div>
