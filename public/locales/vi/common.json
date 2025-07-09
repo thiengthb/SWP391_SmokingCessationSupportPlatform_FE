@@ -1,0 +1,27 @@
+{
+    "theme": {
+        "title": "Chủ đề",
+        "light": "Sáng",
+        "dark": "Tối",
+        "system": "Hệ thống"
+    },
+    "roles": {
+        "admin": "Quản trị viên",
+        "user": "Người dùng",
+        "guest": "Khách",
+        "coach": "Huấn luyện viên"
+    },
+    "buttons": {
+        "login": "Đăng nhập",
+        "logout": "Đăng xuất",
+        "signup": "Đăng ký",
+        "forgotPassword": "Quên mật khẩu?",
+        "resetPassword": "Đặt lại mật khẩu",
+        "register": "Đăng ký",
+        "submit": "Gửi",
+        "cancel": "Hủy",
+        "save": "Lưu",
+        "edit": "Chỉnh sửa",
+        "delete": "Xóa"
+    }
+}
