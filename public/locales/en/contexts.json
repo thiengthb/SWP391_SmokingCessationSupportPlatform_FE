@@ -9,6 +9,9 @@
      "logoutSuccessDesc": "You have been logged out successfully",
      "logoutFailedTitle": "Logout Failed",
      "logoutFailedDesc": "An error occurred while logging out"
+   },
+   "ftnd": {
+    
    }
  }
 }

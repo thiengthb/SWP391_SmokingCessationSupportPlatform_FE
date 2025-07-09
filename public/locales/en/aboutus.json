@@ -1,0 +1,21 @@
+{
+  "aboutus": {
+    "team": {
+      "title": "Our Team",
+      "description": "Meet the dedicated professionals working to help you quit smoking",
+      "getInTouchTitle": "Get in Touch",
+      "getInTouchDescription": "Have questions? We'd love to hear from you. Send us a message and we'll respond...",
+      "buttonContact": "Contact Us"
+    },
+    "story": {
+      "title": "Our Story",
+      "subtitle": "The journey of building a smoke-free future",
+      "missionTitle": "Our Mission",
+      "missionDescription": "We are committed to helping people break free from tobacco addiction through innovative technology, supportive community, and evidence-based methods.",
+      "goalsTitle": "Goals",
+      "joinTitle": "Join Our Mission",
+      "joinDescription": "Let's work together to create a healthier world. We can help more people quit smoking and live better lives.",
+      "buttonGetStarted": "Get Started Now"
+    }
+  }
+}

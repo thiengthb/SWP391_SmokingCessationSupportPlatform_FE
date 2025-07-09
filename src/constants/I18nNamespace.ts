@@ -5,4 +5,5 @@ export const I18nNamespace = {
   FTND: 'ftnd',
   DATA: 'data',
   CONTEXT: 'context',
+  ABOUTUS: 'aboutus',
 }

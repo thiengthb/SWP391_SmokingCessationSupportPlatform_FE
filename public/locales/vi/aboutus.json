@@ -1,0 +1,21 @@
+{
+  "aboutus": {
+    "team": {
+      "title": "Đội ngũ của chúng tôi",
+      "description": "Gặp gỡ những người tận tâm đang giúp bạn từ bỏ thuốc lá",
+      "getInTouchTitle": "Liên hệ với chúng tôi",
+      "getInTouchDescription": "Bạn có câu hỏi? Chúng tôi rất vui khi được lắng nghe. Gửi tin nhắn và chúng tôi sẽ phản hồi sớm nhất.",
+      "buttonContact": "Liên hệ"
+    },
+    "story": {
+      "title": "Câu chuyện của chúng tôi",
+      "subtitle": "Hành trình xây dựng một tương lai không khói thuốc",
+      "missionTitle": "Sứ mệnh của chúng tôi",
+      "missionDescription": "Chúng tôi cam kết giúp mọi người thoát khỏi sự phụ thuộc thuốc lá bằng công nghệ sáng tạo, cộng đồng hỗ trợ và phương pháp khoa học.",
+      "goalsTitle": "Mục tiêu",
+      "joinTitle": "Tham gia sứ mệnh",
+      "joinDescription": "Hãy cùng chung tay xây dựng một thế giới khỏe mạnh hơn. Chúng ta có thể giúp nhiều người bỏ thuốc và sống tốt hơn.",
+      "buttonGetStarted": "Bắt đầu ngay"
+    }
+  }
+}

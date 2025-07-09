@@ -71,6 +71,74 @@
         "high": "Bạn cần sự hỗ trợ đáng kể để cai thuốc lá. Gói hỗ trợ cao cấp sẽ phù hợp với bạn.",
         "very_high": "Bạn có mức độ phụ thuộc cao vào nicotin và cần hỗ trợ toàn diện. Chúng tôi khuyến nghị gói hỗ trợ toàn diện kết hợp với tư vấn chuyên gia."
       }
+    },
+    "aboutus": {
+      "milestones": [
+        {
+          "title": "Khởi đầu",
+          "description": "Ra mắt phiên bản đầu tiên của ứng dụng hỗ trợ cai thuốc"
+        },
+        {
+          "title": "Phát triển cộng đồng",
+          "description": "Mở rộng lên hơn 10.000 người dùng hoạt động"
+        },
+        {
+          "title": "Cập nhật lớn",
+          "description": "Giới thiệu AI cho gợi ý và theo dõi cá nhân hóa"
+        },
+        {
+          "title": "Tác động toàn cầu",
+          "description": "Hỗ trợ đa ngôn ngữ và tiếp cận người dùng toàn thế giới"
+        }
+      ],
+      "team": {
+        "members": [
+          {
+            "name": "Trần Ngọc Thiện",
+            "role": "Trưởng nhóm dự án",
+            "description": "Dẫn dắt đội ngũ phát triển với trọng tâm đổi mới và trải nghiệm người dùng, đảm bảo dự án đạt được mục tiêu"
+          },
+          {
+            "name": "Vũ Anh Tuấn",
+            "role": "Lập trình viên Backend",
+            "description": "Chuyên gia Springboot và MySQL, tập trung vào giải pháp backend mở rộng cho sức khỏe"
+          },
+          {
+            "name": "Trần Nhật Chính",
+            "role": "Lập trình viên Backend",
+            "description": "Chuyên môn backend với kinh nghiệm quản lý cơ sở dữ liệu, đảm bảo hiệu suất ứng dụng ổn định"
+          },
+          {
+            "name": "Hoàng Tùng Lâm",
+            "role": "Lập trình viên Frontend",
+            "description": "Chuyên về React và thiết kế responsive, tối ưu trải nghiệm người dùng"
+          }
+        ]
+      },
+      "stats": [
+        { "value": "50K+", "label": "Người dùng hoạt động" },
+        { "value": "90%", "label": "Tỷ lệ thành công" },
+        { "value": "24/7", "label": "Hỗ trợ liên tục" },
+        { "value": "5★", "label": "Đánh giá" }
+      ],
+      "features": [
+        {
+          "title": "Ưu tiên sức khỏe",
+          "description": "Áp dụng phương pháp có bằng chứng và kế hoạch cá nhân hóa"
+        },
+        {
+          "title": "Cộng đồng hỗ trợ",
+          "description": "Kết nối và chia sẻ hành trình cùng người khác"
+        },
+        {
+          "title": "Hướng dẫn chuyên gia",
+          "description": "Huấn luyện viên và bác sĩ chuyên môn hỗ trợ bạn"
+        },
+        {
+          "title": "Theo dõi mục tiêu",
+          "description": "Thiết lập và theo dõi mục tiêu cùng phân tích tiến độ"
+        }
+      ]
     }
   }
 }

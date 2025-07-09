@@ -8,6 +8,7 @@ export const useTranslate = () => {
   const { t: tFtnd } = useTranslation(I18nNamespace.FTND);
   const { t: tData } = useTranslation(I18nNamespace.DATA);
   const { t: tContext } = useTranslation(I18nNamespace.CONTEXT);
+  const { t: tAboutus } = useTranslation(I18nNamespace.ABOUTUS);
   return {
     tCommon,
     tNavbar,
@@ -15,6 +16,6 @@ export const useTranslate = () => {
     tFtnd,
     tData,
     tContext,
-    
+    tAboutus,
   };
 };
