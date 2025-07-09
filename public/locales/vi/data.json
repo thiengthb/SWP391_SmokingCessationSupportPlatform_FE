@@ -1,0 +1,76 @@
+{
+  "data": {
+    "ftnd": {
+      "questions": {
+        "1": {
+          "question": "Bạn hút điếu thuốc đầu tiên sau khi thức dậy trong bao lâu?",
+          "options": {
+            "3": "Trong vòng 5 phút",
+            "2": "6–30 phút",
+            "1": "31–60 phút",
+            "0": "Sau 60 phút"
+          }
+        },
+        "2": {
+          "question": "Bạn có gặp khó khăn khi kiêng hút thuốc ở nơi cấm không?",
+          "options": {
+            "1": "Có",
+            "0": "Không"
+          }
+        },
+        "3": {
+          "question": "Bạn thấy khó bỏ điếu thuốc nào nhất?",
+          "options": {
+            "1": "Điếu đầu tiên buổi sáng",
+            "0": "Bất kỳ điếu nào khác"
+          }
+        },
+        "4": {
+          "question": "Bạn hút nhiều hơn vào buổi sáng so với phần còn lại trong ngày?",
+          "options": {
+            "1": "Có",
+            "0": "Không"
+          }
+        },
+        "5": {
+          "question": "Bạn có hút thuốc khi bị bệnh và nằm trên giường cả ngày không?",
+          "options": {
+            "1": "Có",
+            "0": "Không"
+          }
+        },
+        "6": {
+          "question": "Trung bình mỗi ngày bạn hút bao nhiêu điếu thuốc?",
+          "unit": "điếu"
+        },
+        "7": {
+          "question": "Một bao thuốc bạn thường mua có bao nhiêu điếu?",
+          "unit": "điếu mỗi bao"
+        },
+        "8": {
+          "question": "Giá trung bình bạn trả cho một bao thuốc là bao nhiêu?",
+          "unit": "VNĐ"
+        },
+        "9": {
+          "question": "Bạn đã hút thuốc được bao nhiêu năm?",
+          "unit": "năm"
+        },
+        "10": {
+          "question": "Lý do chính bạn muốn cai thuốc là gì?"
+        }
+      },
+      "levels": {
+        "low": "Mức độ phụ thuộc nicotin thấp",
+        "moderate": "Mức độ phụ thuộc nicotin trung bình",
+        "high": "Mức độ phụ thuộc nicotin cao",
+        "very_high": "Mức độ phụ thuộc nicotin rất cao"
+      },
+      "descriptions": {
+        "low": "Bạn có thể cai thuốc lá mà không cần nhiều hỗ trợ về thuốc. Hãy tham khảo các gói cơ bản của chúng tôi.",
+        "moderate": "Bạn có thể gặp một số khó khăn khi cai thuốc lá. Chúng tôi khuyến nghị gói hỗ trợ tiêu chuẩn.",
+        "high": "Bạn cần sự hỗ trợ đáng kể để cai thuốc lá. Gói hỗ trợ cao cấp sẽ phù hợp với bạn.",
+        "very_high": "Bạn có mức độ phụ thuộc cao vào nicotin và cần hỗ trợ toàn diện. Chúng tôi khuyến nghị gói hỗ trợ toàn diện kết hợp với tư vấn chuyên gia."
+      }
+    }
+  }
+}

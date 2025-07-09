@@ -1,0 +1,76 @@
+{
+ "data": {
+   "ftnd": {
+     "questions": {
+       "1": {
+         "question": "How soon after waking up do you smoke your first cigarette?",
+         "options": {
+           "3": "Within 5 minutes",
+           "2": "6–30 minutes",
+           "1": "31–60 minutes",
+           "0": "After 60 minutes"
+         }
+       },
+       "2": {
+         "question": "Do you find it difficult to refrain from smoking in places where it is forbidden?",
+         "options": {
+           "1": "Yes",
+           "0": "No"
+         }
+       },
+       "3": {
+         "question": "Which cigarette would you hate most to give up?",
+         "options": {
+           "1": "The first one in the morning",
+           "0": "Any other"
+         }
+       },
+       "4": {
+         "question": "Do you smoke more in the morning than during the rest of the day?",
+         "options": {
+           "1": "Yes",
+           "0": "No"
+         }
+       },
+       "5": {
+         "question": "Do you smoke when you are ill and bedridden all day?",
+         "options": {
+           "1": "Yes",
+           "0": "No"
+         }
+       },
+       "6": {
+         "question": "On average, how many cigarettes do you smoke per day?",
+         "unit": "cigarettes"
+       },
+       "7": {
+         "question": "How many cigarettes are in a pack you usually buy?",
+         "unit": "cigarettes per pack"
+       },
+       "8": {
+         "question": "What is the average price you pay for a pack of cigarettes?",
+         "unit": "VND"
+       },
+       "9": {
+         "question": "How many years have you been smoking?",
+         "unit": "years"
+       },
+       "10": {
+         "question": "What is the main reason you want to quit smoking?"
+       }
+     },
+     "levels": {
+       "low": "Low nicotine dependence",
+       "moderate": "Moderate nicotine dependence",
+       "high": "High nicotine dependence",
+       "very_high": "Very high nicotine dependence"
+     },
+     "descriptions": {
+       "low": "You can quit smoking without much medication support. Please consider our basic packages.",
+       "moderate": "You may experience some difficulty quitting smoking. We recommend our standard support package.",
+       "high": "You need significant support to quit smoking. The premium support package would be suitable for you.",
+       "very_high": "You have a high level of nicotine dependence and need comprehensive support. We recommend our comprehensive support package combined with expert counseling."
+     }
+   }
+ }
+}
