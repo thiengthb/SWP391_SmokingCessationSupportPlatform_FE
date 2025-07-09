@@ -4,4 +4,5 @@ export const I18nNamespace = {
   FOOTER: 'footer',
   FTND: 'ftnd',
   DATA: 'data',
+  CONTEXT: 'context',
 }

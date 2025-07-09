@@ -1,3 +1,4 @@
+import { useTranslate } from "@/hooks/useTranslate";
 import { api } from "@/lib/axios";
 import type { Account } from "@/types/models/account";
 import type { LoginFormData } from "@/types/validations/auth/login";
@@ -32,7 +33,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [persist, setPersist] = useState<boolean>(
     JSON.parse(localStorage.getItem("persist") || "true")
   );
-
+  const { tContext } = useTranslate();
   const handleLogin = async (formData: LoginFormData) => {
     try {
       const response = await api.post("/v1/auth/login", formData);
@@ -46,8 +47,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         accessToken: accessToken,
       });
 
-      toast.success("Đăng nhập thành công", {
-        description: "Chào mừng bạn trở lại!",
+      toast.success(tContext("contexts.auth.loginSuccessTitle"), {
+        description: tContext("contexts.auth.loginSuccessDesc"),
       });
     } catch (error: any) {
       setAuth(defaultAuth);
@@ -64,15 +65,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         },
       });
       console.log("Logout successful");
-      toast.success("Đăng xuất thành công", {
-        description: "Bạn đã đăng xuất thành công",
+      toast.success(tContext("contexts.auth.logoutSuccessTitle"), {
+        description: tContext("contexts.auth.logoutSuccessDesc"),
       });
       setAuth(defaultAuth);
     } catch (error: any) {
       console.error("Logout error:", error);
       toast.error("Đăng xuất thất bại", {
         description:
-          error.response?.data?.message || "Đã xảy ra lỗi khi đăng xuất",
+          error.response?.data?.message || tContext("auth.logoutFailedDesc"),
       });
       throw new Error(error.response?.data?.message || "Logout failed");
     } finally {
