@@ -10,6 +10,7 @@ export const useTranslate = () => {
   const { t: tContext } = useTranslation(I18nNamespace.CONTEXT);
   const { t: tAboutus } = useTranslation(I18nNamespace.ABOUTUS);
   const { t: tAuth } = useTranslation(I18nNamespace.AUTH);
+  const { t: tLandingpage} = useTranslation(I18nNamespace.LANDINGPAGE);
   return {
     tCommon,
     tNavbar,
@@ -19,5 +20,6 @@ export const useTranslate = () => {
     tContext,
     tAboutus,
     tAuth,
+    tLandingpage
   };
 };

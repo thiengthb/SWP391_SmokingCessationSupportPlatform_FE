@@ -84,7 +84,7 @@ const RegisterPage = () => {
               <Input
                 id="password"
                 type="password"
-                placeholder={tAuth("auth.register.placeholderConfirm")}
+                placeholder={tAuth("auth.register.placeholderPassword")}
                 {...register("password")}
               />
               <FormInputError field={errors.password} />
