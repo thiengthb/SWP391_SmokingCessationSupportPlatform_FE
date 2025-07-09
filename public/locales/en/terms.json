@@ -1,0 +1,14 @@
+{
+  "terms": {
+    "title": "Terms of Service",
+    "subtitle": "User Agreement",
+    "updated": "Last updated: {{date}}",
+    "noteLabel": "Note:",
+
+    "alert": "Important Notice: Please read these terms carefully before using the system. By accessing and using the service, you agree to the entire content of this Terms of Service.",
+    "notice": {
+      "strong": "Important Notice:",
+      "content": "Please read these terms carefully before using the system. By accessing and using the service, you agree to the entire content of this Terms of Service."
+    }
+  }
+}

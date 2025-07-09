@@ -1,0 +1,13 @@
+{
+  "terms": {
+    "title": "Điều khoản dịch vụ",
+    "subtitle": "Thỏa thuận người dùng",
+    "updated": "Cập nhật lần cuối: {{date}}",
+    "noteLabel": "Lưu ý:",
+    "alert": "Lưu ý quan trọng: Vui lòng đọc kỹ điều khoản trước khi sử dụng hệ thống. Việc bạn truy cập và sử dụng dịch vụ đồng nghĩa với việc bạn đồng ý với toàn bộ nội dung của Điều khoản dịch vụ này.",
+    "notice": {
+      "strong": "Lưu ý quan trọng:",
+      "content": "Vui lòng đọc kỹ điều khoản trước khi sử dụng hệ thống. Việc bạn truy cập và sử dụng dịch vụ đồng nghĩa với việc bạn đồng ý với toàn bộ nội dung của Điều khoản dịch vụ này."
+    }
+  }
+}

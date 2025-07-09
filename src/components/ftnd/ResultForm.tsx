@@ -29,7 +29,7 @@ export const ResultForm = ({
   setShowCompletionDialog = () => {},
 }: FTNDAssessmentFormProps) => {
   const navigation = useNavigate();
-  const { tFtnd } = useTranslate();
+  const { tFtnd, tData } = useTranslate();
   const handleCloseAssessment = () => {
     setShowCompletionDialog(false);
     onOpenChange(false);
@@ -59,7 +59,7 @@ export const ResultForm = ({
               {tFtnd("ftnd.result.scoreLabel")}
             </p>
             <p className="text-4xl font-bold text-primary">{ftndScore}</p>
-            <p className="font-medium mt-2">{getFtndLevelText(ftndScore)}</p>
+            <p className="font-medium mt-2">{tData(getFtndLevelText(ftndScore))}</p>
           </div>
 
           <div className="flex items-start gap-3 bg-blue-50 p-4 rounded-lg">
@@ -68,7 +68,7 @@ export const ResultForm = ({
               <p className="font-medium mb-1">
                 {tFtnd("ftnd.result.recommendTitle")}
               </p>
-              <p>{tFtnd(getFtndLevelDescription(ftndScore))}</p>
+              <p>{tData(getFtndLevelDescription(ftndScore))}</p>
             </div>
           </div>
         </div>

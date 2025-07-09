@@ -13,6 +13,7 @@ export const useTranslate = () => {
   const { t: tLandingpage } = useTranslation(I18nNamespace.LANDINGPAGE);
   const { t: tCommunity } = useTranslation(I18nNamespace.COMMUNITY);
   const { t: tPrivacy } = useTranslation(I18nNamespace.PRIVACY);
+  const { t: tTerms } = useTranslation(I18nNamespace.TERMS);
   return {
     tCommon,
     tNavbar,
@@ -24,6 +25,7 @@ export const useTranslate = () => {
     tAuth,
     tLandingpage,
     tCommunity,
-    tPrivacy
+    tPrivacy,
+    tTerms
   };
 };

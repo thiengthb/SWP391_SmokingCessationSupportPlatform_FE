@@ -9,5 +9,6 @@ export const I18nNamespace = {
   AUTH: 'auth',
   LANDINGPAGE: 'landingpage',
   COMMUNITY: 'community',
-  PRIVACY: 'privacy'
+  PRIVACY: 'privacy',
+  TERMS: "terms",
 }

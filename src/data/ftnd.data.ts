@@ -139,7 +139,7 @@ export const calculateScoreFromCirgettesPerDay = (
 export const getFtndLevelText = (score: number) => {
   if (score <= 2) return "data.ftnd.levels.low";
   if (score <= 4) return "data.ftnd.levels.moderate";
-  if (score <= 6) return "data.ftnd.levels.high";
+  if (score <= 6) return "data.ftnd.levels";
   return "data.ftnd.levels.very_high";
 };
 

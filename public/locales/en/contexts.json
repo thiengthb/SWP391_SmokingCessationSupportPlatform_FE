@@ -1,17 +1,14 @@
 {
- "contexts": {
-   "auth": {
-     "loginSuccessTitle": "Login Successful",
-     "loginSuccessDesc": "Welcome back!",
-     "loginFailed": "Login Failed",
+  "contexts": {
+    "auth": {
+      "loginSuccessTitle": "Login Successful",
+      "loginSuccessDesc": "Welcome back!",
+      "loginFailed": "Login Failed",
 
-     "logoutSuccessTitle": "Logout Successful",
-     "logoutSuccessDesc": "You have been logged out successfully",
-     "logoutFailedTitle": "Logout Failed",
-     "logoutFailedDesc": "An error occurred while logging out"
-   },
-   "ftnd": {
-    
-   }
- }
+      "logoutSuccessTitle": "Logout Successful",
+      "logoutSuccessDesc": "You have been logged out successfully",
+      "logoutFailedTitle": "Logout Failed",
+      "logoutFailedDesc": "An error occurred while logging out"
+    }
+  }
 }

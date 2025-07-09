@@ -1,13 +1,14 @@
-import { useTranslation } from "react-i18next";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { CheckCircle, AlertTriangle, Clock, FileText } from "lucide-react";
 import { termsSections } from "@/data/terms";
+import { useTranslate } from "@/hooks/useTranslate";
 
 const TermsPage = () => {
-  const { t } = useTranslation();
+  const { tData, tTerms } = useTranslate();
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -16,21 +17,21 @@ const TermsPage = () => {
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-full mb-6">
             <FileText className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-4xl font-bold mb-2">{t("terms.title")}</h1>
+          <h1 className="text-4xl font-bold mb-2">{tTerms("terms.title")}</h1>
           <p className="text-xl text-muted-foreground mb-4">
-            {t("terms.subtitle")}
+            {tTerms("terms.subtitle")}
           </p>
           <Badge variant="secondary" className="inline-flex items-center gap-2">
             <Clock className="w-4 h-4" />
-            {t("terms.updated", { date: "July 2025" })}
+            {tTerms("terms.updated", { date: "July 2025" })}
           </Badge>
         </div>
 
         <Alert className="mb-8 border-amber-200 bg-amber-50 dark:bg-amber-950 dark:border-amber-800">
           <AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400" />
           <AlertDescription className="text-amber-800 dark:text-amber-100">
-            <strong>{t("terms.notice.strong")}</strong>{" "}
-            {t("terms.notice.content")}
+            <strong>{tTerms("terms.notice.strong")}</strong>{" "}
+            {tTerms("terms.notice.content")}
           </AlertDescription>
         </Alert>
 
@@ -45,7 +46,7 @@ const TermsPage = () => {
                       <Icon className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
                     </div>
                     <span>
-                      {section.id}. {t(section.titleKey)}
+                      {section.id}. {tData(section.titleKey)}
                     </span>
                   </CardTitle>
                 </CardHeader>
@@ -55,7 +56,7 @@ const TermsPage = () => {
                       <Icon className="w-4 h-4 text-foreground" />
                       {section.descriptionKey && (
                         <AlertDescription>
-                          {t(section.descriptionKey)}
+                          {tData(section.descriptionKey)}
                         </AlertDescription>
                       )}
                     </Alert>
@@ -63,7 +64,7 @@ const TermsPage = () => {
                     <div className="space-y-4">
                       {section.descriptionKey && (
                         <p className="text-muted-foreground leading-relaxed">
-                          {t(section.descriptionKey)}
+                          {tData(section.descriptionKey)}
                         </p>
                       )}
                       {section.itemKeys && (
@@ -72,7 +73,7 @@ const TermsPage = () => {
                             <div key={index} className="flex items-start gap-3">
                               <CheckCircle className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />
                               <span className="text-sm text-muted-foreground">
-                                {t(key)}
+                                {tData(key)}
                               </span>
                             </div>
                           ))}
@@ -83,8 +84,8 @@ const TermsPage = () => {
                           <Separator className="my-4" />
                           <div className="bg-muted p-4 rounded-lg">
                             <p className="text-sm text-muted-foreground">
-                              <strong>{t("terms.noteLabel")}</strong>{" "}
-                              {t(section.noteKey)}
+                              <strong>{tTerms("terms.noteLabel")}</strong>{" "}
+                              {tData(section.noteKey)}
                             </p>
                           </div>
                         </>

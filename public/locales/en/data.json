@@ -187,6 +187,55 @@
 
       "10.title": "Policy changes",
       "10.content.1": "This policy may be adjusted to reflect legal or technical changes. Major changes will be announced directly within the system."
+    },
+    "terms": {
+     
+      "1.title": "Scope of Application",
+      "1.description": "These terms apply to the use of the smoking cessation support system, including the following features:",
+      "1.items": [
+        "Create a quit smoking plan",
+        "Track progress and health statistics",
+        "Schedule coaching sessions",
+        "Daily smoking diary",
+        "Receive notifications and rewards"
+      ],
+      "1.note": "The system is intended for personal and educational purposes only, not for commercial or professional medical use.",
+
+      "2.title": "Not a Medical Service",
+      "2.description": "The system does not provide medical diagnosis or treatment. All content is for reference only. If you need medical support, consult a doctor or professional healthcare provider.",
+
+      "3.title": "Not for Emergency Use",
+      "3.description": "If you are experiencing a serious or emergency health issue, do not use this system. Instead, contact the nearest medical center or call 115 immediately.",
+
+      "4.title": "User Accounts",
+      "4.items": [
+        "Users must be at least 18 years old to create an account.",
+        "You are responsible for securing your account and password.",
+        "Do not share your account with others.",
+        "If unauthorized access is detected, notify the development team immediately."
+      ],
+
+      "5.title": "Privacy Policy",
+      "5.description": "We are committed to protecting your personal information. Data you provide (name, email, phone number, smoking habits...) is used solely to support your quit-smoking journey. We do not share data with third parties.",
+
+      "6.title": "Intellectual Property Rights",
+      "6.description": "All content, design, and source code of the system belong to the development team. You may not copy, reuse, or modify the system without permission.",
+
+      "7.title": "System Content Changes",
+      "7.description": "The system may update or change features at any time to improve the learning experience and user support. Changes will be publicly announced if necessary.",
+
+      "8.title": "Limitation of Liability",
+      "8.description": "The system is provided \"as-is.\" The development team is not liable for any risks arising from misuse or misunderstanding of content.",
+
+      "9.title": "Account Suspension or Termination",
+      "9.description": "We reserve the right to suspend or delete user accounts if any of the following are detected:",
+      "9.items": [
+        "Violation of rules or laws",
+        "Intentional system disruption",
+        "Using the system for improper purposes"
+      ],
+      "10.title": "Governing Law",
+      "10.description": "These terms are governed by the laws of the Socialist Republic of Vietnam. For questions or concerns, please contact the development team via email or internal support channels."
     }
   }
 }
