@@ -22,6 +22,7 @@
         "cancel": "Hủy",
         "save": "Lưu",
         "edit": "Chỉnh sửa",
-        "delete": "Xóa"
+        "delete": "Xóa",
+        "scroll": "Cuộn lên"  
     }
 }
