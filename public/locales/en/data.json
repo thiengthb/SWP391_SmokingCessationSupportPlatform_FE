@@ -139,6 +139,54 @@
           "description": "Set and track your goals with detailed progress analytics"
         }
       ]
+    },
+    "privacy": {
+      "1.title": "Who is responsible for your information?",
+      "1.content.1": "We are the entity responsible for managing and protecting the personal data you provide while using the smoking cessation support system.",
+
+      "2.title": "What information do we collect?",
+      "2.content.1": "2.1. Information you provide directly:",
+      "2.content.2": "- Full name, email, phone number",
+      "2.content.3": "- Smoking status, logs, and quit plans",
+      "2.content.4": "- Feedback and messages within the system",
+      "2.content.5": "2.2. Information collected automatically:",
+      "2.content.6": "- Usage behavior (login frequency, language, accessed features)",
+
+      "3.title": "Purpose of information use",
+      "3.content.1": "- Support your quit-smoking journey",
+      "3.content.2": "- Analyze, improve, and personalize the experience",
+      "3.content.3": "- Send notifications, reminders, or surveys",
+
+      "4.title": "Sharing of personal information",
+      "4.content.1": "We do not share your personal information with third parties unless:",
+      "4.content.2": "- Required by legal authorities",
+      "4.content.3": "- You provide explicit consent",
+      "4.content.4": "- Data is anonymized for academic research purposes",
+
+      "5.title": "Data retention period",
+      "5.content.1": "Your information will be stored until:",
+      "5.content.2": "- You delete your account, or",
+      "5.content.3": "- You request deletion of personal data\nSome data may be retained as required by law.",
+
+      "6.title": "Your rights",
+      "6.content.1": "You have the right to:",
+      "6.content.2": "- Review your personal data",
+      "6.content.3": "- Request updates, corrections, or deletion of your information",
+
+      "7.title": "Data security",
+      "7.content.1": "- Data is stored on a secure internal system.",
+      "7.content.2": "- We use reasonable security measures to prevent unauthorized access, loss, or data breaches.",
+
+      "8.title": "Cookies and behavior analytics",
+      "8.content.1": "The system may use cookies to:",
+      "8.content.2": "- Remember your preferences",
+      "8.content.3": "- Analyze user behavior to improve the experience\nYou can disable cookies via browser settings, but some features may not function properly.",
+
+      "9.title": "For users under 18",
+      "9.content.1": "The system is not intended for users under 18. If unauthorized use is detected, we may suspend the account and delete related data.",
+
+      "10.title": "Policy changes",
+      "10.content.1": "This policy may be adjusted to reflect legal or technical changes. Major changes will be announced directly within the system."
     }
   }
 }

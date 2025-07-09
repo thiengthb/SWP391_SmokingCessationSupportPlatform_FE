@@ -139,6 +139,54 @@
           "description": "Thiết lập và theo dõi mục tiêu cùng phân tích tiến độ"
         }
       ]
+    },
+    "privacy": {
+      "1.title": "Ai chịu trách nhiệm với thông tin của bạn?",
+      "1.content.1": "Chúng tôi là đơn vị chịu trách nhiệm quản lý và bảo vệ dữ liệu cá nhân mà bạn cung cấp khi sử dụng hệ thống hỗ trợ cai thuốc lá.",
+
+      "2.title": "Chúng tôi thu thập thông tin gì?",
+      "2.content.1": "2.1. Thông tin bạn cung cấp trực tiếp:",
+      "2.content.2": "- Họ tên, email, số điện thoại",
+      "2.content.3": "- Tình trạng hút thuốc, nhật ký, và kế hoạch bỏ thuốc",
+      "2.content.4": "- Phản hồi và tin nhắn trong hệ thống",
+      "2.content.5": "2.2. Thông tin được thu thập tự động:",
+      "2.content.6": "- Hành vi sử dụng (tần suất đăng nhập, ngôn ngữ, tính năng đã truy cập)",
+
+      "3.title": "Mục đích sử dụng thông tin",
+      "3.content.1": "- Hỗ trợ hành trình cai thuốc của bạn",
+      "3.content.2": "- Phân tích, cải tiến và cá nhân hóa trải nghiệm",
+      "3.content.3": "- Gửi thông báo, nhắc nhở hoặc khảo sát",
+
+      "4.title": "Việc chia sẻ thông tin cá nhân",
+      "4.content.1": "Chúng tôi không chia sẻ thông tin cá nhân của bạn với bên thứ ba trừ khi:",
+      "4.content.2": "- Có yêu cầu từ cơ quan pháp luật",
+      "4.content.3": "- Bạn đã đồng ý rõ ràng",
+      "4.content.4": "- Dữ liệu được ẩn danh cho mục đích nghiên cứu học thuật",
+
+      "5.title": "Thời gian lưu trữ dữ liệu",
+      "5.content.1": "Thông tin của bạn sẽ được lưu trữ cho đến khi:",
+      "5.content.2": "- Bạn xóa tài khoản, hoặc",
+      "5.content.3": "- Bạn yêu cầu xóa dữ liệu cá nhân\nMột số dữ liệu có thể được giữ lại theo quy định của pháp luật.",
+
+      "6.title": "Quyền của bạn",
+      "6.content.1": "Bạn có quyền:",
+      "6.content.2": "- Xem lại dữ liệu cá nhân của mình",
+      "6.content.3": "- Yêu cầu cập nhật, chỉnh sửa hoặc xóa thông tin",
+
+      "7.title": "Bảo mật dữ liệu",
+      "7.content.1": "- Dữ liệu được lưu trữ trên hệ thống nội bộ an toàn.",
+      "7.content.2": "- Chúng tôi sử dụng các biện pháp bảo mật hợp lý để ngăn chặn truy cập trái phép, mất mát hoặc rò rỉ dữ liệu.",
+
+      "8.title": "Cookies và phân tích hành vi",
+      "8.content.1": "Hệ thống có thể sử dụng cookie để:",
+      "8.content.2": "- Ghi nhớ tùy chọn của bạn",
+      "8.content.3": "- Phân tích hành vi người dùng để cải thiện trải nghiệm\nBạn có thể tắt cookie trong cài đặt trình duyệt, tuy nhiên một số chức năng có thể không hoạt động đầy đủ.",
+
+      "9.title": "Người dùng dưới 18 tuổi",
+      "9.content.1": "Hệ thống không dành cho người dùng dưới 18 tuổi. Nếu phát hiện sử dụng trái phép, chúng tôi có thể khóa tài khoản và xóa dữ liệu liên quan.",
+
+      "10.title": "Thay đổi chính sách",
+      "10.content.1": "Chính sách này có thể được điều chỉnh để phản ánh các thay đổi pháp lý hoặc kỹ thuật. Những thay đổi quan trọng sẽ được thông báo trực tiếp trong hệ thống."
     }
   }
 }

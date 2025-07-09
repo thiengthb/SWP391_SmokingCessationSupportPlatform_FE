@@ -1,4 +1,3 @@
-import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -8,9 +7,10 @@ import {
   CheckCircle,
 } from "lucide-react";
 import { privacySections } from "@/data/privacy";
+import { useTranslate } from "@/hooks/useTranslate";
 
 const PrivacyPolicyPage = () => {
-  const { t } = useTranslation();
+  const { tPrivacy, tData } = useTranslate();
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -19,10 +19,10 @@ const PrivacyPolicyPage = () => {
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-full mb-6">
             <Shield className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-4xl font-bold mb-2">{t("privacy.title")}</h1>
+          <h1 className="text-4xl font-bold mb-2">{tPrivacy("privacy.title")}</h1>
           <Badge variant="secondary" className="inline-flex items-center gap-2">
             <Clock className="w-4 h-4" />
-            {t("privacy.updated", { date: "July 2025" })}
+            {tPrivacy("privacy.updated", { date: "July 2025" })}
           </Badge>
         </div>
 
@@ -35,7 +35,7 @@ const PrivacyPolicyPage = () => {
                     <FileText className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
                   </div>
                   <span>
-                    {section.id}. {t(section.titleKey)}
+                    {section.id}. {tData(section.titleKey)}
                   </span>
                 </CardTitle>
               </CardHeader>
@@ -45,7 +45,7 @@ const PrivacyPolicyPage = () => {
                     <div key={index} className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />
                       <span className="text-sm text-muted-foreground whitespace-pre-wrap">
-                        {t(key)}
+                        {tData(key)}
                       </span>
                     </div>
                   ))}
