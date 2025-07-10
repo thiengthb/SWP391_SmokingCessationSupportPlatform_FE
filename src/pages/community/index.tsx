@@ -8,7 +8,7 @@ import { OnlineUser } from "./components/OnlineUser";
 import { useWebSocket } from "@/contexts/WebSocketContext";
 import { useAuth } from "@/contexts/AuthContext";
 import type { ChatMessage as ChatMessageType } from "@/types/models/chat";
-import type { Account } from "@/types/models/account";
+import { useOnlineListSwr } from "@/hooks/swr/useCommunitySwr";
 import useApi from "@/hooks/useApi";
 
 import { useTranslation } from "react-i18next";
@@ -18,7 +18,7 @@ export default function CommunityPage() {
   const PAGE_SIZE = 50; // Number of messages per page
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<ChatMessageType[]>([]);
-  const [onlineUsers, setOnlineUsers] = useState<Account[]>([]);
+  const { onlineUsers, error, isLoading, mutate } = useOnlineListSwr();
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [shouldScrollToBottom, setShouldScrollToBottom] = useState(false);
@@ -74,26 +74,6 @@ export default function CommunityPage() {
   };
 
   useEffect(() => {
-    const fetchOnlineUsers = async () => {
-      try {
-        const response = await apiWithInterceptor.get(
-          "/v1/accounts/online-users"
-        );
-        const data = response.data;
-
-        if (Array.isArray(data.result)) {
-          setOnlineUsers(data.result);
-        } else if (Array.isArray(data.users.result)) {
-          setOnlineUsers(data.users.result);
-        } else {
-          console.error("Unexpected online users format:", data);
-          setOnlineUsers([]); // Fallback to empty array
-        }
-      } catch (error) {
-        console.error("Failed to fetch online users", error);
-      }
-    };
-
     const loadInitialMessages = async () => {
       try {
         const response = await apiWithInterceptor.get("/v1/chats", {
@@ -118,8 +98,6 @@ export default function CommunityPage() {
     };
 
     loadInitialMessages();
-
-    fetchOnlineUsers();
   }, []);
 
   useEffect(() => {

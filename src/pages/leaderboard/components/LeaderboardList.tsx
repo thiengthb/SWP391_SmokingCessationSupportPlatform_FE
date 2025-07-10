@@ -7,7 +7,7 @@ import type { ScoreResponse } from "@/types/models/Leaderboard";
 import { Separator } from "@radix-ui/react-separator";
 import clsx from "clsx";
 import { useAuth } from "@/contexts/AuthContext";
-import { api } from "@/lib/axios";
+import { useLeaderboardListSwr } from "@/hooks/swr/useLeaderboardSwr";
 
 type LeaderboardListProps = {
   onMyScoreUpdate?: (score: ScoreResponse) => void;
@@ -20,6 +20,7 @@ export default function LeaderboardList({
   const [myScore, setMyScore] = useState<ScoreResponse | null>(null);
   const { leaderboardData, subscribeToTopic } = useWebSocket();
   const { auth } = useAuth();
+  const { scores, error, isLoading, mutate } = useLeaderboardListSwr();
 
   const getInitials = (name: string) =>
     name
@@ -33,7 +34,6 @@ export default function LeaderboardList({
 
     setTopScores(top10);
 
-    // myScore == undefined if the user is in the top 10
     if (myScore) {
       setMyScore(myScore);
       onMyScoreUpdate?.(myScore);
@@ -54,27 +54,18 @@ export default function LeaderboardList({
   };
 
   useEffect(() => {
+    if(scores.length > 0){
+      handleScores(scores);
+    }
+  }, [scores]);
+
+  useEffect(() => {
     if (leaderboardData?.length > 0) {
       handleScores(leaderboardData);
     }
   }, [leaderboardData]);
 
   useEffect(() => {
-    const fetchInitial = async () => {
-      try {
-        const res = await api.get("/v1/scores");
-        const scores: ScoreResponse[] = Array.isArray(res.data.result)
-          ? res.data.result
-          : [];
-        console.log("API res.data:", res.data);
-        handleScores(scores);
-      } catch (e) {
-        console.error("Failed to fetch scores:", e);
-      }
-    };
-
-    fetchInitial();
-
     const unsubscribe = subscribeToTopic("/topic/leaderboard", (body) => {
       const updatedScores: ScoreResponse[] = JSON.parse(body);
       handleScores(updatedScores);
@@ -95,7 +86,7 @@ export default function LeaderboardList({
             className={clsx(
               "p-4 transition-all duration-300",
               auth.currentAcc?.username == user.username &&
-                "border-2 border-primary bg-muted"
+              "border-2 border-primary bg-muted"
             )}
           >
             <div className="flex items-center gap-4">

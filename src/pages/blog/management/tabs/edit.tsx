@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Editor from "@/pages/blog/components/Editor";
-import type { BlogPost } from "@/types/models/Blog";
+import type { BlogPost } from "@/types/models/blog";
 import useApi from "@/hooks/useApi";
 import type { Category } from "@/types/models/category";
 

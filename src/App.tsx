@@ -1,7 +1,6 @@
 import LandingPage from "@/pages/landingpage";
 import { useFTND } from "@/contexts/FTNDContext";
 import { useAuth } from "./contexts/AuthContext";
-import { Role } from "./types/models/account";
 import AdminDashboard from "./pages/dashboard/admin";
 import LazyLoad from "./lazyload";
 import { Role } from "./types/enums/Role";

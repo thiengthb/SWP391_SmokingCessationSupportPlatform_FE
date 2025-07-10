@@ -16,7 +16,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import ReusablePagination from "@/components/ReusablePagination";
-import { useTransactionListSwr } from "@/hooks/swr/useTransactionListSwr";
+import { useTransactionListSwr } from "@/hooks/swr/useTransactionSwr";
 import { TransactionStatus } from "@/types/enums/TransactionStatus";
 import { useAuth } from "@/contexts/AuthContext";
 

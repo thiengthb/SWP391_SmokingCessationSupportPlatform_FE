@@ -2,7 +2,7 @@ import { useAuth } from "./AuthContext";
 import { createContext, useContext, useState, useEffect } from "react";
 import { useTheme } from "@/components/theme/theme-provider";
 import i18n from "@/lib/i18n";
-import type { Setting } from "@/types/models/Setting";
+import type { Setting } from "@/types/models/setting";
 import { Theme } from "@/types/enums/Theme";
 import { Language } from "@/types/enums/Language";
 import { TrackingMode } from "@/types/enums/TrackingMode";

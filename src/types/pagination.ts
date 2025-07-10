@@ -1,6 +1,6 @@
 export const Direction = {
-  ASC: "asc",
-  DESC: "desc",
+  ASC: "ASC",
+  DESC: "DESC",
 } as const;
 
 export type Direction = (typeof Direction)[keyof typeof Direction];

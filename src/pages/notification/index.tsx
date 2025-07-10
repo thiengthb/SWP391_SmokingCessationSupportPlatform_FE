@@ -1,58 +1,30 @@
-import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import type { NotificationResponse } from "@/types/models/Notification";
-import useApi from "@/hooks/useApi";
 import { BellIcon } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useNotificationListSwr } from "@/hooks/swr/useNotificationSwr";
 import clsx from "clsx";
+import { useAuth } from "@/contexts/AuthContext";
+import { useSearchParams } from "react-router-dom";
 
 export default function NotificationPage() {
-  const PAGE_SIZE = 10;
-  const [page, setPage] = useState(0);
-  const [totalPages, setTotalPages] = useState(0);
   const { t } = useTranslation();
-  const [notifications, setNotifications] = useState<NotificationResponse[]>(
-    []
-  );
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { auth } = useAuth();
 
-  const apiWithInterceptor = useApi();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentPage = parseInt(searchParams.get("page") || "0", 10);
 
-  const fetchNotifications = async (pageNumber: number) => {
-    setLoading(true);
-    try {
-      const response = await apiWithInterceptor.get(`/v1/notifications`, {
-        params: {
-          page: pageNumber,
-          size: PAGE_SIZE,
-          sortBy: "sentAt",
-          direction: "DESC",
-        },
-      });
-      console.log("Fetched notifications:", response.data);
+  const {
+    notifications,
+    pagination,
+    isLoading,
+    error,
+  } = useNotificationListSwr(auth, currentPage, 10);
 
-      const newNotifications: NotificationResponse[] = Array.isArray(
-        response.data.result.content
-      )
-        ? response.data.result.content
-        : [];
 
-      setNotifications(newNotifications);
-      setTotalPages(response.data.result?.totalPages || 0);
-      setPage(pageNumber);
-    } catch (error) {
-      console.error("Failed to fetch notifications:", error);
-      setError("Failed to fetch notifications");
-    } finally {
-      setLoading(false);
-    }
+  const handlePageChange = (newPage: number) => {
+    setSearchParams({ page: newPage.toString() });
   };
-
-  useEffect(() => {
-    fetchNotifications(0);
-  }, []);
 
   return (
     <div className="container py-10 px-4 mx-auto">
@@ -62,20 +34,17 @@ export default function NotificationPage() {
           {t("page.notifications.title", "Notifications")}
         </h1>
         <p className="text-muted-foreground">
-          {t(
-            "page.notifications.description",
-            "Stay informed about your goals and achievements."
-          )}
+          {t("page.notifications.description", "Stay informed about your goals and achievements.")}
         </p>
       </div>
 
       <Card className="p-4">
-        {loading ? (
+        {isLoading ? (
           <div className="space-y-3">
             {t("page.notifications.loading", "Loading notifications...")}
           </div>
         ) : error ? (
-          <p className="text-red-600">{error}</p>
+          <p className="text-red-600">{t("page.notifications.error", "Failed to fetch notifications.")}</p>
         ) : notifications.length === 0 ? (
           <p className="text-gray-500 text-center">
             {t("page.notifications.empty", "No notifications yet.")}
@@ -96,8 +65,7 @@ export default function NotificationPage() {
                   <div>
                     <p>{notification.content}</p>
                     <p className="text-sm">
-                      {t("page.notifications.type")}:{" "}
-                      {notification.notificationType}
+                      {t("page.notifications.type")}: {notification.notificationType}
                     </p>
                   </div>
                   <p className="text-sm text-gray-500 whitespace-nowrap">
@@ -111,21 +79,21 @@ export default function NotificationPage() {
 
         <div className="flex justify-between items-center pt-4 border-t mt-4">
           <Button
-            onClick={() => fetchNotifications(page - 1)}
-            disabled={page <= 0}
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage <= 0}
             variant="outline"
           >
             {t("page.notifications.prev", "Previous")}
           </Button>
 
           <span className="text-sm text-gray-600">
-            {t("page.notifications.page", "Page")} {page + 1} /{" "}
-            {totalPages || 1}
+            {t("page.notifications.page", "Page")} {currentPage + 1} /{" "}
+            {pagination.totalPages || 1}
           </span>
 
           <Button
-            onClick={() => fetchNotifications(page + 1)}
-            disabled={page + 1 >= totalPages}
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage + 1 >= (pagination.totalPages ?? 1)}
             variant="outline"
           >
             {t("page.notifications.next", "Next")}

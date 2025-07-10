@@ -13,9 +13,12 @@ import { useNotificationListSwr } from "@/hooks/swr/useNotificationSwr";
 
 export function NavigationNotifications() {
   const { auth } = useAuth();
-  if (!auth?.isAuthenticated) return null;
 
-  const { notifications } = useNotificationListSwr(auth);
+  const { notifications } = useNotificationListSwr(
+    auth,
+    0,
+    5
+  );
 
   return (
     <DropdownMenu>

@@ -10,7 +10,7 @@ import { Client } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 import { useAuth } from "./AuthContext";
 import { toast } from "sonner";
-import type { ScoreResponse } from "@/types/models/Leaderboard";
+import type { ScoreResponse } from "@/types/models/leaderboard";
 
 type WebSocketContextType = {
   client: Client | null;
@@ -44,6 +44,8 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({
     const client = new Client({
       webSocketFactory: () => new SockJS(import.meta.env.VITE_WS_URL),
       reconnectDelay: 5000,
+      heartbeatIncoming: 5000,
+      heartbeatOutgoing: 5000,
 
       onConnect: () => {
         console.log("✅ WebSocket connected");
@@ -115,14 +117,14 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({
       if (!client || !client.connected) {
         console.warn("⏳ WebSocket not connected. Queuing:", topic);
         setPendingSubscriptions((prev) => [...prev, { topic, callback }]);
-        return () => {}; // Return no-op unsubscribe for now
+        return () => { }; // Return no-op unsubscribe for now
       }
 
       const subscription = client.subscribe(topic, (message) => {
         callback(message.body);
       });
 
-      return () => subscription.unsubscribe(); // ✅ clean unsubscribe
+      return () => subscription.unsubscribe();
     },
     []
   );

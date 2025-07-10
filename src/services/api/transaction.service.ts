@@ -1,6 +1,6 @@
 import { Domains } from "@/constants/domain";
 import { authApi } from "@/lib/axios";
-import type { BillingTransaction } from "@/types/models/Transaction";
+import type { BillingTransaction } from "@/types/models/transaction";
 import type { PaginationParams, PaginationResponse } from "@/types/pagination";
 import type { ApiResponse } from "@/types/response";
 

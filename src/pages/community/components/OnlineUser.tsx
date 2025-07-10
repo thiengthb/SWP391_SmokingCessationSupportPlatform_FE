@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import type { Account } from "@/types/models/Account";
+import type { Account } from "@/types/models/account";
 import { useTranslation } from "react-i18next";
 
 interface OnlineUserProps {
