@@ -6,10 +6,10 @@ import { Clock, Video, CalendarDays } from "lucide-react";
 import { useState } from "react";
 import { format } from "date-fns";
 import { appointments } from "@/utils/mockdata/coach";
-import { useTranslation } from "react-i18next";
+import { useTranslate } from "@/hooks/useTranslate";
 
 export function ScheduleTab() {
-  const { t } = useTranslation();
+  const { tCoach } = useTranslate();
   const [date, setDate] = useState<Date | undefined>(new Date());
 
   const selectedDayAppointments = appointments.find(
@@ -21,7 +21,7 @@ export function ScheduleTab() {
       <div className="flex flex-col items-center space-y-4">
         <div className="flex items-center gap-2 text-lg font-semibold">
           <CalendarDays className="h-5 w-5" />
-          {t("page.coachdashboard.schedule.title")}
+          {tCoach("coachdashboard.schedule.title")}
         </div>
         <Calendar
           mode="single"
@@ -52,7 +52,7 @@ export function ScheduleTab() {
             <CardTitle>
               {date
                 ? format(date, "MMMM d, yyyy")
-                : t("page.coachdashboard.schedule.noDateSelected")}
+                : tCoach("coachdashboard.schedule.noDateSelected")}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -85,7 +85,7 @@ export function ScheduleTab() {
               ))
             ) : (
               <p className="text-center text-muted-foreground">
-                {t("page.coachdashboard.schedule.noAppointments")}
+                {tCoach("coachdashboard.schedule.noAppointments")}
               </p>
             )}
           </CardContent>
