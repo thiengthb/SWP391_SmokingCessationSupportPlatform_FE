@@ -4,11 +4,11 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { stats, features } from "../../data/about-us.info";
-import { useTranslation } from "react-i18next";
+import { useTranslate } from "@/hooks/useTranslate";
 
 export default function AboutPage() {
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { tAboutus, tData } = useTranslate();
   const handleGetStarted = () => {
     navigate("/auth/register");
   };
@@ -18,21 +18,20 @@ export default function AboutPage() {
       <section className="py-20 md:py-28 bg-muted/50">
         <div className="container px-4 mx-auto text-center">
           <Badge className="mb-4" variant="secondary">
-            {t("aboutus.badge")}
+            {tAboutus("aboutus.common.badge")}
           </Badge>
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            {t("aboutus.title")}{" "}
-            <span className="text-primary">{t("aboutus.highlight")}</span>
+            <span className="text-primary">{tAboutus("aboutus.common.highlight")}</span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-            {t("aboutus.description")}
+            {tAboutus("aboutus.common.description")}
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto">
             {stats.map((stat) => (
               <div key={stat.label}>
                 <div className="text-3xl font-bold">{stat.value}</div>
                 <div className="text-sm text-muted-foreground">
-                  {stat.label}
+                  {tData(stat.label)}
                 </div>
               </div>
             ))}
@@ -46,22 +45,22 @@ export default function AboutPage() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl font-bold mb-6">
-                {t("aboutus.mission.title")}
+                {tAboutus("aboutus.common.mission.title")}
               </h2>
               <p className="text-muted-foreground mb-6">
-                {t("aboutus.mission.description")}
+                {tAboutus("aboutus.common.mission.description")}
               </p>
               <Button className="gap-2" onClick={handleGetStarted}>
-                {t("aboutus.mission.cta")} <ArrowRight className="h-4 w-4" />
+                {tAboutus("aboutus.common.mission.cta")} <ArrowRight className="h-4 w-4" />
               </Button>
             </div>
             <div className="grid grid-cols-2 gap-4">
               {features.map((feature, i) => (
                 <Card key={i} className="p-6">
                   <feature.icon className="h-8 w-8 text-primary mb-4" />
-                  <h3 className="font-semibold mb-2">{t(feature.title)}</h3>
+                  <h3 className="font-semibold mb-2">{tData(feature.title)}</h3>
                   <p className="text-sm text-muted-foreground">
-                    {t(feature.description)}
+                    {tData(feature.description)}
                   </p>
                 </Card>
               ))}
@@ -74,7 +73,7 @@ export default function AboutPage() {
       <section className="py-20 bg-muted/50">
         <div className="container px-4 sm:px-10 mx-auto text-center">
           <h2 className="text-3xl font-bold mb-12">
-            {t("aboutus.journey.title")}
+            {tAboutus("aboutus.common.journey.title")}
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
             {[
@@ -94,10 +93,10 @@ export default function AboutPage() {
               <div key={item.step} className="text-left">
                 <div className="text-primary font-bold mb-2">{item.step}</div>
                 <h3 className="text-xl font-semibold mb-2">
-                  {t(`aboutus.journey.${item.key}.title`)}
+                  {tAboutus(`aboutus.common.journey.${item.key}.title`)}
                 </h3>
                 <p className="text-muted-foreground">
-                  {t(`aboutus.journey.${item.key}.description`)}
+                  {tAboutus(`aboutus.common.journey.${item.key}.description`)}
                 </p>
               </div>
             ))}

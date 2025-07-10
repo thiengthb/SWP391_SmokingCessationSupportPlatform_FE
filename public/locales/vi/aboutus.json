@@ -16,6 +16,51 @@
       "joinTitle": "Tham gia sứ mệnh",
       "joinDescription": "Hãy cùng chung tay xây dựng một thế giới khỏe mạnh hơn. Chúng ta có thể giúp nhiều người bỏ thuốc và sống tốt hơn.",
       "buttonGetStarted": "Bắt đầu ngay"
+    },
+    "common": {
+      "badge": "Về Nền Tảng Chúng Tôi",
+      "title": "Hành Trình Của Bạn Hướng Đến",
+      "highlight": "Cuộc Sống Không Thuốc Lá",
+      "description": "Chúng tôi cam kết giúp mọi người cai thuốc bằng cách hỗ trợ cá nhân hóa, kết nối cộng đồng và áp dụng các phương pháp đã được chứng minh.",
+
+      "mission": {
+        "title": "Sứ Mệnh Của Chúng Tôi",
+        "description": "Chúng tôi tin rằng ai cũng xứng đáng nhận được sự hỗ trợ và công cụ cần thiết để thoát khỏi thuốc lá. Nền tảng kết hợp công nghệ, cộng đồng và chuyên môn để hành trình của bạn dễ dàng và hiệu quả hơn.",
+        "cta": "Bắt Đầu Hành Trình"
+      },
+      "features": {
+        "feature1": {
+          "title": "Phương Pháp Ưu Tiên Sức Khỏe",
+          "description": "Áp dụng các phương pháp dựa trên bằng chứng và kế hoạch cá nhân hóa để cai thuốc hiệu quả"
+        },
+        "feature2": {
+          "title": "Hỗ Trợ Cộng Đồng",
+          "description": "Kết nối với những người cùng hành trình và chia sẻ kinh nghiệm"
+        },
+        "feature3": {
+          "title": "Hướng Dẫn Từ Chuyên Gia",
+          "description": "Huấn luyện viên và chuyên gia y tế đồng hành trong suốt quá trình"
+        },
+        "feature4": {
+          "title": "Theo Dõi Mục Tiêu",
+          "description": "Đặt mục tiêu và theo dõi tiến độ bằng phân tích chi tiết"
+        }
+      },
+      "journey": {
+        "title": "Hành Trình Của Bạn Rất Quan Trọng",
+        "step1": {
+          "title": "Kế Hoạch Cá Nhân Hóa",
+          "description": "Nhận kế hoạch cai thuốc phù hợp với thói quen và mục tiêu của bạn"
+        },
+        "step2": {
+          "title": "Hỗ Trợ Từ Chuyên Gia",
+          "description": "Tiếp cận huấn luyện viên và chuyên gia y tế chuyên nghiệp"
+        },
+        "step3": {
+          "title": "Theo Dõi Tiến Trình",
+          "description": "Giám sát thành tích và cải thiện sức khỏe của bạn"
+        }
+      }
     }
   }
 }
