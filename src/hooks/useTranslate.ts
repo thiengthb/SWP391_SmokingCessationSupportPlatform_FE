@@ -18,6 +18,7 @@ export const useTranslate = () => {
   const { t: tPricing } = useTranslation(I18nNamespace.PRICING);
   const { t: tContact } = useTranslation(I18nNamespace.CONTACT);
   const { t: tTestimonials } = useTranslation(I18nNamespace.TESTIMONIALS);
+  const { t: tMember } = useTranslation(I18nNamespace.MEMBER);
   return {
     tCommon,
     tNavbar,
@@ -35,5 +36,6 @@ export const useTranslate = () => {
     tPricing,
     tContact,
     tTestimonials,
+    tMember
   };
 };

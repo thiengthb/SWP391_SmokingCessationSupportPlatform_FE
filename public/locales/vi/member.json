@@ -1,0 +1,126 @@
+{
+  "memberdashboard": {
+    "title": "Bảng điều khiển thành viên",
+    "tabs": {
+      "overview": "Tổng quan",
+      "goals": "Mục tiêu",
+      "achievements": "Thành tựu"
+    },
+    "healthTimeline": {
+      "title": "Dòng thời gian sức khỏe",
+      "time": {
+        "20m": "20 phút",
+        "12h": "12 giờ",
+        "2w_12w": "2-12 tuần",
+        "1m_9m": "1-9 tháng"
+      },
+      "description": {
+        "20m": "Nhịp tim và huyết áp giảm",
+        "12h": "Mức carbon monoxide trở lại bình thường",
+        "2w_12w": "Tuần hoàn máu được cải thiện",
+        "1m_9m": "Ho và khó thở giảm dần"
+      }
+    },
+    "recentAchievements": {
+      "title": "Thành tựu mới nhất",
+
+      "items": {
+        "firstWeek": {
+          "title": "Hoàn thành tuần đầu tiên",
+          "description": "7 ngày không hút thuốc"
+        },
+        "moneySaver": {
+          "title": "Tiết kiệm tiền",
+          "description": "Đã tiết kiệm 50 đô la"
+        },
+        "healthImprover": {
+          "title": "Cải thiện sức khỏe",
+          "description": "Mức oxy trong máu trở lại bình thường"
+        }
+      }
+    },
+    "goals": {
+      "title": "Mục tiêu hoạt động",
+      "button": "Thêm mục tiêu",
+      "quit30days": {
+        "title": "Bỏ thuốc 30 ngày",
+        "description": "Không hút thuốc trong một tháng",
+        "target": "Còn 20 ngày"
+      },
+      "saveMoney": {
+        "title": "Tiết kiệm 500 đô",
+        "description": "Theo dõi lợi ích tài chính",
+        "target": "Còn 275 đô"
+      },
+      "exerciseWeekly": {
+        "title": "Tập thể dục hàng tuần",
+        "description": "Xây dựng thói quen lành mạnh",
+        "target": "Hoàn thành 3/4 tuần"
+      }
+    },
+    "achievements": {
+      "title": "Tiến độ thành tích",
+      "categories": {
+        "milestones": {
+          "name": "Cột Mốc",
+          "firstDay": {
+            "title": "Ngày Đầu Tiên",
+            "description": "Hoàn thành ngày đầu tiên không hút thuốc"
+          },
+          "oneWeek": {
+            "title": "Kỳ Tích Một Tuần",
+            "description": "Không hút thuốc trong 7 ngày"
+          },
+          "oneMonth": {
+            "title": "Cột Mốc Một Tháng",
+            "description": "Hoàn thành 30 ngày không hút thuốc"
+          }
+        },
+        "health": {
+          "name": "Sức Khỏe",
+          "breath": {
+            "title": "Hơi Thở Trong Lành",
+            "description": "Mức oxy trở lại bình thường"
+          },
+          "heart": {
+            "title": "Người Hùng Trái Tim",
+            "description": "Huyết áp trở lại bình thường"
+          },
+          "lung": {
+            "title": "Phổi Khỏe Mạnh",
+            "description": "Dung tích phổi cải thiện 30%"
+          }
+        },
+        "savings": {
+          "name": "Tiết Kiệm",
+          "saver": {
+            "title": "Người Tiết Kiệm",
+            "description": "Tiết kiệm 100 đô đầu tiên"
+          },
+          "master": {
+            "title": "Bậc Thầy Tiết Kiệm",
+            "description": "Tiết kiệm 1000 đô từ việc bỏ thuốc"
+          }
+        }
+      }
+    },
+    "stat": {
+      "smoke": {
+        "title": "Số Ngày Không Hút Thuốc",
+        "description": "Cố gắng lên nhé!"
+      },
+      "cigarettes": {
+        "title": "Số Điếu Thuốc Đã Bỏ",
+        "description": "Thật ấn tượng!"
+      },
+      "moneySaved": {
+        "title": "Số Tiền Tiết Kiệm",
+        "description": "Sẽ còn tiết kiệm được nhiều hơn nữa"
+      },
+      "health": {
+        "title": "Cải Thiện Sức Khỏe",
+        "description": "Tiến bộ tuyệt vời"
+      }
+    }
+  }
+}
