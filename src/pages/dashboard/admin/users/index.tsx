@@ -13,11 +13,11 @@ import { UsersTab } from "../components/UsersTable";
 import useApi from "@/hooks/useApi";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { useTranslation } from "react-i18next";
 import { type Account } from "@/types/models/account";
+import { useTranslate } from "@/hooks/useTranslate";
 
 export default function UserManagement() {
-  const { t } = useTranslation();
+  const { tAdmin } = useTranslate();
   const [search, setSearch] = useState("");
   const [role, setRole] = useState<string | null>(null);
   const [users, setUsesrs] = useState<Account[]>([]);
@@ -51,15 +51,15 @@ export default function UserManagement() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">
-            {t("page.dashboard.userManagement.title")}
+            {tAdmin("admindashboard.userManagement.title")}
           </h1>
           <p className="text-muted-foreground">
-            {t("page.dashboard.userManagement.description")}
+            {tAdmin("admindashboard.userManagement.description")}
           </p>
         </div>
         <Button>
           <UserPlus className="mr-2 h-4 w-4" />
-          {t("page.dashboard.userManagement.addUser")}
+          {tAdmin("admindashboard.userManagement.addUser")}
         </Button>
       </div>
 
@@ -68,7 +68,7 @@ export default function UserManagement() {
           <div className="relative max-w-sm">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder={t("page.dashboard.userManagement.searchPlaceholder")}
+              placeholder={tAdmin("admindashboard.userManagement.searchPlaceholder")}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="pl-9"
@@ -81,18 +81,18 @@ export default function UserManagement() {
         >
           <SelectTrigger className="w-[180px]">
             <SelectValue
-              placeholder={t("page.dashboard.userManagement.filterByRole")}
+              placeholder={tAdmin("admindashboard.userManagement.filterByRole")}
             />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="admin">
-              {t("page.dashboard.userManagement.roles.admin")}
+              {tAdmin("admindashboard.userManagement.roles.admin")}
             </SelectItem>
             <SelectItem value="coach">
-              {t("page.dashboard.userManagement.roles.coach")}
+              {tAdmin("admindashboard.userManagement.roles.coach")}
             </SelectItem>
             <SelectItem value="member">
-              {t("page.dashboard.userManagement.roles.member")}
+              {tAdmin("admindashboard.userManagement.roles.member")}
             </SelectItem>
           </SelectContent>
         </Select>

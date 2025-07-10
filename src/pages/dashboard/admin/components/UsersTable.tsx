@@ -18,10 +18,10 @@ import {
 import { Badge } from "@/components/ui/badge";
 
 import { AccountStatus, type Account } from "@/types/models/account";
-import { useTranslation } from "react-i18next";
+import { useTranslate } from "@/hooks/useTranslate";
 
 export function UsersTab({ users }: { users: Account[] }) {
-  const { t } = useTranslation();
+  const { tAdmin } = useTranslate();
   const getStatusBadge = (status: string) => {
     const variants = {
       active: "default",
@@ -41,11 +41,11 @@ export function UsersTab({ users }: { users: Account[] }) {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>{t("page.dashboard.userTable.name")}</TableHead>
-              <TableHead>{t("page.dashboard.userTable.email")}</TableHead>
-              <TableHead>{t("page.dashboard.userTable.role")}</TableHead>
-              <TableHead>{t("page.dashboard.userTable.status")}</TableHead>
-              <TableHead>{t("page.dashboard.userTable.actions")}</TableHead>
+              <TableHead>{tAdmin("admindashboard.userTable.name")}</TableHead>
+              <TableHead>{tAdmin("admindashboard.userTable.email")}</TableHead>
+              <TableHead>{tAdmin("admindashboard.userTable.role")}</TableHead>
+              <TableHead>{tAdmin("admindashboard.userTable.status")}</TableHead>
+              <TableHead>{tAdmin("admindashboard.userTable.actions")}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -67,21 +67,21 @@ export function UsersTab({ users }: { users: Account[] }) {
                     <DropdownMenuContent align="end">
                       <DropdownMenuItem>
                         {" "}
-                        {t("page.dashboard.userTable.edit")}
+                        {tAdmin("admindashboard.userTable.edit")}
                       </DropdownMenuItem>
                       <DropdownMenuItem>
                         {" "}
-                        {t("page.dashboard.userTable.viewDetails")}
+                        {tAdmin("admindashboard.userTable.viewDetails")}
                       </DropdownMenuItem>
                       {user.status !== AccountStatus.BANNED ? (
                         <DropdownMenuItem className="text-destructive">
                           <Ban className="h-4 w-4 mr-2" />
-                          {t("page.dashboard.userTable.ban")}
+                          {tAdmin("admindashboard.userTable.ban")}
                         </DropdownMenuItem>
                       ) : (
                         <DropdownMenuItem>
                           <CheckCircle className="h-4 w-4 mr-2" />
-                          {t("page.dashboard.userTable.unban")}
+                          {tAdmin("admindashboard.userTable.unban")}
                         </DropdownMenuItem>
                       )}
                     </DropdownMenuContent>

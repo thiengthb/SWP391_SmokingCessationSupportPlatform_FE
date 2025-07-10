@@ -1,0 +1,97 @@
+{
+  "admindashboard": {
+    "recentRegistrations": "Người dùng mới đăng ký",
+    "viewAllUsers": "Xem toàn bộ người dùng",
+    "systemHealth": "Sức khỏe hệ thống",
+    "serverLoad": "Tải máy chủ",
+    "storageUsage": "Dung lượng đã sử dụng",
+    "profile": "Hồ sơ",
+    "setting": "Cài đặt",
+    "logout": "Thoát",
+    "admin": {
+      "title": "Bảng điều khiển quản trị",
+      "tabs": {
+        "overview": "Tổng quan",
+        "users": "Người dùng",
+        "reports": "Báo cáo"
+      }
+    },
+    "userTable": {
+      "name": "Tên",
+      "email": "Email",
+      "role": "Vai trò",
+      "status": "Trạng thái",
+      "actions": "Hành động",
+      "edit": "Chỉnh sửa",
+      "viewDetails": "Xem chi tiết",
+      "ban": "Cấm người dùng",
+      "unban": "Bỏ cấm người dùng"
+    },
+    "userManagement": {
+      "title": "Quản lý người dùng",
+      "description": "Quản lý và theo dõi tài khoản người dùng",
+      "addUser": "Thêm người dùng mới",
+      "searchPlaceholder": "Tìm kiếm người dùng...",
+      "filterByRole": "Lọc theo vai trò",
+      "roles": {
+        "admin": "Quản trị viên",
+        "coach": "Huấn luyện viên",
+        "member": "Thành viên"
+      }
+    },
+    "analytics": {
+      "userActivityTrends": "Xu hướng hoạt động người dùng",
+      "activeUsers": "Người dùng hoạt động",
+      "newUsers": "Người dùng mới",
+      "successRateByWeek": "Tỷ lệ thành công theo tuần",
+      "successRate": "Tỷ lệ thành công",
+      "userDistribution": "Phân bố người dùng",
+      "lastGenerated": "Tạo lần cuối",
+      "download": "Tải xuống",
+      "status": {
+        "active": "Đang hoạt động",
+        "inactive": "Không hoạt động",
+        "banned": "Bị cấm",
+        "new": "Mới"
+      }
+    },
+    "reports": {
+      "userActivity": {
+        "title": "Báo cáo hoạt động người dùng",
+        "description": "Chỉ số tương tác và hoạt động hàng ngày của người dùng"
+      },
+      "successMetrics": {
+        "title": "Chỉ số thành công",
+        "description": "Tỷ lệ thành công và các cột mốc đạt được của người dùng"
+      },
+      "systemPerformance": {
+        "title": "Hiệu suất hệ thống",
+        "description": "Chỉ số sức khỏe và hiệu suất của máy chủ"
+      }
+    },
+    "stats": {
+      "totalUsers": {
+        "title": "Tổng Người Dùng",
+        "description": "+12% so với tháng trước"
+      },
+      "activeGoals": {
+        "title": "Mục Tiêu Đang Hoạt Động",
+        "description": "Đang trong quá trình thực hiện"
+      },
+      "successRate": {
+        "title": "Tỷ Lệ Thành Công",
+        "description": "+5% cải thiện"
+      },
+      "weeklyGrowth": {
+        "title": "Tăng Trưởng Hàng Tuần",
+        "description": "Sự tương tác của người dùng"
+      }
+    },
+    "userDistributionData": {
+      "active": "Hoạt động",
+      "inactive": "Không hoạt động",
+      "new": "Mới",
+      "banned": "Bị cấm"
+    }
+  }
+}

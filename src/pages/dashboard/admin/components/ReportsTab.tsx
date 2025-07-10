@@ -22,7 +22,7 @@ import {
   userDistributionData,
   reports,
 } from "@/utils/mockdata/admin";
-import { useTranslation } from "react-i18next";
+import { useTranslate } from "@/hooks/useTranslate";
 
 const COLORS = [
   "hsl(var(--primary))",
@@ -32,14 +32,14 @@ const COLORS = [
 ];
 
 export function ReportsTab() {
-  const { t } = useTranslation();
+  const { tAdmin } = useTranslate();
   return (
     <div className="space-y-6">
       <div className="grid gap-6">
         <Card>
           <CardHeader>
             <CardTitle>
-              {t("page.dashboard.analytics.userActivityTrends")}
+              {tAdmin("admindashboard.analytics.userActivityTrends")}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -73,7 +73,7 @@ export function ReportsTab() {
           <Card>
             <CardHeader>
               <CardTitle>
-                {t("page.dashboard.analytics.successRateByWeek")}
+                {tAdmin("admindashboard.analytics.successRateByWeek")}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -94,7 +94,7 @@ export function ReportsTab() {
           <Card>
             <CardHeader>
               <CardTitle>
-                {t("page.dashboard.analytics.userDistribution")}
+                {tAdmin("admindashboard.analytics.userDistribution")}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -139,20 +139,20 @@ export function ReportsTab() {
         {reports.map((report: any) => (
           <Card key={report.title}>
             <CardHeader>
-              <CardTitle className="text-lg">{t(report.title)}</CardTitle>
+              <CardTitle className="text-lg">{tAdmin(report.title)}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-sm text-muted-foreground">
-                {t(report.description)}
+                {tAdmin(report.description)}
               </p>
               <div className="flex justify-between items-center text-sm">
                 <span className="text-muted-foreground">
-                  {t("page.dashboard.analytics.lastGenerated")}:{" "}
+                  {tAdmin("admindashboard.analytics.lastGenerated")}:{" "}
                   {report.lastGenerated}
                 </span>
                 <Button size="sm">
                   <Download className="h-4 w-4 mr-2" />
-                  {t("page.dashboard.analytics.download")}
+                  {tAdmin("admindashboard.analytics.download")}
                 </Button>
               </div>
             </CardContent>

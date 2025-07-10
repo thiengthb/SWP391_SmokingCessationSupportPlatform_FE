@@ -74,45 +74,45 @@ export const advancedAnalyticsData = {
 
 export const stats = [
   {
-    title: "Total Users",
+    title: "admindashboard.stats.totalUsers.title",
     value: "1,234",
     icon: Users,
-    description: "+12% from last month",
+    description: "admindashboard.stats.totalUsers.description",
   },
   {
-    title: "Active Goals",
+    title: "admindashboard.stats.activeGoals.title",
     value: "845",
     icon: ActivitySquare,
-    description: "Currently in progress",
+    description: "admindashboard.stats.activeGoals.description",
   },
   {
-    title: "Success Rate",
+    title: "admindashboard.stats.successRate.title",
     value: "75%",
     icon: Medal,
-    description: "+5% improvement",
+    description: "admindashboard.stats.successRate.description",
   },
   {
-    title: "Weekly Growth",
+    title: "admindashboard.stats.weeklyGrowth.title",
     value: "+22%",
     icon: LineChart,
-    description: "User engagement",
+    description: "admindashboard.stats.weeklyGrowth.description",
   },
 ];
 
 export const reports = [
   {
-    title: "page.reports.userActivity.title",
-    description: "page.reports.userActivity.description",
+    title: "admindashboard.reports.userActivity.title",
+    description: "admindashboard.reports.userActivity.description",
     lastGenerated: "2024-03-15",
   },
   {
-    title: "page.reports.successMetrics.title",
-    description: "page.reports.successMetrics.description",
+    title: "admindashboard.reports.successMetrics.title",
+    description: "admindashboard.reports.successMetrics.description",
     lastGenerated: "2024-03-14",
   },
   {
-    title: "page.reports.systemPerformance.title",
-    description: "page.reports.systemPerformance.description",
+    title: "admindashboard.reports.systemPerformance.title",
+    description: "admindashboard.reports.systemPerformance.description",
     lastGenerated: "2024-03-15",
   },
 ];
