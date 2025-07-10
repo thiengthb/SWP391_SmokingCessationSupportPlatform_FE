@@ -15,7 +15,8 @@ export const useTranslate = () => {
   const { t: tPrivacy } = useTranslation(I18nNamespace.PRIVACY);
   const { t: tTerms } = useTranslation(I18nNamespace.TERMS);
   const { t: tFaq } = useTranslation(I18nNamespace.FAQ);
-  const { t: tPricing} = useTranslation(I18nNamespace.PRICING);
+  const { t: tPricing } = useTranslation(I18nNamespace.PRICING);
+  const { t: tContact } = useTranslation(I18nNamespace.CONTACT);
   return {
     tCommon,
     tNavbar,
@@ -30,6 +31,7 @@ export const useTranslate = () => {
     tPrivacy,
     tTerms,
     tFaq,
-    tPricing
+    tPricing,
+    tContact,
   };
 };

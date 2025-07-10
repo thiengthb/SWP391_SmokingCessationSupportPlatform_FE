@@ -364,6 +364,18 @@
         "3.role": "Người dùng Cơ bản",
         "3.content": "Bắt đầu với gói cơ bản để thử và thấy rất hiệu quả. Cộng đồng hỗ trợ rất nhiệt tình và đầy động viên. Đang cân nhắc nâng cấp lên Premium."
       }
+    },
+    "contact": {
+      "info": {
+        "email": "Email",
+        "phone": "Số điện thoại",
+        "address": "Địa chỉ",
+        "social": "Mạng xã hội",
+        "followUs": "Theo dõi chúng tôi",
+        "emailValue": "swp391team@gmail.com",
+        "phoneValue": "+84 372 7321 80",
+        "addressValue": "Lô E2a-7, Đường D1, Đ. D1, Long Thạnh Mỹ, Thành Phố Thủ Đức"
+      }
     }
   }
 }

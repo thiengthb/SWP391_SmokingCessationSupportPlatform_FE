@@ -352,6 +352,18 @@
         "3.role": "Basic User",
         "3.content": "Started with the basic package to try it out and found it very effective. The support community is very enthusiastic and encouraging. Considering upgrading to Premium."
       }
+    },
+    "contact": {
+      "info": {
+        "email": "Email",
+        "phone": "Phone",
+        "address": "Address",
+        "social": "Social media",
+        "followUs": "Follow us",
+        "emailValue": "swp391team@gmail.com",
+        "phoneValue": "+84 372 7321 80",
+        "addressValue": "Lot E2a-7, D1 Street, Long Thanh My, Thu Duc City"
+      }
     }
   }
 }
