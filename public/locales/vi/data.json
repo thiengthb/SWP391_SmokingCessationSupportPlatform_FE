@@ -376,6 +376,29 @@
         "phoneValue": "+84 372 7321 80",
         "addressValue": "Lô E2a-7, Đường D1, Đ. D1, Long Thạnh Mỹ, Thành Phố Thủ Đức"
       }
+    },
+    "testimonials": {
+      "1": {
+        "author": "John Doe",
+        "role": "Kỹ sư phần mềm",
+        "text": "Nền tảng này đã giúp tôi cai thuốc sau 10 năm. Cộng đồng hỗ trợ thật tuyệt vời!",
+        "highlight": "Cộng đồng hỗ trợ thật tuyệt vời",
+        "tags": ["cộng đồng", "nghiện lâu năm"]
+      },
+      "2": {
+        "author": "Sarah Wilson",
+        "role": "Giáo viên",
+        "text": "Các tính năng theo dõi và động viên mỗi ngày giúp tôi giữ vững quyết tâm. Đã 6 tháng không hút thuốc!",
+        "highlight": "Đã 6 tháng không hút thuốc!",
+        "tags": ["theo dõi", "động viên"]
+      },
+      "3": {
+        "author": "Michael Chen",
+        "role": "Chuyên viên phân tích kinh doanh",
+        "text": "Sau nhiều lần thất bại, cuối cùng tôi đã thành công nhờ nền tảng này. Phương pháp cá nhân hóa thật sự khác biệt.",
+        "highlight": "",
+        "tags": ["cá nhân hóa", "thành công"]
+      }
     }
   }
 }

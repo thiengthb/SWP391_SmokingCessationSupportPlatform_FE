@@ -1,34 +1,35 @@
 export const testimonials = [
   {
-    author: "John Doe",
-    role: "Software Engineer",
-    text: "This platform helped me quit smoking after 10 years. The community support was incredible!",
+    author: "data.testimonials.1.author",
+    role: "data.testimonials.1.role",
+    text: "data.testimonials.1.text",
+    highlight: "data.testimonials.1.highlight",
+    tags: ["data.testimonials.1.tags.0", "data.testimonials.1.tags.1"],
     rating: 5,
     date: "2024-02-15",
     verified: true,
-    highlight: "Community support was incredible",
-    tags: ["community", "long-term-smoker"],
-    avatar: "/avatars/john.jpg"
+    avatar: "/avatars/john.jpg",
   },
   {
-    author: "Sarah Wilson",
-    role: "Teacher",
-    text: "The tracking features and daily motivation helped me stay on track. 6 months smoke-free!",
+    author: "data.testimonials.2.author",
+    role: "data.testimonials.2.role",
+    text: "data.testimonials.2.text",
+    highlight: "data.testimonials.2.highlight",
+    tags: ["data.testimonials.2.tags.0", "data.testimonials.2.tags.1"],
     rating: 5,
     date: "2024-03-01",
     verified: true,
-    highlight: "6 months smoke-free!",
-    tags: ["tracking", "motivation"],
-    avatar: "/avatars/sarah.jpg"
+    avatar: "/avatars/sarah.jpg",
   },
   {
-    author: "Michael Chen",
-    role: "Business Analyst",
-    text: "After trying multiple times to quit, this platform finally helped me succeed. The personalized approach made all the difference.",
+    author: "data.testimonials.3.author",
+    role: "data.testimonials.3.role",
+    text: "data.testimonials.3.text",
+    highlight: "data.testimonials.3.highlight",
+    tags: ["data.testimonials.3.tags.0", "data.testimonials.3.tags.1"],
     rating: 4,
     date: "2024-02-28",
     verified: true,
-    tags: ["personalized", "success-story"],
-    avatar: "/avatars/michael.jpg"
-  }
+    avatar: "/avatars/michael.jpg",
+  },
 ];
