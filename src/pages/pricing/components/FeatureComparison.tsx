@@ -1,18 +1,22 @@
 import { Badge } from "@/components/ui/badge";
 import { Check, X } from "lucide-react";
 import { type ProgramFeature } from "@/types/models/membership";
+import { useTranslate } from "@/hooks/useTranslate";
 
 interface FeatureComparisonProps {
   features: ProgramFeature[];
 }
 
 export function FeatureComparison({ features }: FeatureComparisonProps) {
+  const { tData, tPricing } = useTranslate();
   return (
     <div className="mb-16">
       <div className="text-center mb-10">
-        <h2 className="text-3xl font-bold mb-2">So Sánh Chi Tiết</h2>
+        <h2 className="text-3xl font-bold mb-2">
+          {tPricing("pricing.features.title")}
+        </h2>
         <p className="text-muted-foreground">
-          Xem sự khác biệt giữa phiên bản miễn phí và trả phí
+          {tPricing("pricing.features.description")}
         </p>
       </div>
 
@@ -21,14 +25,17 @@ export function FeatureComparison({ features }: FeatureComparisonProps) {
           <thead>
             <tr className="border-b">
               <th className="text-left py-4 px-4 font-medium text-lg">
-                Tính năng
+                {tPricing("pricing.features.items.feature")}
               </th>
               <th className="text-center py-4 px-4 font-medium text-lg">
-                Miễn phí
+                {tPricing("pricing.features.items.free")}
               </th>
               <th className="text-center py-4 px-4 font-medium text-lg">
-                Trả phí
-                <Badge className="ml-2 bg-primary">Khuyến nghị</Badge>
+                {tPricing("pricing.features.items.paid")}
+                <Badge className="ml-2 bg-primary">
+                  {" "}
+                  {tPricing("pricing.features.items.badge")}
+                </Badge>
               </th>
             </tr>
           </thead>
@@ -37,10 +44,10 @@ export function FeatureComparison({ features }: FeatureComparisonProps) {
               <tr key={index} className="border-b border-border/60">
                 <td className="py-3 px-4">
                   <div className="flex items-start">
-                    <span className="font-medium">{feature.title}</span>
+                    <span className="font-medium">{tData(feature.title)}</span>
                   </div>
                   <div className="text-sm text-muted-foreground mt-1">
-                    {feature.description}
+                    {tData(feature.description)}
                   </div>
                 </td>
 

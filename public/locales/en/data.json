@@ -301,6 +301,57 @@
       "5.title": "Account and registration",
       "5.1.q": "I didn’t receive the activation email",
       "5.1.a": "Check your spam folder. If not found, request to resend the confirmation email."
+    },
+    "pricing": {
+      "features": {
+        "1.title": "Smoke-free time tracking",
+        "1.description": "Track the time since your last cigarette",
+        "2.title": "Cost savings",
+        "2.description": "Calculate money saved from not smoking",
+        "3.title": "Quit smoking resource library",
+        "3.description": "Access information and methods for quitting smoking",
+        "4.title": "Support community",
+        "4.description": "Connect with others on their quit smoking journey",
+        "5.title": "Smoking history log",
+        "5.description": "Track the number and timing of cigarettes smoked",
+        "6.title": "Reminders and encouragement",
+        "6.description": "Notifications to maintain quit smoking motivation",
+        "7.title": "Progress reports",
+        "7.description": "Detailed statistics on your quit smoking progress",
+        "8.title": "Personalized quit plan",
+        "8.description": "Customized plan based on your habits",
+        "9.title": "Addiction level analysis",
+        "9.description": "Assess progress and effectiveness of quitting",
+        "10.title": "Online counseling",
+        "10.description": "Expert support during the quit smoking process",
+        "11.title": "AI companion support",
+        "11.description": "24/7 AI assistance for quitting smoking, providing advice and encouragement"
+      },
+      "faqs": {
+        "1.q": "How long do the subscription plans last?",
+        "1.a": "You can choose monthly or yearly plans. The yearly plan will save you significant costs.",
+        "2.q": "Can I cancel my subscription at any time?",
+        "2.a": "Yes, you can cancel your subscription at any time. After cancellation, you can still use the service until the end of your current billing period.",
+        "3.q": "What payment methods are accepted?",
+        "3.a": "We accept payments via credit/debit cards, e-wallets (MoMo, VNPay, ZaloPay), and bank transfers.",
+        "4.q": "Can I upgrade from Basic to Premium later?",
+        "4.a": "Absolutely! You can upgrade to Premium at any time. We'll prorate the fee for the remaining time of your current billing cycle.",
+        "5.q": "Is the app effective for everyone?",
+        "5.a": "The effectiveness of quitting smoking depends on many factors, including personal determination. Our app provides tools and support, but final results will vary from person to person.",
+        "6.q": "Is my personal information secure?",
+        "6.a": "We value your privacy. All personal information is encrypted and secured according to our privacy policy. We never share your information with third parties without your consent."
+      },
+      "testimonials": {
+        "1.name": "Tuan Anh",
+        "1.role": "Premium User",
+        "1.content": "After many failed attempts, I finally quit smoking successfully thanks to the Premium package support. Online counseling helped me get through the most difficult times.",
+        "2.name": "Thanh Ha",
+        "2.role": "Premium User",
+        "2.content": "I've been smoke-free for 3 months thanks to the personalized plan. The money-saving tracker is a great motivator - I've saved nearly 3 million VND!",
+        "3.name": "Minh Duc",
+        "3.role": "Basic User",
+        "3.content": "Started with the basic package to try it out and found it very effective. The support community is very enthusiastic and encouraging. Considering upgrading to Premium."
+      }
     }
   }
 }

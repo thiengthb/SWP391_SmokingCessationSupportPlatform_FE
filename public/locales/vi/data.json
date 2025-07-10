@@ -313,6 +313,57 @@
       "5.title": "Tài khoản và đăng ký",
       "5.1.q": "Tôi không nhận được email kích hoạt",
       "5.1.a": "Kiểm tra thư rác. Nếu không thấy, hãy yêu cầu gửi lại email xác nhận."
+    },
+    "pricing": {
+      "features": {
+        "1.title": "Theo dõi thời gian không hút thuốc",
+        "1.description": "Theo dõi thời gian từ khi bạn hút điếu thuốc cuối cùng",
+        "2.title": "Tiết kiệm chi phí",
+        "2.description": "Tính toán số tiền tiết kiệm từ việc không hút thuốc",
+        "3.title": "Thư viện tài liệu cai thuốc",
+        "3.description": "Tiếp cận thông tin và phương pháp cai thuốc lá",
+        "4.title": "Cộng đồng hỗ trợ",
+        "4.description": "Kết nối với những người khác trong hành trình cai thuốc",
+        "5.title": "Ghi chép lịch sử hút thuốc",
+        "5.description": "Theo dõi số lượng và thời gian hút thuốc",
+        "6.title": "Nhắc nhở và động viên",
+        "6.description": "Thông báo để duy trì động lực cai thuốc",
+        "7.title": "Báo cáo tiến độ",
+        "7.description": "Thống kê chi tiết về quá trình cai thuốc",
+        "8.title": "Kế hoạch cai thuốc cá nhân hóa",
+        "8.description": "Kế hoạch được tùy chỉnh theo thói quen của bạn",
+        "9.title": "Phân tích mức độ cai nghiện",
+        "9.description": "Đánh giá tiến độ và hiệu quả cai thuốc",
+        "10.title": "Tư vấn trực tuyến",
+        "10.description": "Hỗ trợ từ chuyên gia trong quá trình cai thuốc",
+        "11.title": "AI hỗ trợ song hành",
+        "11.description": "Trợ giúp 24/7 từ AI trong việc cai thuốc, đưa ra lời khuyên và động viên"
+      },
+      "faqs": {
+        "1.q": "Các gói đăng ký có thời hạn là bao lâu?",
+        "1.a": "Bạn có thể lựa chọn gói theo tháng hoặc gói theo năm. Gói theo năm sẽ giúp bạn tiết kiệm chi phí đáng kể.",
+        "2.q": "Tôi có thể hủy đăng ký bất kỳ lúc nào không?",
+        "2.a": "Có, bạn có thể hủy đăng ký bất kỳ lúc nào. Sau khi hủy, bạn vẫn có thể sử dụng dịch vụ cho đến hết thời hạn thanh toán hiện tại.",
+        "3.q": "Hình thức thanh toán nào được chấp nhận?",
+        "3.a": "Chúng tôi chấp nhận thanh toán qua thẻ tín dụng/ghi nợ, ví điện tử (MoMo, VNPay, ZaloPay), và chuyển khoản ngân hàng.",
+        "4.q": "Tôi có thể nâng cấp từ gói Cơ bản lên Premium sau không?",
+        "4.a": "Hoàn toàn có thể! Bạn có thể nâng cấp lên gói Premium bất kỳ lúc nào. Chúng tôi sẽ tính phí theo tỷ lệ cho thời gian còn lại của chu kỳ thanh toán hiện tại.",
+        "5.q": "Liệu ứng dụng có hiệu quả với mọi người không?",
+        "5.a": "Hiệu quả của việc cai thuốc lá phụ thuộc vào nhiều yếu tố, bao gồm cả quyết tâm cá nhân. Ứng dụng của chúng tôi cung cấp công cụ và hỗ trợ, nhưng kết quả cuối cùng sẽ khác nhau tùy từng người.",
+        "6.q": "Thông tin cá nhân của tôi có được bảo mật không?",
+        "6.a": "Chúng tôi coi trọng quyền riêng tư của bạn. Tất cả thông tin cá nhân được mã hóa và bảo mật theo chính sách bảo mật của chúng tôi. Chúng tôi không bao giờ chia sẻ thông tin của bạn với bên thứ ba mà không có sự đồng ý."
+      },
+      "testimonials": {
+        "1.name": "Tuấn Anh",
+        "1.role": "Người dùng Premium",
+        "1.content": "Sau nhiều lần thất bại, cuối cùng tôi đã cai thuốc thành công nhờ hỗ trợ từ gói Premium. Tư vấn trực tuyến là điều giúp tôi vượt qua những thời điểm khó khăn nhất.",
+        "2.name": "Thanh Hà",
+        "2.role": "Người dùng Premium",
+        "2.content": "Đã cai thuốc được 3 tháng nhờ kế hoạch cá nhân hóa. Tính năng theo dõi tiền tiết kiệm là động lực lớn, đã tiết kiệm được gần 3 triệu đồng rồi!",
+        "3.name": "Minh Đức",
+        "3.role": "Người dùng Cơ bản",
+        "3.content": "Bắt đầu với gói cơ bản để thử và thấy rất hiệu quả. Cộng đồng hỗ trợ rất nhiệt tình và đầy động viên. Đang cân nhắc nâng cấp lên Premium."
+      }
     }
   }
 }

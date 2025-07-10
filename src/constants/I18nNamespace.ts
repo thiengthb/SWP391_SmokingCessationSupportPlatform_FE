@@ -11,5 +11,6 @@ export const I18nNamespace = {
   COMMUNITY: 'community',
   PRIVACY: 'privacy',
   TERMS: 'terms',
-  FAQ: 'faq'
+  FAQ: 'faq',
+  PRICING: 'pricing'
 }

@@ -14,12 +14,14 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import type { Membership } from "@/types/models/membership";
 import { useEffect, useState } from "react";
+import { useTranslate } from "@/hooks/useTranslate";
 
 interface PricingCardsProps {
   plans: Membership[];
 }
 
 export function PricingCards({ plans }: PricingCardsProps) {
+  const { tPricing } = useTranslate();
   const apiWithInterceptor = useApi();
   const { auth } = useAuth();
   const navigate = useNavigate();
@@ -55,16 +57,33 @@ export function PricingCards({ plans }: PricingCardsProps) {
   };
 
   const formatDurationDisplay = (duration: number) => {
-    if (duration <= 0) return "Không giới hạn";
+    if (duration <= 0) return tPricing("pricing.card.duration.unlimited");
 
     if (duration / 365 >= 1) {
-      return `${Math.floor(duration / 365)} năm`;
+      const count = Math.floor(duration / 365);
+      return tPricing(
+        `pricing.card.duration.${count > 1 ? "year_plural" : "year"}`,
+        { count }
+      );
     } else if (duration / 30 >= 1) {
-      return `${Math.floor(duration / 30)} tháng`;
+      const count = Math.floor(duration / 30);
+      return tPricing(
+        `pricing.card.duration.${count > 1 ? "month_plural" : "month"}`,
+        { count }
+      );
     } else if (duration / 7 >= 1) {
-      return `${Math.floor(duration / 7)} tuần`;
+      const count = Math.floor(duration / 7);
+      return tPricing(
+        `pricing.card.duration.${count > 1 ? "week_plural" : "week"}`,
+        { count }
+      );
     }
-    return `${duration} ngày`;
+    return tPricing(
+      `pricing.card.duration.${duration > 1 ? "day_plural" : "day"}`,
+      {
+        count: duration,
+      }
+    );
   };
 
   const formatPrice = (price: number) => {
@@ -100,7 +119,7 @@ export function PricingCards({ plans }: PricingCardsProps) {
               {plan.highlighted && (
                 <div className="absolute top-0 right-0 transform translate-y-[-10px] translate-x-[10px]">
                   <Badge className="bg-primary text-primary-foreground">
-                    Phổ biến nhất
+                    {tPricing("pricing.card.badge")}
                   </Badge>
                 </div>
               )}
@@ -113,7 +132,10 @@ export function PricingCards({ plans }: PricingCardsProps) {
                   <>
                     {plan.price === 0 ? (
                       <div className="flex flex-col items-start">
-                        <span className="text-3xl font-bold">Miễn phí</span>
+                        <span className="text-3xl font-bold">
+                          {" "}
+                          {tPricing("pricing.card.free")}
+                        </span>
                         <span className="text-muted-foreground ml-1">
                           {formatDurationDisplay(plan.durationDays)}
                         </span>
@@ -135,7 +157,8 @@ export function PricingCards({ plans }: PricingCardsProps) {
                       variant="outline"
                       className="mt-2 bg-green-50 text-green-700 border-green-200"
                     >
-                      {Math.floor(calculateSaving(plan))}% tiết kiệm so với{" "}
+                      {Math.floor(calculateSaving(plan))}
+                      {tPricing("pricing.card.save")}{" "}
                       <span className="font-semibold">{basePlan?.name}</span>
                     </Badge>
                   )}
@@ -155,8 +178,10 @@ export function PricingCards({ plans }: PricingCardsProps) {
                   onClick={() => handleSelectPlan(plan.name)}
                 >
                   {plan.price === 0
-                    ? "Bắt đầu miễn phí"
-                    : `Chọn gói ${plan.name.toLowerCase()}`}
+                    ? tPricing("pricing.card.startFree")
+                    : tPricing("pricing.card.selectPlan", {
+                        plan: plan.name.toLowerCase(),
+                      })}
                   <ChevronRight className="ml-1 h-4 w-4" />
                 </Button>
               </CardFooter>

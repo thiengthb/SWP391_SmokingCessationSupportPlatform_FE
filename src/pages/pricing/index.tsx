@@ -9,10 +9,10 @@ import { faqs, testimonials, programFeatures } from "@/data/pricing.data";
 import { useEffect, useState } from "react";
 import { api } from "@/lib/axios";
 import type { Membership } from "@/types/models/membership";
+import { useTranslate } from "@/hooks/useTranslate";
 
 export default function PricingPage() {
   const [memberships, setMemberships] = useState<Membership[]>([]);
-
   useEffect(() => {
     const fetcMembershipData = async () => {
       try {
