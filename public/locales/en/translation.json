@@ -64,6 +64,10 @@
     "notifications": {  
       "title": "Notifications",
       "description": "View your notifications and updates"
+    },
+    "feedback":
+    {
+      "title": "Feedback"
     }
   },
   "buttons": {
@@ -134,6 +138,14 @@
     }
   },
   "page": {
+    "notifications":{
+      "title": "Notifications",
+      "description": "View your notifications and updates",
+      "empty": "No notifications yet.",
+      "markAllAsRead": "Mark all as read",
+      "loading": "Loading notifications...",
+      "error": "Error loading notifications"
+    },
     "landingPage": {
       "title": "🎉 Join 100,000+ users who quit smoking",
       "description": "Your journey to a smoke-free life starts here",

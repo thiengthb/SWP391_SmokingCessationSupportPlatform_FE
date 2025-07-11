@@ -1,7 +1,7 @@
 import { Paths } from "@/constants/path";
 import { Role } from "@/types/enums/Role";
 import { ForRoles } from "@/utils/tab.util";
-import { BadgeInfo, BookMarked, BookOpenText, Earth, Gem, House, Landmark, LandPlot, LibraryBig, MessageCircleMore, Send, Settings, User, type LucideIcon } from "lucide-react";
+import { BadgeInfo, BookMarked, BookOpenText, Earth, Gem, House, Landmark, LandPlot, LibraryBig, MessageCircleMore, MessageSquareText, Send, Settings, User, type LucideIcon } from "lucide-react";
 
 export const ForDisplay = {
   NAVBAR_GUEST: 1,
@@ -178,4 +178,14 @@ export const mainNav: NavItem[] = [
     forRoles: [ForRoles.ALL],
     items: null,
   },
+  {
+    id: "feedback",
+    icon: MessageSquareText,
+    title: "nav.feedback.title",
+    href: Paths.ACCOUNT.FEEDBACK,
+    description: null,
+    forDisplays: [ForDisplay.USER_NAV],
+    forRoles: [ForRoles.COACH, ForRoles.MEMBER],
+    items: null,
+  }
 ]

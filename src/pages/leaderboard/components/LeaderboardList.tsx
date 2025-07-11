@@ -3,19 +3,14 @@ import { Card } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Medal, Award } from "lucide-react";
 import { useWebSocket } from "@/contexts/WebSocketContext";
-import type { ScoreResponse } from "@/types/models/Leaderboard";
+import type { ScoreResponse } from "@/types/models/leaderboard";
 import { Separator } from "@radix-ui/react-separator";
 import clsx from "clsx";
 import { useAuth } from "@/contexts/AuthContext";
 import { useLeaderboardListSwr } from "@/hooks/swr/useLeaderboardSwr";
+import { Skeleton } from "@/components/ui/skeleton";
 
-type LeaderboardListProps = {
-  onMyScoreUpdate?: (score: ScoreResponse) => void;
-};
-
-export default function LeaderboardList({
-  onMyScoreUpdate,
-}: LeaderboardListProps) {
+export default function LeaderboardList() {
   const [topScores, setTopScores] = useState<ScoreResponse[]>([]);
   const [myScore, setMyScore] = useState<ScoreResponse | null>(null);
   const { leaderboardData, subscribeToTopic } = useWebSocket();
@@ -36,7 +31,6 @@ export default function LeaderboardList({
 
     if (myScore) {
       setMyScore(myScore);
-      onMyScoreUpdate?.(myScore);
     }
   };
 
@@ -54,7 +48,7 @@ export default function LeaderboardList({
   };
 
   useEffect(() => {
-    if(scores.length > 0){
+    if (scores.length > 0) {
       handleScores(scores);
     }
   }, [scores]);
@@ -79,69 +73,81 @@ export default function LeaderboardList({
   return (
     <div className="space-y-4">
       {/* Top 10 */}
-      {topScores.map((user) => {
+      {[...Array(10)].map((_, index) => {
+        const user = topScores[index];
+        const isCurrentUser = user?.username === auth.currentAcc?.username;
+
         return (
           <Card
-            key={user.username}
+            key={user?.username ?? `skeleton-${index}`}
             className={clsx(
               "p-4 transition-all duration-300",
-              auth.currentAcc?.username == user.username &&
-              "border-2 border-primary bg-muted"
+              isCurrentUser && "border-2 border-primary bg-muted"
             )}
           >
             <div className="flex items-center gap-4">
               <div className="w-3 text-center">
-                {getRankIcon(user.score_rank)}
+                {user ? getRankIcon(user.score_rank) : <Skeleton className="w-4 h-4 rounded-full" />}
               </div>
-              <Avatar>
-                <AvatarImage src={user.avatar} />
-                <AvatarFallback>{getInitials(user.username)}</AvatarFallback>
-              </Avatar>
+
+              {user ? (
+                <Avatar>
+                  <AvatarImage src={user.avatar} />
+                  <AvatarFallback>{getInitials(user.username)}</AvatarFallback>
+                </Avatar>
+              ) : (
+                <Skeleton className="w-10 h-10 rounded-full" />
+              )}
+
               <div className="flex-1">
-                <div className="flex items-center justify-between">
-                  <h3 className="font-semibold">{user.username}</h3>
-                  <div className="flex items-center gap-2 text-right">
-                    <div className="font-bold">{user.score} pts</div>
-                    <Award className="h-4 w-4 text-primary relative top-[1px]" />
+                {user ? (
+                  <div className="flex items-center justify-between">
+                    <h3 className="font-semibold">{user.username}</h3>
+                    <div className="flex items-center gap-2 text-right">
+                      <div className="font-bold">{user.score} pts</div>
+                      <Award className="h-4 w-4 text-primary relative top-[1px]" />
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <div className="flex justify-between items-center">
+                    <Skeleton className="w-24 h-4" />
+                    <Skeleton className="w-12 h-4" />
+                  </div>
+                )}
               </div>
             </div>
           </Card>
         );
       })}
-
-      {/* Separator */}
+      {/* My Score */}
       {myScore && (
         <>
-          <div className="relative">
+        <div className="relative">
             <Separator className="my-8" />
             <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-background px-2 text-muted-foreground text-sm">
               Your Ranking
             </span>
           </div>
-
-          {/* Current User */}
-          <Card className="p-4 border-2 border-primary">
-            <div className="flex items-center gap-4">
-              <div className="w-3 text-center">
-                {getRankIcon(myScore.score_rank)}
-              </div>
-              <Avatar>
-                <AvatarImage src={myScore.avatar} />
-                <AvatarFallback>{getInitials(myScore.username)}</AvatarFallback>
-              </Avatar>
-              <div className="flex-1">
-                <div className="flex items-center justify-between">
-                  <h3 className="font-semibold">{myScore.username}</h3>
-                  <div className="flex items-center gap-2 text-right">
-                    <div className="font-bold">{myScore.score} pts</div>
-                    <Award className="h-4 w-4 text-primary relative top-[1px]" />
-                  </div>
+        <Card className="p-4 border-2 border-primary bg-muted">
+          <div className="flex items-center gap-4">
+            <div className="w-3 text-center">
+              {getRankIcon(myScore.score_rank)}
+            </div>
+            <Avatar>
+              <AvatarImage src={myScore.avatar} />
+              <AvatarFallback>{getInitials(myScore.username)}</AvatarFallback>
+            </Avatar>
+            <div className="flex-1">
+              <div className="flex items-center justify-between">
+                <h3 className="font-semibold">{myScore.username}</h3>
+                <div className="flex items-center gap-2 text-right">
+                  <div className="font-bold">{myScore.score} pts</div>
+                  <Award className="h-4 w-4 text-primary relative top-[1px]" />
                 </div>
               </div>
             </div>
-          </Card>
+          </div>
+        </Card>
         </>
       )}
     </div>

@@ -1,25 +1,107 @@
 import { useTranslation } from "react-i18next";
 import { BellIcon } from "lucide-react";
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { useNotificationListSwr } from "@/hooks/swr/useNotificationSwr";
 import clsx from "clsx";
 import { useAuth } from "@/contexts/AuthContext";
 import { useSearchParams } from "react-router-dom";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination"
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 export default function NotificationPage() {
   const { t } = useTranslation();
   const { auth } = useAuth();
-
   const [searchParams, setSearchParams] = useSearchParams();
   const currentPage = parseInt(searchParams.get("page") || "0", 10);
-
   const {
     notifications,
     pagination,
     isLoading,
     error,
   } = useNotificationListSwr(auth, currentPage, 10);
+  const totalPages = pagination.totalPages || 1;
+  const maxVisiblePages = 7;
+  const [jumpPageInput, setJumpPageInput] = useState("");
+
+  const renderPaginationLinks = () => {
+    const pages = [];
+
+    const shouldShowStart = currentPage > 3;
+    const shouldShowEnd = currentPage < totalPages - 4;
+
+    // Always show first 2 pages
+    for (let i = 0; i < Math.min(2, totalPages); i++) {
+      pages.push(
+        <PaginationItem key={i}>
+          <PaginationLink
+            isActive={currentPage === i}
+            onClick={() => handlePageChange(i)}
+          >
+            {i + 1}
+          </PaginationLink>
+        </PaginationItem>
+      );
+    }
+
+    if (shouldShowStart) {
+      pages.push(
+        <PaginationItem key="ellipsis-start">
+          <PaginationEllipsis />
+        </PaginationItem>
+      );
+    }
+
+    // Show current page if it's not at the very ends
+    if (currentPage > 1 && currentPage < totalPages - 2) {
+      pages.push(
+        <PaginationItem key="current-middle">
+          <PaginationLink isActive>{currentPage + 1}</PaginationLink>
+        </PaginationItem>
+      );
+    }
+
+    if (shouldShowEnd) {
+      pages.push(
+        <PaginationItem key="ellipsis-end">
+          <PaginationEllipsis />
+        </PaginationItem>
+      );
+    }
+
+    // Always show last 2 pages
+    for (let i = Math.max(totalPages - 2, 2); i < totalPages; i++) {
+      pages.push(
+        <PaginationItem key={i}>
+          <PaginationLink
+            isActive={currentPage === i}
+            onClick={() => handlePageChange(i)}
+          >
+            {i + 1}
+          </PaginationLink>
+        </PaginationItem>
+      );
+    }
+
+    return pages;
+  };
+
+  const handleJumpToPage = () => {
+    const num = parseInt(jumpPageInput, 10);
+    if (!isNaN(num) && num > 0 && num <= totalPages) {
+      handlePageChange(num - 1);
+      setJumpPageInput("");
+    }
+  };
 
 
   const handlePageChange = (newPage: number) => {
@@ -77,28 +159,44 @@ export default function NotificationPage() {
           </div>
         )}
 
-        <div className="flex justify-between items-center pt-4 border-t mt-4">
-          <Button
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage <= 0}
-            variant="outline"
-          >
-            {t("page.notifications.prev", "Previous")}
-          </Button>
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                onClick={() => handlePageChange(currentPage - 1)}
+                className={currentPage <= 0 ? "pointer-events-none opacity-50" : ""}
+              />
+            </PaginationItem>
 
-          <span className="text-sm text-gray-600">
-            {t("page.notifications.page", "Page")} {currentPage + 1} /{" "}
-            {pagination.totalPages || 1}
-          </span>
+            {renderPaginationLinks()}
 
-          <Button
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage + 1 >= (pagination.totalPages ?? 1)}
-            variant="outline"
-          >
-            {t("page.notifications.next", "Next")}
-          </Button>
-        </div>
+            <PaginationItem>
+              <PaginationNext
+                onClick={() => handlePageChange(currentPage + 1)}
+                className={
+                  currentPage + 1 >= totalPages ? "pointer-events-none opacity-50" : ""
+                }
+              />
+            </PaginationItem>
+          </PaginationContent>
+
+          {totalPages > 5 && (
+            <div className="mt-4 flex items-center gap-2">
+              <Input
+                type="number"
+                placeholder="Jump to page"
+                value={jumpPageInput}
+                onChange={(e) => setJumpPageInput(e.target.value)}
+                className="w-24 h-8 px-2 py-1 text-sm"
+                min={1}
+                max={totalPages}
+              />
+              <Button size="sm" onClick={handleJumpToPage}>
+                Go
+              </Button>
+            </div>
+          )}
+        </Pagination>
       </Card>
     </div>
   );

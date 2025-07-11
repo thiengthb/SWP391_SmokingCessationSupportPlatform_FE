@@ -64,6 +64,9 @@
     "notifications": {  
       "title": "Thông báo",
       "description": "Xem thông báo và cập nhật của bạn"
+    },
+    "feedback": {
+      "title": "Phản hồi"
     }
   },
   "buttons": {
@@ -132,6 +135,14 @@
     }
   },
   "page": {
+    "notifications": {
+      "title": "Thông báo",
+      "description": "Xem thông báo và cập nhật của bạn",
+      "empty": "Chưa có thông báo.",
+      "markAllAsRead": "Đánh dấu tất cả là đã đọc",
+      "loading": "Đang tải thông báo...",
+      "error": "Lỗi khi tải thông báo"
+    },  
     "landingPage": {
       "title": "🎉 Tham gia cùng hơn 100.000 người dùng bỏ thuốc lá",
       "description": "Nơi bạn có thể tìm thấy sự hỗ trợ và động lực để từ bỏ thuốc lá",

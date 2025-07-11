@@ -43,6 +43,7 @@ export const Paths = {
         PROFILE: "/account/profile",
         SETTING: "/account/settings",
         NOTIFICATION: "/account/notifications",
+        FEEDBACK: "/account/feedback",
     },
     ADMIN: {
         ROOT: "/admin",
