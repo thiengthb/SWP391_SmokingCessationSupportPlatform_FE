@@ -19,10 +19,10 @@ export default function AdminDashboard() {
           <TabsTrigger value="feedback">Feedbacks</TabsTrigger>
           <TabsTrigger value="goals">Goals</TabsTrigger>
         </TabsList>
-
+{/* 
         <TabsContent value="overview">
           <OverviewTab />
-        </TabsContent>
+        </TabsContent> */}
         <TabsContent value="users">
           <UserManagement />
         </TabsContent>
