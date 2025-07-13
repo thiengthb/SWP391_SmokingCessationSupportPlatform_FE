@@ -19,6 +19,7 @@ import useApi from "@/hooks/useApi";
 import type { UserActivityData, UserDistributionResponse, TimeRange, RevenueResponse } from "@/types/models/report";
 import { startOfWeek, endOfWeek, startOfMonth, endOfMonth, startOfYear, endOfYear, format, parseISO } from "date-fns";
 import { Button } from "@/components/ui/button";
+import { usePremiumDistributionSwr } from "@/hooks/swr/useReportSwr";
 
 
 
@@ -39,6 +40,7 @@ export function ReportsTab() {
   const [userActivityData, setUserActivityData] = useState<UserActivityData[]>([]);
   const [userDistribution, setUserDistribution] = useState<UserDistributionResponse | null>(null);
   const [revenue, setRevenue] = useState<RevenueResponse[]>([])
+  const { premiumDistribution, isLoading: isPremiumLoading } = usePremiumDistributionSwr();
   const apiWithInterceptor = useApi();
   const [selectedRange, setSelectedRange] = useState<TimeRange>('Monthly');
   const [drillStack, setDrillStack] = useState<DrillContext[]>([]);
@@ -194,10 +196,15 @@ export function ReportsTab() {
     }
   }
 
-  const pieData = userDistribution ? [
+  const pieUserData = userDistribution ? [
     { name: "Online", value: userDistribution.onlineAccounts },
     { name: "Offline", value: userDistribution.offlineAccounts },
     { name: "Inactive", value: userDistribution.inactiveAccounts },
+  ] : [];
+
+  const piePremiumData = premiumDistribution ? [
+    { name: "Premium", value: premiumDistribution.premiumAccounts },
+    { name: "Non-Premium", value: premiumDistribution.nonPremiumAccounts },
   ] : [];
 
   const handleDrillDown = (barData: UserActivityData) => {
@@ -338,26 +345,6 @@ export function ReportsTab() {
         <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
           <Card>
             <CardHeader>
-              <CardTitle>Success Rate by Week</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="h-[300px]">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name"
-                    />
-                    <YAxis />
-                    <Tooltip />
-                    <Bar dataKey="rate" fill="#000" name="Success Rate" />
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
               <CardTitle>User Distribution</CardTitle>
             </CardHeader>
             <CardContent>
@@ -365,7 +352,7 @@ export function ReportsTab() {
                 {userDistribution && (<ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
-                      data={pieData}
+                      data={pieUserData}
                       dataKey="value"
                       nameKey="name"
                       cx={200}
@@ -375,7 +362,7 @@ export function ReportsTab() {
                       fill="#0A0A0A"
                       label={(entry) => entry.name}
                     >
-                      {pieData.map((_, index: any) => (
+                      {pieUserData.map((_, index: any) => (
                         <Cell
                           key={`cell-${index}`}
                           fill={COLORS[index % COLORS.length]}
@@ -414,32 +401,74 @@ export function ReportsTab() {
               </div>
             </CardContent>
           </Card>
-        </div>
-      </div>
-
-      {/* <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {reports.map((report: any) => (
-          <Card key={report.title}>
+          {isPremiumLoading ? (
+          <Card>
             <CardHeader>
-              <CardTitle className="text-lg">{report.title}</CardTitle>
+              <CardTitle>Loading Premium Distribution...</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-sm text-muted-foreground">
-                {report.description}
-              </p>
-              <div className="flex justify-between items-center text-sm">
-                <span className="text-muted-foreground">
-                  Last generated: {report.lastGenerated}
-                </span>
-                <Button size="sm">
-                  <Download className="h-4 w-4 mr-2" />
-                  Download
-                </Button>
+          </Card>
+          ) : (
+          <Card>
+            <CardHeader>
+              <CardTitle>Subscription Distribution</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="h-[300px]">
+                {premiumDistribution && (<ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie
+                      data={piePremiumData}
+                      dataKey="value"
+                      nameKey="name"
+                      cx={200}
+                      cy={150}
+                      innerRadius={60}
+                      outerRadius={90}
+                      fill="#0A0A0A"
+                      label={(entry) => entry.name}
+                    >
+                      {piePremiumData.map((_, index: any) => (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={COLORS[index % COLORS.length]}
+                          stroke="none"
+                        />
+                      ))}
+                    </Pie>
+                    <text
+                      x={205}
+                      y={150}
+                      textAnchor="middle"
+                      fontSize={20}
+                      fontWeight="bold"
+                      fill="#333"
+                    >
+                      {premiumDistribution?.totalAccounts}
+                    </text>
+                    <text
+                      x={205}
+                      y={170}
+                      textAnchor="middle"
+                      fontSize={12}
+                      fill="#666"
+                    >
+                      Total Users
+                    </text>
+
+                    <Tooltip />
+                    <Legend
+                      verticalAlign="middle"
+                      align="right"
+                      layout="vertical"
+                    />
+                  </PieChart>
+                </ResponsiveContainer>)}
               </div>
             </CardContent>
           </Card>
-        ))}
-      </div> */}
+          )}
+        </div>
+      </div>
     </div>
   );
 }

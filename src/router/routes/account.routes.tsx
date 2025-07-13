@@ -1,6 +1,7 @@
 import LazyLoad from "@/lazyload";
 import { Navigate, type RouteObject } from "react-router-dom";
 import { Paths } from "../../constants/path";
+import FeedbackPage from "@/pages/feedback";
 
 const SettingsPage = LazyLoad("./pages/setting");
 const ProfilePage = LazyLoad("./pages/profile/member");
@@ -20,4 +21,8 @@ export const accountRoutes: RouteObject[] = [
     path: Paths.ACCOUNT.NOTIFICATION,
     children: [{ path: "", element: <NotificationPage /> }],
   },
+  {
+    path: Paths.ACCOUNT.FEEDBACK,
+    children: [{ path: "", element: <FeedbackPage /> }],
+  }
 ];

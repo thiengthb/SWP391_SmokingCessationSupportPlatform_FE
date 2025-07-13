@@ -1,6 +1,6 @@
 import { Domains } from "@/constants/domain";
 import { authApi } from "@/lib/axios";
-import type { Setting } from "@/types/models/Setting";
+import type { Setting } from "@/types/models/setting";
 import type { ApiResponse } from "@/types/response";
 
 export const updateSetting = async (accountId: string, updatedSetting: Partial<Setting>): Promise<Setting> => {

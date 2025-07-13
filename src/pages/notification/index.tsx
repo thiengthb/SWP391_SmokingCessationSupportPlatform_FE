@@ -30,7 +30,6 @@ export default function NotificationPage() {
     error,
   } = useNotificationListSwr(auth, currentPage, 10);
   const totalPages = pagination.totalPages || 1;
-  const maxVisiblePages = 7;
   const [jumpPageInput, setJumpPageInput] = useState("");
 
   const renderPaginationLinks = () => {
@@ -61,7 +60,7 @@ export default function NotificationPage() {
       );
     }
 
-    // Show current page if it's not at the very ends
+    // Show current page
     if (currentPage > 1 && currentPage < totalPages - 2) {
       pages.push(
         <PaginationItem key="current-middle">

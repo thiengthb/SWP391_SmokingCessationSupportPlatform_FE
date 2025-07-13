@@ -15,7 +15,7 @@ export default function LeaderboardList() {
   const [myScore, setMyScore] = useState<ScoreResponse | null>(null);
   const { leaderboardData, subscribeToTopic } = useWebSocket();
   const { auth } = useAuth();
-  const { scores, error, isLoading, mutate } = useLeaderboardListSwr();
+  const { scores, error, isLoading } = useLeaderboardListSwr();
 
   const getInitials = (name: string) =>
     name

@@ -16,4 +16,10 @@ export interface RevenueResponse {
   revenue: number
 }
 
+export interface PremiumDistribution {
+  premiumAccounts: number;
+  nonPremiumAccounts: number;
+  totalAccounts: number;
+}
+
 export type TimeRange = 'Weekly' | 'Monthly' | 'Yearly';
