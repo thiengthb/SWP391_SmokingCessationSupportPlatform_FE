@@ -1,12 +1,14 @@
 import { Domains } from "@/constants/domain";
 import { authApi } from "@/lib/axios";
-import type { UserActivityData, UserDistributionResponse, RevenueResponse, PremiumDistribution } from "@/types/models/report";
+import type { UserGrowthData, UserDistributionResponse, RevenueResponse, PremiumDistribution } from "@/types/models/report";
 import type { ApiResponse } from "@/types/response";
 
-export const fetchUserActivityData = async (): Promise<ApiResponse<UserActivityData[]>> => {
-    const response = await authApi.get<ApiResponse<UserActivityData[]>>(`${Domains.REPORT}/user-growth`);
+export const fetchUserGrowthData = async ({ from, to }: { from: string, to: string }): Promise<UserGrowthData[]> => {
+    const response = await authApi.get<ApiResponse<UserGrowthData[]>>(`${Domains.REPORT}/user-growth`, {
+        params: { from, to },
+    });
     console.log("Fetched user activity data:", response.data);
-    return response.data;
+    return response.data.result;
 }
 
 export const fetchUserDistribution = async (): Promise<UserDistributionResponse> => {
@@ -15,8 +17,10 @@ export const fetchUserDistribution = async (): Promise<UserDistributionResponse>
     return response.data.result;
 }
 
-export const fetchRevenueData = async (): Promise<RevenueResponse> => {
-    const response = await authApi.get<ApiResponse<RevenueResponse>>(`${Domains.REPORT}/revenue`);
+export const fetchRevenueData = async ({ from, to }: { from: string, to: string }): Promise<RevenueResponse[]> => {
+    const response = await authApi.get<ApiResponse<RevenueResponse[]>>(`${Domains.REPORT}/revenue`, {
+        params: { from, to },
+    });
     console.log("Fetched revenue data:", response.data);
     return response.data.result;
 }

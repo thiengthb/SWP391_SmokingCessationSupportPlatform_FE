@@ -8,6 +8,10 @@ export interface PlanFormData {
     phases: PhaseFormData[];
 }
 
+export interface Tip {
+
+}
+
 export interface Plan {
     id: string;
     accountId: string;

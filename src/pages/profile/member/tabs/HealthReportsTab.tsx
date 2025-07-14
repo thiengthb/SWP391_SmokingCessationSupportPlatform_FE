@@ -20,7 +20,7 @@ import FTNDAssessmentForm from "@/components/ftnd/FTNDAssessmentForm";
 import { useFTND } from "@/contexts/FTNDContext";
 import useApi from "@/hooks/useApi";
 import { useEffect, useState } from "react";
-import { type HealthListItem } from "@/types/models/Health";
+import { type HealthListItem } from "@/types/models/health";
 import ReusablePagination from "@/components/ReusablePagination";
 
 interface PaginationResponse {

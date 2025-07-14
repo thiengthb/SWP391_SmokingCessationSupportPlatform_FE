@@ -1,10 +1,10 @@
 import {
   defaultMemberProfile,
   type MemberProfile,
-} from "@/types/models/Member";
+} from "@/types/models/member";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useAuth } from "./AuthContext";
-import { defaultCoachProfile, type CoachProfile } from "@/types/models/Coach";
+import { defaultCoachProfile, type CoachProfile } from "@/types/models/coach";
 import { Role } from "@/types/enums/Role";
 import { memberService } from "@/services/api/member.service";
 import { coachService } from "@/services/api/coach.service";

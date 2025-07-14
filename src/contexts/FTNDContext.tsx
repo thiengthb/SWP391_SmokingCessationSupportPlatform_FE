@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { useAuth } from "./AuthContext";
 import { ftndLevels } from "@/data/ftnd.data";
 import { Role } from "@/types/enums/Role";
-import { defaultHealthValue, type Health } from "@/types/models/Health";
+import { defaultHealthValue, type Health } from "@/types/models/health";
 import { healthService } from "@/services/api/heath.service";
 
 interface FTNDContextType {

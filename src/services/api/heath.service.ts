@@ -1,6 +1,6 @@
 import { Domains } from "@/constants/domain";
 import { authApi } from "@/lib/axios";
-import type { Health, HealthListItem } from "@/types/models/Health";
+import type { Health, HealthListItem } from "@/types/models/health";
 import { createBaseService } from "../base.service";
 import type { ApiResponse } from "@/types/response";
 

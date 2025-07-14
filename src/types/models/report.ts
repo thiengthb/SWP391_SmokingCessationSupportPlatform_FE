@@ -1,4 +1,4 @@
-export interface UserActivityData {
+export interface UserGrowthData {
   date: string;
   newAccounts: number;
 };

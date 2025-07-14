@@ -1,5 +1,5 @@
 import { Domains } from "@/constants/domain";
-import type { Auth } from "@/contexts/AuthContext";
+import { useAuth, type Auth } from "@/contexts/AuthContext";
 import { notificationService } from "@/services/api/notification.service";
 import { Direction, type PaginationParams } from "@/types/pagination";
 import useSWR from "swr";
@@ -15,9 +15,9 @@ export const useNotificationListSwr = (
     sortBy: "sentAt",
     direction: Direction.DESC,
   };
-
+  const {canFetch} = useAuth();
   const key =
-    auth?.isAuthenticated && auth.currentAcc?.id
+    canFetch && auth.currentAcc?.id
       ? `${Domains.NOTIFICATION}-${auth.currentAcc.id}-${page}-${size}`
       : null;
 

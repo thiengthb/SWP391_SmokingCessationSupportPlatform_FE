@@ -1,6 +1,6 @@
 import useRefreshToken from "@/hooks/useRefreshToken";
 import { setUpAuthInterceptors } from "@/lib/axios";
-import { login, logout } from "@/services/api/auth.service";
+import { login, logout, refresh as refreshService } from "@/services/api/auth.service";
 import type { Account } from "@/types/models/account";
 import type { LoginFormData } from "@/types/validations/auth/login";
 import { createContext, useContext, useEffect, useState } from "react";
@@ -25,6 +25,7 @@ export interface AuthContext {
   setPersist: React.Dispatch<React.SetStateAction<boolean>>;
   handleLogin: (formData: LoginFormData) => Promise<void>;
   handleLogout: () => Promise<void>;
+  canFetch: boolean;
 }
 
 const AuthContext = createContext<AuthContext>({} as AuthContext);
@@ -36,6 +37,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [persist, setPersist] = useState<boolean>(
     JSON.parse(localStorage.getItem("persist") || "true")
   );
+  const [canFetch, setCanFetch] = useState(false);
 
   useEffect(() => {
     const eject = setUpAuthInterceptors(
@@ -44,6 +46,31 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     );
     return () => eject();
   }, [auth.accessToken, refresh]);
+
+  useEffect(() => {
+    const initAuth = async () => {
+      if (!persist) {
+        setCanFetch(true);
+        return;
+      }
+
+      try {
+        const data = await refreshService();
+        setAuth({
+          accessToken: data.accessToken,
+          currentAcc: data.account,
+          isAuthenticated: true,
+        });
+      } catch (err) {
+        console.warn("Token refresh failed on app load");
+        setAuth(defaultAuth);
+      } finally {
+        setCanFetch(true);
+      }
+    };
+
+    initAuth();
+  }, [persist]);
 
   const handleLogin = async (formData: LoginFormData) => {
     try {
@@ -99,6 +126,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setPersist,
         handleLogin,
         handleLogout,
+        canFetch,
       }}
     >
       {children}

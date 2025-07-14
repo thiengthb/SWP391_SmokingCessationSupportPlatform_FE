@@ -1,6 +1,6 @@
 import { Domains } from "@/constants/domain";
 import { authApi } from "@/lib/axios";
-import type { CoachProfile } from "@/types/models/Coach";
+import type { CoachProfile } from "@/types/models/coach";
 import { createBaseService } from "../base.service";
 
 const Endpoints = {

@@ -1,7 +1,7 @@
 import { Domains } from "@/constants/domain";
 import { authApi } from "@/lib/axios";
 import { createBaseService } from "../base.service";
-import type { MemberProfile } from "@/types/models/Member";
+import type { MemberProfile } from "@/types/models/member";
 import type { ApiResponse } from "@/types/response";
 
 const Endpoints = {

@@ -15,7 +15,7 @@ import {
   ftndQuestions,
 } from "../../data/ftnd.data";
 import RenderQuestionInput from "./RenderQuestionInput";
-import { defaultHealthValue, type Health } from "@/types/models/Health";
+import { defaultHealthValue, type Health } from "@/types/models/health";
 import { ResultForm } from "./ResultForm";
 import { useFTND } from "@/contexts/FTNDContext";
 import type { Currency } from "@/types/enums/Currency";
