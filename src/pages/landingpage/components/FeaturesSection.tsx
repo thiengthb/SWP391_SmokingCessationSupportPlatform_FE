@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { useTranslation } from "react-i18next";
-import type { Feature } from "../types";
+import type { Feature } from "../data";
 
 interface FeaturesSectionProps {
   features: Feature[];

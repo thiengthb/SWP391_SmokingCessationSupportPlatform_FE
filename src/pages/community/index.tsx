@@ -18,7 +18,7 @@ export default function CommunityPage() {
   const PAGE_SIZE = 50; // Number of messages per page
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<ChatMessageType[]>([]);
-  const { onlineUsers, error, isLoading, mutate } = useOnlineListSwr();
+  const { onlineUsers, error, isLoading} = useOnlineListSwr();
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [shouldScrollToBottom, setShouldScrollToBottom] = useState(false);
@@ -203,6 +203,10 @@ export default function CommunityPage() {
               </h3>
             </div>
             <div className="space-y-1">
+              {isLoading && <p>Loading online users...</p>
+              } : {
+              error && <p className="text-red-500">Error loading users</p>
+              } :
               {onlineUsers.map((user) => (
                 <OnlineUser key={user.id} user={user} />
               ))}

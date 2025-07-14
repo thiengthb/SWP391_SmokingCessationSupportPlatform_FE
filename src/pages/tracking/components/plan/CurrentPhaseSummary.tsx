@@ -9,7 +9,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
-import type { Phase } from "@/types/models/Plan";
+import type { Phase } from "@/types/models/phase";
 
 interface CurrentPhaseSummaryProps {
   currentPhase: Phase | null;
