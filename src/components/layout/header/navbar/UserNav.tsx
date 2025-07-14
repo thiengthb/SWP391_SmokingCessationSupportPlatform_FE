@@ -12,15 +12,15 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Gauge, UserRound } from "lucide-react";
-import { useTranslation } from "react-i18next";
 import { mainNav } from "./navbar.item";
 import { NavigationNotifications } from "./NavigationNotifications";
 import { Badge } from "@/components/ui/badge";
+import { useTranslate } from "@/hooks/useTranslate";
 
 export function UserNav() {
   const navigate = useNavigate();
-  const { t } = useTranslation();
   const { auth, handleLogout } = useAuth();
+  const { tNavbar, tCommon } = useTranslate();
 
   const submitLogout = async () => {
     await handleLogout();
@@ -53,7 +53,7 @@ export function UserNav() {
             <Avatar className="h-8 w-8">
               <AvatarImage
                 src={auth.currentAcc?.avatar ?? ""}
-                alt={auth.currentAcc?.username ?? t("roles.user")}
+                alt={auth.currentAcc?.username ?? tCommon("roles.user")}
               />
               <AvatarFallback>
                 <UserRound />
@@ -66,7 +66,7 @@ export function UserNav() {
             <div className="flex flex-col space-y-2">
               <div className="flex items-center gap-2">
                 <p className="text-sm font-medium leading-none">
-                  {auth.currentAcc?.username || t("roles.guest")}
+                  {auth.currentAcc?.username || tCommon("roles.guest")}
                 </p>
                 <Badge>
                   {auth.currentAcc?.havingSubscription ? "Premium" : "Free"}
@@ -85,21 +85,21 @@ export function UserNav() {
                 className="w-full flex items-center gap-2"
               >
                 <Gauge className="h-4 w-4" />
-                {t(`nav.dashboard.title`)}
+                {tNavbar(`navbar.dashboard.title`)}
               </Link>
             </DropdownMenuItem>
             {filteredItems.map((item) => (
               <DropdownMenuItem key={item.href}>
                 <Link to={item.href} className="w-full flex items-center gap-2">
                   {item.icon && <item.icon className="h-4 w-4" />}
-                  {t(item.title)}
+                  {tNavbar(item.title)}
                 </Link>
               </DropdownMenuItem>
             ))}
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuItem variant="destructive" onClick={submitLogout}>
-            <p className="pl-2">{t(`buttons.logout`)}</p>
+            <p className="pl-2">{tCommon(`buttons.logout`)}</p>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

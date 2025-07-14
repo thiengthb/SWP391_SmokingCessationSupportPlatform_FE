@@ -1,19 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { milestones } from "../../../data/about-us.info";
-import { useTranslation } from "react-i18next";
+import { useTranslate } from "@/hooks/useTranslate";
 
 export default function StoryPage() {
-  const { t } = useTranslation();
+  const { tAboutus, tData } = useTranslate();
   return (
     <div className="container max-w-6xl mx-auto py-6 lg:py-10">
       <div className="space-y-10">
         <div className="space-y-4 text-center">
           <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-            {t("page.story.title")}
+            {tAboutus("aboutus.story.title")}
           </h1>
           <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
-            {t("page.story.subtitle")}
+            {tAboutus("aboutus.story.subtitle")}
           </p>
         </div>
 
@@ -21,16 +21,16 @@ export default function StoryPage() {
           <CardContent className="grid gap-8">
             <div className="space-y-4">
               <h2 className="text-2xl font-bold">
-                {t("page.story.missionTitle")}
+                {tAboutus("aboutus.story.missionTitle")}
               </h2>
               <p className="text-muted-foreground">
-                {t("page.story.missionDescription")}
+                {tAboutus("aboutus.story.missionDescription")}
               </p>
             </div>
 
             <div className="space-y-4">
               <h2 className="text-2xl font-bold">
-                {t("page.story.goalsTitle")}
+                {tAboutus("aboutus.story.goalsTitle")}
               </h2>
               <div className="grid gap-6 md:grid-cols-2">
                 {milestones.map((milestone) => (
@@ -39,9 +39,11 @@ export default function StoryPage() {
                       <div className="text-2xl font-bold mb-2">
                         {milestone.year}
                       </div>
-                      <h3 className="font-semibold mb-2">{milestone.title}</h3>
+                      <h3 className="font-semibold mb-2">
+                        {tData(milestone.title)}
+                      </h3>
                       <p className="text-sm text-muted-foreground">
-                        {milestone.description}
+                        {tData(milestone.description)}
                       </p>
                     </CardContent>
                   </Card>
@@ -51,13 +53,15 @@ export default function StoryPage() {
 
             <div className="space-y-4">
               <h2 className="text-2xl font-bold">
-                {t("page.story.joinTitle")}
+                {tAboutus("aboutus.story.joinTitle")}
               </h2>
               <p className="text-muted-foreground mb-4">
-                {t("page.story.joinDescription")}
+                {tAboutus("aboutus.story.joinDescription")}
               </p>
               <Button size="lg" asChild>
-                <a href="/auth/register">{t("page.story.buttonGetStarted")}</a>
+                <a href="/auth/register">
+                  {tAboutus("aboutus.story.buttonGetStarted")}
+                </a>
               </Button>
             </div>
           </CardContent>

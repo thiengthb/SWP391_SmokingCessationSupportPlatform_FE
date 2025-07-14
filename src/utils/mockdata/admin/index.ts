@@ -1,6 +1,5 @@
 import { Users, ActivitySquare, Medal, LineChart } from "lucide-react";
 
-
 export const userActivityData = [
   { date: '2024-03-01', active: 400, new: 240 },
   { date: '2024-03-02', active: 300, new: 139 },
@@ -75,45 +74,45 @@ export const advancedAnalyticsData = {
 
 export const stats = [
   {
-    title: "Total Users",
+    title: "admindashboard.stats.totalUsers.title",
     value: "1,234",
     icon: Users,
-    description: "+12% from last month",
+    description: "admindashboard.stats.totalUsers.description",
   },
   {
-    title: "Active Goals",
+    title: "admindashboard.stats.activeGoals.title",
     value: "845",
     icon: ActivitySquare,
-    description: "Currently in progress",
+    description: "admindashboard.stats.activeGoals.description",
   },
   {
-    title: "Success Rate",
+    title: "admindashboard.stats.successRate.title",
     value: "75%",
     icon: Medal,
-    description: "+5% improvement",
+    description: "admindashboard.stats.successRate.description",
   },
   {
-    title: "Weekly Growth",
+    title: "admindashboard.stats.weeklyGrowth.title",
     value: "+22%",
     icon: LineChart,
-    description: "User engagement",
+    description: "admindashboard.stats.weeklyGrowth.description",
   },
 ];
 
 export const reports = [
   {
-    title: "User Activity Report",
-    description: "Daily user engagement and activity metrics",
+    title: "admindashboard.reports.userActivity.title",
+    description: "admindashboard.reports.userActivity.description",
     lastGenerated: "2024-03-15",
   },
   {
-    title: "Success Metrics",
-    description: "User success rates and milestone achievements",
+    title: "admindashboard.reports.successMetrics.title",
+    description: "admindashboard.reports.successMetrics.description",
     lastGenerated: "2024-03-14",
   },
   {
-    title: "System Performance",
-    description: "Server health and performance metrics",
+    title: "admindashboard.reports.systemPerformance.title",
+    description: "admindashboard.reports.systemPerformance.description",
     lastGenerated: "2024-03-15",
   },
 ];

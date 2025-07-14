@@ -1,0 +1,56 @@
+{
+  "coachdashboard": {
+    "title": "Coach Dashboard",
+    "lastmonth": "from last month",
+    "clientOverview": "Client Progress Overview",
+    "tabs": {
+      "overview": "Overview",
+      "clients": "Clients",
+      "schedule": "Schedule",
+      "lastmonth": "from last month",
+      "clientOverview": "Client Progress Overview"
+    },
+    "clientStats": {
+      "activeClients": "Active Clients",
+      "successRate": "Success Rate",
+      "sessionsToday": "Sessions Today",
+      "openChats": "Open Chats",
+      "changeType": {
+        "increase": "Increased",
+        "decrease": "Decreased",
+        "neutral": "No change"
+      }
+    },
+    "clientTabs": {
+      "status": {
+        "active": "Active",
+        "atRisk": "at-risk"
+      }
+    },
+    "clients": {
+      "searchPlaceholder": "Search clients...",
+      "addClient": "Add Client",
+      "activeClients": "Active Clients",
+      "table": {
+        "name": "Name",
+        "progress": "Progress",
+        "lastSession": "Last Session",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive"
+      }
+    },
+    "schedule": {
+      "title": "Schedule",
+      "noDateSelected": "No date selected",
+      "noAppointments": "No appointments scheduled for this day",
+      "status": {
+        "confirmed": "Confirmed",
+        "pending": "Pending"
+      }
+    }
+  }
+}

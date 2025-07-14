@@ -136,7 +136,7 @@ const router = createBrowserRouter([
           // 👇 ADDITIONAL LEGAL ROUTES
           { path: "terms", element: <TermsPage /> },
           { path: "privacy", element: <PrivacyPolicyPage /> },
-          {path: "faq", element: <FAQPage/>},
+          { path: "faq", element: <FAQPage /> },
         ],
       },
     ],

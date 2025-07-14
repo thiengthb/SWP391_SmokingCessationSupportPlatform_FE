@@ -1,0 +1,19 @@
+{
+ "testimonials": {
+   "title": "Success Stories",
+   "description": "Listen to inspiring stories from users who successfully quit smoking with our system.",
+   "filterLabel": "Filter stories",
+   "sortLabel": "Sort by",
+   "filters": {
+     "all": "All",
+     "verified": "Verified",
+     "highest": "Highest rated"
+   },
+   "sorts": {
+     "recent": "Most recent",
+     "rating": "Highest rating"
+   },
+   "showing": "Showing {{count}} stories",
+   "notfound": "No stories found matching the filter criteria."
+ }
+}

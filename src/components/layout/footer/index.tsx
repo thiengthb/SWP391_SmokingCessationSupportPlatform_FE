@@ -1,53 +1,59 @@
-import { Button } from "../../ui/button";
-import { Input } from "../../ui/input";
+import { useTranslate } from "@/hooks/useTranslate";
 import { Link } from "react-router-dom";
+
 const Footer = () => {
+  const { tFooter } = useTranslate();
+
+  const linkItems = [
+    { name: "home", to: "/" },
+    { name: "about", to: "/about-us" },
+    { name: "contact", to: "/contact" },
+    { name: "blog", to: "/blog" },
+    { name: "terms", to: "/terms" },
+    { name: "privacy", to: "/privacy" },
+    { name: "faq", to: "/faq" },
+  ];
+
+  const socialItems = [
+    { name: "Twitter", href: "https://x.com/home" },
+    { name: "Facebook", href: "https://facebook.com" },
+    { name: "Instagram", href: "https://instagram.com" },
+    { name: "LinkedIn", href: "https://linkedin.com" },
+  ];
+
   return (
     <footer className="w-full border-t bg-background">
-      <div className="lg:max-w-[1248px] lg:mx-auto px-4 md:px-6 py-8 md:py-12 lg:py-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
-          <div className="space-y-3">
-            <h4 className="text-lg font-semibold">About Us</h4>
+      <div className="lg:max-w-[1248px] mx-auto px-4 md:px-6 py-8 md:py-12 lg:py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-10 gap-x-8">
+          <div className="space-y-3 max-w-sm">
+            <h4 className="text-lg font-semibold">{tFooter("footer.about.title")}</h4>
             <p className="text-sm text-muted-foreground">
-              At ABC Music, we bring together artists and fans through the power
-              of digital innovation.
+              {tFooter("footer.about.description")}
             </p>
           </div>
+
           <div className="space-y-3">
-            <h4 className="text-lg font-semibold">Quick Links</h4>
-            <ul className="space-y-2 text-sm grid grid-cols-2 sm:grid-cols-1">
-              {[
-                { name: "Home", to: "/" },
-                { name: "About", to: "/about-us" },
-                { name: "Contact", to: "/contact" },
-                { name: "Blog", to: "/blog" },
-                { name: "Terms", to: "/terms" },
-                { name: "Privacy", to: "/privacy" },
-                { name: "FAQ", to: "/faq" },
-              ].map(({ name, to }) => (
+            <h4 className="text-lg font-semibold">{tFooter("footer.links.title")}</h4>
+            <ul className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
+              {linkItems.map(({ name, to }) => (
                 <li key={name}>
                   <Link
                     to={to}
                     className="text-muted-foreground hover:text-primary transition-colors"
                   >
-                    {name}
+                    {tFooter(`footer.links.${name}`)}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
+
           <div className="space-y-3">
-            <h4 className="text-lg font-semibold">Connect</h4>
+            <h4 className="text-lg font-semibold">
+              {tFooter("footer.about.social")}
+            </h4>
             <div className="flex flex-wrap gap-4">
-              {[
-                { name: "Twitter", href: "https://x.com/home" },
-                { name: "Facebook", href: "https://facebook.com" },
-                { name: "Instagram", href: "https://instagram.com" },
-                {
-                  name: "LinkedIn",
-                  href: "https://linkedin.com",
-                },
-              ].map(({ name, href }) => (
+              {socialItems.map(({ name, href }) => (
                 <a
                   key={name}
                   href={href}
@@ -60,31 +66,19 @@ const Footer = () => {
               ))}
             </div>
           </div>
-          <div className="space-y-3">
-            <h4 className="text-lg font-semibold">Subscribe</h4>
-            <p className="text-sm text-muted-foreground">
-              Subscribe to our newsletter for updates.
-            </p>
-            <div className="flex space-x-2">
-              <Input placeholder="Enter your email" type="email" />
-              <Button>Subscribe</Button>
-            </div>
-          </div>
         </div>
-        <div className="mt-8 flex flex-col items-center text-center">
-          <div className="mb-8 border-t" />
-          <p className="text-sm text-muted-foreground">
-            © 2024 ABC Music. All rights reserved.
-          </p>
-          <div className="flex space-x-4 text-sm text-muted-foreground">
+
+        <div className="mt-12 border-t pt-6 text-center text-sm text-muted-foreground space-y-2">
+          <p>© 2024 Smoking Project. {tFooter("footer.bottom.copyright")}</p>
+          <div className="flex justify-center space-x-4">
             <Link to="/terms" className="hover:text-primary">
-              Terms
+              {tFooter("footer.bottom.terms")}
             </Link>
             <Link to="/privacy" className="hover:text-primary">
-              Privacy
+              {tFooter("footer.bottom.privacy")}
             </Link>
             <a href="#" className="hover:text-primary">
-              Cookies
+              {tFooter("footer.bottom.cookies")}
             </a>
           </div>
         </div>

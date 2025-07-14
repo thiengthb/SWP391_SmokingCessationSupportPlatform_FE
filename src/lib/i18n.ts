@@ -2,16 +2,22 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import { Language } from '../types/models/setting';
 import HttpBackend from 'i18next-http-backend';
+import { I18nNamespace } from '@/constants/I18nNamespace';
 
 i18n
   .use(HttpBackend)
   .use(initReactI18next)
   .init({
-    fallbackLng: Language.EN.toLowerCase(),
     lng: localStorage.getItem('language') || Language.EN.toLowerCase(),
+    fallbackLng: Language.EN.toLowerCase(),
+
+    ns: Object.values(I18nNamespace),
+    defaultNS: I18nNamespace.COMMON,
+
     backend: {
-      loadPath: '/locales/{{lng}}/translation.json'
+      loadPath: '/locales/{{lng}}/{{ns}}.json'
     },
+
     interpolation: {
       escapeValue: false
     }

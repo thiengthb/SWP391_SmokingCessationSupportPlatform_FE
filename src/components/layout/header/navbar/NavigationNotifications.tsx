@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
+import { useTranslate } from "@/hooks/useTranslate";
 
 export function NavigationNotifications() {
   const { auth } = useAuth();
@@ -18,7 +19,7 @@ export function NavigationNotifications() {
   const [notifications, setNotifications] = useState<NotificationResponse[]>(
     []
   );
-
+  const { tNavbar } = useTranslate();
   useEffect(() => {
     if (!auth?.isAuthenticated) return;
     const fetchNotifications = async () => {
@@ -64,14 +65,16 @@ export function NavigationNotifications() {
             </DropdownMenuItem>
           ))
         ) : (
-          <DropdownMenuItem>No notifications</DropdownMenuItem>
+          <DropdownMenuItem>
+            {tNavbar("navbar.notifications.empty")}
+          </DropdownMenuItem>
         )}
         <DropdownMenuItem asChild>
           <Link
             to="/notifications"
             className="w-full text-center text-primary hover:underline"
           >
-            See more
+            {tNavbar("navbar.notifications.seeMore")}
           </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>

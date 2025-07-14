@@ -1,0 +1,10 @@
+{
+  "community": {
+    "title": "Cộng đồng",
+    "description": "Kết nối và chia sẻ với những người cùng hành trình",
+    "inputPlaceholder": "Nhập tin nhắn...",
+    "onlineUsers": "Người dùng trực tuyến",
+    "activeNow": "Đang hoạt động",
+    "away": "Vắng mặt"
+  }
+}

@@ -21,34 +21,34 @@ export interface NavItems {
 export const aboutItems: NavItem[] = [
   {
     id: "about-us",
-    title: "nav.about.team.title",
+    title: "navbar.about.team.title",
     icon: BadgeInfo,
     href: "/about-us/team",
-    description: "nav.about.team.description"
+    description: "navbar.about.team.description"
   },
   {
     id: "about-story",
-    title: "nav.about.story.title",
+    title: "navbar.about.story.title",
     icon: LibraryBig,
     href: "/about-us/story",
-    description: "nav.about.story.description"
+    description: "navbar.about.story.description"
   },
 ]
 
 export const leaderboardItems: NavItem[] = [
   {
     id: "leaderboard-global",
-    title: "nav.leaderboard.global.title",
+    title: "navbar.leaderboard.global.title",
     icon: Earth,
     href: "/leaderboard",
-    description: "nav.leaderboard.global.description"
+    description: "navbar.leaderboard.global.description"
   },
   {
     id: "leaderboard-hall-of-fame",
-    title: "nav.leaderboard.hallOfFame.title",
+    title: "navbar.leaderboard.hallOfFame.title",
     icon: Landmark,
     href: "/leaderboard/hall-of-fame",
-    description: "nav.leaderboard.hallOfFame.description"
+    description: "navbar.leaderboard.hallOfFame.description"
   }
 ]
 
@@ -65,65 +65,65 @@ export type NavigationType = {
 export const mainNav: NavigationType[] = [
   {
     id: "profile",
-    title: "nav.profile.title",
+    title: "navbar.profile.title",
     icon: User,
     href: "/profile",
     displayMobile: true,
   },
   {
     id: "settings",
-    title: "nav.settings.title",
+    title: "navbar.settings.title",
     icon: Settings,
     href: "/settings",
     displayMobile: true,
   },
   {
     id: "home",
-    title: "nav.home.title",
+    title: "navbar.home.title",
     icon: House,
     href: "/",
   },
   {
     id: "pricing",
-    title: "nav.pricing.title",
+    title: "navbar.pricing.title",
     icon: Gem,
     href: "/pricing",
-    description: "nav.pricing.description",
+    description: "navbar.pricing.description",
   },
   {
     id: "blog",
-    title: "nav.blog.title",
+    title: "navbar.blog.title",
     icon: BookMarked,
     href: "/blog",
-    description: "nav.blog.description",
+    description: "navbar.blog.description",
   },
   {
     id: "leaderboard",
-    title: "nav.leaderboard.title",
+    title: "navbar.leaderboard.title",
     icon: LandPlot,
     href: "/leaderboard",
-    description: "nav.leaderboard.description",
+    description: "navbar.leaderboard.description",
     items: leaderboardItems
   },
   {
     id: "community",
-    title: "nav.community.title",
+    title: "navbar.community.title",
     icon: MessageCircleMore,
     href: "/community",
-    description: "nav.community.description",
+    description: "navbar.community.description",
   },
   {
     id: "about",
-    title: "nav.about.title",
+    title: "navbar.about.title",
     icon: BookOpenText,
     href: "/about-us",
-    description: "nav.about.description",
+    description: "navbar.about.description",
     items: aboutItems
   },
   {
     id: "contact",
     icon: Send,
-    title: "nav.contact.title",
+    title: "navbar.contact.title",
     href: "/contact",
   },
 ]

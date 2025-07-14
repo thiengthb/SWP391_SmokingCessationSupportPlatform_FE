@@ -2,8 +2,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Trophy } from "lucide-react";
 import { stats, achievements, healthTimeline } from "@/utils/mockdata/member";
+import { useTranslate } from "@/hooks/useTranslate";
 
 export function OverviewTab() {
+  const { tMember } = useTranslate();
   return (
     <div className="space-y-4">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -11,14 +13,14 @@ export function OverviewTab() {
           <Card key={stat.title}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
-                {stat.title}
+                {tMember(stat.title)}
               </CardTitle>
               <stat.icon className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{stat.value}</div>
               <p className="text-xs text-muted-foreground">
-                {stat.description}
+                {tMember(stat.description)}
               </p>
             </CardContent>
           </Card>
@@ -28,7 +30,9 @@ export function OverviewTab() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
         <Card className="col-span-4">
           <CardHeader>
-            <CardTitle>Health Timeline</CardTitle>
+            <CardTitle>
+              {tMember("memberdashboard.healthTimeline.title")}
+            </CardTitle>
           </CardHeader>
           <CardContent className="pl-2">
             <div className="flex flex-col space-y-8 p-4">
@@ -41,10 +45,10 @@ export function OverviewTab() {
                   />
                   <div className="ml-4 space-y-1">
                     <p className="text-sm font-medium leading-none">
-                      {item.time}
+                      {tMember(item.time)}
                     </p>
                     <p className="text-sm text-muted-foreground">
-                      {item.description}
+                      {tMember(item.description)}
                     </p>
                   </div>
                 </div>
@@ -55,7 +59,9 @@ export function OverviewTab() {
 
         <Card className="col-span-3">
           <CardHeader>
-            <CardTitle>Recent Achievements</CardTitle>
+            <CardTitle>
+              {tMember("memberdashboard.recentAchievements.title")}
+            </CardTitle>
           </CardHeader>
           <CardContent className="space-y-8">
             {achievements.slice(0, 3).map((achievement) => (
@@ -64,10 +70,10 @@ export function OverviewTab() {
                   <Trophy className="mr-2 h-4 w-4 text-primary" />
                   <div className="flex-1 space-y-1">
                     <p className="text-sm font-medium leading-none">
-                      {achievement.title}
+                      {tMember(achievement.title)}
                     </p>
                     <p className="text-sm text-muted-foreground">
-                      {achievement.description}
+                      {tMember(achievement.description)}
                     </p>
                   </div>
                   <span className="text-sm font-medium">

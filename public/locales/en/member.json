@@ -1,0 +1,126 @@
+{
+  "memberdashboard": {
+    "title": "Member Dashboard",
+    "tabs": {
+      "overview": "Overview",
+      "goals": "Goals",
+      "achievements": "Achievements"
+    },
+    "healthTimeline": {
+      "title": "Health Timeline",
+      "time": {
+        "20m": "20 minutes",
+        "12h": "12 hours",
+        "2w_12w": "2-12 weeks",
+        "1m_9m": "1-9 months"
+      },
+      "description": {
+        "20m": "Heart rate and blood pressure drop",
+        "12h": "Carbon monoxide levels normalize",
+        "2w_12w": "Circulation improves",
+        "1m_9m": "Coughing and shortness of breath decrease"
+      }
+    },
+    "recentAchievements": {
+      "title": "Recent Achievements",
+
+      "items": {
+        "firstWeek": {
+          "title": "First Week Complete",
+          "description": "7 days smoke-free"
+        },
+        "moneySaver": {
+          "title": "Money Saver",
+          "description": "Saved $50"
+        },
+        "healthImprover": {
+          "title": "Health Improver",
+          "description": "Oxygen levels normalized"
+        }
+      }
+    },
+    "goals": {
+      "title": "Active Goals",
+      "button": "Add Goals",
+      "quit30days": {
+        "title": "Quit for 30 Days",
+        "description": "Stay smoke-free for a full month",
+        "target": "20 days remaining"
+      },
+      "saveMoney": {
+        "title": "Save $500",
+        "description": "Track your financial benefits",
+        "target": "$275 to go"
+      },
+      "exerciseWeekly": {
+        "title": "Exercise Weekly",
+        "description": "Build healthy habits",
+        "target": "3 of 4 weeks complete"
+      }
+    },
+    "achievements": {
+      "title": "Achievement Progress",
+      "categories": {
+        "milestones": {
+          "name": "Milestones",
+          "firstDay": {
+            "title": "First Day",
+            "description": "Complete your first smoke-free day"
+          },
+          "oneWeek": {
+            "title": "One Week Wonder",
+            "description": "Stay smoke-free for 7 days"
+          },
+          "oneMonth": {
+            "title": "One Month Milestone",
+            "description": "Complete 30 days smoke-free"
+          }
+        },
+        "health": {
+          "name": "Health",
+          "breath": {
+            "title": "Breath of Fresh Air",
+            "description": "Oxygen levels return to normal"
+          },
+          "heart": {
+            "title": "Heart Hero",
+            "description": "Blood pressure normalizes"
+          },
+          "lung": {
+            "title": "Lung Power",
+            "description": "Lung capacity improves by 30%"
+          }
+        },
+        "savings": {
+          "name": "Savings",
+          "saver": {
+            "title": "Money Saver",
+            "description": "Save your first $100"
+          },
+          "master": {
+            "title": "Money Master",
+            "description": "Save $1000 from not smoking"
+          }
+        }
+      }
+    },
+    "stat": {
+      "smoke": {
+        "title": "Smoke-Free Days",
+        "description": "Keep going strong!"
+      },
+      "cigarettes": {
+        "title": "Cigarettes Avoided",
+        "description": "That's impressive!"
+      },
+      "moneySaved": {
+        "title": "Money Saved",
+        "description": "More savings ahead"
+      },
+      "health": {
+        "title": "Health Score",
+        "description": "Great progress"
+      }
+    }
+  }
+}

@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
+import { useTranslate } from "@/hooks/useTranslate";
 
 const ScrollBack = () => {
   const [show, setShow] = useState(false);
-
+  const {tCommon} = useTranslate();
   useEffect(() => {
     const scrollFunction = () => {
       if (
@@ -53,7 +54,7 @@ const ScrollBack = () => {
       >
         <path d="m18 15-6-6-6 6" />
       </svg>
-      <span className="sr-only">Scroll to top</span>
+      <span className="sr-only">{tCommon("buttons.scroll")}</span>
     </Button>
   );
 };

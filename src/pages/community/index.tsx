@@ -11,10 +11,10 @@ import type { ChatMessage as ChatMessageType } from "@/types/models/chat";
 import type { Account } from "@/types/models/account";
 import useApi from "@/hooks/useApi";
 
-import { useTranslation } from "react-i18next";
+import { useTranslate } from "@/hooks/useTranslate";
 
 export default function CommunityPage() {
-  const { t } = useTranslation();
+  const { tCommunity } = useTranslate();
   const PAGE_SIZE = 50; // Number of messages per page
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<ChatMessageType[]>([]);
@@ -175,9 +175,9 @@ export default function CommunityPage() {
   return (
     <div className="container py-10 px-4 mx-auto">
       <div className="mb-6 space-y-1">
-        <h1 className="text-4xl font-bold mb-2">{t("page.community.title")}</h1>
+        <h1 className="text-4xl font-bold mb-2">{tCommunity("community.title")}</h1>
         <p className="text-muted-foreground">
-          {t("page.community.description")}
+          {tCommunity("community.description")}
         </p>
       </div>
 
@@ -206,7 +206,7 @@ export default function CommunityPage() {
               <Input
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                placeholder={t("page.community.inputPlaceholder")}
+                placeholder={tCommunity("community.inputPlaceholder")}
                 className="flex-1"
               />
               <Button type="submit" size="icon">
@@ -221,7 +221,7 @@ export default function CommunityPage() {
             <div className="flex items-center gap-2 mb-4">
               <Users className="h-5 w-5" />
               <h3 className="font-semibold">
-                {t("page.community.onlineUsers")}
+                {tCommunity("community.onlineUsers")}
               </h3>
             </div>
             <div className="space-y-1">

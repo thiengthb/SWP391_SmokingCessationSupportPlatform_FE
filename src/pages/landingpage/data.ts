@@ -35,10 +35,10 @@ export const features: Feature[] = [
 ];
 
 export const successItems = [
-  "page.landingPage.successItems.item1",
-  "page.landingPage.successItems.item2",
-  "page.landingPage.successItems.item3",
-  "page.landingPage.successItems.item4",
+  "landingPage.successItems.item1",
+  "landingPage.successItems.item2",
+  "landingPage.successItems.item3",
+  "landingPage.successItems.item4",
 ];
 
 export const testimonials = [

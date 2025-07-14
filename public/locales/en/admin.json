@@ -1,0 +1,91 @@
+{
+  "admindashboard": {
+    "recentRegistrations": "Recent Registrations",
+    "viewAllUsers": "View All Users",
+    "systemHealth": "System Health",
+    "serverLoad": "Server Load",
+    "storageUsage": "Storage Usage",
+    "profile": "Profile",
+    "setting": "Settings",
+    "logout": "Log out",
+    "admin": {
+      "title": "Admin Dashboard",
+      "tabs": {
+        "overview": "Overview",
+        "users": "Users",
+        "reports": "Reports"
+      }
+    },
+    "userTable": {
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "status": "Status",
+      "actions": "Actions",
+      "edit": "Edit",
+      "viewDetails": "View Details",
+      "ban": "Ban User",
+      "unban": "Unban User"
+    },
+    "userManagement": {
+      "title": "User Management",
+      "description": "Manage and monitor user accounts",
+      "addUser": "Add New User",
+      "searchPlaceholder": "Search users...",
+      "filterByRole": "Filter by Role",
+      "roles": {
+        "admin": "Administrator",
+        "coach": "Coach",
+        "member": "Member"
+      }
+    },
+    "analytics": {
+      "userActivityTrends": "User Activity Trends",
+      "activeUsers": "Active Users",
+      "newUsers": "New Users",
+      "successRateByWeek": "Success Rate by Week",
+      "successRate": "Success Rate",
+      "userDistribution": "User Distribution",
+      "lastGenerated": "Last generated:",
+      "download": "Download"
+    },
+    "reports": {
+      "userActivity": {
+        "title": "User Activity Report",
+        "description": "Daily user engagement and activity metrics"
+      },
+      "successMetrics": {
+        "title": "Success Metrics",
+        "description": "User success rates and milestone achievements"
+      },
+      "systemPerformance": {
+        "title": "System Performance",
+        "description": "Server health and performance metrics"
+      }
+    },
+    "stats": {
+      "totalUsers": {
+        "title": "Total Users",
+        "description": "+12% from last month"
+      },
+      "activeGoals": {
+        "title": "Active Goals",
+        "description": "Currently in progress"
+      },
+      "successRate": {
+        "title": "Success Rate",
+        "description": "+5% improvement"
+      },
+      "weeklyGrowth": {
+        "title": "Weekly Growth",
+        "description": "User engagement"
+      }
+    },
+    "userDistributionData": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "new": "New",
+      "banned": "Banned"
+    }
+  }
+}
