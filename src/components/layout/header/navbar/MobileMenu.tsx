@@ -21,16 +21,19 @@ import {
   Globe,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { mainNav } from "./navbar.item";
+import { ForDisplay, mainNav, routeRoleDashboard } from "./navbar.item";
 import ThemeSwitch from "@/components/theme/theme-switch";
 import LanguageSelector from "@/components/language/LanguageSelector";
 import { useAuth } from "@/contexts/AuthContext";
 import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
 import { NavigationNotifications } from "./NavigationNotifications";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@radix-ui/react-separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { useTranslate } from "@/hooks/useTranslate";
+import UserInfoCard from "./UserInfoCard";
+import { ForRoles, toForRoles } from "@/utils/tab.util";
+import { Paths } from "@/constants/path";
+import { Badge } from "@/components/ui/badge";
 
 const MobileMenu = () => {
   const navigate = useNavigate();
@@ -56,7 +59,7 @@ const MobileMenu = () => {
   const submitLogout = async () => {
     if (!auth.isAuthenticated) return;
     await handleLogout();
-    navigate("/auth/login");
+    navigate(Paths.AUTH.LOGIN);
   };
 
   return (
@@ -100,6 +103,7 @@ const MobileMenu = () => {
                   {auth.currentAcc?.email}
                 </p>
               </div>
+              <UserInfoCard />
             </div>
           ) : (
             "Menu"
@@ -108,11 +112,7 @@ const MobileMenu = () => {
         <div className="flex flex-col space-y-2 px-4">
           {auth.isAuthenticated && (
             <Link
-              to={
-                auth.currentAcc?.role
-                  ? `/${auth.currentAcc?.role.toLowerCase()}/dashboard`
-                  : `/dashboard`
-              }
+              to={routeRoleDashboard(auth.currentAcc?.role)}
               className="flex items-center gap-2 text-base transition-colors hover:text-primary"
             >
               <Gauge className="h-4 w-4" />
@@ -190,12 +190,12 @@ const MobileMenu = () => {
               <>
                 <SheetClose asChild>
                   <Button asChild>
-                    <Link to="/auth/register">{tCommon(`buttons.signup`)}</Link>
+                    <Link to={Paths.AUTH.REGISTER}>{tCommon(`buttons.signup`)}</Link>
                   </Button>
                 </SheetClose>
                 <SheetClose asChild>
                   <Button variant="secondary" asChild>
-                    <Link to="/auth/login">{tCommon(`buttons.login`)}</Link>
+                    <Link to={Paths.AUTH.LOGIN}>{tCommon(`buttons.login`)}</Link>
                   </Button>
                 </SheetClose>
               </>

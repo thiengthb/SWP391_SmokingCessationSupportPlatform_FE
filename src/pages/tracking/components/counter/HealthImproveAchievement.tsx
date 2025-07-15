@@ -1,7 +1,7 @@
 import { Clock } from "lucide-react";
-import type { HealthImprovementLevel } from "../../../../data/health-improve.data";
+import type { HealthImprovementLevel } from "../../../../data/healthImprove.data";
 import { motion } from "framer-motion";
-import { formatDurationDisplay } from "@/utils/dateTimeUtil";
+import { formatDurationDisplay } from "@/utils/datetime.util";
 
 interface HealthImproveAchievementProps {
   achievement: HealthImprovementLevel;

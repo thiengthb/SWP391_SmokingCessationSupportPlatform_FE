@@ -16,62 +16,20 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import ReusablePagination from "@/components/ReusablePagination";
-import { useEffect, useState } from "react";
-import useApi from "@/hooks/useApi";
-import {
-  TransactionStatus,
-  type BillingTransaction,
-} from "@/types/models/transaction";
-
-interface PaginationResponse {
-  content: BillingTransaction[];
-  totalElements: number;
-  totalPages: number;
-  size: number;
-  number: number;
-}
+import { useTransactionListSwr } from "@/hooks/swr/useTransactionSwr";
+import { TransactionStatus } from "@/types/enums/TransactionStatus";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function BillingHistory() {
-  const apiWithInterceptor = useApi();
-  const [billingHistory, setBillingHistory] = useState<BillingTransaction[]>(
-    []
-  );
-  const [currentPage, setCurrentPage] = useState(0);
-  const [totalPages, setTotalPages] = useState(0);
-  const [totalElements, setTotalElements] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
-  const pageSize = 10;
-
-  useEffect(() => {
-    const fetchBillingHistory = async () => {
-      setIsLoading(true);
-      try {
-        const response = await apiWithInterceptor.get(
-          "/v1/transactions/my-transactions",
-          {
-            params: {
-              page: currentPage,
-              size: pageSize,
-            },
-          }
-        );
-        const data: PaginationResponse = response.data.result;
-        console.log("Billing history data:", data);
-        setBillingHistory(data.content);
-        setTotalPages(data.totalPages);
-        setTotalElements(data.totalElements);
-      } catch (error) {
-        console.error("Failed to fetch billing history:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchBillingHistory();
-  }, [currentPage]);
+  const { auth } = useAuth();
+  const { transactions, pagination, setPaginationParams, isLoading } =
+    useTransactionListSwr(auth.currentAcc?.id || "");
 
   const handlePageChange = (page: number) => {
-    setCurrentPage(page);
+    setPaginationParams((prev) => ({
+      ...prev,
+      page: page,
+    }));
   };
 
   return (
@@ -79,7 +37,7 @@ export default function BillingHistory() {
       <CardHeader>
         <CardTitle>Billing History</CardTitle>
         <CardDescription>
-          Your recent payments and invoices ({totalElements} total)
+          Your recent payments and invoices ({pagination.totalElements} total)
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -90,7 +48,7 @@ export default function BillingHistory() {
             </div>
             <p className="text-muted-foreground">Loading billing history...</p>
           </div>
-        ) : billingHistory.length === 0 ? (
+        ) : transactions.length === 0 ? (
           <div className="text-center py-12">
             <div className="mx-auto w-12 h-12 bg-muted rounded-full flex items-center justify-center mb-4">
               <Download className="h-6 w-6 text-muted-foreground" />
@@ -115,7 +73,7 @@ export default function BillingHistory() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {billingHistory.map((invoice) => (
+                {transactions.map((invoice) => (
                   <TableRow key={invoice.id}>
                     <TableCell className="font-medium">{invoice.id}</TableCell>
                     <TableCell>
@@ -149,10 +107,10 @@ export default function BillingHistory() {
 
             {/* Reusable Pagination Component */}
             <ReusablePagination
-              currentPage={currentPage}
-              totalPages={totalPages}
-              totalElements={totalElements}
-              pageSize={pageSize}
+              currentPage={pagination.page}
+              totalPages={pagination.totalPages}
+              totalElements={pagination.totalElements}
+              pageSize={pagination.size}
               onPageChange={handlePageChange}
               className="mt-4"
             />

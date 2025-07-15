@@ -17,10 +17,25 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
 
-import { AccountStatus, type Account } from "@/types/models/account";
+import { type Account } from "@/types/models/account";
+import { AccountStatus } from "@/types/enums/AccountStatus";
 import { useTranslate } from "@/hooks/useTranslate";
 
-export function UsersTab({ users }: { users: Account[] }) {
+export function UsersTab({
+  users,
+  page,
+  size,
+  onEditUser,
+  onViewUser,
+  onToggleBan,
+}: {
+  users: Account[];
+  page: number;
+  size: number;
+  onEditUser: (id: string) => void;
+  onViewUser: (id: string) => void;
+  onToggleBan: (id: string, isBanned: boolean) => void;
+}) {
   const { tAdmin } = useTranslate();
   const getStatusBadge = (status: string) => {
     const variants = {
@@ -49,8 +64,11 @@ export function UsersTab({ users }: { users: Account[] }) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {users?.map((user) => (
+            {users?.map((user, index) => (
               <TableRow key={user.id}>
+                <TableCell className="text-center">
+                  {page * size + index + 1}
+                </TableCell>
                 <TableCell className="px-2">{user.username}</TableCell>
                 <TableCell className="px-2">{user.email}</TableCell>
                 <TableCell className="capitalize">{user.role}</TableCell>

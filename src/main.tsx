@@ -11,12 +11,15 @@ import router from "./router/index.tsx";
 import "./index.css";
 import { FTNDProvider } from "@/contexts/FTNDContext";
 import { SettingProvider } from "./contexts/SettingContext.tsx";
-import { Theme } from "./types/models/setting.ts";
 import { Toaster } from "@/components/ui/sonner";
 import { ProfileProvider } from "./contexts/ProfileContext.tsx";
+import { Theme } from "./types/enums/Theme.ts";
 
 if (process.env.NODE_ENV === "production") {
+  console.log("Production mode: React DevTools are disabled.");
   disableReactDevTools();
+} else {
+  console.log("Development mode: React DevTools are enabled.");
 }
 
 createRoot(document.getElementById("root")!).render(
@@ -32,7 +35,7 @@ createRoot(document.getElementById("root")!).render(
               >
                 <SettingProvider>
                   <FTNDProvider>
-                    <Toaster />
+                    <Toaster richColors />
                     <RouterProvider router={router} />
                   </FTNDProvider>
                 </SettingProvider>

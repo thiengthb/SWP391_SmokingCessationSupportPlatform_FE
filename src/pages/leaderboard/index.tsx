@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { BarChart2 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 import LeaderboardList from "./components/LeaderboardList";
+import { useTranslate } from "@/hooks/useTranslate";
 
 export default function LeaderboardPage() {
-  const { t } = useTranslation();
+  const { tLeaderboard  } = useTranslate();
 
   return (
     <div className="container py-10 px-4 mx-auto">
@@ -15,16 +15,16 @@ export default function LeaderboardPage() {
             <BarChart2 />
             <h1 className="text-4xl font-bold mb-2">
               {" "}
-              {t("page.leaderboard.title")}
+              {tLeaderboard("leaderboard.title")}
             </h1>
           </div>
           <p className="text-muted-foreground">
-            {t("page.leaderboard.description")}
+            {tLeaderboard("leaderboard.description")}
           </p>
         </div>
         <Button asChild variant="outline">
           <Link to="/leaderboard/hall-of-fame">
-            {t("page.leaderboard.hallOfFame.button")}
+            {tLeaderboard("leaderboard.hallOfFame.button")}
           </Link>
         </Button>
       </div>

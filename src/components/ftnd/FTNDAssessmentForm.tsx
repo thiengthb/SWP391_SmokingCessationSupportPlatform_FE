@@ -9,20 +9,17 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { api } from "@/lib/axios";
 import { toast } from "sonner";
 import {
   calculateScoreFromCirgettesPerDay,
   ftndQuestions,
 } from "../../data/ftnd.data";
 import RenderQuestionInput from "./RenderQuestionInput";
-import {
-  defaultHealthValue,
-  type HealthInfoUpdate,
-} from "@/types/models/health";
+import { defaultHealthValue, type Health } from "@/types/models/health";
 import { ResultForm } from "./ResultForm";
 import { useFTND } from "@/contexts/FTNDContext";
-import type { Currency } from "@/types/models/transaction";
+import type { Currency } from "@/types/enums/Currency";
+import { healthService } from "@/services/api/heath.service";
 import { useTranslate } from "@/hooks/useTranslate";
 
 interface FTNDAssessmentFormProps {
@@ -40,7 +37,7 @@ export function FTNDAssessmentForm({
     Record<number | string, number | string>
   >({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [healthInfo, setHealthInfo] = useState<HealthInfoUpdate>();
+  const [healthInfo, setHealthInfo] = useState<Partial<Health>>();
   const [showCompletionDialog, setShowCompletionDialog] = useState(false);
   const [ftndScore, setFtndScore] = useState(0);
   const [selectedCurrency, setSelectedCurrency] = useState("VND");
@@ -125,12 +122,12 @@ export function FTNDAssessmentForm({
         ...healthInfo,
         ftndAnswers: JSON.stringify(ftndAnswerObject),
         ftndLevel: result,
-        currency: selectedCurrency, // Ensure currency is included
+        currency: selectedCurrency as Currency,
       };
 
       console.log("Submitting FTND assessment:", updatedHealthInfo);
 
-      await api.post("/v1/healths", updatedHealthInfo);
+      await healthService.create(updatedHealthInfo);
 
       setFtndScore(result);
       setShowCompletionDialog(true);

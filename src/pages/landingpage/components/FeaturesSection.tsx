@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import type { Feature } from "../types";
+import type { Feature } from "../data";
 import { useTranslate } from "@/hooks/useTranslate";
 
 interface FeaturesSectionProps {

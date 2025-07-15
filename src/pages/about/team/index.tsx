@@ -1,8 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { teamMembers } from "../../../data/about-us.info";
+import { teamMembers } from "../../../data/aboutUs.info";
 import { useTranslate } from "@/hooks/useTranslate";
+import { Paths } from "@/constants/path";
 
 export default function TeamPage() {
   const { tData, tAboutus } = useTranslate();
@@ -62,7 +63,7 @@ export default function TeamPage() {
 
           <div className="text-center pt-6">
             <Button asChild size="lg">
-              <a href="/contact">{tAboutus("aboutus.team.buttonContact")}</a>
+              <a href={Paths.PUBLIC.CONTACT}>{tAboutus("aboutus.team.buttonContact")}</a>
             </Button>
           </div>
         </div>

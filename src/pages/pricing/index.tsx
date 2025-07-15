@@ -7,7 +7,7 @@ import { FAQ } from "@/pages/pricing/components/FAQ";
 import { PricingCTA } from "@/pages/pricing/components/PricingCTA";
 import { faqs, testimonials, programFeatures } from "@/data/pricing.data";
 import { useEffect, useState } from "react";
-import { api } from "@/lib/axios";
+import { publicApi } from "@/lib/axios";
 import type { Membership } from "@/types/models/membership";
 import { useTranslate } from "@/hooks/useTranslate";
 
@@ -16,7 +16,7 @@ export default function PricingPage() {
   useEffect(() => {
     const fetcMembershipData = async () => {
       try {
-        const response = await api.get("/v1/memberships");
+        const response = await publicApi.get("/v1/memberships");
         const data: Membership[] = response.data.result;
         setMemberships(data);
         console.log("Fetched membership data:", data);

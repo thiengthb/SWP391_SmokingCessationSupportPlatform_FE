@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { milestones } from "../../../data/about-us.info";
 import { useTranslate } from "@/hooks/useTranslate";
+import { Paths } from "@/constants/path";
+
 
 export default function StoryPage() {
   const { tAboutus, tData } = useTranslate();
@@ -59,7 +61,7 @@ export default function StoryPage() {
                 {tAboutus("aboutus.story.joinDescription")}
               </p>
               <Button size="lg" asChild>
-                <a href="/auth/register">
+                <a href={Paths.AUTH.REGISTER}>
                   {tAboutus("aboutus.story.buttonGetStarted")}
                 </a>
               </Button>

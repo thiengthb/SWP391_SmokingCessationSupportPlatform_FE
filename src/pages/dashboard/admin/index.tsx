@@ -1,9 +1,9 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { OverviewTab } from "./components/OverviewTab";
 import { ReportsTab } from "./components/ReportsTab";
 import UserManagement from "./users";
 import { useTranslate } from "@/hooks/useTranslate";
-
+import FeedbackManagement from "./users/adminFeedback";
+import AdminGoalsTab from "./components/GoalsTab";
 export default function AdminDashboard() {
  const { tAdmin } = useTranslate();
   return (
@@ -14,27 +14,33 @@ export default function AdminDashboard() {
         </h2>
       </div>
 
-      <Tabs defaultValue="overview" className="space-y-4">
+      <Tabs defaultValue="reports" className="space-y-4">
         <TabsList>
-          <TabsTrigger value="overview">
-            {tAdmin("admindashboard.admin.tabs.overview")}
+          <TabsTrigger value="reports">
+            {tAdmin("admindashboard.admin.tabs.reports")}
           </TabsTrigger>
           <TabsTrigger value="users">
             {tAdmin("admindashboard.admin.tabs.users")}
           </TabsTrigger>
-          <TabsTrigger value="reports">
-            {tAdmin("admindashboard.admin.tabs.reports")}
-          </TabsTrigger>
+          <TabsTrigger value="feedback">Feedbacks</TabsTrigger>
+          <TabsTrigger value="goals">Goals</TabsTrigger>
         </TabsList>
-
+{/* 
         <TabsContent value="overview">
           <OverviewTab />
+        </TabsContent> */}
+        <TabsContent value="reports">
+          <ReportsTab />
         </TabsContent>
         <TabsContent value="users">
           <UserManagement />
         </TabsContent>
-        <TabsContent value="reports">
-          <ReportsTab />
+        <TabsContent value="feedback">
+          <FeedbackManagement />
+        </TabsContent>
+
+        <TabsContent value="goals">
+          <AdminGoalsTab />
         </TabsContent>
       </Tabs>
     </div>

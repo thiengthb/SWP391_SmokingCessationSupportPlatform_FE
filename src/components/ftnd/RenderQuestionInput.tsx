@@ -11,9 +11,9 @@ import {
 } from "@/components/ui/select";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check } from "lucide-react";
-import { Currency } from "@/types/models/transaction";
 import type { FTNDQuestion } from "../../data/ftnd.data";
 import { useTranslate } from "@/hooks/useTranslate";
+import { Currency } from "@/types/enums/Currency";
 
 interface RenderQuestionInputProps {
   currentQuestionData: FTNDQuestion;

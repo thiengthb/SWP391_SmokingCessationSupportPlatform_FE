@@ -21,6 +21,8 @@ export const useTranslate = () => {
   const { t: tMember } = useTranslation(I18nNamespace.MEMBER);
   const { t: tAdmin } = useTranslation(I18nNamespace.ADMIN);
   const { t: tCoach } = useTranslation(I18nNamespace.COACH);
+  const { t: tLeaderboard } = useTranslation(I18nNamespace.LEADERBOARD);
+  const { t: tNotification } = useTranslation(I18nNamespace.NOTIFICATION);    
   return {
     tCommon,
     tNavbar,
@@ -41,5 +43,7 @@ export const useTranslate = () => {
     tMember,
     tAdmin,
     tCoach,
+    tLeaderboard,
+    tNotification     
   };
 };

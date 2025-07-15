@@ -1,8 +1,8 @@
 import { useAuth } from "@/contexts/AuthContext";
 import useRefreshToken from "@/hooks/useRefreshToken";
 import { useEffect, useState } from "react";
-import Loading from "./Loading";
 import { Outlet } from "react-router-dom";
+import Spinner from "./loading/Spinner";
 
 const PersistLogin = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -23,7 +23,7 @@ const PersistLogin = () => {
     !auth.accessToken ? verifyRefreshToken() : setIsLoading(false);
   }, []);
 
-  return !persist ? <Outlet /> : isLoading ? <Loading /> : <Outlet />;
+  return !persist ? <Outlet /> : isLoading ? <Spinner /> : <Outlet />;
 };
 
 export default PersistLogin;

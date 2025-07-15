@@ -27,14 +27,3 @@ export const defaultCoachProfile: CoachProfile = {
   bio: "",
   createdAt: new Date(),
 };
-
-export interface CoachInfoUpdate {
-  fullName?: string;
-  email?: string;
-  phoneNumber?: string;
-  experienceYears?: number;
-  socialLinks?: string[];
-  specializations?: string[];
-  certifications?: string[];
-  bio?: string;
-}

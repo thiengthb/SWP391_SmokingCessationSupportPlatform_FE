@@ -1,6 +1,6 @@
 import { Calendar, Clock, History } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { formatDateTime, formatTime, getNowDate } from "@/utils/dateTimeUtil";
+import { formatDateTime, formatTime, getNowDate } from "@/utils/datetime.util";
 import { Separator } from "@radix-ui/react-separator";
 
 interface DisplayClockProps {

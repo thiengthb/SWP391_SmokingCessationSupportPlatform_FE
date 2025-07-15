@@ -1,4 +1,4 @@
-import { Theme } from "@/types/models/setting";
+import { Theme } from "@/types/enums/Theme";
 import { createContext, useContext, useEffect, useState } from "react";
 
 type ThemeProviderProps = {

@@ -1,84 +1,134 @@
-import { useState, useEffect } from "react";
-import { useTranslation } from "react-i18next";
-import type { NotificationResponse } from "@/types/models/notification";
-import useApi from "@/hooks/useApi";
 import { BellIcon } from "lucide-react";
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { useNotificationListSwr } from "@/hooks/swr/useNotificationSwr";
 import clsx from "clsx";
+import { useAuth } from "@/contexts/AuthContext";
+import { useSearchParams } from "react-router-dom";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination"
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { useTranslate } from "@/hooks/useTranslate";
 
 export default function NotificationPage() {
-  const PAGE_SIZE = 10;
-  const [page, setPage] = useState(0);
-  const [totalPages, setTotalPages] = useState(0);
-  const { t } = useTranslation();
-  const [notifications, setNotifications] = useState<NotificationResponse[]>(
-    []
-  );
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { tNotification } = useTranslate();
+  const { auth } = useAuth();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentPage = parseInt(searchParams.get("page") || "0", 10);
+  const {
+    notifications,
+    pagination,
+    isLoading,
+    error,
+  } = useNotificationListSwr(auth, currentPage, 10);
+  const totalPages = pagination.totalPages || 1;
+  const [jumpPageInput, setJumpPageInput] = useState("");
 
-  const apiWithInterceptor = useApi();
+  const renderPaginationLinks = () => {
+    const pages = [];
 
-  const fetchNotifications = async (pageNumber: number) => {
-    setLoading(true);
-    try {
-      const response = await apiWithInterceptor.get(`/v1/notifications`, {
-        params: {
-          page: pageNumber,
-          size: PAGE_SIZE,
-          sortBy: "sentAt",
-          direction: "DESC",
-        },
-      });
-      console.log("Fetched notifications:", response.data);
+    const shouldShowStart = currentPage > 3;
+    const shouldShowEnd = currentPage < totalPages - 4;
 
-      const newNotifications: NotificationResponse[] = Array.isArray(
-        response.data.result.content
-      )
-        ? response.data.result.content
-        : [];
+    // Always show first 2 pages
+    for (let i = 0; i < Math.min(2, totalPages); i++) {
+      pages.push(
+        <PaginationItem key={i}>
+          <PaginationLink
+            isActive={currentPage === i}
+            onClick={() => handlePageChange(i)}
+          >
+            {i + 1}
+          </PaginationLink>
+        </PaginationItem>
+      );
+    }
 
-      setNotifications(newNotifications);
-      setTotalPages(response.data.result?.totalPages || 0);
-      setPage(pageNumber);
-    } catch (error) {
-      console.error("Failed to fetch notifications:", error);
-      setError("Failed to fetch notifications");
-    } finally {
-      setLoading(false);
+    if (shouldShowStart) {
+      pages.push(
+        <PaginationItem key="ellipsis-start">
+          <PaginationEllipsis />
+        </PaginationItem>
+      );
+    }
+
+    // Show current page
+    if (currentPage > 1 && currentPage < totalPages - 2) {
+      pages.push(
+        <PaginationItem key="current-middle">
+          <PaginationLink isActive>{currentPage + 1}</PaginationLink>
+        </PaginationItem>
+      );
+    }
+
+    if (shouldShowEnd) {
+      pages.push(
+        <PaginationItem key="ellipsis-end">
+          <PaginationEllipsis />
+        </PaginationItem>
+      );
+    }
+
+    // Always show last 2 pages
+    for (let i = Math.max(totalPages - 2, 2); i < totalPages; i++) {
+      pages.push(
+        <PaginationItem key={i}>
+          <PaginationLink
+            isActive={currentPage === i}
+            onClick={() => handlePageChange(i)}
+          >
+            {i + 1}
+          </PaginationLink>
+        </PaginationItem>
+      );
+    }
+
+    return pages;
+  };
+
+  const handleJumpToPage = () => {
+    const num = parseInt(jumpPageInput, 10);
+    if (!isNaN(num) && num > 0 && num <= totalPages) {
+      handlePageChange(num - 1);
+      setJumpPageInput("");
     }
   };
 
-  useEffect(() => {
-    fetchNotifications(0);
-  }, []);
+
+  const handlePageChange = (newPage: number) => {
+    setSearchParams({ page: newPage.toString() });
+  };
 
   return (
     <div className="container py-10 px-4 mx-auto">
       <div className="mb-6 space-y-1">
         <h1 className="text-4xl font-bold mb-2 flex items-center gap-2">
           <BellIcon className="h-6 w-6" />
-          {t("page.notifications.title", "Notifications")}
+          {tNotification("notifications.title", "Notifications")}
         </h1>
         <p className="text-muted-foreground">
-          {t(
-            "page.notifications.description",
-            "Stay informed about your goals and achievements."
-          )}
+          {tNotification("notifications.description", "Stay informed about your goals and achievements.")}
         </p>
       </div>
 
       <Card className="p-4">
-        {loading ? (
+        {isLoading ? (
           <div className="space-y-3">
-            {t("page.notifications.loading", "Loading notifications...")}
+            {tNotification("notifications.loading", "Loading notifications...")}
           </div>
         ) : error ? (
-          <p className="text-red-600">{error}</p>
+          <p className="text-red-600">{tNotification("notifications.error", "Failed to fetch notifications.")}</p>
         ) : notifications.length === 0 ? (
           <p className="text-gray-500 text-center">
-            {t("page.notifications.empty", "No notifications yet.")}
+            {tNotification("notifications.empty", "No notifications yet.")}
           </p>
         ) : (
           <div className="flex flex-col gap-1">
@@ -96,8 +146,7 @@ export default function NotificationPage() {
                   <div>
                     <p>{notification.content}</p>
                     <p className="text-sm">
-                      {t("page.notifications.type")}:{" "}
-                      {notification.notificationType}
+                      {tNotification("notifications.type")}: {notification.notificationType}
                     </p>
                   </div>
                   <p className="text-sm text-gray-500 whitespace-nowrap">
@@ -109,28 +158,44 @@ export default function NotificationPage() {
           </div>
         )}
 
-        <div className="flex justify-between items-center pt-4 border-t mt-4">
-          <Button
-            onClick={() => fetchNotifications(page - 1)}
-            disabled={page <= 0}
-            variant="outline"
-          >
-            {t("page.notifications.prev", "Previous")}
-          </Button>
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                onClick={() => handlePageChange(currentPage - 1)}
+                className={currentPage <= 0 ? "pointer-events-none opacity-50" : ""}
+              />
+            </PaginationItem>
 
-          <span className="text-sm text-gray-600">
-            {t("page.notifications.page", "Page")} {page + 1} /{" "}
-            {totalPages || 1}
-          </span>
+            {renderPaginationLinks()}
 
-          <Button
-            onClick={() => fetchNotifications(page + 1)}
-            disabled={page + 1 >= totalPages}
-            variant="outline"
-          >
-            {t("page.notifications.next", "Next")}
-          </Button>
-        </div>
+            <PaginationItem>
+              <PaginationNext
+                onClick={() => handlePageChange(currentPage + 1)}
+                className={
+                  currentPage + 1 >= totalPages ? "pointer-events-none opacity-50" : ""
+                }
+              />
+            </PaginationItem>
+          </PaginationContent>
+
+          {totalPages > 5 && (
+            <div className="mt-4 flex items-center gap-2">
+              <Input
+                type="number"
+                placeholder="Jump to page"
+                value={jumpPageInput}
+                onChange={(e) => setJumpPageInput(e.target.value)}
+                className="w-24 h-8 px-2 py-1 text-sm"
+                min={1}
+                max={totalPages}
+              />
+              <Button size="sm" onClick={handleJumpToPage}>
+                Go
+              </Button>
+            </div>
+          )}
+        </Pagination>
       </Card>
     </div>
   );

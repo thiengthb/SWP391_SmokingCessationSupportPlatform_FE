@@ -2,15 +2,12 @@ import { useState, useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { differenceInSeconds } from "date-fns";
 import { toast } from "sonner";
-import useApi from "@/hooks/useApi";
-import { getHealthImprovementLevel } from "../../data/health-improve.data";
+import { getHealthImprovementLevel } from "../../data/healthImprove.data";
 import HealthImproveAchievement from "./components/counter/HealthImproveAchievement";
 import ResetButton from "./components/counter/ResetButton";
 import DisplayClock from "./components/counter/DisplayClock";
-
-interface CounterData {
-  lastCounterReset: string;
-}
+import { useCounterSwr } from "@/hooks/swr/useCounterSwr";
+import counterService from "@/services/api/counter.service";
 
 export default function AutoTrackingPage() {
   const [seconds, setSeconds] = useState(0);
@@ -19,40 +16,19 @@ export default function AutoTrackingPage() {
   const [lastResetTime, setLastResetTime] = useState<Date | null>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [buttonAnimating, setButtonAnimating] = useState(false);
-  const [loading, setLoading] = useState(true);
 
-  const apiWithInterceptor = useApi();
+  const { counter, isLoading } = useCounterSwr();
 
   useEffect(() => {
-    const fetchCounterData = async () => {
-      try {
-        setLoading(true);
-        const response = await apiWithInterceptor.get("/v1/counters");
-        const data: CounterData = response.data.result;
+    if (counter && counter.lastCounterReset) {
+      const resetDate = new Date(counter.lastCounterReset);
+      setLastResetTime(resetDate);
+      setCounterStartTime(resetDate);
 
-        if (data && data.lastCounterReset) {
-          const resetDate = new Date(data.lastCounterReset);
-          setLastResetTime(resetDate);
-          setCounterStartTime(resetDate);
-
-          const now = new Date();
-          const elapsedSeconds = Math.floor(
-            differenceInSeconds(now, resetDate)
-          );
-          setSeconds(elapsedSeconds);
-        }
-      } catch (error) {
-        console.error("Failed to fetch counter data:", error);
-        toast.error("Không thể tải dữ liệu bộ đếm", {
-          description: "Đã xảy ra lỗi khi kết nối với máy chủ.",
-          position: "bottom-center",
-        });
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCounterData();
+      const now = new Date();
+      const elapsedSeconds = Math.floor(differenceInSeconds(now, resetDate));
+      setSeconds(elapsedSeconds);
+    }
   }, []);
 
   useEffect(() => {
@@ -75,7 +51,7 @@ export default function AutoTrackingPage() {
     try {
       setButtonAnimating(true);
       setIsResetting(true);
-      await apiWithInterceptor.put("/v1/counters/start");
+      await counterService.start();
 
       const now = new Date();
       setCounterStartTime(now);
@@ -132,7 +108,7 @@ export default function AutoTrackingPage() {
           </p>
         </div>
 
-        {loading ? (
+        {isLoading ? (
           <div className="flex justify-center items-center py-16">
             <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent"></div>
           </div>

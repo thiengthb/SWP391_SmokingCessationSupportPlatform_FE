@@ -7,6 +7,7 @@ import Logo from "../Logo";
 import { UserNav } from "./UserNav";
 import { useAuth } from "@/contexts/AuthContext";
 import { useTranslate } from "@/hooks/useTranslate";
+import { Paths } from "@/constants/path";
 
 const Navbar = () => {
   const { auth } = useAuth();
@@ -34,10 +35,10 @@ const Navbar = () => {
                   asChild
                   className="hidden lg:inline-flex"
                 >
-                  <Link to="/auth/login">{tCommon(`buttons.login`)}</Link>
+                  <Link to={Paths.AUTH.LOGIN}>{tCommon(`buttons.login`)}</Link>
                 </Button>
                 <Button size="sm" asChild>
-                  <Link to="/auth/register">{tCommon(`buttons.signup`)}</Link>
+                  <Link to={Paths.AUTH.REGISTER}>{tCommon(`buttons.signup`)}</Link>
                 </Button>
                 <div className="hidden lg:flex">
                   <AppearanceSetting />

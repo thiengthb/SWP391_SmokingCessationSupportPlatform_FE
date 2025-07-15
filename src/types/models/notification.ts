@@ -1,4 +1,6 @@
-export interface NotificationResponse {
+import type { NotificationType } from "../enums/NotificationType";
+
+export interface Notification {
     id: string;
     accountId: string;
     content: string;
@@ -6,10 +8,3 @@ export interface NotificationResponse {
     sentAt: string;
     isRead: boolean;
 }
-
-export const NotificationType = {
-  EMAIL: "EMAIL",
-  LIVE: "LIVE",
-} as const;
-
-export type NotificationType = typeof NotificationType[keyof typeof NotificationType];

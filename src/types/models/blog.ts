@@ -2,16 +2,11 @@ export interface BlogPost {
   id: string;
   title: string;
   slug: string;
+  authorName: string;
+  categoryName: string;
   excerpt: string;
   content: string;
-  category: 'Health' | 'Tips' | 'Stories' | 'Research';
-  author: {
-    name: string;
-    role: string;
-    avatar?: string;
-  };
-  publishedAt: string;
-  readingTime: string;
+  readingTime: number; 
   coverImage: string;
-  tags: string[];
+  publishedAt: Date;
 }

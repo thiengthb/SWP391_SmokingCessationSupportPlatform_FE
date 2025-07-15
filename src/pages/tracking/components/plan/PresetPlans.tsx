@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import PlanCard from "./PlanCard";
 import { PlanGuide } from "./PlanGuide";
-import { presetPlans, createPresetPlan } from "@/data/preset-plan.data";
+import { presetPlans, createPresetPlan } from "@/data/presetPlan.data";
 import {
   Card,
   CardContent,

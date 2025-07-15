@@ -8,9 +8,10 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { Link } from "react-router-dom";
-import { mainNav } from "./navbar.item";
+import { ForDisplay, mainNav } from "./navbar.item";
 import { useAuth } from "@/contexts/AuthContext";
 import { useTranslate } from "@/hooks/useTranslate";
+import { ForRoles, toForRoles } from "@/utils/tab.util";
 
 const ListItem = ({
   title,
@@ -42,22 +43,21 @@ export function NavigationItems() {
   const { auth } = useAuth();
   const { tNavbar } = useTranslate();
 
-  const filteredItems = mainNav.filter((item) => {
-    if (item.displayMobile) return false;
-
-    if (
-      auth.isAuthenticated &&
-      (item.id === "about" || item.id === "contact")
-    ) {
-      return false;
-    }
-
-    if (auth.currentAcc?.havingSubscription && item.id === "pricing") {
-      return false;
-    }
-
-    return true;
-  });
+  const filteredItems = mainNav
+    .filter(
+      (item) =>
+        item.forDisplays?.includes(ForDisplay.ALL) ||
+        item.forDisplays?.includes(ForDisplay.ALL_NAVBAR) ||
+        (!auth.isAuthenticated &&
+          item.forDisplays?.includes(ForDisplay.NAVBAR_GUEST)) ||
+        (auth.isAuthenticated &&
+          item.forDisplays?.includes(ForDisplay.NAVBAR_AUTHENTICATED))
+    )
+    .filter(
+      (item) =>
+        item.forRoles?.includes(toForRoles(auth.currentAcc?.role)) ||
+        item.forRoles?.includes(ForRoles.ALL)
+    );
 
   return (
     <div className="relative">

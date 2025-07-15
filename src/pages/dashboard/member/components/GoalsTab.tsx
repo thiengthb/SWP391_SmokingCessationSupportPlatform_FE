@@ -1,39 +1,72 @@
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { Target, Plus } from "lucide-react";
-import { goals } from "@/utils/mockdata/member";
+import { MoreVertical } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { type Goal } from "@/types/member/goal";
 import { useTranslate } from "@/hooks/useTranslate";
 
-export function GoalsTab() {
+export function GoalsTab({ goals }: { goals: Goal[] }) {
   const { tMember } = useTranslate();
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h3 className="text-lg font-medium">{tMember("memberdashboard.goals.title")}</h3>
-        <Button size="sm">
-          <Plus className="h-4 w-4 mr-2" />
-          {tMember("memberdashboard.goals.button")}
-        </Button>
-      </div>
-      
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {goals.map((goal) => (
-          <Card key={goal.title}>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">{tMember(goal.title)}</CardTitle>
-              <Target className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2">
-                <p className="text-sm text-muted-foreground">{tMember(goal.description)}</p>
-                <Progress value={goal.progress} />
-                <p className="text-xs text-muted-foreground text-right">{tMember(goal.target)}</p>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-    </div>
+    <Card>
+      <CardContent className="p-0">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-[60px] text-center">#</TableHead>
+              <TableHead>Name</TableHead>
+              <TableHead>Description</TableHead>
+              <TableHead>Icon URL</TableHead>
+              <TableHead>Criteria Type</TableHead>
+              <TableHead>Criteria Value</TableHead>
+              <TableHead>Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {goals?.map((goal, index) => (
+              <TableRow key={goal.id || index}>
+                <TableCell className="text-center">{index + 1}</TableCell>
+                <TableCell className="px-2">{goal.name}</TableCell>
+                <TableCell className="px-2">{goal.description}</TableCell>
+                <TableCell className="px-2">{goal.iconUrl}</TableCell>
+                <TableCell className="capitalize">
+                  {goal.criteriaType}
+                </TableCell>
+                <TableCell className="px-2">{goal.criteriaValue}</TableCell>
+                <TableCell className="px-2">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="ghost" size="icon">
+                        <MoreVertical className="h-4 w-4" />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuItem>Edit</DropdownMenuItem>
+                      <DropdownMenuItem>View Details</DropdownMenuItem>
+                      <DropdownMenuItem className="text-destructive">
+                        Delete
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </CardContent>
+    </Card>
   );
 }

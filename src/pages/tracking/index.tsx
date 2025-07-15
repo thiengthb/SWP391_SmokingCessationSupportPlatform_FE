@@ -1,7 +1,7 @@
 import { useSetting } from "@/contexts/SettingContext";
-import { TrackingMode } from "@/types/models/setting";
 import RecordHabbitPage from "./RecordHabbitPage";
 import AutoTrackingPage from "./AutoTrackingPage";
+import { TrackingMode } from "@/types/enums/TrackingMode";
 
 export default function MemberHome() {
   const { setting } = useSetting();

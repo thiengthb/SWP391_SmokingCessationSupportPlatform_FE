@@ -1,6 +1,7 @@
 import i18n from "@/lib/i18n";
-import { Currency } from "./transaction";
-import { Language } from "./setting";
+import { Currency } from "../enums/Currency";
+import { Language } from "../enums/Language";
+
 
 export interface Membership {
     id: string;

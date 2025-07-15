@@ -1,9 +1,9 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { OverviewTab } from "./components/OverviewTab";
-import { GoalsTab } from "./components/GoalsTab";
 import { AchievementsTab } from "./components/AchievementsTab";
 import { useTranslate } from "@/hooks/useTranslate";
-
+import GoalManagement from "./users";
+import { BookingsTab } from "./components/BookingTab";
 export default function MemberDashboard() {
   const { tMember } = useTranslate();
   return (
@@ -31,10 +31,13 @@ export default function MemberDashboard() {
           <OverviewTab />
         </TabsContent>
         <TabsContent value="goals">
-          <GoalsTab />
+          <GoalManagement />
         </TabsContent>
         <TabsContent value="achievements">
           <AchievementsTab />
+        </TabsContent>
+        <TabsContent value="bookings">
+          <BookingsTab />
         </TabsContent>
       </Tabs>
     </div>

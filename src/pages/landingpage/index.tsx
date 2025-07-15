@@ -6,6 +6,7 @@ import { SuccessStoriesSection } from "./components/SuccessStoriesSection";
 import { CTASection } from "./components/CTASection";
 
 import { useTranslate } from "@/hooks/useTranslate";
+import { Paths } from "@/constants/path";
 
 interface SectionProps {
   className?: string;
@@ -16,15 +17,15 @@ export default function LandingPage({ className }: SectionProps) {
   const navigate = useNavigate();
 
   const handleGetStarted = () => {
-    navigate("/auth/register");
+    navigate(Paths.AUTH.REGISTER);
   };
 
   const handleLearnMore = () => {
-    navigate("/about-us");
+    navigate(Paths.PUBLIC.ABOUT.ROOT);
   };
 
   const handleReadStories = () => {
-    navigate("/testimonials");
+    navigate(Paths.PUBLIC.TESTIMONIALS);
   };
 
   return (

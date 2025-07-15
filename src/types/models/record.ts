@@ -1,14 +1,9 @@
 export interface SmokingRecord {
   id: string;
-  date: string;
+  accountId: string;
   cigarettesSmoked: number;
+  date: Date;
   note?: string;
-}
-
-export interface RecordResponse {
-  content: SmokingRecord[];
-  totalElements: number;
-  totalPages: number;
-  size: number;
-  number: number;
+  createdAt: Date;
+  updatedAt: Date;
 }

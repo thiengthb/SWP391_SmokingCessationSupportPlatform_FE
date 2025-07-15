@@ -1,7 +1,7 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import { Language } from '../types/models/setting';
 import HttpBackend from 'i18next-http-backend';
+import { Language } from '@/types/enums/Language';
 import { I18nNamespace } from '@/constants/I18nNamespace';
 
 i18n
