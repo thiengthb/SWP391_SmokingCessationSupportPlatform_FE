@@ -20,13 +20,14 @@ import FormInputError from "@/components/FormInputError";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { api } from "@/lib/axios";
 import { useTranslate } from "@/hooks/useTranslate";
-
+import RegisterPageSkeleton from "@/components/skeleton/auth/RegisterPageSkeleton";
+import { useEffect, useState } from "react";
 const RegisterPage = () => {
   const { tAuth } = useTranslate();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/auth/waiting-for-approval";
-
+  const [isLoading, setIsLoading] = useState(true);
   const {
     register,
     handleSubmit,
@@ -57,13 +58,20 @@ const RegisterPage = () => {
       }
     }
   };
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 800);
+    return () => clearTimeout(timer);
+  }, []);
 
+  if (isLoading) return <RegisterPageSkeleton />;
   return (
     <div className="w-full my-10 sm:my-16 lg:my-16 2xl:my-40 flex justify-center items-center">
       <Card className="w-[360px] lg:w-[400px] xl:w-[440px] mx-2 pb-10">
         <CardHeader>
           <CardTitle>{tAuth("auth.register.title")}</CardTitle>
-          <CardDescription>{tAuth("auth.register.description")}</CardDescription>
+          <CardDescription>
+            {tAuth("auth.register.description")}
+          </CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent className="grid gap-4">
