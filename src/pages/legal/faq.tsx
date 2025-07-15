@@ -1,13 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChevronDown, ChevronUp, HelpCircle } from "lucide-react";
 import { faqSections } from "@/data/faq";
 import { useTranslate } from "@/hooks/useTranslate";
-
+import FAQPageSkeleton from "@/components/skeleton/legal/FAQPageSkeleton";
 const FAQPage = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const { tData, tFaq } = useTranslate();
+  const [isLoading, setIsLoading] = useState(true);
 
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) return <FAQPageSkeleton />;
   return (
     <div className="min-h-screen bg-background text-foreground px-6 py-12 max-w-4xl mx-auto">
       <div className="text-center mb-10">
@@ -21,7 +28,9 @@ const FAQPage = () => {
       {faqSections.map((section, sIndex) => (
         <Card key={sIndex} className="mb-8">
           <CardHeader>
-            <CardTitle className="text-xl font-semibold">{tData(section.titleKey)}</CardTitle>
+            <CardTitle className="text-xl font-semibold">
+              {tData(section.titleKey)}
+            </CardTitle>
           </CardHeader>
           <CardContent>
             {section.faqs.map((faq, index) => {
@@ -30,12 +39,18 @@ const FAQPage = () => {
                 <div key={index} className="border-b py-4">
                   <button
                     className="flex items-center justify-between w-full text-left"
-                    onClick={() => setOpenIndex(isOpen ? null : index + sIndex * 100)}
+                    onClick={() =>
+                      setOpenIndex(isOpen ? null : index + sIndex * 100)
+                    }
                   >
                     <span className="font-medium text-base text-foreground">
                       {tData(faq.questionKey)}
                     </span>
-                    {isOpen ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
+                    {isOpen ? (
+                      <ChevronUp className="w-5 h-5" />
+                    ) : (
+                      <ChevronDown className="w-5 h-5" />
+                    )}
                   </button>
                   {isOpen && (
                     <p className="mt-2 text-muted-foreground whitespace-pre-line text-sm">
