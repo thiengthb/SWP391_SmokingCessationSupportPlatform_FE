@@ -9,24 +9,27 @@ import { faqs, testimonials, programFeatures } from "@/data/pricing.data";
 import { useEffect, useState } from "react";
 import { api } from "@/lib/axios";
 import type { Membership } from "@/types/models/membership";
-import { useTranslate } from "@/hooks/useTranslate";
+import PricingPageSkeleton from "@/components/skeleton/pricing/PricingPageSkeleton";
 
 export default function PricingPage() {
   const [memberships, setMemberships] = useState<Membership[]>([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    const fetcMembershipData = async () => {
+    const fetchMembershipData = async () => {
       try {
         const response = await api.get("/v1/memberships");
         const data: Membership[] = response.data.result;
         setMemberships(data);
-        console.log("Fetched membership data:", data);
       } catch (error) {
         console.error("Failed to fetch membership data:", error);
+      } finally {
+        setLoading(false);
       }
     };
-    fetcMembershipData();
+    fetchMembershipData();
   }, []);
 
+  if (loading) return <PricingPageSkeleton />;
   return (
     <div id="top" className="py-10 px-4 md:px-6 w-full max-w-7xl mx-auto">
       <PricingHeader />
