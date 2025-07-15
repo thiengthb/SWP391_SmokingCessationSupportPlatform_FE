@@ -20,16 +20,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import FormInputError from "@/components/FormInputError";
 import { useAuth } from "@/contexts/AuthContext";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslate } from "@/hooks/useTranslate";
-
+import LoginPageSkeleton from "@/components/skeleton/auth/LoginPageSkeleton";
 const LoginPage = () => {
   const { tAuth } = useTranslate();
   const { persist, setPersist, handleLogin } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-
+  const [isLoading, setIsLoading] = useState(true);
   const {
     register,
     handleSubmit,
@@ -69,8 +69,13 @@ const LoginPage = () => {
 
   useEffect(() => {
     localStorage.setItem("persist", JSON.stringify(persist));
+    const timeout = setTimeout(() => setIsLoading(false), 800);
+    return () => {
+      clearTimeout(timeout);
+    };
   }, [persist]);
 
+  if (isLoading) return <LoginPageSkeleton />;
   return (
     <div className="w-full my-10 sm:my-16 lg:my-16 2xl:my-40 flex justify-center items-center">
       <Card className="w-[360px] lg:w-[400px] xl:w-[440px] mx-2 pb-10">
@@ -92,7 +97,9 @@ const LoginPage = () => {
               <FormInputError field={errors.email} />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="password">{tAuth("auth.login.form.password")}</Label>
+              <Label htmlFor="password">
+                {tAuth("auth.login.form.password")}
+              </Label>
               <Input
                 id="password"
                 type="password"
