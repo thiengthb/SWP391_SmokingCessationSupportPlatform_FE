@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -12,14 +12,14 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-
+import BlogPageSkeleton from "@/components/skeleton/blog/BlogPageSkeleton";
 const ITEMS_PER_PAGE = 6;
 
 export default function BlogPage() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
-
+  const [isLoading, setIsLoading] = useState(true);
   const filteredPosts = blogPosts.filter((post) => {
     const matchesSearch =
       post.title.toLowerCase().includes(search.toLowerCase()) ||
@@ -33,7 +33,14 @@ export default function BlogPage() {
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE
   );
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+    return () => clearTimeout(timeout);
+  }, []);
 
+  if (isLoading) return <BlogPageSkeleton />;
   return (
     <div className="container py-10 px-4 mx-auto">
       <div className="text-center mb-10">
@@ -104,7 +111,9 @@ export default function BlogPage() {
 
               <PaginationItem>
                 <PaginationNext
-                  onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                  onClick={() =>
+                    setCurrentPage((p) => Math.min(totalPages, p + 1))
+                  }
                   className={
                     currentPage === totalPages
                       ? "pointer-events-none opacity-50"
