@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { teamMembers } from "../../../data/about-us.info";
 import { useTranslate } from "@/hooks/useTranslate";
 import { useEffect, useState } from "react";
-import TeamPageSkeleton from "@/components/skeleton/About/TeamPageSkeleton";
+import TeamPageSkeleton from "@/components/skeleton/about/TeamPageSkeleton";
 export default function TeamPage() {
   const { tData, tAboutus } = useTranslate();
   const getInitials = (name: string) => {

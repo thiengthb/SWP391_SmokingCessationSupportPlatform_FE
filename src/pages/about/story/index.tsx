@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { milestones } from "../../../data/about-us.info";
 import { useTranslate } from "@/hooks/useTranslate";
 import { useEffect, useState } from "react";
-import StoryPageSkeleton from "@/components/skeleton/About/StoryPageSkeleton";
+import StoryPageSkeleton from "@/components/skeleton/about/StoryPageSkeleton";
 export default function StoryPage() {
   const { tAboutus, tData } = useTranslate();
   const [isLoading, setIsLoading] = useState(true);

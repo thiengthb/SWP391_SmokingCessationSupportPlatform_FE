@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { stats, features } from "../../data/about-us.info";
 import { useTranslate } from "@/hooks/useTranslate";
-import  AboutPageSkeleton  from "@/components/skeleton/About/AboutPageSkeleton";
+import  AboutPageSkeleton  from "@/components/skeleton/about/AboutPageSkeleton";
 import { useEffect, useState } from "react";
 export default function AboutPage() {
   const navigate = useNavigate();
