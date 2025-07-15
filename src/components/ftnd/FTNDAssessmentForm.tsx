@@ -18,13 +18,9 @@ import RenderQuestionInput from "./RenderQuestionInput";
 import { defaultHealthValue, type Health } from "@/types/models/health";
 import { ResultForm } from "./ResultForm";
 import { useFTND } from "@/contexts/FTNDContext";
-<<<<<<< HEAD
 import type { Currency } from "@/types/enums/Currency";
 import { healthService } from "@/services/api/heath.service";
-=======
-import type { Currency } from "@/types/models/transaction";
 import { useTranslate } from "@/hooks/useTranslate";
->>>>>>> 365921654f233f6b5922d5c0b3308d7a798c7ba3
 
 interface FTNDAssessmentFormProps {
   open: boolean;

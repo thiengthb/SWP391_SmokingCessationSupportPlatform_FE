@@ -74,6 +74,9 @@
     },
     "logo": {
       "title": "Smoking Cessation"
-    }
+    },
+    "feedback": {
+      "title": "Feedback"
+    }     
   }
 }

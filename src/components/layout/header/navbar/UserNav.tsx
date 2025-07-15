@@ -18,7 +18,6 @@ import UserInfoCard from "./UserInfoCard";
 import { ForRoles, toForRoles } from "@/utils/tab.util";
 import { Paths } from "@/constants/path";
 import { useTranslate } from "@/hooks/useTranslate";
-import { Badge } from "@/components/ui/badge";
 
 export function UserNav() {
   const navigate = useNavigate();
@@ -62,19 +61,6 @@ export function UserNav() {
         <DropdownMenuContent className="w-56" align="end" forceMount>
           <DropdownMenuLabel className="font-normal">
             <UserInfoCard />
-            <div className="flex flex-col space-y-2">
-              <div className="flex items-center gap-2">
-                <p className="text-sm font-medium leading-none">
-                  {auth.currentAcc?.username || tCommon("roles.guest")}
-                </p>
-                <Badge>
-                  {auth.currentAcc?.havingSubscription ? "Premium" : "Free"}
-                </Badge>
-              </div>
-              <p className="text-xs leading-none text-muted-foreground">
-                {auth.currentAcc?.email}
-              </p>
-            </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>

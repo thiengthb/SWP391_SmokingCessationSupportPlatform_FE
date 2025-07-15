@@ -1,4 +1,3 @@
-import { useTranslation } from "react-i18next";
 import { BellIcon } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { useNotificationListSwr } from "@/hooks/swr/useNotificationSwr";
@@ -17,9 +16,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useTranslate } from "@/hooks/useTranslate";
 
 export default function NotificationPage() {
-  const { t } = useTranslation();
+  const { tNotification } = useTranslate();
   const { auth } = useAuth();
   const [searchParams, setSearchParams] = useSearchParams();
   const currentPage = parseInt(searchParams.get("page") || "0", 10);
@@ -112,23 +112,23 @@ export default function NotificationPage() {
       <div className="mb-6 space-y-1">
         <h1 className="text-4xl font-bold mb-2 flex items-center gap-2">
           <BellIcon className="h-6 w-6" />
-          {t("page.notifications.title", "Notifications")}
+          {tNotification("notifications.title", "Notifications")}
         </h1>
         <p className="text-muted-foreground">
-          {t("page.notifications.description", "Stay informed about your goals and achievements.")}
+          {tNotification("notifications.description", "Stay informed about your goals and achievements.")}
         </p>
       </div>
 
       <Card className="p-4">
         {isLoading ? (
           <div className="space-y-3">
-            {t("page.notifications.loading", "Loading notifications...")}
+            {tNotification("notifications.loading", "Loading notifications...")}
           </div>
         ) : error ? (
-          <p className="text-red-600">{t("page.notifications.error", "Failed to fetch notifications.")}</p>
+          <p className="text-red-600">{tNotification("notifications.error", "Failed to fetch notifications.")}</p>
         ) : notifications.length === 0 ? (
           <p className="text-gray-500 text-center">
-            {t("page.notifications.empty", "No notifications yet.")}
+            {tNotification("notifications.empty", "No notifications yet.")}
           </p>
         ) : (
           <div className="flex flex-col gap-1">
@@ -146,7 +146,7 @@ export default function NotificationPage() {
                   <div>
                     <p>{notification.content}</p>
                     <p className="text-sm">
-                      {t("page.notifications.type")}: {notification.notificationType}
+                      {tNotification("notifications.type")}: {notification.notificationType}
                     </p>
                   </div>
                   <p className="text-sm text-gray-500 whitespace-nowrap">
