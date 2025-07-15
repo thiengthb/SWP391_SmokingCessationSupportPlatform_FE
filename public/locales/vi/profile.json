@@ -1,0 +1,128 @@
+{
+  "profile": {
+    "billing": {
+      "title": "Lịch Sử Thanh Toán",
+      "description": "Các khoản thanh toán và hóa đơn gần đây của bạn (tổng cộng {total})",
+      "loading": "Đang tải lịch sử thanh toán...",
+      "empty": {
+        "title": "Chưa Có Lịch Sử",
+        "description": "Bạn chưa có lịch sử thanh toán nào. Hóa đơn sẽ xuất hiện ở đây sau khi bạn thực hiện thanh toán đầu tiên."
+      },
+      "table": {
+        "invoice": "Mã Hóa Đơn",
+        "date": "Ngày",
+        "amount": "Số Tiền",
+        "currency": "Loại Tiền",
+        "status": "Trạng Thái",
+        "method": "Phương Thức Thanh Toán"
+      }
+    },
+    "membership": {
+      "title": "Gói Thành Viên Hiện Tại",
+      "description": "Chi tiết về gói thành viên đang hoạt động của bạn",
+      "empty": {
+        "title": "Chưa Có Gói Thành Viên",
+        "description": "Bạn chưa có gói thành viên nào. Nâng cấp để sử dụng các tính năng nâng cao",
+        "button": "Chọn Gói Ngay"
+      },
+      "fields": {
+        "plan": "Gói",
+        "start": "Ngày Bắt Đầu",
+        "end": "Ngày Kết Thúc",
+        "remainingDays": "Còn {count} ngày",
+        "progress": "% thời gian sử dụng"
+      }
+    },
+    "header": {
+      "badge": {
+        "free": "Miễn phí",
+        "premium": "Premium"
+      },
+      "bioEmpty": "Chưa có mô tả cá nhân.",
+      "addressEmpty": "Chưa có địa chỉ",
+      "joined": "Tham gia từ"
+    },
+    "health": {
+      "title": "Lịch Sử Báo Cáo Sức Khỏe",
+      "description": "Hồ sơ theo dõi sức khỏe hàng ngày của bạn",
+      "button": "Thêm Báo Cáo",
+      "empty": {
+        "title": "Chưa Có Báo Cáo Sức Khỏe",
+        "description": "Bạn chưa có bản ghi nào — hãy bắt đầu theo dõi hôm nay!",
+        "button": "Thêm Báo Cáo Đầu Tiên"
+      },
+      "table": {
+        "date": "Ngày",
+        "cigarettesPerDay": "Điếu mỗi ngày",
+        "cigarettesPerPack": "Điếu mỗi gói",
+        "packPrice": "Giá mỗi gói",
+        "ftndLevel": "Mức FTND",
+        "level": "Mức"
+      },
+      "loading": "Đang tải báo cáo sức khỏe..."
+    },
+    "personalinfo": {
+      "title": "Thông Tin Cá Nhân",
+      "edit": "Chỉnh Sửa",
+      "loading": "Đang tải hồ sơ...",
+      "fullname": "Họ và Tên",
+      "email": "Địa Chỉ Email",
+      "phone": "Số Điện Thoại",
+      "dob": "Ngày Sinh",
+      "gender": {
+        "label": "Giới Tính",
+        "male": "Nam",
+        "female": "Nữ",
+        "other": "Khác"
+      },
+      "address": "Địa Chỉ",
+      "bio": {
+        "label": "Giới Thiệu",
+        "empty": "Chưa có mô tả cá nhân."
+      },
+      "cancel": "Hủy",
+      "save": "Lưu Thay Đổi"
+    },
+    "notFound": {
+      "title": "Không Tìm Thấy Hồ Sơ",
+      "description": "Chúng tôi không thể tải thông tin hồ sơ của bạn. Vui lòng thử lại sau."
+    },
+    "tabs": {
+      "personal": "Thông Tin Cá Nhân",
+      "membership": "Gói Thành Viên",
+      "health": "Sức Khỏe"
+    },
+    "coach": {
+      "nocoach": "Không có thông tin chi tiết về huấn luyện viên",
+      "info": {
+        "title": "Thông Tin Huấn Luyện Viên",
+        "description": "Chi tiết nghề nghiệp và bằng cấp",
+        "edit": "Chỉnh sửa",
+        "specialties": "Chuyên Môn",
+        "certifications": "Chứng Chỉ",
+        "experience": "Kinh Nghiệm",
+        "rating": "Đánh Giá",
+        "year": "Năm"
+      },
+      "schedule": {
+        "title": "Lịch Làm Việc",
+        "description": "Giờ làm việc mỗi tuần của bạn",
+        "edit": "Chỉnh sửa lịch",
+        "notAvailable": "Không có lịch",
+        "save": "Lưu lịch làm việc"
+      },
+      "clients": {
+        "title": "Khách Hàng Gần Đây",
+        "description": "Các thành viên bạn đang huấn luyện",
+        "table": {
+          "name": "Tên",
+          "sessions": "Buổi Đã Hoàn Thành",
+          "nextSession": "Buổi Tiếp Theo",
+          "actions": "Thao Tác"
+        },
+        "viewDetails": "Xem Chi Tiết",
+        "viewAll": "Xem Tất Cả Khách Hàng"
+      }
+    }
+  }
+}

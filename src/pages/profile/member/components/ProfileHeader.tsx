@@ -4,11 +4,12 @@ import { CalendarIcon, MapPinIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/contexts/AuthContext";
 import { useProfile } from "@/contexts/ProfileContext";
+import { useTranslate } from "@/hooks/useTranslate";
 
 export default function ProfileHeader() {
   const { auth } = useAuth();
   const { memberProfile } = useProfile();
-
+  const { tProfile } = useTranslate();
   return (
     <Card className="overflow-hidden">
       <div className="h-32 bg-gradient-to-r from-blue-500 to-purple-600"></div>
@@ -30,23 +31,27 @@ export default function ProfileHeader() {
                   {memberProfile?.username}
                 </h1>
                 <Badge>
-                  {auth.currentAcc?.havingSubscription ? "Premium" : "Free"}
+                  {auth.currentAcc?.havingSubscription
+                    ? tProfile("profile.header.badge.premium")
+                    : tProfile("profile.header.badge.free")}
                 </Badge>
               </div>
               <p className="text-muted-foreground">
-                {memberProfile?.bio || "No bio description."}
+                {memberProfile?.bio || tProfile("profile.header.bioEmpty")}
               </p>
               <div className="flex gap-4 mt-2">
                 <div className="flex items-center text-sm text-muted-foreground">
                   <CalendarIcon className="h-4 w-4 mr-1" />
                   <span>
-                    Joined{" "}
+                    {tProfile("profile.header.joined")}{" "}
                     {new Date(memberProfile?.createdAt).toLocaleDateString()}
                   </span>
                 </div>
                 <div className="flex items-center text-sm text-muted-foreground">
                   <MapPinIcon className="h-4 w-4 mr-1" />
-                  <span>{memberProfile?.address || "No address recorded"}</span>
+                  <span>
+                    {memberProfile?.address || tProfile("profile.header.addressEmpty")}
+                  </span>
                 </div>
               </div>
             </div>

@@ -13,10 +13,11 @@ import { type Subscription } from "@/types/models/subscritption";
 import { useEffect, useState } from "react";
 import useApi from "@/hooks/useApi";
 import { Link } from "react-router-dom";
+import { useTranslate } from "@/hooks/useTranslate";
 
 export default function CurrentMembership() {
   const apiWithInterceptor = useApi();
-
+  const { tProfile } = useTranslate();
   const [currentSubscription, setCurrentSubscription] =
     useState<Subscription | null>(null);
 
@@ -61,14 +62,18 @@ export default function CurrentMembership() {
               <CreditCard className="h-6 w-6 text-muted-foreground" />
             </div>
             <div>
-              <h3 className="font-semibold text-lg">No Active Membership</h3>
+              <h3 className="font-semibold text-lg">
+                {" "}
+                {tProfile("profile.membership.empty.title")}
+              </h3>
               <p className="text-muted-foreground">
-                You don't have an active membership. Upgrade to access premium
-                features.
+                {tProfile("profile.membership.empty.description")}
               </p>
             </div>
             <Link to="/pricing" className="inline-block">
-              <Button className="mt-4">Choose a Plan</Button>
+              <Button className="mt-4">
+                {tProfile("profile.membership.empty.button")}
+              </Button>
             </Link>
           </div>
         </CardContent>
@@ -81,28 +86,34 @@ export default function CurrentMembership() {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <CreditCard className="h-5 w-5" />
-          Current Membership
+          {tProfile("profile.membership.title")}
         </CardTitle>
         <CardDescription>
-          Details about your active subscription
+          {tProfile("profile.membership.description")}
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="space-y-2">
-            <p className="text-sm text-muted-foreground">Plan</p>
+            <p className="text-sm text-muted-foreground">
+              {tProfile("profile.membership.fields.plan")}
+            </p>
             <p className="font-semibold text-lg">
               {currentSubscription.membershipName}
             </p>
           </div>
           <div className="space-y-2">
-            <p className="text-sm text-muted-foreground">Start Date</p>
+            <p className="text-sm text-muted-foreground">
+              {tProfile("profile.membership.fields.start")}
+            </p>
             <p className="font-medium">
               {new Date(currentSubscription.startDate).toLocaleDateString()}
             </p>
           </div>
           <div className="space-y-2">
-            <p className="text-sm text-muted-foreground">End Date</p>
+            <p className="text-sm text-muted-foreground">
+              {tProfile("profile.membership.fields.end")}
+            </p>
             <p className="font-medium">
               {new Date(currentSubscription.endDate).toLocaleDateString()}
             </p>
@@ -110,11 +121,15 @@ export default function CurrentMembership() {
         </div>
 
         <div className="space-y-3">
-          <div className="flex justify-between text-sm">
-            <span className="font-medium">{daysRemaining} days remaining</span>
-            <span className="text-muted-foreground">
-              {Math.round(progressPercentage)}% of membership period
-            </span>
+          <div className="space-y-3">
+            <div className="flex justify-between text-sm">
+              <span className="font-medium">Ngày còn lại {daysRemaining} </span>
+              <span className="text-muted-foreground">
+                {Math.round(progressPercentage)}
+                {tProfile("profile.membership.fields.progress")}
+              </span>
+            </div>
+            <Progress value={progressPercentage} className="h-2" />
           </div>
           <Progress value={progressPercentage} className="h-2" />
         </div>

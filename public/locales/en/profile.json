@@ -1,0 +1,127 @@
+{
+  "profile": {
+    "billing": {
+      "title": "Billing History",
+      "description": "Your recent payments and invoices ({total} total)",
+      "loading": "Loading billing history...",
+      "empty": {
+        "title": "No Billing History",
+        "description": "You don't have any billing history yet. Your invoices will appear here after your first payment."
+      },
+      "table": {
+        "invoice": "Invoice",
+        "date": "Date",
+        "amount": "Amount",
+        "currency": "Currency",
+        "status": "Status",
+        "method": "Payment Method"
+      }
+    },
+    "membership": {
+      "title": "Current Membership",
+      "description": "Details about your active subscription",
+      "empty": {
+        "title": "No Active Membership",
+        "description": "You don't have an active membership. Upgrade to access premium features",
+        "button": "Choose a Plan"
+      },
+      "fields": {
+        "plan": "Plan",
+        "start": "Start Date",
+        "end": "End Date",
+        "remainingDays": "{count} days remaining",
+        "progress": "{percent}% of membership period"
+      }
+    },
+    "header": {
+      "badge": {
+        "free": "Free",
+        "premium": "Premium"
+      },
+      "bioEmpty": "No bio description.",
+      "addressEmpty": "No address recorded",
+      "joined": "Joined {date}"
+    },
+    "health": {
+      "title": "Health Reports History",
+      "description": "Your daily health tracking records",
+      "button": "Add Report",
+      "empty": {
+        "title": "No Health Reports",
+        "button": "Add Your First Report"
+      },
+      "table": {
+        "date": "Date",
+        "cigarettesPerDay": "Cigarettes/Day",
+        "cigarettesPerPack": "Cigarettes/Pack",
+        "packPrice": "Pack Price",
+        "ftndLevel": "FTND Level",
+        "level": "Level"
+      },
+      "loading": "Loading health reports..."
+    },
+    "personalinfo": {
+      "title": "Personal Information",
+      "edit": "Edit Details",
+      "loading": "Loading profile...",
+      "fullname": "Full Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "dob": "Date of Birth",
+      "gender": {
+        "label": "Gender",
+        "male": "Male",
+        "female": "Female",
+        "other": "Other"
+      },
+      "address": "Address",
+      "bio": {
+        "label": "Bio",
+        "empty": "No bio description."
+      },
+      "cancel": "Cancel",
+      "save": "Save Changes"
+    },
+    "notFound": {
+      "title": "Profile Not Found",
+      "description": "We couldn't load your profile information. Please try again later."
+    },
+    "tabs": {
+      "personal": "Personal Info",
+      "membership": "Membership",
+      "health": "Health"
+    },
+    "coach": {
+      "nocoach": "No coach details available",
+      "info": {
+        "title": "Coach Information",
+        "description": "Professional details and qualifications",
+        "edit": "Edit Info",
+        "specialties": "Specialties",
+        "certifications": "Certifications",
+        "experience": "Experience",
+        "rating": "Rating",
+        "year": "Year"
+      },
+      "schedule": {
+        "title": "Availability Schedule",
+        "description": "Your weekly coaching hours",
+        "edit": "Edit Schedule",
+        "notAvailable": "Not available",
+        "save": "Save Schedule"
+      },
+      "clients": {
+        "title": "Recent Clients",
+        "description": "Members you're currently coaching",
+        "table": {
+          "name": "Name",
+          "sessions": "Completed Sessions",
+          "nextSession": "Next Session",
+          "actions": "Actions"
+        },
+        "viewDetails": "View Details",
+        "viewAll": "View All Clients"
+      }
+    }
+  }
+}

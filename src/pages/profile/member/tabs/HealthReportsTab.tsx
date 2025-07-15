@@ -22,6 +22,7 @@ import useApi from "@/hooks/useApi";
 import { useEffect, useState } from "react";
 import { type HealthListItem } from "@/types/models/health";
 import ReusablePagination from "@/components/ReusablePagination";
+import { useTranslate } from "@/hooks/useTranslate";
 
 interface PaginationResponse {
   content: HealthListItem[];
@@ -32,6 +33,7 @@ interface PaginationResponse {
 }
 
 export default function HealthReportsTab() {
+  const { tProfile } = useTranslate();
   const { showFTNDAssessment, setShowFTNDAssessment } = useFTND();
   const apiWithInterceptor = useApi();
 
@@ -87,14 +89,14 @@ export default function HealthReportsTab() {
       <CardHeader>
         <div className="flex items-center justify-between">
           <div>
-            <CardTitle>Health Reports History</CardTitle>
+            <CardTitle>{tProfile("profile.health.title")}</CardTitle>
             <CardDescription>
-              Your daily health tracking records ({totalElements} total)
+              {tProfile("profile.health.description")} {totalElements}
             </CardDescription>
           </div>
           <Button onClick={() => setShowFTNDAssessment(true)}>
             <Plus className="h-4 w-4 mr-2" />
-            Add Report
+            {tProfile("profile.health.button")}
           </Button>
           <FTNDAssessmentForm
             open={showFTNDAssessment}
@@ -108,21 +110,24 @@ export default function HealthReportsTab() {
             <div className="mx-auto w-8 h-8 bg-muted rounded-full flex items-center justify-center mb-4">
               <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary"></div>
             </div>
-            <p className="text-muted-foreground">Loading health reports...</p>
+            <p className="text-muted-foreground">
+              {tProfile("profile.health.loading")}
+            </p>
           </div>
         ) : healthReports.length === 0 ? (
           <div className="text-center py-12">
             <div className="mx-auto w-12 h-12 bg-muted rounded-full flex items-center justify-center mb-4">
               <Plus className="h-6 w-6 text-muted-foreground" />
             </div>
-            <h3 className="font-semibold text-lg mb-2">No Health Reports</h3>
+            <h3 className="font-semibold text-lg mb-2">
+              {tProfile("profile.health.empty.title")}s
+            </h3>
             <p className="text-muted-foreground mb-4">
-              You haven't created any health reports yet. Start tracking your
-              progress by adding your first report.
+              {tProfile("profile.health.empty.description")}
             </p>
             <Button onClick={() => setShowFTNDAssessment(true)}>
               <Plus className="h-4 w-4 mr-2" />
-              Add Your First Report
+              {tProfile("profile.health.empty.button")}
             </Button>
           </div>
         ) : (
@@ -130,11 +135,19 @@ export default function HealthReportsTab() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Date</TableHead>
-                  <TableHead>Cigarettes/Day</TableHead>
-                  <TableHead>Cigarettes/Pack</TableHead>
-                  <TableHead>Pack Price</TableHead>
-                  <TableHead>FTND Level</TableHead>
+                  <TableHead>{tProfile("profile.health.table.date")}</TableHead>
+                  <TableHead>
+                    {tProfile("profile.health.table.cigarettesPerDay")}
+                  </TableHead>
+                  <TableHead>
+                    {tProfile("profile.health.table.cigarettesPerPack")}
+                  </TableHead>
+                  <TableHead>
+                    {tProfile("profile.health.table.packPrice")}
+                  </TableHead>
+                  <TableHead>
+                    {tProfile("profile.health.table.ftndLevel")}
+                  </TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -152,7 +165,7 @@ export default function HealthReportsTab() {
                     </TableCell>
                     <TableCell>
                       <Badge className={getFTNDLevelColor(report.ftndLevel)}>
-                        Level {report.ftndLevel}
+                         {tProfile("profile.health.table.level")} {report.ftndLevel}
                       </Badge>
                     </TableCell>
                   </TableRow>

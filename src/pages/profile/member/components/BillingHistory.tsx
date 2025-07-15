@@ -22,6 +22,7 @@ import {
   TransactionStatus,
   type BillingTransaction,
 } from "@/types/models/transaction";
+import { useTranslate } from "@/hooks/useTranslate";
 
 interface PaginationResponse {
   content: BillingTransaction[];
@@ -32,6 +33,7 @@ interface PaginationResponse {
 }
 
 export default function BillingHistory() {
+  const { tProfile } = useTranslate();
   const apiWithInterceptor = useApi();
   const [billingHistory, setBillingHistory] = useState<BillingTransaction[]>(
     []
@@ -77,9 +79,9 @@ export default function BillingHistory() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Billing History</CardTitle>
+        <CardTitle>{tProfile("profile.billing.title")}</CardTitle>
         <CardDescription>
-          Your recent payments and invoices ({totalElements} total)
+          {tProfile("profile.billing.description", { total: totalElements })}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -88,17 +90,20 @@ export default function BillingHistory() {
             <div className="mx-auto w-8 h-8 bg-muted rounded-full flex items-center justify-center mb-4">
               <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary"></div>
             </div>
-            <p className="text-muted-foreground">Loading billing history...</p>
+            <p className="text-muted-foreground">
+              {tProfile("profile.billing.loading")}
+            </p>
           </div>
         ) : billingHistory.length === 0 ? (
           <div className="text-center py-12">
             <div className="mx-auto w-12 h-12 bg-muted rounded-full flex items-center justify-center mb-4">
               <Download className="h-6 w-6 text-muted-foreground" />
             </div>
-            <h3 className="font-semibold text-lg mb-2">No Billing History</h3>
+            <h3 className="font-semibold text-lg mb-2">
+              {tProfile("profile.billing.empty.title")}
+            </h3>
             <p className="text-muted-foreground mb-4">
-              You don't have any billing history yet. Your invoices will appear
-              here after your first payment.
+              {tProfile("profile.billing.empty.description")}
             </p>
           </div>
         ) : (
@@ -106,12 +111,12 @@ export default function BillingHistory() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Invoice</TableHead>
-                  <TableHead>Date</TableHead>
-                  <TableHead>Amount</TableHead>
-                  <TableHead>Currency</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Payment Method</TableHead>
+                  <TableHead>{tProfile("profile.billing.table.invoice")}</TableHead>
+                  <TableHead>{tProfile("profile.billing.table.date")}</TableHead>
+                  <TableHead>{tProfile("profile.billing.table.amount")}</TableHead>
+                  <TableHead>{tProfile("profile.billing.table.currency")}</TableHead>
+                  <TableHead>{tProfile("profile.billing.table.status")}</TableHead>
+                  <TableHead>{tProfile("profile.billing.table.method")}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>

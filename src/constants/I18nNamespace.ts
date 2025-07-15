@@ -17,5 +17,6 @@ export const I18nNamespace = {
   TESTIMONIALS: 'testimonials',
   MEMBER: 'member',
   ADMIN: 'admin',
-  COACH: 'coach'
+  COACH: 'coach',
+  PROFILE: 'profile'
 }

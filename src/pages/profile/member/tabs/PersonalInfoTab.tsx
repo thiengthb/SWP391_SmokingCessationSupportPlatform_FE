@@ -30,11 +30,11 @@ import { useState, useEffect } from "react";
 import { Gender } from "@/types/models/member";
 import { toCapitalizedWords } from "@/utils/stringFormatUtils";
 import { useProfile } from "@/contexts/ProfileContext";
-
+import { useTranslate } from "@/hooks/useTranslate";
 export default function PersonalInfoTab() {
   const [isEditing, setIsEditing] = useState(false);
   const { memberProfile, handleUpdateMemberProfile } = useProfile();
-
+  const { tProfile } = useTranslate();
   console.log("Member Profile:", memberProfile);
 
   const [formState, setFormState] = useState({
@@ -94,34 +94,34 @@ export default function PersonalInfoTab() {
 
   const listTags = [
     {
-      name: "Full Name",
+      name: tProfile("profile.personalinfo.fullname"),
       icon: UserIcon,
       value: formState.fullName || "...",
     },
     {
-      name: "Email Address",
+      name: tProfile("profile.personalinfo.email"),
       icon: MailIcon,
       value: formState.email || "...",
     },
     {
-      name: "Phone Number",
+      name: tProfile("profile.personalinfo.phone"),
       icon: PhoneIcon,
       value: formState.phoneNumber || "...",
     },
     {
-      name: "Date of Birth",
+      name: tProfile("profile.personalinfo.dob"),
       icon: CalendarIcon,
       value: formState.dob
         ? new Date(formState.dob).toLocaleDateString()
         : "...",
     },
     {
-      name: "Gender",
+      name: tProfile("profile.personalinfo.gender.label"),
       icon: VenusAndMars,
       value: formState.gender ? toCapitalizedWords(formState.gender) : "...",
     },
     {
-      name: "Address",
+      name: tProfile("profile.personalinfo.address"),
       icon: MapPinIcon,
       value: formState.address || "...",
     },
@@ -131,7 +131,9 @@ export default function PersonalInfoTab() {
     return (
       <Card>
         <CardContent className="flex items-center justify-center h-32">
-          <div className="text-muted-foreground">Loading profile...</div>
+          <div className="text-muted-foreground">
+            {tProfile("profile.personalinfo.loading")}
+          </div>
         </CardContent>
       </Card>
     );
@@ -140,10 +142,10 @@ export default function PersonalInfoTab() {
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle>Personal Information</CardTitle>
+        <CardTitle>{tProfile("profile.personalinfo.title")}</CardTitle>
         {!isEditing ? (
           <Button variant="outline" onClick={() => setIsEditing(true)}>
-            Edit Details
+            {tProfile("profile.personalinfo.edit")}
           </Button>
         ) : null}
       </CardHeader>
@@ -172,11 +174,11 @@ export default function PersonalInfoTab() {
                 <div className="flex items-center space-x-2">
                   <UserRoundPen className="h-4 w-4 text-muted-foreground" />
                   <div className="text-sm font-medium text-muted-foreground">
-                    Bio
+                    {tProfile("profile.personalinfo.bio.label")}
                   </div>
                 </div>
                 <div className="ml-6">
-                  {formState.bio || "No bio description."}
+                  {formState.bio || tProfile("profile.personalinfo.bio.empty")}
                 </div>
               </div>
             </>
@@ -185,7 +187,10 @@ export default function PersonalInfoTab() {
             <>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <Label htmlFor="fullName">Full Name</Label>
+                  <Label htmlFor="fullName">
+                    {" "}
+                    {tProfile("profile.personalinfo.fullname")}
+                  </Label>
                   <Input
                     id="fullName"
                     name="fullName"
@@ -196,7 +201,10 @@ export default function PersonalInfoTab() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email Address</Label>
+                  <Label htmlFor="email">
+                    {" "}
+                    {tProfile("profile.personalinfo.email")}
+                  </Label>
                   <Input
                     id="email"
                     name="email"
@@ -207,7 +215,9 @@ export default function PersonalInfoTab() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="phoneNumber">Phone Number</Label>
+                  <Label htmlFor="phoneNumber">
+                    {tProfile("profile.personalinfo.phone")}
+                  </Label>
                   <Input
                     id="phoneNumber"
                     name="phoneNumber"
@@ -217,7 +227,9 @@ export default function PersonalInfoTab() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="dob">Date of Birth</Label>
+                  <Label htmlFor="dob">
+                    {tProfile("profile.personalinfo.dob")}
+                  </Label>
                   <Input
                     id="dob"
                     name="dob"
@@ -228,7 +240,9 @@ export default function PersonalInfoTab() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="gender">Gender</Label>
+                  <Label htmlFor="gender">
+                    {tProfile("profile.personalinfo.gender.label")}
+                  </Label>
                   <Select
                     value={formState.gender}
                     onValueChange={(value) =>
@@ -239,15 +253,24 @@ export default function PersonalInfoTab() {
                       <SelectValue placeholder="Select gender" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value={Gender.MALE}>Male</SelectItem>
-                      <SelectItem value={Gender.FEMALE}>Female</SelectItem>
-                      <SelectItem value={Gender.OTHER}>Other</SelectItem>
+                      <SelectItem value={Gender.MALE}>
+                        {tProfile("profile.personalinfo.gender.male")}
+                      </SelectItem>
+                      <SelectItem value={Gender.FEMALE}>
+                        {tProfile("profile.personalinfo.gender.female")}
+                      </SelectItem>
+                      <SelectItem value={Gender.OTHER}>
+                        {tProfile("profile.personalinfo.gender.other")}
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="address">Address</Label>
+                  <Label htmlFor="address">
+                    {" "}
+                    {tProfile("profile.personalinfo.address")}
+                  </Label>
                   <Input
                     id="address"
                     name="address"
@@ -260,7 +283,10 @@ export default function PersonalInfoTab() {
               <Separator />
 
               <div className="space-y-2">
-                <Label htmlFor="bio">Bio</Label>
+                <Label htmlFor="bio">
+                  {" "}
+                  {tProfile("profile.personalinfo.bio.label")}
+                </Label>
                 <Textarea
                   id="bio"
                   name="bio"
@@ -280,9 +306,12 @@ export default function PersonalInfoTab() {
               type="button"
               onClick={() => setIsEditing(false)}
             >
-              Cancel
+              {tProfile("profile.personalinfo.cancel")}
             </Button>
-            <Button type="submit">Save Changes</Button>
+            <Button type="submit">
+              {" "}
+              {tProfile("profile.personalinfo.save")}
+            </Button>
           </CardFooter>
         )}
       </form>
