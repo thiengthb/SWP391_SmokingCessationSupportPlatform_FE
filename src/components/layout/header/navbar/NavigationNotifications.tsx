@@ -8,12 +8,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
+import { useTranslate } from "@/hooks/useTranslate";
 import { Paths } from "@/constants/path";
 import { useNotificationListSwr } from "@/hooks/swr/useNotificationSwr";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export function NavigationNotifications() {
   const { auth } = useAuth();
+  const { tNavbar } = useTranslate();
 
   const { notifications, isLoading, error } = useNotificationListSwr(
     auth,
@@ -52,7 +54,9 @@ export function NavigationNotifications() {
             </DropdownMenuItem>
           ))
         ) : (
-          <DropdownMenuItem>No notifications</DropdownMenuItem>
+          <DropdownMenuItem>
+            {tNavbar("navbar.notifications.empty")}
+          </DropdownMenuItem>
         )}
 
         {!isLoading && (
@@ -61,7 +65,7 @@ export function NavigationNotifications() {
               to={Paths.ACCOUNT.NOTIFICATION}
               className="w-full text-center text-primary hover:underline"
             >
-              See more
+              {tNavbar("navbar.notifications.seeMore")}
             </Link>
           </DropdownMenuItem>
         )}

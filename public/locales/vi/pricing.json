@@ -1,0 +1,69 @@
+{
+  "pricing": {
+    "benefit": {
+      "title": "Lợi Ích Khi Đăng Ký",
+      "description": "Tận hưởng những lợi ích sau với bất kỳ gói đăng ký nào",
+      "1": {
+        "title": "Thanh Toán Linh Hoạt",
+        "description": "Không cam kết dài hạn. Chọn thanh toán hàng tháng hoặc hàng năm, có thể hủy bất cứ lúc nào."
+      },
+      "2": {
+        "title": "Hỗ Trợ Kịp Thời",
+        "description": "Nhận sự hỗ trợ mỗi khi bạn cần, giúp vượt qua những thời điểm khó khăn trong hành trình cai thuốc."
+      },
+      "3": {
+        "title": "Dựa Trên Khoa Học",
+        "description": "Các phương pháp và công cụ được phát triển dựa trên nghiên cứu khoa học về cai nghiện và thay đổi hành vi."
+      },
+      "4": {
+        "title": "Bảo Mật Dữ Liệu",
+        "description": "Thông tin cá nhân và dữ liệu sức khỏe của bạn được bảo vệ theo tiêu chuẩn bảo mật cao nhất."
+      }
+    },
+    "faq": {
+      "title": "Câu Hỏi Thường Gặp",
+      "description": " Tìm câu trả lời cho những thắc mắc phổ biến về gói đăng ký"
+    },
+    "features": {
+      "title": "So Sánh Chi Tiết",
+      "description": "Xem sự khác biệt giữa phiên bản miễn phí và trả phí",
+      "items": {
+        "feature": "Tính năng",
+        "free": "Miễn phí",
+        "paid": "Trả phí",
+        "badge": "Khuyến nghị"
+      }
+    },
+    "card": {
+      "badge": "phổ biến nhất",
+      "save": "% tiết kiệm so với",
+      "free": "Miễn phí",
+      "startFree": "Bắt đầu miễn phí",
+      "selectPlan": "Chọn gói {{plan}}",
+      "duration": {
+        "unlimited": "Không giới hạn",
+        "year": "{{count}} năm",
+        "year_plural": "{{count}} năm",
+        "month": "{{count}} tháng",
+        "month_plural": "{{count}} tháng",
+        "week": "{{count}} tuần",
+        "week_plural": "{{count}} tuần",
+        "day": "{{count}} ngày",
+        "day_plural": "{{count}} ngày"
+      }
+    },
+    "cta": {
+      "heading": "Sẵn sàng bắt đầu hành trình cai thuốc lá?",
+      "description": "Chọn gói đăng ký phù hợp với bạn và bắt đầu hành trình hướng tới một cuộc sống khỏe mạnh hơn, không thuốc lá.",
+      "button": "Đăng Ký Ngay",
+      "support": {
+        "note": "Cần tư vấn? Liên hệ hỗ trợ qua số 1900 1234"
+      }
+    },
+    "header": {
+      "badge": "Gói Đăng Ký",
+      "title": "Chọn Gói Phù Hợp Cho Hành Trình Cai Thuốc Lá",
+      "description": "Từ miễn phí đến các gói trả phí với nhiều tính năng nâng cao, chúng tôi có giải pháp phù hợp cho mọi người trong hành trình cai thuốc lá"
+    }
+  }
+}

@@ -2,8 +2,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Trophy, Lock, Star } from "lucide-react";
 import { achievementCategories } from "@/utils/mockdata/member";
+import { useTranslate } from "@/hooks/useTranslate";
 
 export function AchievementsTab() {
+  const { tMember } = useTranslate();
+
   const totalAchievements = achievementCategories.reduce(
     (acc, cat) => acc + cat.achievements.length,
     0
@@ -19,7 +22,7 @@ export function AchievementsTab() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Star className="h-5 w-5 text-primary" />
-            Achievement Progress
+            {tMember("memberdashboard.achievements.title")}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -36,7 +39,7 @@ export function AchievementsTab() {
 
       {achievementCategories.map((category) => (
         <div key={category.name} className="space-y-4">
-          <h3 className="text-lg font-semibold">{category.name}</h3>
+          <h3 className="text-lg font-semibold">{tMember(category.name)}</h3>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {category.achievements.map((achievement) => (
               <Card
@@ -45,7 +48,7 @@ export function AchievementsTab() {
               >
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">
-                    {achievement.title}
+                    {tMember(achievement.title)}
                   </CardTitle>
                   {achievement.completed ? (
                     <Trophy className="h-4 w-4 text-primary" />
@@ -55,7 +58,7 @@ export function AchievementsTab() {
                 </CardHeader>
                 <CardContent className="space-y-2">
                   <p className="text-sm text-muted-foreground">
-                    {achievement.description}
+                    {tMember(achievement.description)}
                   </p>
                   <Progress value={achievement.progress} />
                 </CardContent>

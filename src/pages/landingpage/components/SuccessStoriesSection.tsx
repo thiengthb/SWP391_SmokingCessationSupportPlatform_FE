@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
+import { useTranslate } from "@/hooks/useTranslate";
 import { CheckCircle, ArrowRight } from "lucide-react";
-import { useTranslation } from "react-i18next";
 
 interface Testimonial {
   text: string;
@@ -24,14 +24,14 @@ export function SuccessStoriesSection({
   items,
   onReadMore,
 }: SuccessStoriesSectionProps) {
-  const { t } = useTranslation();
+  const { tLandingpage } = useTranslate();
   return (
     <section className="py-20">
       <div className="container px-4 mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="text-3xl font-bold mb-6">
-              {t("page.landingPage.paragraph3")}
+              {tLandingpage("landingPage.paragraph3")}
             </h2>
             <div className="space-y-4">
               {items.map((item, i) => (
@@ -42,7 +42,7 @@ export function SuccessStoriesSection({
               ))}
               <div className="mt-8">
                 <Button className="gap-2" onClick={onReadMore}>
-                  {t("page.landingPage.buttonRead")}{" "}
+                  {tLandingpage("landingPage.buttonRead")}{" "}
                   <ArrowRight className="h-4 w-4" />
                 </Button>
               </div>

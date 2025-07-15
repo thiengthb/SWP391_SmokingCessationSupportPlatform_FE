@@ -1,0 +1,24 @@
+{
+  "ftnd": {
+    "title": "🚭 Tobacco Addiction Assessment",
+    "description": "Please answer the following questions to help us better understand your smoking habits and create a suitable plan.",
+    "progress": "Progress",
+    "questionNumber": "Question {{current}} / {{total}}",
+    "previous": "Previous",
+    "next": "Next",
+    "complete": "Complete Assessment",
+    "submitting": "Submitting...",
+    "input": {
+      "textPlaceholder": "Enter your answer...",
+      "priceTip": "Tip: Please select the currency that matches your location for more accurate calculations."
+    },
+    "result": {
+      "title": "Assessment Completed",
+      "description": "Thank you for completing the nicotine dependence assessment.",
+      "scoreLabel": "Your FTND Score",
+      "recommendTitle": "Our Recommendations",
+      "close": "Close",
+      "viewPlans": "View Support Plans"
+    }
+  }
+}

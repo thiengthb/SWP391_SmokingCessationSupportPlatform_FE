@@ -1,0 +1,24 @@
+{
+  "ftnd": {
+    "title": "🚭 Đánh giá mức độ nghiện thuốc lá",
+    "description": "Vui lòng trả lời các câu hỏi sau để chúng tôi hiểu rõ hơn về thói quen hút thuốc của bạn và tạo ra một kế hoạch phù hợp.",
+    "progress": "Tiến trình",
+    "questionNumber": "Câu hỏi {{current}} / {{total}}",
+    "previous": "Trước",
+    "next": "Tiếp",
+    "complete": "Hoàn tất đánh giá",
+    "submitting": "Đang gửi...",
+    "input": {
+      "textPlaceholder": "Nhập câu trả lời...",
+      "priceTip": "Mẹo: Hãy chọn loại tiền tệ phù hợp với nơi bạn sống để tính toán chính xác hơn."
+    },
+    "result": {
+      "title": "Đánh giá hoàn tất",
+      "description": "Cảm ơn bạn đã hoàn thành bài đánh giá phụ thuộc nicotin",
+      "scoreLabel": "Điểm FTND của bạn",
+      "recommendTitle": "Đề xuất của chúng tôi",
+      "close": "Đóng",
+      "viewPlans": "Xem các gói hỗ trợ"
+    }
+  }
+}

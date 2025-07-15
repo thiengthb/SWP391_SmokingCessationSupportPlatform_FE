@@ -17,6 +17,9 @@ import { adminRoutes } from "./routes/admin.routes";
 import { coachRoutes } from "./routes/coach.routes";
 import { memberRoutes, premiumRoutes } from "./routes/member.routes";
 import { Paths } from "../constants/path";
+import TermsPage from "@/pages/legal/term";
+import PrivacyPolicyPage from "@/pages/legal/privacy";
+import FAQPage from "@/pages/legal/faq";
 
 const router = createBrowserRouter([
   {
@@ -63,6 +66,11 @@ const router = createBrowserRouter([
             element: <RequireAuth allowedRoles={[ForRoles.PREMIUM]} />,
             children: premiumRoutes,
           },
+
+          // 👇 ADDITIONAL LEGAL ROUTES
+          { path: "terms", element: <TermsPage /> },
+          { path: "privacy", element: <PrivacyPolicyPage /> },
+          { path: "faq", element: <FAQPage /> },
         ],
       },
     ],

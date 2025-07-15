@@ -2,155 +2,155 @@ import { Clock, Cigarette, DollarSign, Activity } from "lucide-react";
 
 export const stats = [
   {
-    title: "Smoke-Free Days",
+    title: "memberdashboard.stat.smoke.title",
     value: "7",
     icon: Clock,
-    description: "Keep going strong!",
+    description: "memberdashboard.stat.smoke.description",
   },
   {
-    title: "Cigarettes Avoided",
+    title: "memberdashboard.stat.cigarettes.title",
     value: "140",
     icon: Cigarette,
-    description: "That's impressive!",
+    description: "memberdashboard.stat.cigarettes.description",
   },
   {
-    title: "Money Saved",
+    title: "memberdashboard.stat.moneySaved.title",
     value: "$70",
     icon: DollarSign,
-    description: "More savings ahead",
+    description: "memberdashboard.stat.moneySaved.description",
   },
   {
-    title: "Health Score",
+    title: "memberdashboard.stat.health.title",
     value: "85%",
     icon: Activity,
-    description: "Great progress",
+    description: "memberdashboard.stat.health.description",
   },
 ];
 
 export const achievements = [
   {
-    title: "First Week Complete",
-    description: "7 days smoke-free",
+    title: "memberdashboard.recentAchievements.items.firstWeek.title",
+    description: "memberdashboard.recentAchievements.items.firstWeek.description",
     progress: 100,
   },
   {
-    title: "Money Saver",
-    description: "Saved $50",
+    title: "memberdashboard.recentAchievements.items.moneySaver.title",
+    description: "memberdashboard.recentAchievements.items.moneySaver.description",
     progress: 70,
   },
   {
-    title: "Health Improver",
-    description: "Oxygen levels normalized",
+    title: "memberdashboard.recentAchievements.items.healthImprover.title",
+    description: "memberdashboard.recentAchievements.items.healthImprover.description",
     progress: 85,
   },
 ];
 
 export const healthTimeline = [
   {
-    time: "20 minutes",
-    description: "Heart rate and blood pressure drop",
+    time: "memberdashboard.healthTimeline.time.20m",
+    description: "memberdashboard.healthTimeline.description.20m",
     completed: true,
   },
   {
-    time: "12 hours",
-    description: "Carbon monoxide levels normalize",
+    time: "memberdashboard.healthTimeline.time.12h",
+    description: "memberdashboard.healthTimeline.description.12h",
     completed: true,
   },
   {
-    time: "2-12 weeks",
-    description: "Circulation improves",
+    time: "memberdashboard.healthTimeline.time.2w_12w",
+    description: "memberdashboard.healthTimeline.description.2w_12w",
     completed: false,
   },
   {
-    time: "1-9 months",
-    description: "Coughing and shortness of breath decrease",
+    time: "memberdashboard.healthTimeline.time.1m_9m",
+    description: "memberdashboard.healthTimeline.description.1m_9m",
     completed: false,
   },
 ];
 
 export const goals = [
   {
-    title: "Quit for 30 Days",
+    title: "memberdashboard.goals.quit30days.title",
     progress: 60,
-    target: "20 days remaining",
-    description: "Stay smoke-free for a full month"
+    target: "memberdashboard.goals.quit30days.target",
+    description: "memberdashboard.goals.quit30days.description",
   },
   {
-    title: "Save $500",
+    title: "memberdashboard.goals.saveMoney.title",
     progress: 45,
-    target: "$275 to go",
-    description: "Track your financial benefits"
+    target: "memberdashboard.goals.saveMoney.target",
+    description: "memberdashboard.goals.saveMoney.description",
   },
   {
-    title: "Exercise Weekly",
+    title: "memberdashboard.goals.exerciseWeekly.title",
     progress: 80,
-    target: "3 of 4 weeks complete",
-    description: "Build healthy habits"
-  }
+    target: "memberdashboard.goals.exerciseWeekly.target",
+    description: "memberdashboard.goals.exerciseWeekly.description",
+  },
 ];
 
 export const achievementCategories = [
-	{
-		name: "Milestones",
-		achievements: [
-			{
-				title: "First Day",
-				description: "Complete your first smoke-free day",
-				progress: 100,
-				completed: true
-			},
-			{
-				title: "One Week Wonder",
-				description: "Stay smoke-free for 7 days",
-				progress: 100,
-				completed: true
-			},
-			{
-				title: "One Month Milestone",
-				description: "Complete 30 days smoke-free",
-				progress: 70,
-				completed: false
-			}
-		]
-	},
-	{
-		name: "Health",
-		achievements: [
-			{
-				title: "Breath of Fresh Air",
-				description: "Oxygen levels return to normal",
-				progress: 100,
-				completed: true
-			},
-			{
-				title: "Heart Hero",
-				description: "Blood pressure normalizes",
-				progress: 100,
-				completed: true
-			},
-			{
-				title: "Lung Power",
-				description: "Lung capacity improves by 30%",
-				progress: 45,
-				completed: false
-			}
-		]
-	},
-	{
-		name: "Savings",
-		achievements: [
-			{
-				title: "Money Saver",
-				description: "Save your first $100",
-				progress: 100,
-				completed: true
-			},
-			{
-				title: "Money Master",
-				description: "Save $1000 from not smoking",
-				progress: 30,
-				completed: false
-			}
-		]
-	}
+  {
+    name: "memberdashboard.achievements.categories.milestones.name",
+    achievements: [
+      {
+        title: "memberdashboard.achievements.categories.milestones.firstDay.title",
+        description: "memberdashboard.achievements.categories.milestones.firstDay.description",
+        progress: 100,
+        completed: true,
+      },
+      {
+        title: "memberdashboard.achievements.categories.milestones.oneWeek.title",
+        description: "memberdashboard.achievements.categories.milestones.oneWeek.description",
+        progress: 100,
+        completed: true,
+      },
+      {
+        title: "memberdashboard.achievements.categories.milestones.oneMonth.title",
+        description: "memberdashboard.achievements.categories.milestones.oneMonth.description",
+        progress: 70,
+        completed: false,
+      },
+    ],
+  },
+  {
+    name: "memberdashboard.achievements.categories.health.name",
+    achievements: [
+      {
+        title: "memberdashboard.achievements.categories.health.breath.title",
+        description: "memberdashboard.achievements.categories.health.breath.description",
+        progress: 100,
+        completed: true,
+      },
+      {
+        title: "memberdashboard.achievements.categories.health.heart.title",
+        description: "memberdashboard.achievements.categories.health.heart.description",
+        progress: 100,
+        completed: true,
+      },
+      {
+        title: "memberdashboard.achievements.categories.health.lung.title",
+        description: "memberdashboard.achievements.categories.health.lung.description",
+        progress: 45,
+        completed: false,
+      },
+    ],
+  },
+  {
+    name: "memberdashboard.achievements.categories.savings.name",
+    achievements: [
+      {
+        title: "memberdashboard.achievements.categories.savings.saver.title",
+        description: "memberdashboard.achievements.categories.savings.saver.description",
+        progress: 100,
+        completed: true,
+      },
+      {
+        title: "memberdashboard.achievements.categories.savings.master.title",
+        description: "memberdashboard.achievements.categories.savings.master.description",
+        progress: 30,
+        completed: false,
+      },
+    ],
+  },
 ];

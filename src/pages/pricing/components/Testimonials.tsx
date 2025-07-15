@@ -1,4 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
+import { useTranslate } from "@/hooks/useTranslate";
 import { type Testimonial } from "@/types/models/membership";
 
 interface TestimonialsProps {
@@ -6,6 +7,7 @@ interface TestimonialsProps {
 }
 
 export function Testimonials({ testimonials }: TestimonialsProps) {
+  const { tData } = useTranslate(); 
   return (
     <div className="mb-16">
       <div className="text-center mb-10">
@@ -26,9 +28,9 @@ export function Testimonials({ testimonials }: TestimonialsProps) {
                   className="w-12 h-12 rounded-full mr-4"
                 />
                 <div>
-                  <p className="font-semibold">{testimonial.name}</p>
+                  <p className="font-semibold">{tData(testimonial.name)}</p>
                   <p className="text-sm text-muted-foreground">
-                    {testimonial.role}
+                    {tData(testimonial.role)}
                   </p>
                 </div>
               </div>
@@ -50,7 +52,7 @@ export function Testimonials({ testimonials }: TestimonialsProps) {
                 ))}
               </div>
 
-              <p className="italic">{testimonial.content}</p>
+              <p className="italic">{tData(testimonial.content)}</p>
             </CardContent>
           </Card>
         ))}

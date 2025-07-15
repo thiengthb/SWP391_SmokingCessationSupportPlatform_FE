@@ -12,36 +12,52 @@ import {
 } from "@/components/ui/table";
 import { Search, MessageCircle, UserPlus } from "lucide-react";
 import { clients } from "@/utils/mockdata/coach";
+import { useTranslate } from "@/hooks/useTranslate";
 
 export function ClientsTab() {
+  const { tCoach } = useTranslate();
   return (
     <div className="space-y-4">
       <div className="flex justify-between">
         <div className="flex w-full max-w-sm items-center space-x-2">
-          <Input placeholder="Search clients..." />
+          <Input
+            placeholder={tCoach("coachdashboard.clients.searchPlaceholder")}
+          />
           <Button size="icon">
             <Search className="h-4 w-4" />
           </Button>
         </div>
         <Button>
           <UserPlus className="mr-2 h-4 w-4" />
-          Add Client
+          {tCoach("coachdashboard.clients.addClient")}
         </Button>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>Active Clients</CardTitle>
+          <CardTitle>
+            {tCoach("coachdashboard.clients.activeClients")}
+          </CardTitle>
         </CardHeader>
         <CardContent className="p-0">
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>Progress</TableHead>
-                <TableHead>Last Session</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Actions</TableHead>
+                <TableHead>
+                  {tCoach("coachdashboard.clients.table.name")}
+                </TableHead>
+                <TableHead>
+                  {tCoach("coachdashboard.clients.table.progress")}
+                </TableHead>
+                <TableHead>
+                  {tCoach("coachdashboard.clients.table.lastSession")}
+                </TableHead>
+                <TableHead>
+                  {tCoach("coachdashboard.clients.table.status")}
+                </TableHead>
+                <TableHead>
+                  {tCoach("coachdashboard.clients.table.actions")}
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -53,12 +69,13 @@ export function ClientsTab() {
                   <TableCell>
                     <Badge
                       variant={
-                        client.status === "active"
+                        client.status ===
+                        "coachdashboard.clientTabs.status.active"
                           ? "default"
                           : "destructive"
                       }
                     >
-                      {client.status}
+                      {tCoach(client.status)}
                     </Badge>
                   </TableCell>
                   <TableCell>

@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { Settings, Sun, Moon, Monitor, Check } from "lucide-react";
 import { useTheme } from "@/components/theme/theme-provider";
 import i18n from "@/lib/i18n";
+import { useTranslate } from "@/hooks/useTranslate";
 import { Language } from "@/types/enums/Language";
 import { Theme } from "@/types/enums/Theme";
 
@@ -32,6 +33,7 @@ const languages = [
 ];
 
 export default function AppearanceSetting() {
+  const { tNavbar} = useTranslate();
   const { setTheme } = useTheme();
 
   const [settings, setSettings] = useState<AppearanceSettings>({
@@ -85,12 +87,12 @@ export default function AppearanceSetting() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuLabel className="font-semibold">
-          Appearance Settings
+           {tNavbar("navbar.settings.title")}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
 
         <DropdownMenuLabel className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-          Theme
+          {tNavbar("navbar.settings.theme.title")}
         </DropdownMenuLabel>
         {themes.map((themeItem) => {
           const IconComponent = themeItem.icon;
@@ -114,7 +116,7 @@ export default function AppearanceSetting() {
         <DropdownMenuSeparator />
 
         <DropdownMenuLabel className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-          Language
+          {tNavbar("navbar.settings.language.title")}
         </DropdownMenuLabel>
         {languages.map((language) => {
           const isSelected = settings.language === language.value;
@@ -138,13 +140,13 @@ export default function AppearanceSetting() {
 
         <div className="px-2 py-1.5 text-xs text-muted-foreground">
           <div className="flex items-center justify-between mb-1">
-            <span>Theme:</span>
+            <span>{tNavbar("navbar.settings.theme.title")}:</span>
             <Badge variant="secondary" className="text-xs">
               {getCurrentThemeLabel()}
             </Badge>
           </div>
           <div className="flex items-center justify-between">
-            <span>Language:</span>
+            <span>{tNavbar("navbar.settings.language.title")}:</span>
             <Badge variant="secondary" className="text-xs">
               {getCurrentLanguageLabel()}
             </Badge>

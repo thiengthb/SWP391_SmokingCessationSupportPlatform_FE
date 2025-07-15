@@ -25,35 +25,36 @@ import { ForDisplay, mainNav, routeRoleDashboard } from "./navbar.item";
 import ThemeSwitch from "@/components/theme/theme-switch";
 import LanguageSelector from "@/components/language/LanguageSelector";
 import { useAuth } from "@/contexts/AuthContext";
-import { useTranslation } from "react-i18next";
 import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
 import { NavigationNotifications } from "./NavigationNotifications";
 import { Separator } from "@radix-ui/react-separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import { useTranslate } from "@/hooks/useTranslate";
 import UserInfoCard from "./UserInfoCard";
 import { ForRoles, toForRoles } from "@/utils/tab.util";
 import { Paths } from "@/constants/path";
+import { Badge } from "@/components/ui/badge";
 
 const MobileMenu = () => {
   const navigate = useNavigate();
-  const { t } = useTranslation();
   const { auth, handleLogout } = useAuth();
 
-  const filteredItems = mainNav
-    .filter(
-      (item) =>
-        item.forDisplays?.includes(ForDisplay.ALL) ||
-        item.forDisplays?.includes(ForDisplay.ALL_MOBILE) ||
-        (!auth.isAuthenticated &&
-          item.forDisplays?.includes(ForDisplay.MOBILE_GUEST)) ||
-        (auth.isAuthenticated &&
-          item.forDisplays?.includes(ForDisplay.MOBILE_AUTHENTICATED))
-    )
-    .filter(
-      (item) =>
-        item.forRoles?.includes(toForRoles(auth.currentAcc?.role)) ||
-        item.forRoles?.includes(ForRoles.ALL)
-    );
+  const { tCommon, tNavbar } = useTranslate();
+
+  const filteredItems = mainNav.filter((item) => {
+    if (
+      !auth.isAuthenticated &&
+      (item.id === "profile" || item.id === "settings")
+    ) {
+      return false;
+    }
+
+    if (auth.currentAcc?.havingSubscription && item.id === "pricing") {
+      return false;
+    }
+
+    return true;
+  });
 
   const submitLogout = async () => {
     if (!auth.isAuthenticated) return;
@@ -71,7 +72,7 @@ const MobileMenu = () => {
       <SheetTrigger asChild>
         <Button variant="secondary" size="icon" className="md:hidden">
           <Menu className="h-5 w-5" />
-          <span className="sr-only">{t(`nav.menu.toggleMenu`)}</span>
+          <span className="sr-only">{tNavbar(`nav.menu.toggleMenu`)}</span>
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className="w-72 p-0">
@@ -82,12 +83,25 @@ const MobileMenu = () => {
                 <Avatar>
                   <AvatarImage
                     src={auth.currentAcc?.avatar ?? ""}
-                    alt={auth.currentAcc?.username ?? t("roles.user")}
+                    alt={auth.currentAcc?.username ?? tNavbar("roles.user")}
                   />
                   <AvatarFallback>
                     <UserRound />
                   </AvatarFallback>
                 </Avatar>
+              </div>
+              <div className="flex flex-col space-y-2">
+                <div className="flex items-center gap-2">
+                  <p className="text-sm font-medium leading-none">
+                    {auth.currentAcc.username || tNavbar("roles.guest")}
+                  </p>
+                  <Badge>
+                    {auth.currentAcc.havingSubscription ? "Premium" : "Free"}
+                  </Badge>
+                </div>
+                <p className="text-xs leading-none text-muted-foreground">
+                  {auth.currentAcc?.email}
+                </p>
               </div>
               <UserInfoCard />
             </div>
@@ -102,7 +116,7 @@ const MobileMenu = () => {
               className="flex items-center gap-2 text-base transition-colors hover:text-primary"
             >
               <Gauge className="h-4 w-4" />
-              {t(`nav.dashboard.title`)}
+              {tNavbar(`nav.dashboard.title`)}
             </Link>
           )}
           {filteredItems.map((item) => (
@@ -112,7 +126,7 @@ const MobileMenu = () => {
                   <CollapsibleTrigger className="flex w-full items-center justify-between text-base">
                     <div className="flex items-center">
                       {item.icon && <item.icon className="mr-2 h-4 w-4" />}
-                      {t(item.title)}
+                      {tNavbar(item.title)}
                     </div>
                     <ChevronsUpDown className="h-4 w-4" />
                   </CollapsibleTrigger>
@@ -126,7 +140,7 @@ const MobileMenu = () => {
                         {subItem.icon && (
                           <subItem.icon className="mr-2 h-4 w-4" />
                         )}
-                        {t(subItem.title)}
+                        {tNavbar(subItem.title)}
                       </Link>
                     ))}
                   </CollapsibleContent>
@@ -137,7 +151,7 @@ const MobileMenu = () => {
                   className="flex items-center text-base transition-colors hover:text-primary"
                 >
                   {item.icon && <item.icon className="mr-2 h-4 w-4" />}
-                  {t(item.title)}
+                  {tNavbar(item.title)}
                 </Link>
               )}
             </div>
@@ -150,7 +164,7 @@ const MobileMenu = () => {
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-2">
                   <Palette className="w-4 h-4" />
-                  <p>{t(`theme.title`)}</p>
+                  <p>{tNavbar(`theme.title`)}</p>
                 </div>
                 <ThemeSwitch />
               </div>
@@ -158,7 +172,7 @@ const MobileMenu = () => {
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-2">
                   <Globe className="w-4 h-4" />
-                  <p>{t(`language.title`)}</p>
+                  <p>{tNavbar(`language.title`)}</p>
                 </div>
                 <LanguageSelector variant="compact" showLabel={false} />
               </div>
@@ -169,19 +183,19 @@ const MobileMenu = () => {
             {auth.isAuthenticated ? (
               <SheetClose asChild>
                 <Button variant="destructive" onClick={submitLogout}>
-                  {t("buttons.logout")}
+                  {tCommon("buttons.logout")}
                 </Button>
               </SheetClose>
             ) : (
               <>
                 <SheetClose asChild>
                   <Button asChild>
-                    <Link to={Paths.AUTH.REGISTER}>{t(`buttons.signup`)}</Link>
+                    <Link to={Paths.AUTH.REGISTER}>{tCommon(`buttons.signup`)}</Link>
                   </Button>
                 </SheetClose>
                 <SheetClose asChild>
                   <Button variant="secondary" asChild>
-                    <Link to={Paths.AUTH.LOGIN}>{t(`buttons.login`)}</Link>
+                    <Link to={Paths.AUTH.LOGIN}>{tCommon(`buttons.login`)}</Link>
                   </Button>
                 </SheetClose>
               </>

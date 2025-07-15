@@ -4,7 +4,8 @@ import { features, successItems, testimonials } from "./data";
 import { FeaturesSection } from "./components/FeaturesSection";
 import { SuccessStoriesSection } from "./components/SuccessStoriesSection";
 import { CTASection } from "./components/CTASection";
-import { useTranslation } from "react-i18next";
+
+import { useTranslate } from "@/hooks/useTranslate";
 import { Paths } from "@/constants/path";
 
 interface SectionProps {
@@ -12,7 +13,7 @@ interface SectionProps {
 }
 
 export default function LandingPage({ className }: SectionProps) {
-  const { t } = useTranslation();
+  const { tLandingpage } = useTranslate();
   const navigate = useNavigate();
 
   const handleGetStarted = () => {
@@ -35,7 +36,7 @@ export default function LandingPage({ className }: SectionProps) {
       />
       <FeaturesSection features={features} />
       <SuccessStoriesSection
-        items={successItems.map((key) => t(key))}
+        items={successItems.map((key) => tLandingpage(key))}
         testimonials={testimonials}
         onReadMore={handleReadStories}
       />

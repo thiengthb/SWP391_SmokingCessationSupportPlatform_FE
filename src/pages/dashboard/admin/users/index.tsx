@@ -12,7 +12,9 @@ import { Search, UserPlus } from "lucide-react";
 import { UsersTab } from "../components/UsersTable";
 import useApi from "@/hooks/useApi";
 import { useLocation, useNavigate } from "react-router-dom";
+
 import { type Account } from "@/types/models/account";
+import { useTranslate } from "@/hooks/useTranslate";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { userFormSchema, type userFormData } from "@/types/validations/auth/user";
 import { toast } from "sonner";
@@ -39,6 +41,7 @@ import {
 } from "@/components/ui/dialog";
 
 export default function UserManagement() {
+  const { tAdmin } = useTranslate();
   const [search, setSearch] = useState("");
   const [role, setRole] = useState<string | null>(null);
   const [users, setUsers] = useState<Account[]>([]);
@@ -193,16 +196,18 @@ export default function UserManagement() {
     <div className="container py-6 space-y-6 mx-auto">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">User Management</h1>
+          <h1 className="text-2xl font-bold tracking-tight">
+            {tAdmin("admindashboard.userManagement.title")}
+          </h1>
           <p className="text-muted-foreground">
-            Manage and monitor user accounts
+            {tAdmin("admindashboard.userManagement.description")}
           </p>
         </div>
         <Dialog open={isAddDialogOpen} onOpenChange={setAddDialogOpen}>
           <DialogTrigger asChild>
             <Button>
               <UserPlus className="mr-2 h-4 w-4" />
-              Add New User
+              {tAdmin("admindashboard.userManagement.addUser")}
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
@@ -269,7 +274,7 @@ export default function UserManagement() {
           <div className="relative max-w-sm">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Search users..."
+              placeholder={tAdmin("admindashboard.userManagement.searchPlaceholder")}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="pl-9"
@@ -281,12 +286,20 @@ export default function UserManagement() {
           onValueChange={(val) => setRole(val === "" ? null : val)}
         >
           <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Filter by role" />
+            <SelectValue
+              placeholder={tAdmin("admindashboard.userManagement.filterByRole")}
+            />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="ADMIN">Admin</SelectItem>
-            <SelectItem value="COACH">Coach</SelectItem>
-            <SelectItem value="MEMBER">Member</SelectItem>
+            <SelectItem value="admin">
+              {tAdmin("admindashboard.userManagement.roles.admin")}
+            </SelectItem>
+            <SelectItem value="coach">
+              {tAdmin("admindashboard.userManagement.roles.coach")}
+            </SelectItem>
+            <SelectItem value="member">
+              {tAdmin("admindashboard.userManagement.roles.member")}
+            </SelectItem>
           </SelectContent>
         </Select>
       </div>

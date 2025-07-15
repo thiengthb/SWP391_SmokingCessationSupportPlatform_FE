@@ -4,10 +4,10 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import type { ContactFormData } from "@/types/models/contact";
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslate } from "@/hooks/useTranslate";
 
 export function ContactForm() {
-  const { t } = useTranslation();
+  const { tContact } = useTranslate();
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [formData, setFormData] = useState<ContactFormData>({
@@ -34,20 +34,20 @@ export function ContactForm() {
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">
-          {t("page.contact.title")}
+          {tContact("contact.title")}
         </h1>
         <p className="text-muted-foreground mt-2">
-          {t("page.contact.description")}
+          {tContact("contact.description")}
         </p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid gap-2">
-          <Label htmlFor="name">{t("page.contact.form.name")}</Label>
+          <Label htmlFor="name">{tContact("contact.form.name")}</Label>
           <Input
             id="name"
             value={formData.name}
-            placeholder={t("page.contact.form.placeholderName")}
+            placeholder={tContact("contact.form.placeholderName")}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             required
           />
@@ -68,11 +68,11 @@ export function ContactForm() {
         </div>
 
         <div className="grid gap-2">
-          <Label htmlFor="subject">{t("page.contact.form.subject")}</Label>
+          <Label htmlFor="subject">{tContact("contact.form.subject")}</Label>
           <Input
             id="subject"
             value={formData.subject}
-            placeholder={t("page.contact.form.placeholderSubject")}
+            placeholder={tContact("contact.form.placeholderSubject")}
             onChange={(e) =>
               setFormData({ ...formData, subject: e.target.value })
             }
@@ -81,11 +81,11 @@ export function ContactForm() {
         </div>
 
         <div className="grid gap-2">
-          <Label htmlFor="message">{t("page.contact.form.message")}</Label>
+          <Label htmlFor="message">{tContact("contact.form.message")}</Label>
           <Textarea
             id="message"
             value={formData.message}
-            placeholder={t("page.contact.form.placeholderMessage")}
+            placeholder={tContact("contact.form.placeholderMessage")}
             onChange={(e) =>
               setFormData({ ...formData, message: e.target.value })
             }
@@ -96,14 +96,14 @@ export function ContactForm() {
 
         {success && (
           <p className="text-green-600">
-            {t("page.contact.form.successMessage")}
+            {tContact("contact.form.successMessage")}
           </p>
         )}
 
         <Button type="submit" className="w-full" disabled={isLoading}>
           {isLoading
-            ? t("page.contact.form.sending")
-            : t("page.contact.form.submit")}
+            ? tContact("contact.form.sending")
+            : tContact("contact.form.submit")}
         </Button>
       </form>
     </div>

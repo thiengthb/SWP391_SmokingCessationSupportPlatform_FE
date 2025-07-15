@@ -16,8 +16,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
+
 import { type Account } from "@/types/models/account";
 import { AccountStatus } from "@/types/enums/AccountStatus";
+import { useTranslate } from "@/hooks/useTranslate";
 
 export function UsersTab({
   users,
@@ -34,6 +36,7 @@ export function UsersTab({
   onViewUser: (id: string) => void;
   onToggleBan: (id: string, isBanned: boolean) => void;
 }) {
+  const { tAdmin } = useTranslate();
   const getStatusBadge = (status: string) => {
     const variants = {
       active: "default",
@@ -53,12 +56,11 @@ export function UsersTab({
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[60px] text-center">#</TableHead>
-              <TableHead>Name</TableHead>
-              <TableHead>Email</TableHead>
-              <TableHead>Role</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Actions</TableHead>
+              <TableHead>{tAdmin("admindashboard.userTable.name")}</TableHead>
+              <TableHead>{tAdmin("admindashboard.userTable.email")}</TableHead>
+              <TableHead>{tAdmin("admindashboard.userTable.role")}</TableHead>
+              <TableHead>{tAdmin("admindashboard.userTable.status")}</TableHead>
+              <TableHead>{tAdmin("admindashboard.userTable.actions")}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -81,34 +83,25 @@ export function UsersTab({
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                      <DropdownMenuItem onClick={() => onEditUser(user.id)}>
-                        Edit
+                      <DropdownMenuItem>
+                        {" "}
+                        {tAdmin("admindashboard.userTable.edit")}
                       </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => onViewUser(user.id)}>
-                        View Details
+                      <DropdownMenuItem>
+                        {" "}
+                        {tAdmin("admindashboard.userTable.viewDetails")}
                       </DropdownMenuItem>
-                      <DropdownMenuItem
-                        onClick={() =>
-                          onToggleBan(user.id, user.status === AccountStatus.BANNED)
-                        }
-                        className={
-                          user.status !== AccountStatus.BANNED
-                            ? "text-destructive"
-                            : ""
-                        }
-                      >
-                        {user.status !== AccountStatus.BANNED ? (
-                          <>
-                            <Ban className="h-4 w-4 mr-2" />
-                            Ban User
-                          </>
-                        ) : (
-                          <>
-                            <CheckCircle className="h-4 w-4 mr-2" />
-                            Unban User
-                          </>
-                        )}
-                      </DropdownMenuItem>
+                      {user.status !== AccountStatus.BANNED ? (
+                        <DropdownMenuItem className="text-destructive">
+                          <Ban className="h-4 w-4 mr-2" />
+                          {tAdmin("admindashboard.userTable.ban")}
+                        </DropdownMenuItem>
+                      ) : (
+                        <DropdownMenuItem>
+                          <CheckCircle className="h-4 w-4 mr-2" />
+                          {tAdmin("admindashboard.userTable.unban")}
+                        </DropdownMenuItem>
+                      )}
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </TableCell>

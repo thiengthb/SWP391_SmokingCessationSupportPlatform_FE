@@ -1,0 +1,25 @@
+{
+  "contact": {
+    "title": "Liên hệ với chúng tôi",
+    "description": "Chúng tôi rất vui được nghe từ bạn. Gửi cho chúng tôi một tin nhắn và chúng tôi sẽ phản hồi sớm nhất có thể.",
+    "form": {
+      "name": "Tên",
+      "subject": "Chủ đề",
+      "message": "Tin nhắn",
+      "placeholderName": "Nhập tên của bạn",
+      "placeholderSubject": "Chủ đề bạn muốn gửi",
+      "placeholderMessage": "Nhập nội dung tin nhắn...",
+      "submit": "Gửi",
+      "sending": "Đang gửi...",
+      "successMessage": "Cảm ơn bạn đã liên hệ với chúng tôi! Chúng tôi sẽ sớm phản hồi."
+    },
+    "getInTouch": "Liên hệ với chúng tôi",
+    "info": {
+      "email": "Email",
+      "phone": "Số điện thoại",
+      "address": "Địa chỉ",
+      "social": "Mạng xã hội",
+      "followUs": "Theo dõi chúng tôi trên các kênh mạng xã hội để nhận cập nhật và hỗ trợ."
+    }
+  }
+}

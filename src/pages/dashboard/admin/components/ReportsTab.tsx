@@ -16,6 +16,7 @@ import {
   startOfWeek, endOfWeek, startOfMonth, endOfMonth,
   startOfYear, endOfYear, format, parseISO
 } from "date-fns";
+import { useTranslate } from "@/hooks/useTranslate";
 
 const COLORS = ['#00FF85', '#1E90FF', '#FF0099'];
 
@@ -26,6 +27,7 @@ type DrillContext = {
 };
 
 export function ReportsTab() {
+  const { tAdmin } = useTranslate();
   const [selectedRange, setSelectedRange] = useState<TimeRange>('Monthly');
 
   const getDateRange = (range: TimeRange) => {
@@ -166,7 +168,11 @@ export function ReportsTab() {
 
       <div className="grid gap-6">
         <Card>
-          <CardHeader><CardTitle>User Activity Trends</CardTitle></CardHeader>
+          <CardHeader>
+            <CardTitle>
+              {tAdmin("admindashboard.analytics.userActivityTrends")}
+            </CardTitle>
+          </CardHeader>
           <CardContent>
             <div className="h-[300px]">
               {isUserGrowthLoading ? (

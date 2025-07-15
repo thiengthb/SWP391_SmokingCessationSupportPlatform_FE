@@ -44,7 +44,7 @@ export interface NavItem {
 export const aboutItems: NavItem[] = [
   {
     id: "about-us",
-    title: "nav.about.team.title",
+    title: "navbar.about.team.title",
     icon: BadgeInfo,
     href: Paths.PUBLIC.ABOUT.TEAM,
     description: "nav.about.team.description",
@@ -54,7 +54,7 @@ export const aboutItems: NavItem[] = [
   },
   {
     id: "about-story",
-    title: "nav.about.story.title",
+    title: "navbar.about.story.title",
     icon: LibraryBig,
     href: Paths.PUBLIC.ABOUT.STORY,
     description: "nav.about.story.description",
@@ -67,7 +67,7 @@ export const aboutItems: NavItem[] = [
 export const leaderboardItems: NavItem[] = [
   {
     id: "leaderboard-global",
-    title: "nav.leaderboard.global.title",
+    title: "navbar.leaderboard.global.title",
     icon: Earth,
     href: Paths.PUBLIC.LEADERBOARD.RANKINGS,
     description: "nav.leaderboard.global.description",
@@ -77,7 +77,7 @@ export const leaderboardItems: NavItem[] = [
   },
   {
     id: "leaderboard-hall-of-fame",
-    title: "nav.leaderboard.hallOfFame.title",
+    title: "navbar.leaderboard.hallOfFame.title",
     icon: Landmark,
     href: Paths.PUBLIC.LEADERBOARD.HALL_OF_FAME,
     description: "nav.leaderboard.hallOfFame.description",
@@ -90,7 +90,7 @@ export const leaderboardItems: NavItem[] = [
 export const mainNav: NavItem[] = [
   {
     id: "profile",
-    title: "nav.profile.title",
+    title: "navbar.profile.title",
     icon: User,
     href: Paths.ACCOUNT.PROFILE,
     description: null,
@@ -100,7 +100,7 @@ export const mainNav: NavItem[] = [
   },
   {
     id: "settings",
-    title: "nav.settings.title",
+    title: "navbar.settings.title",
     icon: Settings,
     href: Paths.ACCOUNT.SETTING,
     description: null,
@@ -110,7 +110,7 @@ export const mainNav: NavItem[] = [
   },
   {
     id: "home",
-    title: "nav.home.title",
+    title: "navbar.home.title",
     icon: House,
     href: Paths.PUBLIC.ROOT,
     description: null,
@@ -120,7 +120,7 @@ export const mainNav: NavItem[] = [
   },
   {
     id: "pricing",
-    title: "nav.pricing.title",
+    title: "navbar.pricing.title",
     icon: Gem,
     href: Paths.PUBLIC.PRICING,
     description: "nav.pricing.description",
@@ -130,7 +130,7 @@ export const mainNav: NavItem[] = [
   },
   {
     id: "blog",
-    title: "nav.blog.title",
+    title: "navbar.blog.title",
     icon: BookMarked,
     href: Paths.PUBLIC.BLOG.ROOT,
     description: "nav.blog.description",
@@ -140,7 +140,7 @@ export const mainNav: NavItem[] = [
   },
   {
     id: "leaderboard",
-    title: "nav.leaderboard.title",
+    title: "navbar.leaderboard.title",
     icon: LandPlot,
     href: Paths.PUBLIC.LEADERBOARD.ROOT,
     description: "nav.leaderboard.description",
@@ -150,7 +150,7 @@ export const mainNav: NavItem[] = [
   },
   {
     id: "community",
-    title: "nav.community.title",
+    title: "navbar.community.title",
     icon: MessageCircleMore,
     href: Paths.PUBLIC.COMMUNITY,
     description: "nav.community.description",
@@ -160,7 +160,7 @@ export const mainNav: NavItem[] = [
   },
   {
     id: "about",
-    title: "nav.about.title",
+    title: "navbar.about.title",
     icon: BookOpenText,
     href: Paths.PUBLIC.ABOUT.ROOT,
     description: "nav.about.description",

@@ -16,8 +16,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { type Goal } from "@/types/member/goal";
+import { useTranslate } from "@/hooks/useTranslate";
 
 export function GoalsTab({ goals }: { goals: Goal[] }) {
+  const { tMember } = useTranslate();
   return (
     <Card>
       <CardContent className="p-0">

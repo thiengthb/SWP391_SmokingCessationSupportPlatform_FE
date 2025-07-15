@@ -402,6 +402,460 @@
       "yourRanking": "Xếp Hạng Của Bạn",
       "daysSmokeFree": "{{count}} ngày không hút thuốc",
       "points": "điểm"
+    },
+    "stat": {
+      "smoke": {
+        "title": "Số Ngày Không Hút Thuốc",
+        "description": "Cố gắng lên nhé!"
+      },
+      "cigarettes": {
+        "title": "Số Điếu Thuốc Đã Bỏ",
+        "description": "Thật ấn tượng!"
+      },
+      "moneySaved": {
+        "title": "Số Tiền Tiết Kiệm",
+        "description": "Sẽ còn tiết kiệm được nhiều hơn nữa"
+      },
+      "health": {
+        "title": "Cải Thiện Sức Khỏe",
+        "description": "Tiến bộ tuyệt vời"
+      }
+    },
+    "dashboard": {
+      "recentRegistrations": "Người dùng mới đăng ký",
+      "viewAllUsers": "Xem toàn bộ người dùng",
+      "systemHealth": "Sức khỏe hệ thống",
+      "serverLoad": "Tải máy chủ",
+      "storageUsage": "Dung lượng đã sử dụng",
+      "admin": {
+        "title": "Bảng điều khiển quản trị",
+        "tabs": {
+          "overview": "Tổng quan",
+          "users": "Người dùng",
+          "reports": "Báo cáo"
+        }
+      },
+      "userTable": {
+        "name": "Tên",
+        "email": "Email",
+        "role": "Vai trò",
+        "status": "Trạng thái",
+        "actions": "Hành động",
+        "edit": "Chỉnh sửa",
+        "viewDetails": "Xem chi tiết",
+        "ban": "Cấm người dùng",
+        "unban": "Bỏ cấm người dùng"
+      },
+      "userManagement": {
+        "title": "Quản lý người dùng",
+        "description": "Quản lý và theo dõi tài khoản người dùng",
+        "addUser": "Thêm người dùng mới",
+        "searchPlaceholder": "Tìm kiếm người dùng...",
+        "filterByRole": "Lọc theo vai trò",
+        "roles": {
+          "admin": "Quản trị viên",
+          "coach": "Huấn luyện viên",
+          "member": "Thành viên"
+        }
+      },
+      "analytics": {
+        "userActivityTrends": "Xu hướng hoạt động người dùng",
+        "activeUsers": "Người dùng hoạt động",
+        "newUsers": "Người dùng mới",
+        "successRateByWeek": "Tỷ lệ thành công theo tuần",
+        "successRate": "Tỷ lệ thành công",
+        "userDistribution": "Phân bố người dùng",
+        "lastGenerated": "Tạo lần cuối:",
+        "download": "Tải xuống",
+        "status": {
+          "active": "Đang hoạt động",
+          "inactive": "Không hoạt động",
+          "banned": "Bị cấm",
+          "new": "Mới"
+        }
+      }
+    },
+    "reports": {
+      "userActivity": {
+        "title": "Báo cáo hoạt động người dùng",
+        "description": "Chỉ số tương tác và hoạt động hàng ngày của người dùng"
+      },
+      "successMetrics": {
+        "title": "Chỉ số thành công",
+        "description": "Tỷ lệ thành công và các cột mốc đạt được của người dùng"
+      },
+      "systemPerformance": {
+        "title": "Hiệu suất hệ thống",
+        "description": "Chỉ số sức khỏe và hiệu suất của máy chủ"
+      }
+    },
+    "memberdashboard": {
+      "title": "Bảng điều khiển thành viên",
+      "tabs": {
+        "overview": "Tổng quan",
+        "goals": "Mục tiêu",
+        "achievements": "Thành tựu"
+      },
+      "healthTimeline": {
+        "title": "Dòng thời gian sức khỏe",
+        "time": {
+          "20m": "20 phút",
+          "12h": "12 giờ",
+          "2w_12w": "2-12 tuần",
+          "1m_9m": "1-9 tháng"
+        },
+        "description": {
+          "20m": "Nhịp tim và huyết áp giảm",
+          "12h": "Mức carbon monoxide trở lại bình thường",
+          "2w_12w": "Tuần hoàn máu được cải thiện",
+          "1m_9m": "Ho và khó thở giảm dần"
+        }
+      },
+      "recentAchievements": {
+        "title": "Thành tựu mới nhất",
+
+        "items": {
+          "firstWeek": {
+            "title": "Hoàn thành tuần đầu tiên",
+            "description": "7 ngày không hút thuốc"
+          },
+          "moneySaver": {
+            "title": "Tiết kiệm tiền",
+            "description": "Đã tiết kiệm 50 đô la"
+          },
+          "healthImprover": {
+            "title": "Cải thiện sức khỏe",
+            "description": "Mức oxy trong máu trở lại bình thường"
+          }
+        }
+      },
+      "goals": {
+        "title": "Mục tiêu hoạt động",
+        "quit30days": {
+          "title": "Bỏ thuốc 30 ngày",
+          "description": "Không hút thuốc trong một tháng",
+          "target": "Còn 20 ngày"
+        },
+        "saveMoney": {
+          "title": "Tiết kiệm 500 đô",
+          "description": "Theo dõi lợi ích tài chính",
+          "target": "Còn 275 đô"
+        },
+        "exerciseWeekly": {
+          "title": "Tập thể dục hàng tuần",
+          "description": "Xây dựng thói quen lành mạnh",
+          "target": "Hoàn thành 3/4 tuần"
+        }
+      },
+      "achievements": {
+        "categories": {
+          "milestones": {
+            "name": "Cột Mốc",
+            "firstDay": {
+              "title": "Ngày Đầu Tiên",
+              "description": "Hoàn thành ngày đầu tiên không hút thuốc"
+            },
+            "oneWeek": {
+              "title": "Kỳ Tích Một Tuần",
+              "description": "Không hút thuốc trong 7 ngày"
+            },
+            "oneMonth": {
+              "title": "Cột Mốc Một Tháng",
+              "description": "Hoàn thành 30 ngày không hút thuốc"
+            }
+          },
+          "health": {
+            "name": "Sức Khỏe",
+            "breath": {
+              "title": "Hơi Thở Trong Lành",
+              "description": "Mức oxy trở lại bình thường"
+            },
+            "heart": {
+              "title": "Người Hùng Trái Tim",
+              "description": "Huyết áp trở lại bình thường"
+            },
+            "lung": {
+              "title": "Phổi Khỏe Mạnh",
+              "description": "Dung tích phổi cải thiện 30%"
+            }
+          },
+          "savings": {
+            "name": "Tiết Kiệm",
+            "saver": {
+              "title": "Người Tiết Kiệm",
+              "description": "Tiết kiệm 100 đô đầu tiên"
+            },
+            "master": {
+              "title": "Bậc Thầy Tiết Kiệm",
+              "description": "Tiết kiệm 1000 đô từ việc bỏ thuốc"
+            }
+          }
+        }
+      }
+    },
+    "coachdashboard": {
+      "title": "Bảng Điều Khiển Huấn Luyện Viên",
+      "lastmonth": "so với tháng trước",
+      "clientOverview": "Tổng quan tiến độ khách hàng",
+      "tabs": {
+        "overview": "Tổng quan",
+        "clients": "Khách hàng",
+        "schedule": "Lịch trình"
+      },
+      "clientStats": {
+        "activeClients": "Khách đang hoạt động",
+        "successRate": "Tỷ lệ thành công",
+        "sessionsToday": "Buổi hôm nay",
+        "openChats": "Tin nhắn đang mở",
+        "changeType": {
+          "increase": "Tăng",
+          "decrease": "Giảm",
+          "neutral": "Không đổi"
+        }
+      },
+      "clientTabs": {
+        "status": {
+          "active": "Đang hoạt động",
+          "atRisk": "có rủi ro"
+        }
+      },
+      "clients": {
+        "searchPlaceholder": "Tìm kiếm khách hàng...",
+        "addClient": "Thêm khách hàng",
+        "activeClients": "Khách hàng đang hoạt động",
+        "table": {
+          "name": "Tên",
+          "progress": "Tiến trình",
+          "lastSession": "Buổi gần nhất",
+          "status": "Trạng thái",
+          "actions": "Hành động"
+        }
+      },
+      "schedule": {
+        "title": "Lịch hẹn",
+        "noDateSelected": "Chưa chọn ngày",
+        "noAppointments": "Không có lịch hẹn nào cho ngày này"
+      }
     }
+  },
+  "privacy": {
+    "title": "Chính sách quyền riêng tư",
+    "updated": "Cập nhật lần cuối: {{date}}",
+
+    "1.title": "Ai chịu trách nhiệm với thông tin của bạn?",
+    "1.content.1": "Chúng tôi là đơn vị chịu trách nhiệm quản lý và bảo vệ dữ liệu cá nhân mà bạn cung cấp khi sử dụng hệ thống hỗ trợ cai thuốc lá.",
+
+    "2.title": "Chúng tôi thu thập thông tin gì?",
+    "2.content.1": "2.1. Thông tin bạn cung cấp trực tiếp:",
+    "2.content.2": "- Họ tên, email, số điện thoại",
+    "2.content.3": "- Tình trạng hút thuốc, nhật ký, và kế hoạch bỏ thuốc",
+    "2.content.4": "- Phản hồi và tin nhắn trong hệ thống",
+    "2.content.5": "2.2. Thông tin được thu thập tự động:",
+    "2.content.6": "- Hành vi sử dụng (tần suất đăng nhập, ngôn ngữ, tính năng đã truy cập)",
+
+    "3.title": "Mục đích sử dụng thông tin",
+    "3.content.1": "- Hỗ trợ hành trình cai thuốc của bạn",
+    "3.content.2": "- Phân tích, cải tiến và cá nhân hóa trải nghiệm",
+    "3.content.3": "- Gửi thông báo, nhắc nhở hoặc khảo sát",
+
+    "4.title": "Việc chia sẻ thông tin cá nhân",
+    "4.content.1": "Chúng tôi không chia sẻ thông tin cá nhân của bạn với bên thứ ba trừ khi:",
+    "4.content.2": "- Có yêu cầu từ cơ quan pháp luật",
+    "4.content.3": "- Bạn đã đồng ý rõ ràng",
+    "4.content.4": "- Dữ liệu được ẩn danh cho mục đích nghiên cứu học thuật",
+
+    "5.title": "Thời gian lưu trữ dữ liệu",
+    "5.content.1": "Thông tin của bạn sẽ được lưu trữ cho đến khi:",
+    "5.content.2": "- Bạn xóa tài khoản, hoặc",
+    "5.content.3": "- Bạn yêu cầu xóa dữ liệu cá nhân\nMột số dữ liệu có thể được giữ lại theo quy định của pháp luật.",
+
+    "6.title": "Quyền của bạn",
+    "6.content.1": "Bạn có quyền:",
+    "6.content.2": "- Xem lại dữ liệu cá nhân của mình",
+    "6.content.3": "- Yêu cầu cập nhật, chỉnh sửa hoặc xóa thông tin",
+
+    "7.title": "Bảo mật dữ liệu",
+    "7.content.1": "- Dữ liệu được lưu trữ trên hệ thống nội bộ an toàn.",
+    "7.content.2": "- Chúng tôi sử dụng các biện pháp bảo mật hợp lý để ngăn chặn truy cập trái phép, mất mát hoặc rò rỉ dữ liệu.",
+
+    "8.title": "Cookies và phân tích hành vi",
+    "8.content.1": "Hệ thống có thể sử dụng cookie để:",
+    "8.content.2": "- Ghi nhớ tùy chọn của bạn",
+    "8.content.3": "- Phân tích hành vi người dùng để cải thiện trải nghiệm\nBạn có thể tắt cookie trong cài đặt trình duyệt, tuy nhiên một số chức năng có thể không hoạt động đầy đủ.",
+
+    "9.title": "Người dùng dưới 18 tuổi",
+    "9.content.1": "Hệ thống không dành cho người dùng dưới 18 tuổi. Nếu phát hiện sử dụng trái phép, chúng tôi có thể khóa tài khoản và xóa dữ liệu liên quan.",
+
+    "10.title": "Thay đổi chính sách",
+    "10.content.1": "Chính sách này có thể được điều chỉnh để phản ánh các thay đổi pháp lý hoặc kỹ thuật. Những thay đổi quan trọng sẽ được thông báo trực tiếp trong hệ thống."
+  },
+  "terms": {
+    "title": "Điều khoản dịch vụ",
+    "subtitle": "Thỏa thuận người dùng",
+    "updated": "Cập nhật lần cuối: {{date}}",
+    "noteLabel": "Lưu ý:",
+    "alert": "Lưu ý quan trọng: Vui lòng đọc kỹ điều khoản trước khi sử dụng hệ thống. Việc bạn truy cập và sử dụng dịch vụ đồng nghĩa với việc bạn đồng ý với toàn bộ nội dung của Điều khoản dịch vụ này.",
+    "notice": {
+      "strong": "Lưu ý quan trọng:",
+      "content": "Vui lòng đọc kỹ điều khoản trước khi sử dụng hệ thống. Việc bạn truy cập và sử dụng dịch vụ đồng nghĩa với việc bạn đồng ý với toàn bộ nội dung của Điều khoản dịch vụ này."
+    },
+
+    "1.title": "Phạm vi áp dụng",
+    "1.description": "Điều khoản này áp dụng cho việc sử dụng hệ thống hỗ trợ cai thuốc lá, bao gồm các tính năng sau:",
+    "1.items": [
+      "Tạo kế hoạch cai thuốc",
+      "Theo dõi tiến độ và số liệu sức khỏe",
+      "Đặt lịch hẹn với huấn luyện viên",
+      "Nhật ký hút thuốc hằng ngày",
+      "Nhận thông báo và phần thưởng"
+    ],
+    "1.note": "Hệ thống chỉ dành cho mục đích cá nhân và giáo dục, không sử dụng cho mục đích thương mại hoặc y tế chuyên nghiệp.",
+
+    "2.title": "Không phải dịch vụ y tế",
+    "2.description": "Hệ thống không cung cấp chẩn đoán hoặc điều trị y tế. Tất cả nội dung chỉ mang tính tham khảo. Nếu cần hỗ trợ y tế, hãy liên hệ bác sĩ hoặc chuyên gia y tế.",
+
+    "3.title": "Không dùng trong trường hợp khẩn cấp",
+    "3.description": "Nếu bạn đang gặp tình huống sức khỏe nghiêm trọng hoặc khẩn cấp, đừng sử dụng hệ thống này. Thay vào đó, hãy đến cơ sở y tế gần nhất hoặc gọi 115 ngay lập tức.",
+
+    "4.title": "Tài khoản người dùng",
+    "4.items": [
+      "Người dùng phải từ 18 tuổi trở lên để tạo tài khoản.",
+      "Bạn chịu trách nhiệm bảo mật tài khoản và mật khẩu của mình.",
+      "Không chia sẻ tài khoản với người khác.",
+      "Nếu phát hiện truy cập trái phép, hãy thông báo ngay cho nhóm phát triển."
+    ],
+
+    "5.title": "Chính sách quyền riêng tư",
+    "5.description": "Chúng tôi cam kết bảo vệ thông tin cá nhân của bạn. Dữ liệu bạn cung cấp (họ tên, email, số điện thoại, thói quen hút thuốc...) chỉ được sử dụng để hỗ trợ quá trình cai thuốc và không chia sẻ với bên thứ ba.",
+
+    "6.title": "Quyền sở hữu trí tuệ",
+    "6.description": "Toàn bộ nội dung, thiết kế và mã nguồn của hệ thống thuộc về nhóm phát triển. Bạn không được sao chép, sử dụng lại hoặc sửa đổi hệ thống nếu không có sự cho phép.",
+
+    "7.title": "Thay đổi nội dung hệ thống",
+    "7.description": "Hệ thống có thể được cập nhật hoặc thay đổi tính năng bất kỳ lúc nào nhằm cải thiện trải nghiệm học tập và hỗ trợ người dùng. Những thay đổi quan trọng sẽ được thông báo công khai nếu cần.",
+
+    "8.title": "Giới hạn trách nhiệm",
+    "8.description": "Hệ thống được cung cấp \"như hiện tại.\" Nhóm phát triển không chịu trách nhiệm với bất kỳ rủi ro nào phát sinh do sử dụng sai mục đích hoặc hiểu nhầm nội dung.",
+
+    "9.title": "Tạm khóa hoặc xóa tài khoản",
+    "9.description": "Chúng tôi có quyền tạm khóa hoặc xóa tài khoản người dùng nếu phát hiện một trong các hành vi sau:",
+    "9.items": [
+      "Vi phạm quy định hoặc pháp luật",
+      "Cố ý gây rối hệ thống",
+      "Sử dụng hệ thống vào mục đích không đúng đắn"
+    ],
+    "10.title": "Luật điều chỉnh",
+    "10.description": "Các điều khoản này được điều chỉnh theo pháp luật của nước Cộng hòa Xã hội Chủ nghĩa Việt Nam. Nếu có thắc mắc, vui lòng liên hệ nhóm phát triển qua email hoặc kênh hỗ trợ nội bộ."
+  },
+  "faq": {
+    "title": "Câu hỏi thường gặp",
+    "subtitle": "Tìm câu trả lời trong hành trình bỏ thuốc của bạn",
+
+    "1.title": "Về quá trình cai thuốc",
+    "1.1.q": "Phương pháp S.T.A.R là gì?",
+    "1.1.a": "Đây là phương pháp lập kế hoạch bỏ thuốc gồm 4 bước:\n\nChọn ngày bắt đầu bỏ thuốc\n\nThông báo với người thân\n\nDự đoán khó khăn\n\nLoại bỏ thuốc lá khỏi môi trường sống",
+    "1.2.q": "Làm sao biết tôi nghiện nicotine đến mức nào?",
+    "1.2.a": "Bạn có thể tự đánh giá bằng cách xem tần suất hút thuốc, hút ngay sau khi ngủ dậy hay không, và mức độ khó chịu khi không hút.",
+    "1.3.q": "Tôi hút một điếu cuối cùng có sao không?",
+    "1.3.a": "Không! 'Chỉ một điếu' dễ trở thành cái cớ và dẫn đến tái nghiện.",
+    "1.4.q": "Phương pháp 'cai lạnh' là gì?",
+    "1.4.a": "Là việc bỏ thuốc hoàn toàn ngay lập tức mà không cần hỗ trợ. Có người thành công nhưng cũng rất áp lực.",
+    "1.5.q": "Lợi ích sức khỏe khi bỏ thuốc là gì?",
+    "1.5.a": "Sau 20 phút, huyết áp giảm. Sau 2–3 tuần, tuần hoàn máu cải thiện. Sau vài tháng, nguy cơ bệnh tim và phổi giảm đáng kể.",
+    "1.6.q": "Làm sao vượt qua ngày đầu tiên không thuốc?",
+    "1.6.a": "Tránh các yếu tố kích thích, giữ tay và miệng bận rộn (nhai kẹo, uống nước), và nhớ lý do bạn bỏ thuốc.",
+    "1.7.q": "Tôi cáu gắt và lo lắng khi cai – phải làm sao?",
+    "1.7.a": "Hít thở sâu, thiền nhẹ, tập thể dục, hoặc nói chuyện với người thân, huấn luyện viên, nhóm hỗ trợ.",
+    "1.8.q": "Giờ nghỉ ở chỗ làm thì làm gì thay hút thuốc?",
+    "1.8.a": "Bạn có thể đi dạo, nghe nhạc, uống nước, ăn trái cây, hoặc dùng kẹo nicotine thay thế.",
+    "1.9.q": "Miếng dán nicotine có hiệu quả không?",
+    "1.9.a": "Có. Nó giúp giảm triệu chứng bằng cách cung cấp nicotine đều đặn.",
+    "1.10.q": "Kẹo nicotine có hữu ích không?",
+    "1.10.a": "Có thể dùng suốt ngày. Nhưng phải đúng liều và thời gian để tránh lệ thuộc.",
+    "1.11.q": "Tôi nên dùng thuốc lá điện tử để bỏ thuốc?",
+    "1.11.a": "Không nên. Chúng vẫn chứa nicotine và dễ gây tái nghiện.",
+    "1.12.q": "Châm cứu có giúp cai thuốc không?",
+    "1.12.a": "Một số người thấy hiệu quả, nhưng chưa có bằng chứng khoa học chắc chắn.",
+    "1.13.q": "Thôi miên có hiệu quả không?",
+    "1.13.a": "Tùy từng người. Hiệu quả chưa được chứng minh rộng rãi, không thay thế phương pháp y tế.",
+    "1.14.q": "Liệu pháp laser có hiệu quả không?",
+    "1.14.a": "Giống châm cứu, chưa có đủ bằng chứng lâm sàng.",
+    "1.15.q": "Có sách nào hay để đọc khi cai thuốc không?",
+    "1.15.a": "Có. Sách như \"Allen Carr’s Easy Way to Stop Smoking\" được đánh giá cao.",
+    "1.16.q": "Tôi tìm thêm thông tin ở đâu?",
+    "1.16.a": "Xem trong ứng dụng, nhóm hỗ trợ online, hoặc nguồn y tế chính thống.",
+
+    "2.title": "Về ứng dụng",
+    "2.1.q": "Hệ thống hoạt động như thế nào?",
+    "2.1.a": "Đây là trang web hỗ trợ bỏ thuốc giúp bạn:\n\nTheo dõi tiến trình,\n\nGhi lại lịch sử hút thuốc,\n\nĐặt mục tiêu và xem thống kê,\n\nTương tác với huấn luyện viên hoặc cộng đồng.",
+    "2.2.q": "Tôi truy cập hệ thống bằng cách nào?",
+    "2.2.a": "Bạn truy cập qua trình duyệt web tại địa chỉ trang web của chúng tôi.",
+    "2.3.q": "Tôi có thể sao lưu dữ liệu không?",
+    "2.3.a": "Có. Khi đăng nhập bằng tài khoản cá nhân (email hoặc Google), dữ liệu sẽ được lưu an toàn tự động.",
+    "2.4.q": "Tôi có thể đổi ngôn ngữ không?",
+    "2.4.a": "Có. Vào phần 'Cài đặt' để đổi ngôn ngữ.",
+    "2.5.q": "Hệ thống hỗ trợ những ngôn ngữ nào?",
+    "2.5.a": "Hiện hỗ trợ tiếng Việt, tiếng Anh và có thể mở rộng thêm.",
+
+    "3.title": "Về tính năng PRO",
+    "3.1.q": "PRO có những tính năng gì?",
+    "3.1.a": "Kế hoạch cá nhân hóa\nLộ trình riêng theo thói quen và mục tiêu.\n\nPhân tích nghiện\nTheo dõi tiến độ, đánh giá hiệu quả, nhận phân tích sâu.\n\nTư vấn trực tuyến\nHỗ trợ từ chuyên gia đồng hành cùng bạn.\n\nTrợ lý AI\nTrợ lý thông minh 24/7 truyền cảm hứng và hỗ trợ.\n\nBáo cáo & thống kê nâng cao\nHiển thị chi tiết tiến trình bỏ thuốc.",
+    "3.2.q": "PRO là mua một lần hay đăng ký định kỳ?",
+    "3.2.a": "Là hình thức thuê bao tháng/năm.",
+
+    "4.title": "Cộng đồng người cai thuốc",
+    "4.1.q": "Quy tắc cộng đồng là gì?",
+    "4.1.a": "Tôn trọng, không spam, không gây gổ, không thông tin sai lệch.",
+    "4.2.q": "Tôi không chat được – phải làm sao?",
+    "4.2.a": "Kiểm tra kết nối mạng hoặc xác minh email trước khi tham gia chat.",
+
+    "5.title": "Tài khoản và đăng ký",
+    "5.1.q": "Tôi không nhận được email kích hoạt",
+    "5.1.a": "Kiểm tra thư rác. Nếu không thấy, hãy yêu cầu gửi lại email xác nhận."
+  },
+  "aboutus": {
+    "badge": "Về Nền Tảng Chúng Tôi",
+    "title": "Hành Trình Của Bạn Hướng Đến",
+    "highlight": "Cuộc Sống Không Thuốc Lá",
+    "description": "Chúng tôi cam kết giúp mọi người cai thuốc bằng cách hỗ trợ cá nhân hóa, kết nối cộng đồng và áp dụng các phương pháp đã được chứng minh.",
+
+    "mission": {
+      "title": "Sứ Mệnh Của Chúng Tôi",
+      "description": "Chúng tôi tin rằng ai cũng xứng đáng nhận được sự hỗ trợ và công cụ cần thiết để thoát khỏi thuốc lá. Nền tảng kết hợp công nghệ, cộng đồng và chuyên môn để hành trình của bạn dễ dàng và hiệu quả hơn.",
+      "cta": "Bắt Đầu Hành Trình"
+    },
+    "features": {
+      "feature1": {
+        "title": "Phương Pháp Ưu Tiên Sức Khỏe",
+        "description": "Áp dụng các phương pháp dựa trên bằng chứng và kế hoạch cá nhân hóa để cai thuốc hiệu quả"
+      },
+      "feature2": {
+        "title": "Hỗ Trợ Cộng Đồng",
+        "description": "Kết nối với những người cùng hành trình và chia sẻ kinh nghiệm"
+      },
+      "feature3": {
+        "title": "Hướng Dẫn Từ Chuyên Gia",
+        "description": "Huấn luyện viên và chuyên gia y tế đồng hành trong suốt quá trình"
+      },
+      "feature4": {
+        "title": "Theo Dõi Mục Tiêu",
+        "description": "Đặt mục tiêu và theo dõi tiến độ bằng phân tích chi tiết"
+      }
+    },
+    "journey": {
+      "title": "Hành Trình Của Bạn Rất Quan Trọng",
+      "step1": {
+        "title": "Kế Hoạch Cá Nhân Hóa",
+        "description": "Nhận kế hoạch cai thuốc phù hợp với thói quen và mục tiêu của bạn"
+      },
+      "step2": {
+        "title": "Hỗ Trợ Từ Chuyên Gia",
+        "description": "Tiếp cận huấn luyện viên và chuyên gia y tế chuyên nghiệp"
+      },
+      "step3": {
+        "title": "Theo Dõi Tiến Trình",
+        "description": "Giám sát thành tích và cải thiện sức khỏe của bạn"
+      }
+    }   
   }
 }

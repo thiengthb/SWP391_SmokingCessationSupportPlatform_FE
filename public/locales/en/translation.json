@@ -397,6 +397,465 @@
       "yourRanking": "Your Ranking",
       "daysSmokeFree": "days smoke-free",
       "points": "pts"
+    },
+    "stat": {
+      "smoke": {
+        "title": "Smoke-Free Days",
+        "description": "Keep going strong!"
+      },
+      "cigarettes": {
+        "title": "Cigarettes Avoided",
+        "description": "That's impressive!"
+      },
+      "moneySaved": {
+        "title": "Money Saved",
+        "description": "More savings ahead"
+      },
+      "health": {
+        "title": "Health Score",
+        "description": "Great progress"
+      }
+    },
+    "dashboard": {
+      "recentRegistrations": "Recent Registrations",
+      "viewAllUsers": "View All Users",
+      "systemHealth": "System Health",
+      "serverLoad": "Server Load",
+      "storageUsage": "Storage Usage",
+      "admin": {
+        "title": "Admin Dashboard",
+        "tabs": {
+          "overview": "Overview",
+          "users": "Users",
+          "reports": "Reports"
+        }
+      },
+      "userTable": {
+        "name": "Name",
+        "email": "Email",
+        "role": "Role",
+        "status": "Status",
+        "actions": "Actions",
+        "edit": "Edit",
+        "viewDetails": "View Details",
+        "ban": "Ban User",
+        "unban": "Unban User"
+      },
+      "userManagement": {
+        "title": "User Management",
+        "description": "Manage and monitor user accounts",
+        "addUser": "Add New User",
+        "searchPlaceholder": "Search users...",
+        "filterByRole": "Filter by Role",
+        "roles": {
+          "admin": "Administrator",
+          "coach": "Coach",
+          "member": "Member"
+        }
+      },
+      "analytics": {
+        "userActivityTrends": "User Activity Trends",
+        "activeUsers": "Active Users",
+        "newUsers": "New Users",
+        "successRateByWeek": "Success Rate by Week",
+        "successRate": "Success Rate",
+        "userDistribution": "User Distribution",
+        "lastGenerated": "Last generated:",
+        "download": "Download"
+      }
+    },
+    "reports": {
+      "userActivity": {
+        "title": "User Activity Report",
+        "description": "Daily user engagement and activity metrics"
+      },
+      "successMetrics": {
+        "title": "Success Metrics",
+        "description": "User success rates and milestone achievements"
+      },
+      "systemPerformance": {
+        "title": "System Performance",
+        "description": "Server health and performance metrics"
+      }
+    },
+    "memberdashboard": {
+      "title": "Member Dashboard",
+      "tabs": {
+        "overview": "Overview",
+        "goals": "Goals",
+        "achievements": "Achievements"
+      },
+      "healthTimeline": {
+        "title": "Health Timeline",
+        "time": {
+          "20m": "20 minutes",
+          "12h": "12 hours",
+          "2w_12w": "2-12 weeks",
+          "1m_9m": "1-9 months"
+        },
+        "description": {
+          "20m": "Heart rate and blood pressure drop",
+          "12h": "Carbon monoxide levels normalize",
+          "2w_12w": "Circulation improves",
+          "1m_9m": "Coughing and shortness of breath decrease"
+        }
+      },
+      "recentAchievements": {
+        "title": "Recent Achievements",
+
+        "items": {
+          "firstWeek": {
+            "title": "First Week Complete",
+            "description": "7 days smoke-free"
+          },
+          "moneySaver": {
+            "title": "Money Saver",
+            "description": "Saved $50"
+          },
+          "healthImprover": {
+            "title": "Health Improver",
+            "description": "Oxygen levels normalized"
+          }
+        }
+      },
+      "goals": {
+        "title": "Active Goals",
+        "quit30days": {
+          "title": "Quit for 30 Days",
+          "description": "Stay smoke-free for a full month",
+          "target": "20 days remaining"
+        },
+        "saveMoney": {
+          "title": "Save $500",
+          "description": "Track your financial benefits",
+          "target": "$275 to go"
+        },
+        "exerciseWeekly": {
+          "title": "Exercise Weekly",
+          "description": "Build healthy habits",
+          "target": "3 of 4 weeks complete"
+        }
+      },
+      "achievements": {
+        "categories": {
+          "milestones": {
+            "name": "Milestones",
+            "firstDay": {
+              "title": "First Day",
+              "description": "Complete your first smoke-free day"
+            },
+            "oneWeek": {
+              "title": "One Week Wonder",
+              "description": "Stay smoke-free for 7 days"
+            },
+            "oneMonth": {
+              "title": "One Month Milestone",
+              "description": "Complete 30 days smoke-free"
+            }
+          },
+          "health": {
+            "name": "Health",
+            "breath": {
+              "title": "Breath of Fresh Air",
+              "description": "Oxygen levels return to normal"
+            },
+            "heart": {
+              "title": "Heart Hero",
+              "description": "Blood pressure normalizes"
+            },
+            "lung": {
+              "title": "Lung Power",
+              "description": "Lung capacity improves by 30%"
+            }
+          },
+          "savings": {
+            "name": "Savings",
+            "saver": {
+              "title": "Money Saver",
+              "description": "Save your first $100"
+            },
+            "master": {
+              "title": "Money Master",
+              "description": "Save $1000 from not smoking"
+            }
+          }
+        }
+      }
+    },
+    "coachdashboard": {
+      "title": "Coach Dashboard",
+      "lastmonth": "from last month",
+      "clientOverview": "Client Progress Overview",
+      "tabs": {
+        "overview": "Overview",
+        "clients": "Clients",
+        "schedule": "Schedule",
+        "lastmonth": "from last month",
+        "clientOverview": "Client Progress Overview"
+      },
+      "clientStats": {
+        "activeClients": "Active Clients",
+        "successRate": "Success Rate",
+        "sessionsToday": "Sessions Today",
+        "openChats": "Open Chats",
+        "changeType": {
+          "increase": "Increased",
+          "decrease": "Decreased",
+          "neutral": "No change"
+        }
+      },
+      "clientTabs": {
+        "status": {
+          "active": "Active",
+          "atRisk": "at-risk"
+        }
+      },
+      "clients": {
+        "searchPlaceholder": "Search clients...",
+        "addClient": "Add Client",
+        "activeClients": "Active Clients",
+        "table": {
+          "name": "Name",
+          "progress": "Progress",
+          "lastSession": "Last Session",
+          "status": "Status",
+          "actions": "Actions"
+        },
+        "status": {
+          "active": "Active",
+          "inactive": "Inactive"
+        }
+      },
+      "schedule": {
+        "title": "Schedule",
+        "noDateSelected": "No date selected",
+        "noAppointments": "No appointments scheduled for this day",
+        "status": {
+          "confirmed": "Confirmed",
+          "pending": "Pending"
+        }
+      }
+    }
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "updated": "Last updated: {{date}}",
+
+    "1.title": "Who is responsible for your information?",
+    "1.content.1": "We are the entity responsible for managing and protecting the personal data you provide while using the smoking cessation support system.",
+
+    "2.title": "What information do we collect?",
+    "2.content.1": "2.1. Information you provide directly:",
+    "2.content.2": "- Full name, email, phone number",
+    "2.content.3": "- Smoking status, logs, and quit plans",
+    "2.content.4": "- Feedback and messages within the system",
+    "2.content.5": "2.2. Information collected automatically:",
+    "2.content.6": "- Usage behavior (login frequency, language, accessed features)",
+
+    "3.title": "Purpose of information use",
+    "3.content.1": "- Support your quit-smoking journey",
+    "3.content.2": "- Analyze, improve, and personalize the experience",
+    "3.content.3": "- Send notifications, reminders, or surveys",
+
+    "4.title": "Sharing of personal information",
+    "4.content.1": "We do not share your personal information with third parties unless:",
+    "4.content.2": "- Required by legal authorities",
+    "4.content.3": "- You provide explicit consent",
+    "4.content.4": "- Data is anonymized for academic research purposes",
+
+    "5.title": "Data retention period",
+    "5.content.1": "Your information will be stored until:",
+    "5.content.2": "- You delete your account, or",
+    "5.content.3": "- You request deletion of personal data\nSome data may be retained as required by law.",
+
+    "6.title": "Your rights",
+    "6.content.1": "You have the right to:",
+    "6.content.2": "- Review your personal data",
+    "6.content.3": "- Request updates, corrections, or deletion of your information",
+
+    "7.title": "Data security",
+    "7.content.1": "- Data is stored on a secure internal system.",
+    "7.content.2": "- We use reasonable security measures to prevent unauthorized access, loss, or data breaches.",
+
+    "8.title": "Cookies and behavior analytics",
+    "8.content.1": "The system may use cookies to:",
+    "8.content.2": "- Remember your preferences",
+    "8.content.3": "- Analyze user behavior to improve the experience\nYou can disable cookies via browser settings, but some features may not function properly.",
+
+    "9.title": "For users under 18",
+    "9.content.1": "The system is not intended for users under 18. If unauthorized use is detected, we may suspend the account and delete related data.",
+
+    "10.title": "Policy changes",
+    "10.content.1": "This policy may be adjusted to reflect legal or technical changes. Major changes will be announced directly within the system."
+  },
+  "terms": {
+    "title": "Terms of Service",
+    "subtitle": "User Agreement",
+    "updated": "Last updated: {{date}}",
+    "noteLabel": "Note:",
+
+    "alert": "Important Notice: Please read these terms carefully before using the system. By accessing and using the service, you agree to the entire content of this Terms of Service.",
+    "notice": {
+      "strong": "Important Notice:",
+      "content": "Please read these terms carefully before using the system. By accessing and using the service, you agree to the entire content of this Terms of Service."
+    },
+
+    "1.title": "Scope of Application",
+    "1.description": "These terms apply to the use of the smoking cessation support system, including the following features:",
+    "1.items": [
+      "Create a quit smoking plan",
+      "Track progress and health statistics",
+      "Schedule coaching sessions",
+      "Daily smoking diary",
+      "Receive notifications and rewards"
+    ],
+    "1.note": "The system is intended for personal and educational purposes only, not for commercial or professional medical use.",
+
+    "2.title": "Not a Medical Service",
+    "2.description": "The system does not provide medical diagnosis or treatment. All content is for reference only. If you need medical support, consult a doctor or professional healthcare provider.",
+
+    "3.title": "Not for Emergency Use",
+    "3.description": "If you are experiencing a serious or emergency health issue, do not use this system. Instead, contact the nearest medical center or call 115 immediately.",
+
+    "4.title": "User Accounts",
+    "4.items": [
+      "Users must be at least 18 years old to create an account.",
+      "You are responsible for securing your account and password.",
+      "Do not share your account with others.",
+      "If unauthorized access is detected, notify the development team immediately."
+    ],
+
+    "5.title": "Privacy Policy",
+    "5.description": "We are committed to protecting your personal information. Data you provide (name, email, phone number, smoking habits...) is used solely to support your quit-smoking journey. We do not share data with third parties.",
+
+    "6.title": "Intellectual Property Rights",
+    "6.description": "All content, design, and source code of the system belong to the development team. You may not copy, reuse, or modify the system without permission.",
+
+    "7.title": "System Content Changes",
+    "7.description": "The system may update or change features at any time to improve the learning experience and user support. Changes will be publicly announced if necessary.",
+
+    "8.title": "Limitation of Liability",
+    "8.description": "The system is provided \"as-is.\" The development team is not liable for any risks arising from misuse or misunderstanding of content.",
+
+    "9.title": "Account Suspension or Termination",
+    "9.description": "We reserve the right to suspend or delete user accounts if any of the following are detected:",
+    "9.items": [
+      "Violation of rules or laws",
+      "Intentional system disruption",
+      "Using the system for improper purposes"
+    ],
+    "10.title": "Governing Law",
+    "10.description": "These terms are governed by the laws of the Socialist Republic of Vietnam. For questions or concerns, please contact the development team via email or internal support channels."
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Find answers during your quitting journey",
+
+    "1.title": "About the quitting process",
+    "1.1.q": "What is the S.T.A.R method?",
+    "1.1.a": "This is a four-step quit-smoking planning method:\n\nSet a quit date\n\nTell others\n\nAnticipate challenges\n\nRemove tobacco",
+    "1.2.q": "How addicted am I to nicotine?",
+    "1.2.a": "You can self-assess by looking at how often you smoke, how soon after waking you smoke, and how uncomfortable you feel without smoking.",
+    "1.3.q": "Can I smoke just one last cigarette?",
+    "1.3.a": "No! 'Just one' often becomes an excuse that leads to relapse and going back to the old habit.",
+    "1.4.q": "What is the 'cold turkey' method?",
+    "1.4.a": "It means quitting completely and immediately without any aids. It works for some people but can be very stressful.",
+    "1.5.q": "What are the health benefits of quitting?",
+    "1.5.a": "After just 20 minutes, your blood pressure drops. After 2–3 weeks, blood circulation improves. After a few months, the risks of heart and lung diseases significantly decrease.",
+    "1.6.q": "How can I get through the first smoke-free day?",
+    "1.6.a": "Avoid triggers, keep your hands and mouth busy (chew gum, drink water), and remind yourself why you're quitting.",
+    "1.7.q": "I'm very irritable and anxious when quitting – what should I do?",
+    "1.7.a": "Practice deep breathing, light meditation, exercise, or talk to a friend, loved one, coach, or support group.",
+    "1.8.q": "What should I do during smoke breaks at work?",
+    "1.8.a": "You can take a walk, listen to music, drink water, eat fruit, or use nicotine gum as a substitute.",
+    "1.9.q": "Are nicotine patches effective?",
+    "1.9.a": "Yes. They help reduce withdrawal symptoms by delivering nicotine slowly and steadily.",
+    "1.10.q": "Are nicotine gums helpful?",
+    "1.10.a": "Yes, they can be used throughout the day. But use the correct dose and timing to avoid dependency.",
+    "1.11.q": "Should I use e-cigarettes to quit?",
+    "1.11.a": "Not recommended. E-cigarettes still contain nicotine and may lead to relapse.",
+    "1.12.q": "Does acupuncture help with quitting?",
+    "1.12.a": "Some people find it helpful, but there's no solid scientific proof of its long-term effectiveness.",
+    "1.13.q": "Is hypnosis effective?",
+    "1.13.a": "It depends on the individual. Its effectiveness isn’t widely proven and shouldn’t replace medical methods.",
+    "1.14.q": "Is laser therapy proven to work?",
+    "1.14.a": "Similar to acupuncture, clinical evidence is still lacking.",
+    "1.15.q": "Are there good books to read while quitting?",
+    "1.15.a": "Yes. Some books like \"Allen Carr’s Easy Way to Stop Smoking\" are highly rated.",
+    "1.16.q": "Where can I find more information?",
+    "1.16.a": "You can look in the app, online support groups, or consult official medical resources.",
+
+    "2.title": "About the application",
+    "2.1.q": "How does the system work?",
+    "2.1.a": "This is a quit-smoking support website that helps you:\n\nTrack your progress,\n\nLog your smoking history,\n\nSet goals and view stats,\n\nInteract with coaches or the community.",
+    "2.2.q": "How do I access the system?",
+    "2.2.a": "You can access it via a web browser at our website address.",
+    "2.3.q": "Can I back up my data?",
+    "2.3.a": "Yes. When you log in with your personal account (email or Google), your data is securely and automatically stored on our system.",
+    "2.4.q": "Can I change the language?",
+    "2.4.a": "Yes. You can change the language in the 'Settings' section.",
+    "2.5.q": "What languages does the system support?",
+    "2.5.a": "Currently supports Vietnamese, English, and may expand to other languages in the future.",
+
+    "3.title": "About PRO features",
+    "3.1.q": "What are the features of PRO?",
+    "3.1.a": "Personalized quit plan\nTailored roadmap based on your habits and goals.\n\nAddiction analysis\nTrack progress, assess effectiveness, and receive deep insights.\n\nOnline consultation\nGet support from experts who accompany you during your journey.\n\nAI companion\nA 24/7 intelligent assistant to keep you motivated and informed.\n\nAdvanced reports & statistics\nDetailed data visualization about your quit-smoking progress.",
+    "3.2.q": "Is PRO a one-time purchase or subscription?",
+    "3.2.a": "It is a monthly/yearly subscription.",
+
+    "4.title": "Quitters community",
+    "4.1.q": "What are the community rules?",
+    "4.1.a": "Be respectful, no spam, no conflict, and no misinformation.",
+    "4.2.q": "I can't chat – what should I do?",
+    "4.2.a": "Check your internet connection or verify your email before joining the chat.",
+
+    "5.title": "Account and registration",
+    "5.1.q": "I didn’t receive the activation email",
+    "5.1.a": "Check your spam folder. If not found, request to resend the confirmation email."
+  },
+  "aboutus": {
+    "badge": "About Our Platform",
+    "title": "Empowering Your Journey to a",
+    "highlight": "Smoke-Free Life",
+    "description": "We're dedicated to helping people quit smoking through personalized support, community engagement, and evidence-based methods.",
+
+    "mission": {
+      "title": "Our Mission",
+      "description": "We believe everyone deserves the support and tools needed to break free from smoking. Our platform combines technology, community, and expertise to make your journey easier and more successful.",
+      "cta": "Start Your Journey"
+    },
+    "features": {
+      "feature1": {
+        "title": "Health-First Approach",
+        "description": "Evidence-based methods and personalized plans for successful quitting"
+      },
+      "feature2": {
+        "title": "Community Support",
+        "description": "Connect with others on the same journey and share experiences"
+      },
+      "feature3": {
+        "title": "Expert Guidance",
+        "description": "Professional coaches and medical experts to support your journey"
+      },
+      "feature4": {
+        "title": "Goal Tracking",
+        "description": "Set and track your goals with detailed progress analytics"
+      }
+    },
+    "journey": {
+      "title": "Your Journey Matters",
+      "step1": {
+        "title": "Personalized Plan",
+        "description": "Get a customized quitting plan based on your habits and goals"
+      },
+      "step2": {
+        "title": "Expert Support",
+        "description": "Access to professional coaches and medical experts"
+      },
+      "step3": {
+        "title": "Track Progress",
+        "description": "Monitor your achievements and health improvements"
+      }
     }
   }
 }

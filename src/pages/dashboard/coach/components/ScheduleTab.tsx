@@ -20,8 +20,10 @@ interface Appointment {
   date: Date;
   sessions: Session[];
 }
+import { useTranslate } from "@/hooks/useTranslate";
 
 export function ScheduleTab() {
+  const { tCoach } = useTranslate();
   const [date, setDate] = useState<Date>(new Date());
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [openHour, setOpenHour] = useState<string | null>(null);
@@ -68,7 +70,7 @@ export function ScheduleTab() {
       <div className="flex flex-col items-center space-y-4">
         <div className="flex items-center gap-2 text-lg font-semibold">
           <CalendarDays className="h-5 w-5" />
-          Schedule
+          {tCoach("coachdashboard.schedule.title")}
         </div>
         <Calendar
           mode="single"
@@ -97,7 +99,11 @@ export function ScheduleTab() {
       <div className="md:pt-12 space-y-4">
         <Card>
           <CardHeader>
-            <CardTitle>{format(date, "MMMM d, yyyy")}</CardTitle>
+            <CardTitle>
+              {date
+                ? format(date, "MMMM d, yyyy")
+                : tCoach("coachdashboard.schedule.noDateSelected")}
+            </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2 max-h-[650px] overflow-y-auto pr-2">
             {HOURS.map((hour) => {
