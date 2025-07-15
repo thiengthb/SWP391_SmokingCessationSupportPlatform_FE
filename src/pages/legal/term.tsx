@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -6,10 +5,20 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { CheckCircle, AlertTriangle, Clock, FileText } from "lucide-react";
 import { termsSections } from "@/data/terms";
 import { useTranslate } from "@/hooks/useTranslate";
-
+import TermsPageSkeleton from "@/components/skeleton/legal/TermsPageSkeleton";
+import { useEffect, useState } from "react";
 const TermsPage = () => {
   const { tData, tTerms } = useTranslate();
+  const [isLoading, setIsLoading] = useState(true);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) return <TermsPageSkeleton />;
   return (
     <div className="min-h-screen bg-background text-foreground">
       <div className="max-w-4xl mx-auto px-6 py-12">
