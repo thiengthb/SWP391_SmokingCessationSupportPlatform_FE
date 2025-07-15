@@ -2,9 +2,18 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { milestones } from "../../../data/about-us.info";
 import { useTranslate } from "@/hooks/useTranslate";
-
+import { useEffect, useState } from "react";
+import StoryPageSkeleton from "@/components/skeleton/About/StoryPageSkeleton";
 export default function StoryPage() {
   const { tAboutus, tData } = useTranslate();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) return <StoryPageSkeleton />;
   return (
     <div className="container max-w-6xl mx-auto py-6 lg:py-10">
       <div className="space-y-10">
