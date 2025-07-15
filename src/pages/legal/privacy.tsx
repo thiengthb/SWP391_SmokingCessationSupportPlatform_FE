@@ -1,17 +1,22 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import {
-  Shield,
-  Clock,
-  FileText,
-  CheckCircle,
-} from "lucide-react";
+import { Shield, Clock, FileText, CheckCircle } from "lucide-react";
 import { privacySections } from "@/data/privacy";
 import { useTranslate } from "@/hooks/useTranslate";
-
+import { useEffect, useState } from "react";
+import PrivacyPolicySkeleton from "@/components/skeleton/legal/PrivacyPolicySkeleton";
 const PrivacyPolicyPage = () => {
   const { tPrivacy, tData } = useTranslate();
+  const [isLoading, setIsLoading] = useState(true);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) return <PrivacyPolicySkeleton />;
   return (
     <div className="min-h-screen bg-background text-foreground">
       <div className="max-w-4xl mx-auto px-6 py-12">
@@ -19,7 +24,9 @@ const PrivacyPolicyPage = () => {
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-full mb-6">
             <Shield className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-4xl font-bold mb-2">{tPrivacy("privacy.title")}</h1>
+          <h1 className="text-4xl font-bold mb-2">
+            {tPrivacy("privacy.title")}
+          </h1>
           <Badge variant="secondary" className="inline-flex items-center gap-2">
             <Clock className="w-4 h-4" />
             {tPrivacy("privacy.updated", { date: "July 2025" })}
