@@ -3,6 +3,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { teamMembers } from "../../../data/about-us.info";
 import { useTranslate } from "@/hooks/useTranslate";
+import { useEffect, useState } from "react";
+import TeamPageSkeleton from "@/components/skeleton/About/TeamPageSkeleton";
 
 export default function TeamPage() {
   const { tData, tAboutus } = useTranslate();
@@ -12,6 +14,14 @@ export default function TeamPage() {
       .map((n) => n[0])
       .join("");
   };
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) return <TeamPageSkeleton />;
   return (
     <div className="container max-w-3xl lg:max-w-6xl mx-auto px-4 py-6 lg:py-10">
       <div className="space-y-10">
