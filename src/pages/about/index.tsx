@@ -5,13 +5,27 @@ import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { stats, features } from "../../data/about-us.info";
 import { useTranslate } from "@/hooks/useTranslate";
-
+import  AboutPageSkeleton  from "@/components/skeleton/AboutPageSkeleton";
+import { useEffect, useState } from "react";
 export default function AboutPage() {
   const navigate = useNavigate();
   const { tAboutus, tData } = useTranslate();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const delay = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+    return () => clearTimeout(delay);
+  }, []);
+
   const handleGetStarted = () => {
     navigate("/auth/register");
   };
+
+  if (isLoading) {
+    return <AboutPageSkeleton />;
+  }
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
@@ -21,7 +35,9 @@ export default function AboutPage() {
             {tAboutus("aboutus.common.badge")}
           </Badge>
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="text-primary">{tAboutus("aboutus.common.highlight")}</span>
+            <span className="text-primary">
+              {tAboutus("aboutus.common.highlight")}
+            </span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
             {tAboutus("aboutus.common.description")}
@@ -51,7 +67,8 @@ export default function AboutPage() {
                 {tAboutus("aboutus.common.mission.description")}
               </p>
               <Button className="gap-2" onClick={handleGetStarted}>
-                {tAboutus("aboutus.common.mission.cta")} <ArrowRight className="h-4 w-4" />
+                {tAboutus("aboutus.common.mission.cta")}{" "}
+                <ArrowRight className="h-4 w-4" />
               </Button>
             </div>
             <div className="grid grid-cols-2 gap-4">
