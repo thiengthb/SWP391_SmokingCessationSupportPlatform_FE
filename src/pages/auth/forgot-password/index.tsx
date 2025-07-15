@@ -11,9 +11,18 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useTranslate } from "@/hooks/useTranslate";
 import { Link } from "react-router-dom";
-
+import ForgotPasswordSkeleton from "@/components/skeleton/auth/ForgotPasswordSkeleton";
+import { useState, useEffect } from "react";
 const ForgotPasswordPage = () => {
   const { tAuth } = useTranslate();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setIsLoading(false), 800);
+    return () => clearTimeout(timeout);
+  }, []);
+
+  if (isLoading) return <ForgotPasswordSkeleton />;
   return (
     <div className="w-full my-10 sm:my-16 lg:my-16 2xl:my-40 flex justify-center items-center">
       <Card className="w-[360px] lg:w-[400px] xl:w-[440px] mx-2">
