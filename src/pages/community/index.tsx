@@ -10,30 +10,32 @@ import { useAuth } from "@/contexts/AuthContext";
 import type { ChatMessage as ChatMessageType } from "@/types/models/chat";
 import type { Account } from "@/types/models/account";
 import useApi from "@/hooks/useApi";
-
 import { useTranslate } from "@/hooks/useTranslate";
+import CommunityPageSkeleton from "@/components/skeleton/community/CommunityPageSkeleton";
 
 export default function CommunityPage() {
   const { tCommunity } = useTranslate();
-  const PAGE_SIZE = 50; // Number of messages per page
+  const PAGE_SIZE = 50;
+
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<ChatMessageType[]>([]);
   const [onlineUsers, setOnlineUsers] = useState<Account[]>([]);
+  const [loadingMessages, setLoadingMessages] = useState(true);
+  const [loadingUsers, setLoadingUsers] = useState(true);
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [shouldScrollToBottom, setShouldScrollToBottom] = useState(false);
+
   const scrollRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
   const { sendMessage, subscribeToTopic } = useWebSocket();
   const { auth } = useAuth();
-
   const apiWithInterceptor = useApi();
-
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const handleScroll = async () => {
     const element = scrollContainerRef.current;
     if (!element) return;
-
     const scrollHeight = element.scrollHeight;
 
     if (element.scrollTop === 0 && hasMore) {
@@ -47,25 +49,22 @@ export default function CommunityPage() {
             direction: "ASC",
           },
         });
-        const newMessages: ChatMessageType[] = Array.isArray(
-          response.data.result.content
-        )
+        const newMessages: ChatMessageType[] = Array.isArray(response.data.result.content)
           ? response.data.result.content
           : [];
-        console.log("Fetched messages:", newMessages);
+
         if (newMessages.length > 0) {
           setMessages((prev) => [...newMessages, ...prev]);
-
           requestAnimationFrame(() => {
-            if (scrollContainerRef.current) {
-              const newScrollHeight = scrollContainerRef.current?.scrollHeight;
-              scrollContainerRef.current.scrollTop =
-                newScrollHeight - scrollHeight;
+            const container = scrollContainerRef.current;
+            if (container) {
+              const newScrollHeight = container.scrollHeight;
+              container.scrollTop = newScrollHeight - scrollHeight;
             }
           });
           setPage(newPage);
         } else {
-          setHasMore(false); // No more messages to load
+          setHasMore(false);
         }
       } catch (error) {
         console.error("Failed to fetch messages", error);
@@ -76,21 +75,20 @@ export default function CommunityPage() {
   useEffect(() => {
     const fetchOnlineUsers = async () => {
       try {
-        const response = await apiWithInterceptor.get(
-          "/v1/accounts/online-users"
-        );
+        const response = await apiWithInterceptor.get("/v1/accounts/online-users");
         const data = response.data;
 
         if (Array.isArray(data.result)) {
           setOnlineUsers(data.result);
-        } else if (Array.isArray(data.users.result)) {
+        } else if (Array.isArray(data.users?.result)) {
           setOnlineUsers(data.users.result);
         } else {
-          console.error("Unexpected online users format:", data);
-          setOnlineUsers([]); // Fallback to empty array
+          setOnlineUsers([]);
         }
       } catch (error) {
         console.error("Failed to fetch online users", error);
+      } finally {
+        setLoadingUsers(false);
       }
     };
 
@@ -104,34 +102,30 @@ export default function CommunityPage() {
             direction: "ASC",
           },
         });
-
-        const initialMessages: ChatMessageType[] = Array.isArray(
-          response.data.result.content
-        )
+        const initialMessages: ChatMessageType[] = Array.isArray(response.data.result.content)
           ? response.data.result.content
           : [];
         setMessages(initialMessages);
         setShouldScrollToBottom(true);
       } catch (err) {
         console.error("Failed to load initial messages", err);
+      } finally {
+        setLoadingMessages(false);
       }
     };
 
     loadInitialMessages();
-
     fetchOnlineUsers();
   }, []);
 
   useEffect(() => {
-    if (!scrollContainerRef.current) return;
-    if (!shouldScrollToBottom) return;
+    if (!scrollContainerRef.current || !shouldScrollToBottom) return;
 
-    // Defer to next animation frame so message renders first
     requestAnimationFrame(() => {
-      scrollContainerRef.current?.scrollTo({
-        top: scrollContainerRef.current.scrollHeight,
-        behavior: "smooth",
-      });
+      const container = scrollContainerRef.current;
+      if (container) {
+        container.scrollTo({ top: container.scrollHeight, behavior: "smooth" });
+      }
       setShouldScrollToBottom(false);
     });
   }, [messages, shouldScrollToBottom]);
@@ -141,7 +135,6 @@ export default function CommunityPage() {
       try {
         const newMessage: ChatMessageType = JSON.parse(body);
         setMessages((prev) => [...prev, newMessage]);
-
         if (newMessage.author.id === auth.currentAcc?.id) {
           setShouldScrollToBottom(true);
         }
@@ -151,9 +144,7 @@ export default function CommunityPage() {
     });
 
     return () => {
-      if (typeof unsubscribe === "function") {
-        unsubscribe();
-      }
+      if (typeof unsubscribe === "function") unsubscribe();
     };
   }, [subscribeToTopic]);
 
@@ -166,19 +157,18 @@ export default function CommunityPage() {
       content: message,
     };
 
-    console.log("Sending message:", chatMessage);
     sendMessage("/app/chat/send", JSON.stringify(chatMessage));
     setMessage("");
     setShouldScrollToBottom(true);
   };
 
+  if (loadingMessages || loadingUsers) return <CommunityPageSkeleton />;
+
   return (
     <div className="container py-10 px-4 mx-auto">
       <div className="mb-6 space-y-1">
         <h1 className="text-4xl font-bold mb-2">{tCommunity("community.title")}</h1>
-        <p className="text-muted-foreground">
-          {tCommunity("community.description")}
-        </p>
+        <p className="text-muted-foreground">{tCommunity("community.description")}</p>
       </div>
 
       <div className="grid lg:grid-cols-[1fr_250px] gap-8">
@@ -220,9 +210,7 @@ export default function CommunityPage() {
           <Card className="p-4 h-full">
             <div className="flex items-center gap-2 mb-4">
               <Users className="h-5 w-5" />
-              <h3 className="font-semibold">
-                {tCommunity("community.onlineUsers")}
-              </h3>
+              <h3 className="font-semibold">{tCommunity("community.onlineUsers")}</h3>
             </div>
             <div className="space-y-1">
               {onlineUsers.map((user) => (
