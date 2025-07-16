@@ -25,6 +25,9 @@ export default function MemberDashboard() {
           <TabsTrigger value="achievements">
             {tMember("memberdashboard.tabs.achievements")}
           </TabsTrigger>
+          <TabsTrigger value="bookings">
+            bookings
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview">

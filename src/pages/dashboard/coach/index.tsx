@@ -25,6 +25,9 @@ export default function CoachDashboard() {
           <TabsTrigger value="clients">
             {tCoach("coachdashboard.tabs.clients")}
           </TabsTrigger>
+          <TabsTrigger value="bookings">
+           bookings
+          </TabsTrigger>
           <TabsTrigger value="schedule">
             {tCoach("coachdashboard.tabs.schedule")}
           </TabsTrigger>
@@ -36,8 +39,11 @@ export default function CoachDashboard() {
         <TabsContent value="clients">
           <ClientsTab />
         </TabsContent>
+         <TabsContent value="bookings">
+          <BookingManagement />
+        </TabsContent>
         <TabsContent value="schedule">
-          <ScheduleTab />
+          <ScheduleManagement />
         </TabsContent>
       </Tabs>
     </div>
