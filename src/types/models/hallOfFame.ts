@@ -2,7 +2,8 @@ import type { Account } from "./account";
 
 export interface HallOfFame {
     account: Account,
-    timeStamp: string,
+    timestamp: string,
     criteriaType: string,
     criteriaValue: number,
+    description?: string,
 }
