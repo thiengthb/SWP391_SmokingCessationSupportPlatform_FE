@@ -2,6 +2,7 @@ import LazyLoad from "@/lazyload";
 import { Navigate, type RouteObject } from "react-router-dom";
 import { Paths } from "../../constants/path";
 import { BlogPageSkeleton } from "@/components/skeleton/BlogSkeleton";
+import HallOfFamePage from "@/pages/leaderboard/HallOfFame";
 
 const ContactPage = LazyLoad("./pages/contact");
 const TeamPage = LazyLoad("./pages/about/team");
@@ -40,7 +41,7 @@ export const publicRoutes: RouteObject[] = [
     path: Paths.PUBLIC.LEADERBOARD.ROOT,
     children: [
       { path: Paths.PUBLIC.LEADERBOARD.RANKINGS, element: <LeaderboardPage /> },
-      // { path: "hall-of-fame", element: <HallOfFamePage /> },
+      { path: "hall-of-fame", element: <HallOfFamePage /> },
     ],
   },
   { path: Paths.PUBLIC.PAYMENT, element: <PaymentResult /> },
