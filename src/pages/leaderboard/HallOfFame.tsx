@@ -8,8 +8,10 @@ import {
 } from "../../components/ui/avatar";
 import { useHallOfFameSwr } from "@/hooks/swr/useHallOfFameSwr";
 import { format } from "date-fns";
+import { useTranslate } from "@/hooks/useTranslate";
 
 export default function HallOfFamePage() {
+  const { tLeaderboard } = useTranslate();
   const { hallOfFame, isLoading, error } = useHallOfFameSwr();
 
   return (
@@ -17,10 +19,10 @@ export default function HallOfFamePage() {
       <div className="text-center mb-10">
         <Trophy className="h-12 w-12 text-yellow-500 mx-auto mb-4" />
         <h1 className="text-4xl font-bold mb-4">
-          {("page.leaderboard.hallOfFame.title")}
+          {tLeaderboard("leaderboard.hallOfFame.title")}
         </h1>
         <p className="text-muted-foreground">
-          {("page.leaderboard.hallOfFame.subtitle")}
+          {tLeaderboard("leaderboard.hallOfFame.subtitle")}
         </p>
       </div>
 
