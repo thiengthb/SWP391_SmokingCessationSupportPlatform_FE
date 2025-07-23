@@ -6,7 +6,7 @@ import { CurrentPhaseSummary } from "./CurrentPhaseSummary";
 import { PlanOverview } from "./PlanOverview";
 import PlanPhase from "./PlanPhase";
 import type { QuitPlan } from "../../PlanTrackingTab";
-import type { Phase } from "@/types/models/Plan";
+import type { Phase } from "@/types/models/phase";
 
 interface PlanTabsProps {
   activeTab: string;

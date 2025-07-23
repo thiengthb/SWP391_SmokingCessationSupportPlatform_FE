@@ -1,6 +1,7 @@
 export interface Booking {
   id: string;
   memberId: string;
+  memberName?: string;
   coachId: string;
   meetLink: string;
   startedAt: string;

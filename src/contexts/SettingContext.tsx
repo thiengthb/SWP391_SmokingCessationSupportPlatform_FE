@@ -9,6 +9,9 @@ import { TrackingMode } from "@/types/enums/TrackingMode";
 import { MotivationFrequency } from "@/types/enums/MotivationFrequency";
 import { updateSetting } from "@/services/api/setting.service";
 import { useSettingSwr } from "@/hooks/swr/useSettingSwr";
+import { toast } from "sonner";
+import useApi from "@/hooks/useApi";
+import { set } from "date-fns";
 
 export interface SettingContext {
   setting: Setting;
@@ -32,52 +35,78 @@ const SettingContext = createContext<SettingContext>({} as SettingContext);
 
 export function SettingProvider({ children }: { children: React.ReactNode }) {
   const { auth } = useAuth();
+  const apiWithInterceptors = useApi();
+
+  const { setting: fetchedSetting } = useSettingSwr(auth.currentAcc?.id || "");
+  const [setting, setSetting] = useState<Setting>(fetchedSetting || defaultSetting);
+  const [hasUserChangedSetting, setHasUserChangedSetting] = useState(false);
   const { setTheme } = useTheme();
-  const { setting } = useSettingSwr(auth.currentAcc?.id || "");
-  const [settingData, setSettingData] = useState<Setting>(
-    setting || defaultSetting
-  );
 
   const handleChangeTheme = async (newTheme: Theme) => {
     setTheme(newTheme);
     localStorage.setItem("theme", newTheme.toLowerCase());
-    setSettingData((prev) => ({ ...prev, theme: newTheme }));
+    setSetting((prev) => ({ ...prev, theme: newTheme }));
+    setHasUserChangedSetting(true);
   };
 
   const handleChangeLanguage = async (newLanguage: Language) => {
     i18n.changeLanguage(newLanguage.toLowerCase());
     localStorage.setItem("language", newLanguage.toLowerCase());
-    setSettingData((prev) => ({ ...prev, language: newLanguage }));
+    setSetting((prev) => ({ ...prev, language: newLanguage }));
+    setHasUserChangedSetting(true);
   };
 
   const handleChangeTrackingMode = async (newTrackingMode: TrackingMode) => {
-    setSettingData((prev) => ({ ...prev, trackingMode: newTrackingMode }));
+    setSetting((prev) => ({ ...prev, trackingMode: newTrackingMode }));
+    setHasUserChangedSetting(true);
   };
 
   const handleChangeMotivationFrequency = async (
     newFrequency: MotivationFrequency
   ) => {
-    setSettingData((prev) => ({ ...prev, motivationFrequency: newFrequency }));
+    setSetting((prev) => ({ ...prev, motivationFrequency: newFrequency }));
+    setHasUserChangedSetting(true);
   };
 
   const handleChangeReportDeadline = async (newDeadline: string) => {
-    setSettingData((prev) => ({ ...prev, reportDeadline: newDeadline }));
+    setSetting((prev) => ({ ...prev, reportDeadline: newDeadline }));
+    setHasUserChangedSetting(true);
   };
 
   useEffect(() => {
-    if (!auth.isAuthenticated || !auth.currentAcc) {
-      console.warn("User is not authenticated, skipping setting fetch.");
-      setSettingData(defaultSetting);
-      return;
-    }
-    updateSetting(auth.currentAcc.id, settingData);
-  }, [settingData]);
+    if (!hasUserChangedSetting) return;
+
+    const handleSaveSetting = async () => {
+      if (auth.accessToken) {
+        try {
+          await apiWithInterceptors.put(
+            `/v1/settings/${auth.currentAcc?.id}`,
+            setting
+          );
+          toast.success("Settings saved successfully!");
+          console.log("Settings saved:", setting);
+        } catch (error) {
+          console.error("Error saving settings:", error);
+          toast.error("Failed to save settings. Please try again later.");
+        }
+      } else {
+        toast.error("You need to be logged in to save settings.");
+      }
+    };
+    handleSaveSetting();
+  }, [setting, hasUserChangedSetting]);
+
+  useEffect(() => {
+  if (fetchedSetting) {
+    setSetting(fetchedSetting);
+  }
+}, [fetchedSetting]);
 
   return (
     <SettingContext.Provider
       value={{
-        setting: settingData,
-        setSetting: setSettingData,
+        setting,
+        setSetting,
         handleChangeTheme,
         handleChangeLanguage,
         handleChangeTrackingMode,

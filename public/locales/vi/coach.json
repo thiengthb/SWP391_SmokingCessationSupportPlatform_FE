@@ -6,7 +6,10 @@
     "tabs": {
       "overview": "Tổng quan",
       "clients": "Khách hàng",
-      "schedule": "Lịch trình"
+      "schedule": "Lịch trình",
+      "lastmonth": "so với tháng trước",
+      "clientOverview": "Tổng quan tiến độ khách hàng",
+      "requests": "Yêu cầu đặt lịch"
     },
     "clientStats": {
       "activeClients": "Khách đang hoạt động",

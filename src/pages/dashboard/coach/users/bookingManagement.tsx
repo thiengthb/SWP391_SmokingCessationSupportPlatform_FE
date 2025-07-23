@@ -41,7 +41,21 @@ export default function BookingManagement() {
         const pendingBookings = (content || []).filter(
           (b: Booking) => b.status === "PENDING"
         );
-        setBookings(pendingBookings);
+
+        const bookingsWithNames = await Promise.all(
+        pendingBookings.map(async (booking: Booking) => {
+          try {
+            const memberRes = await api.get(`/v1/members/${booking.memberId}`);
+            return {
+              ...booking,
+              memberName: memberRes.data.result.username,
+            };
+          } catch {
+            return booking;
+          }
+        })
+      );
+        setBookings(bookingsWithNames);
         setTotalPages(
           totalElements === 0 ? 0 : Math.ceil(totalElements / size)
         );
@@ -120,7 +134,7 @@ export default function BookingManagement() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Member ID</TableHead>
+                <TableHead>Member Name</TableHead>
                 <TableHead>Start Time</TableHead>
                 <TableHead>End Time</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
@@ -133,7 +147,7 @@ export default function BookingManagement() {
                     colSpan={4}
                     className="text-center text-muted-foreground"
                   >
-                    No bookings available
+                    No Incoming Requests
                   </TableCell>
                 </TableRow>
               ) : (
@@ -142,7 +156,7 @@ export default function BookingManagement() {
                     key={booking.id}
                     className="hover:bg-muted transition-colors"
                   >
-                    <TableCell>{booking.memberId}</TableCell>
+                    <TableCell>{booking.memberName}</TableCell>
                     <TableCell>
                       {format(new Date(booking.startedAt), "dd/MM/yyyy HH:mm")}
                     </TableCell>
