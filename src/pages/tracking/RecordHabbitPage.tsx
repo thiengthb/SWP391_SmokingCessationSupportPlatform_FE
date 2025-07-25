@@ -31,7 +31,7 @@ const RecordHabbitPage = () => {
       setLoading(true);
       try {
         const response = await api.get(
-          `/v1/records?page=${pagination.pageNumber}&size=${pagination.pageSize}`
+          `/v1/records/my-records?page=${pagination.pageNumber}&size=${pagination.pageSize}`
         );
         console.log("Smoking records response:", response);
         const data = response.data.result;
@@ -169,22 +169,22 @@ const RecordHabbitPage = () => {
         Welcome Back, {auth?.currentAcc?.username}
       </h1>
 
-      <Tabs defaultValue="overview" className="mb-6">
+      <Tabs defaultValue="records" className="mb-6">
         <TabsList
           className={`grid ${
-            auth.currentAcc?.havingSubscription ? "grid-cols-3" : "grid-cols-2"
+            auth.currentAcc?.havingSubscription ? "grid-cols-2" : "grid-cols-2"
           } mb-4`}
         >
-          <TabsTrigger value="overview">Overview</TabsTrigger>
+          {/* <TabsTrigger value="overview">Overview</TabsTrigger> */}
           <TabsTrigger value="records">Smoking Records</TabsTrigger>
           {auth.currentAcc?.havingSubscription && (
             <TabsTrigger value="plans">Plan</TabsTrigger>
           )}
         </TabsList>
 
-        <TabsContent value="overview">
+        {/* <TabsContent value="overview">
           <SmokingAchievements />
-        </TabsContent>
+        </TabsContent> */}
 
         <TabsContent value="records">
           <div className="flex flex-col gap-6">

@@ -37,7 +37,7 @@ export default function PricingPage() {
 
       <BenefitCards />
 
-      <Testimonials testimonials={testimonials} />
+      {/* <Testimonials testimonials={testimonials} /> */}
 
       <FAQ faqs={faqs} />
 

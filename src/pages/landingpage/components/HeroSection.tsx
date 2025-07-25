@@ -1,14 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Play } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 interface HeroSectionProps {
   onGetStarted: () => void;
   onLearnMore: () => void;
+  onTryDemo?: () => void;
 }
 
-export function HeroSection({ onGetStarted, onLearnMore }: HeroSectionProps) {
+export function HeroSection({
+  onGetStarted,
+  onLearnMore,
+  onTryDemo,
+}: HeroSectionProps) {
   const { t } = useTranslation();
   return (
     <section className="relative py-20 md:py-32 overflow-hidden">
@@ -32,6 +37,17 @@ export function HeroSection({ onGetStarted, onLearnMore }: HeroSectionProps) {
             <Button size="lg" variant="outline" onClick={onLearnMore}>
               {t("page.landingPage.buttonLearnMore")}
             </Button>
+            {onTryDemo && (
+              <Button
+                size="lg"
+                variant="secondary"
+                onClick={onTryDemo}
+                className="gap-2"
+              >
+                <Play className="h-4 w-4" />
+                Try Demo
+              </Button>
+            )}
           </div>
         </div>
       </div>

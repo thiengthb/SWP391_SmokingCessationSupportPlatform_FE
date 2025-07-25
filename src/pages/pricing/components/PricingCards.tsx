@@ -45,7 +45,7 @@ export function PricingCards({ plans }: PricingCardsProps) {
       return;
     }
     const response = await apiWithInterceptor.post(
-      "/v1/stripe-payment/checkout",
+      "/v1/payment/stripe/checkout",
       {
         membershipName,
       }
