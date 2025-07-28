@@ -17,3 +17,8 @@ export const fetchAdminStatistics = async (): Promise<AdminStatistics> => {
     const response = await authApi.get<ApiResponse<AdminStatistics>>(`${Domains.STATISTICS}/admin`);
     return response.data.result;
 }
+
+export const fetchCurrentMonthAdminStatistics = async (): Promise<AdminStatistics> => {
+    const response = await authApi.get<ApiResponse<AdminStatistics>>(`${Domains.STATISTICS}/admin/current-month`);
+    return response.data.result;
+}

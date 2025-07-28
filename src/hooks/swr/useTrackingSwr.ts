@@ -1,7 +1,7 @@
 import useSWR from "swr";
 import { Domains } from "@/constants/domain";
 import { useAuth } from "@/contexts/AuthContext";
-import { fetchAdminStatistics, fetchCurrentMonthMemberStatistics, fetchMemberStatistics } from "@/services/api/tracking.service";
+import { fetchAdminStatistics, fetchCurrentMonthAdminStatistics, fetchCurrentMonthMemberStatistics, fetchMemberStatistics } from "@/services/api/tracking.service";
 
 export const useMemberStatistics = () => {
     const { canFetch } = useAuth();
@@ -38,6 +38,21 @@ export const useAdminStatistics = () => {
     const { data, error, isLoading, mutate } = useSWR(
         canFetch ? `${Domains.STATISTICS}/admin`: null,
         () => fetchAdminStatistics(),
+    );
+
+    return {
+        statistics: data || { totalRevenue: 0, revenueByMembership: [] },
+        isLoading,
+        error,
+        mutate,
+    };
+}
+
+export const useCurrentMonthAdminStatistics = () => {   
+    const { canFetch } = useAuth();
+    const { data, error, isLoading, mutate } = useSWR(
+        canFetch ? `${Domains.STATISTICS}/admin/current-month`: null,
+        () => fetchCurrentMonthAdminStatistics(),
     );
 
     return {
