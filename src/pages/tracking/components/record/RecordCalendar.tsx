@@ -32,9 +32,9 @@ export function RecordCalendar({
   return (
     <Card className="shadow-lg">
       <CardHeader>
-        <CardTitle>Smoking Record Calendar</CardTitle>
+        <CardTitle>Lịch Bản Ghi Hút Thuốc</CardTitle>
         <CardDescription>
-          View your smoking records by date (Only today can be edited)
+          Xem bản ghi hút thuốc theo ngày (Chỉ có thể chỉnh sửa hôm nay)
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col items-center">

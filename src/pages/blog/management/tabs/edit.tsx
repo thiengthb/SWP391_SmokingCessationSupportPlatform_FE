@@ -9,7 +9,7 @@ import type { Category } from "@/types/models/category";
 
 const BlogEditPage = () => {
   const apiWithInterceptor = useApi();
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [, setCategories] = useState<Category[]>([]);
   const [post, setPost] = useState<Partial<BlogPost>>({
     title: "",
     excerpt: "",

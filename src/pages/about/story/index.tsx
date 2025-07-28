@@ -1,9 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { milestones } from "../../../data/about-us.info";
+import { milestones } from "../../../data/aboutUs.info";
 import { useTranslate } from "@/hooks/useTranslate";
 import { Paths } from "@/constants/path";
-
 
 export default function StoryPage() {
   const { tAboutus, tData } = useTranslate();

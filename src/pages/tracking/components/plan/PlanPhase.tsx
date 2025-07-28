@@ -1,162 +1,153 @@
-import React, { useState } from "react";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
+import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Badge } from "@/components/ui/badge";
-import { format, isToday } from "date-fns";
-import { vi } from "date-fns/locale";
-import {
-  CalendarIcon,
   Trash2,
-  Check,
+  Plus,
+  Calendar,
+  Target,
+  Lightbulb,
   X,
-  PlusCircle,
-  MinusCircle,
+  Check,
+  Edit2,
   ChevronDown,
   ChevronUp,
 } from "lucide-react";
+import { format, differenceInDays } from "date-fns";
 import { motion, AnimatePresence } from "framer-motion";
 import type { PhaseFormData } from "@/types/models/phase";
 
 interface PlanPhaseProps {
   phase: PhaseFormData;
   phaseIndex: number;
+  updatePhase: (index: number, phaseUpdate: Partial<PhaseFormData>) => void;
+  deletePhase: (index: number) => void;
+  addTipToPhase: (phaseIndex: number, tipContent: string) => void;
+  deleteTipFromPhase: (phaseIndex: number, tipIndex: number) => void;
+  updateTipInPhase: (
+    phaseIndex: number,
+    tipIndex: number,
+    newContent: string
+  ) => void;
   isFirst: boolean;
   isLast: boolean;
   isCurrent: boolean;
+  canDelete: boolean;
 }
 
 export default function PlanPhase({
   phase,
   phaseIndex,
+  updatePhase,
+  deletePhase,
+  addTipToPhase,
+  deleteTipFromPhase,
+  updateTipInPhase,
   isFirst,
-  isLast,
   isCurrent,
+  canDelete,
 }: PlanPhaseProps) {
-  const [isExpanded, setIsExpanded] = useState(isCurrent || isFirst);
+  const [newTip, setNewTip] = useState("");
+  const [editingTipIndex, setEditingTipIndex] = useState<number | null>(null);
+  const [editingTipContent, setEditingTipContent] = useState("");
+  const [isExpanded, setIsExpanded] = useState(isCurrent); // Auto expand current phase
 
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //updatePhase(phase.id, { phaseName: e.target.value });
-  };
-
-  const handleDescriptionChange = (
-    e: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    // updatePhase(phase.id, { description: e.target.value });
-  };
-
-  const handleStartDateChange = (date: Date | undefined) => {
-    if (date) {
-      // updatePhase(phase.id, { startDate: date });
+  const handleAddTip = () => {
+    if (newTip.trim()) {
+      addTipToPhase(phaseIndex, newTip);
+      setNewTip("");
     }
   };
 
-  const handleEndDateChange = (date: Date | undefined) => {
-    if (date) {
-      // updatePhase(phase.id, { endDate: date });
+  const handleStartEditTip = (tipIndex: number, currentContent: string) => {
+    setEditingTipIndex(tipIndex);
+    setEditingTipContent(currentContent);
+  };
+
+  const handleSaveTip = () => {
+    if (editingTipIndex !== null && editingTipContent.trim()) {
+      updateTipInPhase(phaseIndex, editingTipIndex, editingTipContent);
+      setEditingTipIndex(null);
+      setEditingTipContent("");
     }
   };
 
-  const handleMaxCigarettesChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const value = parseInt(e.target.value);
-    if (!isNaN(value) && value >= 0) {
-      // updatePhase(phase.id, { cigaretteBound: value });
-    }
+  const handleCancelEditTip = () => {
+    setEditingTipIndex(null);
+    setEditingTipContent("");
   };
 
-  const incrementMax = () => {
-    // updatePhase(phase.id, { cigaretteBound: phase.cigaretteBound + 1 });
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded);
   };
 
-  const decrementMax = () => {
-    if (phase.cigaretteBound > 0) {
-      // updatePhase(phase.id, { cigaretteBound: phase.cigaretteBound - 1 });
-    }
-  };
-
-  // Calculate phase duration in days
-  const phaseDurationDays =
-    Math.ceil(
-      (phase.endDate.getTime() - phase.startDate.getTime()) /
-        (1000 * 60 * 60 * 24)
-    ) + 1;
-
-  const addTip = () => {
-    const newTips = [...phase.tips, { content: "Mẹo mới..." }];
-    // updatePhase(phase.id, { tips: newTips });
-  };
-
-  const updateTip = (index: number, value: string) => {
-    const newTips = [...phase.tips];
-    newTips[index] = { content: value };
-    // updatePhase(phase.id, { tips: newTips });
-  };
-
-  const deleteTip = (index: number) => {
-    const newTips = [...phase.tips];
-    newTips.splice(index, 1);
-    // updatePhase(phase.id, { tips: newTips });
+  const calculateAveragePerDay = () => {
+    const phaseDuration = differenceInDays(phase.endDate, phase.startDate) + 1;
+    if (phaseDuration <= 0) return 0;
+    return Math.round((phase.cigaretteBound / phaseDuration) * 10) / 10;
   };
 
   return (
     <Card
       className={`${
         isCurrent ? "border-primary shadow-lg" : "border-gray-200"
-      } transition-all duration-200`}
+      } transition-all duration-200 hover:shadow-md`}
     >
       <CardHeader
-        className="flex flex-row items-center justify-between space-y-0 pb-2 cursor-pointer hover:bg-gray-50/50 transition-colors"
-        onClick={() => setIsExpanded(!isExpanded)}
+        className="bg-gradient-to-r from-purple-50 to-blue-50 border-b cursor-pointer hover:bg-gradient-to-r hover:from-purple-100 hover:to-blue-100 transition-colors"
+        onClick={toggleExpand}
       >
-        <div className="space-y-1 flex-1">
+        <div className="flex items-center justify-between">
+          <CardTitle className="flex items-center gap-2">
+            <Calendar className="h-5 w-5" />
+            <span>{phase.phaseName || `Giai đoạn ${phaseIndex + 1}`}</span>
+          </CardTitle>
+
           <div className="flex items-center gap-2">
-            <div className="flex-1">
-              <h3 className="text-lg font-semibold text-gray-900">
-                {phase.phaseName}
-              </h3>
-            </div>
-          </div>
-          <div className="flex items-center justify-between">
-            <p className="text-sm text-muted-foreground">
-              Giai đoạn {phaseIndex + 1} • Tối đa {phase.cigaretteBound} điếu
-              trong {phaseDurationDays} ngày
-            </p>
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-muted-foreground">
-                {format(phase.startDate, "dd/MM", { locale: vi })} -{" "}
-                {format(phase.endDate, "dd/MM", { locale: vi })}
-              </span>
+            {!isExpanded && (
+              <div className="flex items-center gap-4 text-sm text-muted-foreground mr-4">
+                <span className="flex items-center gap-1">
+                  <Target className="h-3 w-3" />
+                  {phase.cigaretteBound} điếu tổng
+                </span>
+                <span className="flex items-center gap-1">
+                  <Lightbulb className="h-3 w-3" />
+                  {phase.tips.length} mẹo
+                </span>
+                <span className="text-xs">
+                  {format(phase.startDate, "dd/MM")} -{" "}
+                  {format(phase.endDate, "dd/MM")}
+                </span>
+              </div>
+            )}
+
+            {canDelete && (
               <Button
-                variant="ghost"
                 size="sm"
-                className="h-6 w-6 p-0"
                 onClick={(e) => {
                   e.stopPropagation();
-                  setIsExpanded(!isExpanded);
+                  deletePhase(phaseIndex);
                 }}
+                className="bg-red-500 text-red-200 hover:text-red-700 hover:bg-red-50"
               >
-                {isExpanded ? (
-                  <ChevronUp className="h-4 w-4" />
-                ) : (
-                  <ChevronDown className="h-4 w-4" />
-                )}
+                <Trash2 className="h-4 w-4" />
               </Button>
-            </div>
+            )}
+
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-gray-500 hover:text-gray-700"
+            >
+              {isExpanded ? (
+                <ChevronUp className="h-4 w-4" />
+              ) : (
+                <ChevronDown className="h-4 w-4" />
+              )}
+            </Button>
           </div>
         </div>
       </CardHeader>
@@ -170,172 +161,216 @@ export default function PlanPhase({
             transition={{ duration: 0.3, ease: "easeInOut" }}
             style={{ overflow: "hidden" }}
           >
-            <CardContent className="pt-2 space-y-4">
-              <div className="space-y-2">
-                <Label>Tên giai đoạn</Label>
-                <Input
-                  value={phase.phaseName}
-                  onChange={handleNameChange}
-                  className="font-medium"
-                  placeholder="Nhập tên giai đoạn..."
-                />
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label>Ngày bắt đầu</Label>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <Button
-                        variant="outline"
-                        className={`w-full justify-start text-left font-normal ${
-                          isToday(phase.startDate) ? "text-primary" : ""
-                        }`}
-                      >
-                        <CalendarIcon className="mr-2 h-4 w-4" />
-                        {format(phase.startDate, "EEEE, dd/MM/yyyy", {
-                          locale: vi,
-                        })}
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
-                      <Calendar
-                        mode="single"
-                        selected={phase.startDate}
-                        onSelect={handleStartDateChange}
-                      />
-                    </PopoverContent>
-                  </Popover>
-                </div>
-
-                <div className="space-y-2">
-                  <Label>Ngày kết thúc</Label>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <Button
-                        variant="outline"
-                        className={`w-full justify-start text-left font-normal ${
-                          isToday(phase.endDate) ? "text-primary" : ""
-                        }`}
-                      >
-                        <CalendarIcon className="mr-2 h-4 w-4" />
-                        {format(phase.endDate, "EEEE, dd/MM/yyyy", {
-                          locale: vi,
-                        })}
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
-                      <Calendar
-                        mode="single"
-                        selected={phase.endDate}
-                        onSelect={handleEndDateChange}
-                      />
-                    </PopoverContent>
-                  </Popover>
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <Label>Giới hạn tối đa số điếu thuốc trong giai đoạn</Label>
-                <div className="flex items-center space-x-2">
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    onClick={decrementMax}
-                    disabled={phase.cigaretteBound <= 0}
-                  >
-                    <MinusCircle className="h-4 w-4" />
-                  </Button>
-                  <Input
-                    type="number"
-                    value={phase.cigaretteBound}
-                    onChange={handleMaxCigarettesChange}
-                    min={0}
-                    className="w-20 text-center"
-                  />
-                  <Button variant="outline" size="icon" onClick={incrementMax}>
-                    <PlusCircle className="h-4 w-4" />
-                  </Button>
-                  <div className="flex flex-col text-xs text-muted-foreground">
-                    <span>điếu tối đa</span>
-                    <span>({phaseDurationDays} ngày)</span>
+            <CardContent className="p-6 space-y-6">
+              {/* Phase Basic Info */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor={`phase-name-${phaseIndex}`}>
+                      Tên giai đoạn
+                    </Label>
+                    <Input
+                      id={`phase-name-${phaseIndex}`}
+                      value={phase.phaseName}
+                      onChange={(e) =>
+                        updatePhase(phaseIndex, { phaseName: e.target.value })
+                      }
+                      placeholder="Nhập tên giai đoạn"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor={`phase-desc-${phaseIndex}`}>Mô tả</Label>
+                    <Textarea
+                      id={`phase-desc-${phaseIndex}`}
+                      value={phase.description}
+                      onChange={(e) =>
+                        updatePhase(phaseIndex, { description: e.target.value })
+                      }
+                      placeholder="Mô tả mục tiêu và hoạt động của giai đoạn này"
+                      rows={3}
+                    />
                   </div>
                 </div>
-                <div className="text-xs text-muted-foreground bg-blue-50 p-3 rounded-lg border border-blue-200">
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                    <span>
-                      Trung bình: ~
-                      {Math.round(
-                        (phase.cigaretteBound / phaseDurationDays) * 10
-                      ) / 10}{" "}
-                      điếu/ngày
-                    </span>
-                  </div>
-                </div>
-              </div>
 
-              <div className="space-y-2">
-                <Label>Mô tả giai đoạn</Label>
-                <Textarea
-                  placeholder="Mô tả chi tiết về giai đoạn này..."
-                  value={phase.description}
-                  onChange={handleDescriptionChange}
-                  rows={2}
-                />
-              </div>
-
-              <div className="space-y-3">
-                <div className="flex justify-between items-center">
-                  <Label>Mẹo và chiến lược ({phase.tips.length})</Label>
-                  <Button variant="ghost" size="sm" onClick={addTip}>
-                    <PlusCircle className="h-3.5 w-3.5 mr-1" />
-                    Thêm
-                  </Button>
-                </div>
-
-                <ul className="space-y-2">
-                  {phase.tips.map((tip, index) => (
-                    <li key={index} className="flex gap-2 items-start">
-                      <div className="bg-primary/10 rounded-full p-1 mt-1.5">
-                        <Check className="h-3 w-3 text-primary" />
-                      </div>
+                <div className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor={`start-date-${phaseIndex}`}>
+                        Ngày bắt đầu
+                      </Label>
                       <Input
-                        value={tip.content}
-                        onChange={(e) => updateTip(index, e.target.value)}
-                        className="flex-1"
-                        placeholder="Nhập mẹo hỗ trợ..."
+                        id={`start-date-${phaseIndex}`}
+                        type="date"
+                        value={format(phase.startDate, "yyyy-MM-dd")}
+                        onChange={(e) =>
+                          updatePhase(phaseIndex, {
+                            startDate: new Date(e.target.value),
+                          })
+                        }
+                        disabled={!isFirst}
                       />
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => deleteTip(index)}
-                        className="h-9 w-9"
-                      >
-                        <X className="h-4 w-4" />
-                      </Button>
-                    </li>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor={`end-date-${phaseIndex}`}>
+                        Ngày kết thúc
+                      </Label>
+                      <Input
+                        id={`end-date-${phaseIndex}`}
+                        type="date"
+                        value={format(phase.endDate, "yyyy-MM-dd")}
+                        onChange={(e) =>
+                          updatePhase(phaseIndex, {
+                            endDate: new Date(e.target.value),
+                          })
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor={`cigarette-bound-${phaseIndex}`}>
+                      <Target className="h-4 w-4 inline mr-1" />
+                      Tổng số điếu thuốc tối đa cho toàn phase
+                    </Label>
+                    <Input
+                      id={`cigarette-bound-${phaseIndex}`}
+                      type="number"
+                      min="0"
+                      value={phase.cigaretteBound}
+                      onChange={(e) =>
+                        updatePhase(phaseIndex, {
+                          cigaretteBound: parseInt(e.target.value) || 0,
+                        })
+                      }
+                      placeholder="Tổng số điếu thuốc cho toàn bộ giai đoạn"
+                    />
+
+                    {/* Phase Statistics */}
+                    <div className="mt-3 p-3 bg-gray-50 rounded-lg border">
+                      <div className="grid grid-cols-2 gap-4 text-sm">
+                        <div>
+                          <span className="text-muted-foreground">
+                            Thời gian giai đoạn:
+                          </span>
+                          <div className="font-medium">
+                            {differenceInDays(phase.endDate, phase.startDate) +
+                              1}{" "}
+                            ngày
+                          </div>
+                        </div>
+                        <div>
+                          <span className="text-muted-foreground">
+                            Trung bình mỗi ngày:
+                          </span>
+                          <div className="font-medium text-blue-600">
+                            {calculateAveragePerDay()} điếu/ngày
+                          </div>
+                        </div>
+                      </div>
+
+                      {phase.cigaretteBound > 0 && (
+                        <div className="mt-2 pt-2 border-t border-gray-200">
+                          <span className="text-xs text-muted-foreground">
+                            💡 Tổng {phase.cigaretteBound} điếu trong{" "}
+                            {differenceInDays(phase.endDate, phase.startDate) +
+                              1}{" "}
+                            ngày = Trung bình {calculateAveragePerDay()}{" "}
+                            điếu/ngày
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Tips Section */}
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <Label className="text-base font-medium">
+                    <Lightbulb className="h-4 w-4 inline mr-1" />
+                    Mẹo và lời khuyên
+                  </Label>
+                  <span className="text-sm text-muted-foreground">
+                    {phase.tips.length} mẹo
+                  </span>
+                </div>
+
+                {/* Existing Tips */}
+                <div className="space-y-2">
+                  {phase.tips.map((tip, tipIndex) => (
+                    <div
+                      key={tipIndex}
+                      className="flex items-start gap-2 p-3 bg-blue-50 rounded-lg border"
+                    >
+                      <Lightbulb className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
+                      {editingTipIndex === tipIndex ? (
+                        <div className="flex-1 space-y-2">
+                          <Input
+                            value={editingTipContent}
+                            onChange={(e) =>
+                              setEditingTipContent(e.target.value)
+                            }
+                            placeholder="Nhập mẹo hữu ích..."
+                            className="bg-white"
+                          />
+                          <div className="flex gap-2">
+                            <Button size="sm" onClick={handleSaveTip}>
+                              <Check className="h-3 w-3" />
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              onClick={handleCancelEditTip}
+                            >
+                              <X className="h-3 w-3" />
+                            </Button>
+                          </div>
+                        </div>
+                      ) : (
+                        <>
+                          <span className="flex-1 text-sm">{tip.content}</span>
+                          <div className="flex gap-1">
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              onClick={() =>
+                                handleStartEditTip(tipIndex, tip.content)
+                              }
+                              className="h-6 w-6 p-0 text-blue-600 hover:bg-blue-100"
+                            >
+                              <Edit2 className="h-3 w-3" />
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              onClick={() =>
+                                deleteTipFromPhase(phaseIndex, tipIndex)
+                              }
+                              className="h-6 w-6 p-0 text-red-600 hover:bg-red-100"
+                            >
+                              <X className="h-3 w-3" />
+                            </Button>
+                          </div>
+                        </>
+                      )}
+                    </div>
                   ))}
-                  {phase.tips.length === 0 && (
-                    <p className="text-sm text-muted-foreground italic">
-                      Thêm mẹo hỗ trợ để giúp bạn trong giai đoạn này
-                    </p>
-                  )}
-                </ul>
+                </div>
+
+                {/* Add New Tip */}
+                <div className="flex gap-2">
+                  <Input
+                    value={newTip}
+                    onChange={(e) => setNewTip(e.target.value)}
+                    placeholder="Thêm mẹo mới..."
+                    onKeyPress={(e) => e.key === "Enter" && handleAddTip()}
+                  />
+                  <Button onClick={handleAddTip} size="sm">
+                    <Plus className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
             </CardContent>
-
-            <CardFooter className="flex justify-end border-t bg-gray-50/30">
-              <Button
-                variant="destructive"
-                size="sm"
-                // onClick={() => deletePhase(phase.id)}
-                disabled={isFirst && isLast}
-              >
-                <Trash2 className="mr-1.5 h-4 w-4" />
-                Xóa giai đoạn
-              </Button>
-            </CardFooter>
           </motion.div>
         )}
       </AnimatePresence>

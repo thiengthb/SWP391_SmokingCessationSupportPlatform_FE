@@ -2,7 +2,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { OverviewTab } from "./components/OverviewTab";
 
 import { useTranslate } from "@/hooks/useTranslate";
-import { ScheduleManagement } from "./users";
 import BookingManagement from "./users/bookingManagement";
 import { ClientsTab } from "./components/ClientsTab";
 import { ScheduleTab } from "./components/ScheduleTab";

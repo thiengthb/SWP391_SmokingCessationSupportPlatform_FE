@@ -1,6 +1,6 @@
 import { Domains } from "@/constants/domain";
 import { authApi } from "@/lib/axios";
-import type { SmokingRecord } from "@/types/models/Record";
+import type { SmokingRecord } from "@/types/models/record";
 import { createBaseService } from "../base.service";
 import type { ApiResponse } from "@/types/response";
 import type { PaginationResponse } from "@/types/pagination";

@@ -3,14 +3,20 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { Trophy } from "lucide-react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import FormInputError from "@/components/FormInputError";
 import useApi from "@/hooks/useApi";
 import { toast } from "sonner";
-import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import {
   Select,
   SelectContent,
@@ -103,7 +109,11 @@ export default function AdminGoalsTab() {
         </div>
         <div className="grid gap-2">
           <Label htmlFor="criteriaType">Criteria Type</Label>
-          <Select onValueChange={(val: goalFormData["criteriaType"]) => setValue("criteriaType", val)}>
+          <Select
+            onValueChange={(val: goalFormData["criteriaType"]) =>
+              setValue("criteriaType", val)
+            }
+          >
             <SelectTrigger>
               <SelectValue placeholder="Select criteria type" />
             </SelectTrigger>
@@ -120,7 +130,10 @@ export default function AdminGoalsTab() {
         </div>
         <div className="grid gap-2">
           <Label htmlFor="criteriaValue">Criteria Value</Label>
-          <Input type="number" {...register("criteriaValue", { valueAsNumber: true })} />
+          <Input
+            type="number"
+            {...register("criteriaValue", { valueAsNumber: true })}
+          />
           <FormInputError field={errors.criteriaValue} />
         </div>
         <FormInputError field={errors.root} />
@@ -132,8 +145,6 @@ export default function AdminGoalsTab() {
       {/* --- Goals Grid --- */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {goals.map((goal) => {
-          const max = goal.criteriaValue || 0;
-
           return (
             <Dialog
               key={goal.id}
@@ -145,10 +156,14 @@ export default function AdminGoalsTab() {
               <DialogTrigger asChild>
                 <Card className={`cursor-pointer "opacity-100"`}>
                   <CardHeader className="flex flex-row items-center justify-between">
-                    <CardTitle className="text-sm font-medium">{goal.name}</CardTitle>
+                    <CardTitle className="text-sm font-medium">
+                      {goal.name}
+                    </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-2">
-                    <p className="text-sm text-muted-foreground line-clamp-2">{goal.description}</p>
+                    <p className="text-sm text-muted-foreground line-clamp-2">
+                      {goal.description}
+                    </p>
                   </CardContent>
                 </Card>
               </DialogTrigger>
@@ -166,13 +181,24 @@ export default function AdminGoalsTab() {
                         className="h-20 w-20 object-contain mx-auto"
                       />
                     )}
-                    <p><strong>Name:</strong> {goalDetail.name}</p>
-                    <p><strong>Description:</strong> {goalDetail.description}</p>
-                    <p><strong>Criteria Type:</strong> {goalDetail.criteriaType}</p>
-                    <p><strong>Criteria Value:</strong> {goalDetail.criteriaValue}</p>
+                    <p>
+                      <strong>Name:</strong> {goalDetail.name}
+                    </p>
+                    <p>
+                      <strong>Description:</strong> {goalDetail.description}
+                    </p>
+                    <p>
+                      <strong>Criteria Type:</strong> {goalDetail.criteriaType}
+                    </p>
+                    <p>
+                      <strong>Criteria Value:</strong>{" "}
+                      {goalDetail.criteriaValue}
+                    </p>
                   </div>
                 ) : (
-                  <p className="text-sm text-red-500">Failed to load goal details.</p>
+                  <p className="text-sm text-red-500">
+                    Failed to load goal details.
+                  </p>
                 )}
                 <DialogFooter>
                   <DialogClose asChild>

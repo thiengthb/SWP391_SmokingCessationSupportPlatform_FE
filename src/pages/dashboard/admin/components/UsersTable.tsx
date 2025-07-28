@@ -25,9 +25,6 @@ export function UsersTab({
   users,
   page,
   size,
-  onEditUser,
-  onViewUser,
-  onToggleBan,
 }: {
   users: Account[];
   page: number;
@@ -60,7 +57,9 @@ export function UsersTab({
               <TableHead>{tAdmin("admindashboard.userTable.email")}</TableHead>
               <TableHead>{tAdmin("admindashboard.userTable.role")}</TableHead>
               <TableHead>{tAdmin("admindashboard.userTable.status")}</TableHead>
-              <TableHead>{tAdmin("admindashboard.userTable.actions")}</TableHead>
+              <TableHead>
+                {tAdmin("admindashboard.userTable.actions")}
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

@@ -21,7 +21,7 @@ import {
   Globe,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { ForDisplay, mainNav, routeRoleDashboard } from "./navbar.item";
+import { mainNav, routeRoleDashboard } from "./navbar.item";
 import ThemeSwitch from "@/components/theme/theme-switch";
 import LanguageSelector from "@/components/language/LanguageSelector";
 import { useAuth } from "@/contexts/AuthContext";
@@ -31,7 +31,6 @@ import { Separator } from "@radix-ui/react-separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { useTranslate } from "@/hooks/useTranslate";
 import UserInfoCard from "./UserInfoCard";
-import { ForRoles, toForRoles } from "@/utils/tab.util";
 import { Paths } from "@/constants/path";
 import { Badge } from "@/components/ui/badge";
 
@@ -190,12 +189,16 @@ const MobileMenu = () => {
               <>
                 <SheetClose asChild>
                   <Button asChild>
-                    <Link to={Paths.AUTH.REGISTER}>{tCommon(`buttons.signup`)}</Link>
+                    <Link to={Paths.AUTH.REGISTER}>
+                      {tCommon(`buttons.signup`)}
+                    </Link>
                   </Button>
                 </SheetClose>
                 <SheetClose asChild>
                   <Button variant="secondary" asChild>
-                    <Link to={Paths.AUTH.LOGIN}>{tCommon(`buttons.login`)}</Link>
+                    <Link to={Paths.AUTH.LOGIN}>
+                      {tCommon(`buttons.login`)}
+                    </Link>
                   </Button>
                 </SheetClose>
               </>

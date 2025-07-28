@@ -51,7 +51,10 @@ export function PricingCards({ plans }: PricingCardsProps) {
     }
   }, [filteredPlans]);
 
-  const handleSelectPlan = async (membershipName: string, planPrice: number) => {
+  const handleSelectPlan = async (
+    membershipName: string,
+    planPrice: number
+  ) => {
     // If user is not logged in, redirect to login
     if (!auth?.accessToken || !auth?.currentAcc) {
       navigate("/auth/login");
@@ -267,13 +270,13 @@ export function PricingCards({ plans }: PricingCardsProps) {
                     >
                       {styles.icon}
                       <span className="mx-2">
-                        {!auth?.accessToken || !auth?.currentAcc ? (
-                          plan.price === 0
+                        {!auth?.accessToken || !auth?.currentAcc
+                          ? plan.price === 0
                             ? "Bắt đầu miễn phí"
                             : "Đăng nhập để chọn gói"
-                        ) : plan.price === 0
-                        ? tPricing("pricing.card.startFree")
-                        : `Chọn gói ${plan.name}`}
+                          : plan.price === 0
+                          ? tPricing("pricing.card.startFree")
+                          : `Chọn gói ${plan.name}`}
                       </span>
                       <ChevronRight className="h-4 w-4" />
                     </Button>

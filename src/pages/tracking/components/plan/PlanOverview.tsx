@@ -37,7 +37,8 @@ import {
   Trophy,
 } from "lucide-react";
 import type { QuitPlan } from "../../PlanTrackingTab";
-import type { Phase } from "@/types/models/Plan";
+import type { Phase } from "@/types/models/phase";
+import { PhaseStatus } from "@/types/enums/PhaseStatus";
 
 interface PlanOverviewProps {
   plan: QuitPlan;
@@ -241,10 +242,12 @@ export function PlanOverview({
                 <div className="flex items-center gap-3 p-3 rounded-md bg-muted/50">
                   <div
                     className={`rounded-full p-2 ${
-                      currentPhase.completed ? "bg-green-100" : "bg-primary/10"
+                      currentPhase.phaseStatus === PhaseStatus.COMPLETED
+                        ? "bg-green-100"
+                        : "bg-primary/10"
                     }`}
                   >
-                    {currentPhase.completed ? (
+                    {currentPhase.phaseStatus === PhaseStatus.COMPLETED ? (
                       <CheckCircle2 className="h-5 w-5 text-green-600" />
                     ) : (
                       <Clock className="h-5 w-5 text-primary" />

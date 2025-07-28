@@ -1,6 +1,6 @@
 import { Domains } from "@/constants/domain";
 import { publicApi } from "@/lib/axios";
-import type { ScoreResponse } from "@/types/models/Leaderboard"
+import type { ScoreResponse } from "@/types/models/leaderboard"
 import type { ApiResponse } from "@/types/response";
 
 export const fetchInitialScores = async () => {

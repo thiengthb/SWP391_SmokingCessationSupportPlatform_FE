@@ -7,11 +7,9 @@ import { Theme } from "@/types/enums/Theme";
 import { Language } from "@/types/enums/Language";
 import { TrackingMode } from "@/types/enums/TrackingMode";
 import { MotivationFrequency } from "@/types/enums/MotivationFrequency";
-import { updateSetting } from "@/services/api/setting.service";
 import { useSettingSwr } from "@/hooks/swr/useSettingSwr";
 import { toast } from "sonner";
 import useApi from "@/hooks/useApi";
-import { set } from "date-fns";
 
 export interface SettingContext {
   setting: Setting;
@@ -38,7 +36,9 @@ export function SettingProvider({ children }: { children: React.ReactNode }) {
   const apiWithInterceptors = useApi();
 
   const { setting: fetchedSetting } = useSettingSwr(auth.currentAcc?.id || "");
-  const [setting, setSetting] = useState<Setting>(fetchedSetting || defaultSetting);
+  const [setting, setSetting] = useState<Setting>(
+    fetchedSetting || defaultSetting
+  );
   const [hasUserChangedSetting, setHasUserChangedSetting] = useState(false);
   const { setTheme } = useTheme();
 
@@ -97,10 +97,10 @@ export function SettingProvider({ children }: { children: React.ReactNode }) {
   }, [setting, hasUserChangedSetting]);
 
   useEffect(() => {
-  if (fetchedSetting) {
-    setSetting(fetchedSetting);
-  }
-}, [fetchedSetting]);
+    if (fetchedSetting) {
+      setSetting(fetchedSetting);
+    }
+  }, [fetchedSetting]);
 
   return (
     <SettingContext.Provider

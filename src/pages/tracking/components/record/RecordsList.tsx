@@ -38,10 +38,10 @@ export function RecordsList({
           disabled={pagination.page === 0}
           onClick={() => handlePageChange(pagination.page - 1)}
         >
-          Previous
+          Trước
         </Button>
         <span className="flex items-center px-3">
-          Page {pagination.page + 1} of {pagination.totalPages}
+          Trang {pagination.page + 1} / {pagination.totalPages}
         </span>
         <Button
           variant="outline"
@@ -49,7 +49,7 @@ export function RecordsList({
           disabled={pagination.page === pagination.totalPages - 1}
           onClick={() => handlePageChange(pagination.page + 1)}
         >
-          Next
+          Tiếp
         </Button>
       </div>
     );
@@ -63,13 +63,13 @@ export function RecordsList({
     <Card className="shadow-lg md:col-span-2">
       <CardHeader className="flex flex-row items-center justify-between">
         <div>
-          <CardTitle>Smoking Records</CardTitle>
-          <CardDescription>Your smoking records history</CardDescription>
+          <CardTitle>Bản Ghi Hút Thuốc</CardTitle>
+          <CardDescription>Lịch sử bản ghi hút thuốc của bạn</CardDescription>
         </div>
       </CardHeader>
       <CardContent>
         {loading ? (
-          <div className="text-center py-8">Loading...</div>
+          <div className="text-center py-8">Đang tải...</div>
         ) : smokingRecords.length > 0 ? (
           <div className="divide-y">
             {smokingRecords.map((record) => (
@@ -79,10 +79,10 @@ export function RecordsList({
               >
                 <div>
                   <p className="font-medium">
-                    {format(new Date(record.date), "PPP")}
+                    {format(new Date(record.date), "dd/MM/yyyy")}
                   </p>
                   <p className="text-sm text-gray-500">
-                    {record.note ? record.note : "No note"}
+                    {record.note ? record.note : "Không có ghi chú"}
                   </p>
                 </div>
                 <div className="flex items-center space-x-2">
@@ -93,7 +93,7 @@ export function RecordsList({
                         : "bg-red-100 text-red-800"
                     }`}
                   >
-                    {record.cigarettesSmoked} cigarettes
+                    {record.cigarettesSmoked} điếu thuốc
                   </div>
                   <Button
                     variant="outline"
@@ -106,7 +106,7 @@ export function RecordsList({
                         : ""
                     }
                   >
-                    {isTodayRecord(record.date.toString()) ? "Edit" : "View"}
+                    {isTodayRecord(record.date.toString()) ? "Sửa" : "Xem"}
                   </Button>
                 </div>
               </div>
@@ -114,7 +114,7 @@ export function RecordsList({
           </div>
         ) : (
           <div className="text-center py-8">
-            <p>No records found</p>
+            <p>Không tìm thấy bản ghi nào</p>
           </div>
         )}
         {renderPagination()}

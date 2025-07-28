@@ -26,7 +26,8 @@ import {
   PlusCircle,
   MinusCircle,
 } from "lucide-react";
-import type { Phase } from "@/types/models/Plan";
+import type { Phase } from "@/types/models/phase";
+import { PhaseStatus } from "@/types/enums/PhaseStatus";
 
 interface PlanPhaseProps {
   phase: Phase;
@@ -89,7 +90,12 @@ export default function PlanPhase({
   };
 
   const toggleCompleted = () => {
-    updatePhase(phase.id, { completed: !phase.completed });
+    updatePhase(phase.id, {
+      phaseStatus:
+        phase.phaseStatus === PhaseStatus.COMPLETED
+          ? PhaseStatus.PENDING
+          : PhaseStatus.COMPLETED,
+    });
   };
 
   const addTip = () => {
@@ -120,7 +126,7 @@ export default function PlanPhase({
               className="text-xl font-semibold h-auto py-1 border-none focus-visible:ring-1"
             />
             {isCurrent && <Badge variant="default">Hiện tại</Badge>}
-            {phase.completed && (
+            {phase.phaseStatus === PhaseStatus.COMPLETED && (
               <Badge
                 variant="outline"
                 className="bg-green-50 text-green-700 border-green-200"
@@ -263,7 +269,7 @@ export default function PlanPhase({
 
       <CardFooter className="flex justify-between">
         <Button variant="ghost" size="sm" onClick={toggleCompleted}>
-          {phase.completed ? (
+          {phase.phaseStatus === PhaseStatus.COMPLETED ? (
             <>
               <X className="mr-1.5 h-4 w-4" />
               Đánh dấu chưa hoàn thành

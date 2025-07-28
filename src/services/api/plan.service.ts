@@ -1,7 +1,7 @@
 import { Domains } from "@/constants/domain";
 import { authApi } from "@/lib/axios";
 import { createBaseService } from "../base.service";
-import type { Plan, PlanListItem } from "@/types/models/Plan";
+import type { Plan, PlanListItem } from "@/types/models/plan";
 import type { PaginationResponse } from "@/types/pagination";
 import type { ApiResponse } from "@/types/response";
 

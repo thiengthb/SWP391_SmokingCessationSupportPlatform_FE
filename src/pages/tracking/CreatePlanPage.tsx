@@ -23,7 +23,7 @@ import {
 import { toast } from "sonner";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import PlanPhase from "./components/plan/PlanPhase";
-import { addDays, startOfToday } from "date-fns";
+import { addDays, startOfToday, differenceInCalendarDays } from "date-fns";
 import { presetPlans, createPresetPlan } from "@/data/presetPlan.data";
 import type { PlanFormData } from "@/types/models/plan";
 import type { PhaseFormData } from "@/types/models/phase";
@@ -116,52 +116,116 @@ export default function CreatePlanPage() {
     }));
   };
 
-  // const updatePhase = (id: string, phaseUpdate: Partial<Phase>) => {
-  //   setPlanData((prev) => {
-  //     const phases = [...prev.phases];
-  //     const idx = phases.findIndex((phase) => phase.id === id);
-  //     if (idx === -1) return prev;
+  const updatePhase = (index: number, phaseUpdate: Partial<PhaseFormData>) => {
+    setPlanData((prev) => {
+      const phases = [...prev.phases];
 
-  //     // Update the selected phase
-  //     phases[idx] = { ...phases[idx], ...phaseUpdate };
+      // Update the selected phase
+      phases[index] = { ...phases[index], ...phaseUpdate };
 
-  //     // If endDate is updated, update subsequent phases' startDate and endDate
-  //     if (phaseUpdate.endDate) {
-  //       let prevEndDate = phaseUpdate.endDate;
-  //       for (let i = idx + 1; i < phases.length; i++) {
-  //         // Calculate the duration of the phase
-  //         const duration = differenceInCalendarDays(
-  //           phases[i].endDate,
-  //           phases[i].startDate
-  //         );
-  //         // Set new startDate and endDate
-  //         phases[i] = {
-  //           ...phases[i],
-  //           startDate: addDays(prevEndDate, 1),
-  //           endDate: addDays(prevEndDate, 1 + duration),
-  //         };
-  //         prevEndDate = phases[i].endDate;
-  //       }
-  //     }
+      // If endDate is updated, update subsequent phases' startDate and endDate
+      if (phaseUpdate.endDate) {
+        let prevEndDate = phaseUpdate.endDate;
+        for (let i = index + 1; i < phases.length; i++) {
+          // Calculate the duration of the phase
+          const duration = differenceInCalendarDays(
+            phases[i].endDate,
+            phases[i].startDate
+          );
+          // Set new startDate and endDate
+          phases[i] = {
+            ...phases[i],
+            startDate: addDays(prevEndDate, 1),
+            endDate: addDays(prevEndDate, 1 + duration),
+          };
+          prevEndDate = phases[i].endDate;
+        }
+      }
 
-  //     return {
-  //       ...prev,
-  //       phases,
-  //     };
-  //   });
-  // };
+      return {
+        ...prev,
+        phases,
+      };
+    });
+  };
 
-  // const deletePhase = (id: string) => {
-  //   if (planData.phases.length <= 1) {
-  //     toast.error("Kế hoạch phải có ít nhất một giai đoạn");
-  //     return;
-  //   }
+  const deletePhase = (index: number) => {
+    if (planData.phases.length <= 1) {
+      toast.error("Kế hoạch phải có ít nhất một giai đoạn");
+      return;
+    }
 
-  //   setPlanData((prev) => ({
-  //     ...prev,
-  //     phases: prev.phases.filter((phase) => phase.id !== id),
-  //   }));
-  // };
+    setPlanData((prev) => {
+      const phases = [...prev.phases];
+      phases.splice(index, 1);
+
+      // Recalculate dates for remaining phases
+      for (let i = index; i < phases.length; i++) {
+        if (i === 0) {
+          // First phase starts today
+          phases[i].startDate = startOfToday();
+        } else {
+          // Subsequent phases start the day after the previous phase ends
+          phases[i].startDate = addDays(phases[i - 1].endDate, 1);
+        }
+      }
+
+      return {
+        ...prev,
+        phases,
+      };
+    });
+  };
+
+  const addTipToPhase = (phaseIndex: number, tipContent: string) => {
+    if (!tipContent.trim()) return;
+
+    setPlanData((prev) => {
+      const phases = [...prev.phases];
+      phases[phaseIndex] = {
+        ...phases[phaseIndex],
+        tips: [...phases[phaseIndex].tips, { content: tipContent.trim() }],
+      };
+      return {
+        ...prev,
+        phases,
+      };
+    });
+  };
+
+  const deleteTipFromPhase = (phaseIndex: number, tipIndex: number) => {
+    setPlanData((prev) => {
+      const phases = [...prev.phases];
+      phases[phaseIndex] = {
+        ...phases[phaseIndex],
+        tips: phases[phaseIndex].tips.filter((_, index) => index !== tipIndex),
+      };
+      return {
+        ...prev,
+        phases,
+      };
+    });
+  };
+
+  const updateTipInPhase = (
+    phaseIndex: number,
+    tipIndex: number,
+    newContent: string
+  ) => {
+    setPlanData((prev) => {
+      const phases = [...prev.phases];
+      phases[phaseIndex] = {
+        ...phases[phaseIndex],
+        tips: phases[phaseIndex].tips.map((tip, index) =>
+          index === tipIndex ? { ...tip, content: newContent } : tip
+        ),
+      };
+      return {
+        ...prev,
+        phases,
+      };
+    });
+  };
 
   const formatDateToLocalDate = (date: Date) => {
     // Sử dụng múi giờ địa phương để tránh lệch ngày
@@ -202,9 +266,9 @@ export default function CreatePlanPage() {
       console.log("Sending plan request:", planRequest); // Debug log
       await apiWithInterceptor.post("/v1/plans", planRequest);
       toast.success("Kế hoạch đã được tạo thành công!");
-      navigate("/tracking");
+      navigate("/");
     } catch (error) {
-      console.error("Plan creation error:", error); // Debug log
+      console.error("Plan creation error:", error);
       toast.error("Có lỗi xảy ra khi tạo kế hoạch");
     } finally {
       setIsLoading(false);
@@ -333,11 +397,15 @@ export default function CreatePlanPage() {
                   <PlanPhase
                     phase={phase}
                     phaseIndex={index}
-                    // updatePhase={updatePhase}
-                    // deletePhase={deletePhase}
+                    updatePhase={updatePhase}
+                    deletePhase={deletePhase}
+                    addTipToPhase={addTipToPhase}
+                    deleteTipFromPhase={deleteTipFromPhase}
+                    updateTipInPhase={updateTipInPhase}
                     isFirst={index === 0}
                     isLast={index === planData.phases.length - 1}
                     isCurrent={index === 0}
+                    canDelete={planData.phases.length > 1}
                   />
                 </motion.div>
               ))}

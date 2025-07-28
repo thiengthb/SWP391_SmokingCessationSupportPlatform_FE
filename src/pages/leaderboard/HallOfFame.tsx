@@ -12,7 +12,7 @@ import { useTranslate } from "@/hooks/useTranslate";
 
 export default function HallOfFamePage() {
   const { tLeaderboard } = useTranslate();
-  const { hallOfFame, isLoading, error } = useHallOfFameSwr();
+  const { hallOfFame } = useHallOfFameSwr();
 
   return (
     <div className="container py-10 px-4 mx-auto">
@@ -28,7 +28,10 @@ export default function HallOfFamePage() {
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
         {hallOfFame.map((champion) => (
-          <Card key={champion.account.username} className="p-6 text-center flex-col items-center">
+          <Card
+            key={champion.account.username}
+            className="p-6 text-center flex-col items-center"
+          >
             <div className="flex flex-col items-center gap-y-2 w-full">
               <Avatar className="h-20 w-20 mx-auto">
                 <AvatarImage src={champion.account.avatar} />

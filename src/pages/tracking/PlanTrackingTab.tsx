@@ -15,6 +15,7 @@ import EmptyPlanState from "./components/plan/EmptyPlanState";
 import PresetPlans from "./components/plan/PresetPlans";
 import type { PlanStatus } from "@/types/enums/PlanStatus";
 import useApi from "@/hooks/useApi";
+import type { Phase } from "@/types/models/phase";
 
 export interface QuitPlan {
   id: string;
@@ -22,7 +23,7 @@ export interface QuitPlan {
   startDate: Date;
   targetQuitDate: Date;
   description?: string;
-  phases: [];
+  phases: Phase[];
   status?: PlanStatus;
 }
 

@@ -48,24 +48,24 @@ export function TodayRecord({
   const getCigaretteStatusBadge = (count: number) => {
     if (count === 0)
       return {
-        text: "Great job! 🎉",
+        text: "Rất tốt!",
         variant: "default",
         className: "bg-green-100 text-green-800 hover:bg-green-100",
       };
     if (count <= 5)
       return {
-        text: "Good progress 👍",
+        text: "Cố gắng tốt",
         variant: "secondary",
         className: "bg-yellow-100 text-yellow-800 hover:bg-yellow-100",
       };
     if (count <= 10)
       return {
-        text: "Keep trying 💪",
+        text: "Hãy cố gắng",
         variant: "secondary",
         className: "bg-orange-100 text-orange-800 hover:bg-orange-100",
       };
     return {
-      text: "High consumption ⚠️",
+      text: "Cần cải thiện",
       variant: "destructive",
       className: "bg-red-100 text-red-800 hover:bg-red-100",
     };
@@ -83,20 +83,20 @@ export function TodayRecord({
               }
             >
               {isSelectedDateToday
-                ? "Today's Record"
-                : `Record for ${selectedDateFormatted}`}
+                ? "Bản ghi hôm nay"
+                : `Bản ghi ngày ${selectedDateFormatted}`}
             </span>
           </div>
           {!isSelectedDateToday && (
             <Badge variant="secondary" className="text-xs">
-              Read-only
+              Chỉ đọc
             </Badge>
           )}
         </CardTitle>
         <CardDescription className="text-gray-600">
           {isSelectedDateToday
-            ? "Track your daily smoking habits"
-            : "View your smoking record for this date"}
+            ? "Theo dõi thói quen hút thuốc hàng ngày"
+            : "Xem bản ghi hút thuốc cho ngày này"}
         </CardDescription>
       </CardHeader>
       <CardContent className="pt-0">
@@ -113,7 +113,7 @@ export function TodayRecord({
                 <div className="flex items-center gap-2">
                   <Cigarette className="h-4 w-4 text-gray-600" />
                   <span className="text-sm font-medium text-gray-700">
-                    Cigarettes Smoked
+                    Số điếu đã hút
                   </span>
                 </div>
                 <Badge
@@ -144,7 +144,7 @@ export function TodayRecord({
                 <div className="flex items-center gap-2 mb-2">
                   <FileText className="h-4 w-4 text-gray-600" />
                   <span className="text-sm font-medium text-gray-700">
-                    Note
+                    Ghi chú
                   </span>
                 </div>
                 <p className="text-sm text-gray-600 leading-relaxed">
@@ -161,12 +161,12 @@ export function TodayRecord({
                 size="lg"
               >
                 <Edit className="h-4 w-4 mr-2" />
-                Edit Today's Record
+                Chỉnh sửa bản ghi hôm nay
               </Button>
             ) : (
               <div className="text-center py-4 bg-gray-50 rounded-lg border">
                 <p className="text-sm text-gray-500">
-                  Only today's record can be modified
+                  Chỉ có thể chỉnh sửa bản ghi hôm nay
                 </p>
               </div>
             )}
@@ -177,12 +177,14 @@ export function TodayRecord({
               <Cigarette className="h-8 w-8 text-gray-400" />
             </div>
             <h3 className="text-lg font-medium text-gray-900 mb-2">
-              {isSelectedDateToday ? "No record yet" : "No record found"}
+              {isSelectedDateToday
+                ? "Chưa có bản ghi"
+                : "Không tìm thấy bản ghi"}
             </h3>
             <p className="text-gray-500 mb-6 max-w-sm mx-auto">
               {isSelectedDateToday
-                ? "Start tracking your smoking habits for today"
-                : `No smoking record found for ${selectedDateFormatted}`}
+                ? "Bắt đầu theo dõi thói quen hút thuốc hôm nay"
+                : `Không có bản ghi hút thuốc cho ngày ${selectedDateFormatted}`}
             </p>
             {isSelectedDateToday ? (
               <Button
@@ -191,12 +193,12 @@ export function TodayRecord({
                 size="lg"
               >
                 <Plus className="h-4 w-4 mr-2" />
-                Add Today's Record
+                Thêm bản ghi hôm nay
               </Button>
             ) : (
               <div className="bg-gray-50 rounded-lg p-4 border">
                 <p className="text-sm text-gray-500">
-                  Only today's record can be added or edited
+                  Chỉ có thể thêm hoặc chỉnh sửa bản ghi hôm nay
                 </p>
               </div>
             )}

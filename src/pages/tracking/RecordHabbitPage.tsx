@@ -12,10 +12,7 @@ import RecordCalendar from "@/pages/tracking/components/record/RecordCalendar";
 import RecordsList from "@/pages/tracking/components/record/RecordsList";
 import RecordDialog from "@/pages/tracking/components/record/RecordDialog";
 import type { SmokingRecord } from "@/types/models/record";
-import {
-  defaultPaginationResponse,
-  type PaginationResponse,
-} from "@/types/pagination";
+import { type PaginationResponse } from "@/types/pagination";
 import PlanTrackingTab from "./PlanTrackingTab";
 import useApi from "@/hooks/useApi";
 import { BookingsTab } from "../dashboard/member/components/BookingTab";
@@ -27,7 +24,13 @@ const RecordHabbitPage = () => {
   const [loading, setLoading] = useState(false);
   const [pagination, setPagination] = useState<
     PaginationResponse<SmokingRecord>
-  >(defaultPaginationResponse);
+  >({
+    content: [],
+    page: 0,
+    size: 50,
+    totalElements: 0,
+    totalPages: 0,
+  });
 
   const apiWithInterceptor = useApi();
 
@@ -68,7 +71,7 @@ const RecordHabbitPage = () => {
         });
       } catch (error) {
         console.error("Failed to fetch smoking records:", error);
-        toast.error("Failed to load smoking records");
+        toast.error("Không thể tải bản ghi hút thuốc");
         setSmokingRecords([]);
       } finally {
         setLoading(false);
@@ -128,7 +131,7 @@ const RecordHabbitPage = () => {
     const recordDate = startOfDay(new Date(record.date));
 
     if (!isSameDay(recordDate, today)) {
-      toast.error("You can only edit today's record");
+      toast.error("Bạn chỉ có thể chỉnh sửa bản ghi hôm nay");
       return;
     }
 
@@ -159,18 +162,18 @@ const RecordHabbitPage = () => {
             record.id === currentRecord.id ? response.data.data : record
           )
         );
-        toast.success("Smoking record updated successfully");
+        toast.success("Bản ghi hút thuốc đã được cập nhật thành công");
       } else {
         const response = await apiWithInterceptor.post("/v1/records", payload);
         setSmokingRecords((records) => [...records, response.data.data]);
-        toast.success("Smoking record added successfully");
+        toast.success("Bản ghi hút thuốc đã được thêm thành công");
       }
 
       setShowRecordDialog(false);
       setPagination((prev) => ({ ...prev, page: 0 }));
     } catch (error) {
       console.error("Failed to save smoking record:", error);
-      toast.error("Failed to save smoking record");
+      toast.error("Không thể lưu bản ghi hút thuốc");
     }
   };
 
@@ -182,12 +185,12 @@ const RecordHabbitPage = () => {
       setSmokingRecords((records) =>
         records.filter((record) => record.id !== currentRecord.id)
       );
-      toast.success("Smoking record deleted successfully");
+      toast.success("Bản ghi hút thuốc đã được xóa thành công");
       setShowRecordDialog(false);
       setPagination((prev) => ({ ...prev, page: 0 }));
     } catch (error) {
       console.error("Failed to delete smoking record:", error);
-      toast.error("Failed to delete smoking record");
+      toast.error("Không thể xóa bản ghi hút thuốc");
     }
   };
 
@@ -208,7 +211,7 @@ const RecordHabbitPage = () => {
   };
 
   const handleNavigateToSettings = () => {
-    navigate(Paths.ACCOUNT.SETTING);
+    navigate(`${Paths.ACCOUNT.SETTING}?tab=tracking`);
   };
 
   const handleNavigateToDashboard = () => {
@@ -218,12 +221,12 @@ const RecordHabbitPage = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">
-        Welcome Back, {auth?.currentAcc?.username}
+        Chào mừng trở lại, {auth?.currentAcc?.username}
       </h1>
       <div className="mr-2 pb-10 flex justify-between">
         <p className="text-gray-700 w-[50%]">
-          Manual tracking mode is enabled. Record your smoking habits daily. You
-          can also view your daily records here.
+          Chế độ theo dõi thủ công đang được bật. Ghi lại thói quen hút thuốc
+          hàng ngày của bạn. Bạn cũng có thể xem các bản ghi hàng ngày tại đây.
         </p>
         <Button
           onClick={handleNavigateToDashboard}
@@ -231,16 +234,16 @@ const RecordHabbitPage = () => {
           size="lg"
         >
           <BarChart3 className="h-4 w-4" />
-          View Dashboard
+          Xem Bảng điều khiển
         </Button>
       </div>
 
       <Tabs defaultValue="records" className="mb-6">
         <TabsList className={`grid grid-cols-4 mb-4`}>
-          <TabsTrigger value="records">Smoking Records</TabsTrigger>
-          <TabsTrigger value="plans">Plan</TabsTrigger>
-          <TabsTrigger value="bookings">Bookings</TabsTrigger>
-          <TabsTrigger value="Coach List">Coach List</TabsTrigger>
+          <TabsTrigger value="records">Bản ghi hút thuốc</TabsTrigger>
+          <TabsTrigger value="plans">Kế hoạch</TabsTrigger>
+          <TabsTrigger value="bookings">Lịch hẹn</TabsTrigger>
+          <TabsTrigger value="Coach List">Huấn luyện viên</TabsTrigger>
         </TabsList>
 
         <TabsContent value="records">
@@ -305,10 +308,10 @@ const RecordHabbitPage = () => {
               <RefreshCw className="h-5 w-5 text-blue-600" />
               <div>
                 <p className="text-sm font-medium text-blue-900">
-                  Currently using Manual Tracking
+                  Hiện đang sử dụng chế độ theo dõi thủ công
                 </p>
                 <p className="text-xs text-blue-700">
-                  Want to try automatic tracking? Change it in settings
+                  Muốn thử chế độ theo dõi tự động? Thay đổi trong cài đặt
                 </p>
               </div>
             </div>
@@ -319,7 +322,7 @@ const RecordHabbitPage = () => {
               className="border-blue-300 text-blue-700 hover:bg-blue-100"
             >
               <Settings className="h-4 w-4 mr-2" />
-              Settings
+              Cài đặt
             </Button>
           </div>
         </CardContent>

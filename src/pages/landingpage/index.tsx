@@ -5,7 +5,6 @@ import { FeaturesSection } from "./components/FeaturesSection";
 import { CTASection } from "./components/CTASection";
 import { PlanDemoSection } from "./components/PlanDemoSection";
 import { RecordDemoSection } from "./components/RecordDemoSection";
-import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import { PricingPreviewSection } from "./components/PricingPreviewSection";
 
