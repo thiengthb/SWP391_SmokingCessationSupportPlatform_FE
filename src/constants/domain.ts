@@ -12,7 +12,7 @@ export const Domains = {
     COUNTER: "/v1/counters",
     FEEDBACK: "/v1/feedbacks",
     GOAL: "/v1/goals",
-    HEALTH: "/v1/health",
+    HEALTH: "/v1/healths",
     MEMBER: "/v1/members",
     MEMBERSHIP: "/v1/memberships",
     MESSAGE: "/v1/messages",

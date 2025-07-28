@@ -13,7 +13,13 @@ const UserInfoCard = () => {
           {auth.currentAcc?.username || t("roles.guest")}
         </p>
         {auth.currentAcc?.role === Role.MEMBER && (
-          <Badge>
+          <Badge
+            className={`${
+              auth.currentAcc?.havingSubscription
+                ? "bg-yellow-500 text-orange-900"
+                : "bg-blue-500 text-white"
+            }`}
+          >
             {auth.currentAcc?.havingSubscription ? "Premium" : "Free"}
           </Badge>
         )}

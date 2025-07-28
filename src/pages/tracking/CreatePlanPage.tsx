@@ -26,7 +26,7 @@ import PlanPhase from "./components/plan/PlanPhase";
 import { addDays, startOfToday } from "date-fns";
 import { presetPlans, createPresetPlan } from "@/data/presetPlan.data";
 import type { PlanFormData } from "@/types/models/plan";
-import type { Phase, PhaseFormData } from "@/types/models/phase";
+import type { PhaseFormData } from "@/types/models/phase";
 import { PhaseStatus } from "@/types/enums/PhaseStatus";
 import useApi from "@/hooks/useApi";
 

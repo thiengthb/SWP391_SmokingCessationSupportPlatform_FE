@@ -60,7 +60,7 @@ export const RenderQuestionInput: React.FC<RenderQuestionInputProps> = ({
         transition={{ duration: 0.3 }}
         className="space-y-2"
       >
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2">
           <Input
             type="number"
             min="0"
@@ -74,7 +74,7 @@ export const RenderQuestionInput: React.FC<RenderQuestionInputProps> = ({
                 handleAnswer(value);
               }
             }}
-            className="flex-1 h-12 text-base border-2 border-muted-foreground/20 focus:border-primary transition-all duration-200 rounded-lg"
+            className="flex-1 h-8 text-base border-2 border-muted-foreground/20 focus:border-primary transition-all duration-200 rounded-lg"
             placeholder="0"
           />
           {currentQuestionData.isPriceQuestion ? (
@@ -88,7 +88,7 @@ export const RenderQuestionInput: React.FC<RenderQuestionInputProps> = ({
                   }
                 }}
               >
-                <SelectTrigger className="w-28 h-12 border-2 border-muted-foreground/20">
+                <SelectTrigger className="w-20 h-8 border-2 border-muted-foreground/20">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -144,7 +144,7 @@ export const RenderQuestionInput: React.FC<RenderQuestionInputProps> = ({
             currentAnswer !== undefined ? currentAnswer.toString() : undefined
           }
           onValueChange={(value) => handleAnswer(Number(value))}
-          className="space-y-3"
+          className=""
         >
           {currentQuestionData.options?.map((option, index) => (
             <motion.div
@@ -154,7 +154,7 @@ export const RenderQuestionInput: React.FC<RenderQuestionInputProps> = ({
               transition={{ duration: 0.3, delay: index * 0.1 }}
               className="group"
             >
-              <div className="flex items-center space-x-3 p-4 rounded-lg border-2 border-muted-foreground/20 hover:border-primary/50 hover:bg-primary/5 transition-all duration-200 cursor-pointer">
+              <div className="flex items-center space-x-3 p-3 rounded-lg border-2 border-muted-foreground/20 hover:border-primary/50 hover:bg-primary/5 transition-all duration-200 cursor-pointer">
                 <RadioGroupItem
                   value={option.value.toString()}
                   id={`option-${option.value}`}

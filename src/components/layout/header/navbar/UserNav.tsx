@@ -24,6 +24,8 @@ export function UserNav() {
   const { auth, handleLogout } = useAuth();
   const { tNavbar, tCommon } = useTranslate();
 
+  const isPremiumUser = auth.currentAcc?.havingSubscription;
+
   const submitLogout = async () => {
     await handleLogout();
     navigate(Paths.AUTH.LOGIN);
@@ -47,9 +49,13 @@ export function UserNav() {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-            <Avatar className="h-8 w-8">
+            <Avatar
+              className={`h-8 w-8 ${
+                isPremiumUser ? "ring-2 ring-yellow-400 ring-offset-1" : ""
+              }`}
+            >
               <AvatarImage
-                src={auth.currentAcc?.avatar ?? ""}
+                src={auth.currentAcc?.avatar}
                 alt={auth.currentAcc?.username ?? tCommon("roles.user")}
               />
               <AvatarFallback>

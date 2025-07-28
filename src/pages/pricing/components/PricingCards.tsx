@@ -1,4 +1,4 @@
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Crown, Star, Zap, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -8,6 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { motion } from "framer-motion";
 import useApi from "@/hooks/useApi";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -28,9 +29,19 @@ export function PricingCards({ plans }: PricingCardsProps) {
 
   const [basePlan, setBasePlan] = useState<Membership>();
 
+  // Filter plans based on authentication status
+  const filteredPlans = plans.filter((plan) => {
+    // If user is logged in, hide free plans (price = 0)
+    if (auth?.accessToken && auth?.currentAcc) {
+      return plan.price > 0;
+    }
+    // If user is not logged in, show all plans
+    return true;
+  });
+
   useEffect(() => {
-    if (plans.length > 0) {
-      const sortedPlans = [...plans].sort((a, b) => a.price - b.price);
+    if (filteredPlans.length > 0) {
+      const sortedPlans = [...filteredPlans].sort((a, b) => a.price - b.price);
       for (let i = 0; i < sortedPlans.length; i++) {
         if (sortedPlans[i].price > 0) {
           setBasePlan(sortedPlans[i]);
@@ -38,22 +49,35 @@ export function PricingCards({ plans }: PricingCardsProps) {
         }
       }
     }
-  }, [plans]);
+  }, [filteredPlans]);
 
-  const handleSelectPlan = async (membershipName: string) => {
-    if (!auth.accessToken || !auth.currentAcc) {
+  const handleSelectPlan = async (membershipName: string, planPrice: number) => {
+    // If user is not logged in, redirect to login
+    if (!auth?.accessToken || !auth?.currentAcc) {
       navigate("/auth/login");
-      toast.error("Bạn cần đăng nhập để chọn gói thành viên.");
+      toast.info("Vui lòng đăng nhập để chọn gói thành viên.");
       return;
     }
-    const response = await apiWithInterceptor.post(
-      "/v1/payment/stripe/checkout",
-      {
-        membershipName,
-      }
-    );
-    const { sessionUrl } = response.data.result;
-    window.location.href = `${sessionUrl}`;
+
+    // If it's a free plan, handle differently
+    if (planPrice === 0) {
+      toast.info("Bạn đã có quyền truy cập gói miễn phí!");
+      return;
+    }
+
+    try {
+      const response = await apiWithInterceptor.post(
+        "/v1/payment/stripe/checkout",
+        {
+          membershipName,
+        }
+      );
+      const { sessionUrl } = response.data.result;
+      window.location.href = `${sessionUrl}`;
+    } catch (error) {
+      console.error("Error creating checkout session:", error);
+      toast.error("Có lỗi xảy ra khi tạo phiên thanh toán. Vui lòng thử lại.");
+    }
   };
 
   const formatDurationDisplay = (duration: number) => {
@@ -103,89 +127,160 @@ export function PricingCards({ plans }: PricingCardsProps) {
     return savedPercent > 0 ? savedPercent : 0;
   };
 
+  const getCardVariant = (plan: Membership) => {
+    if (plan.price === 0) return "free";
+    if (plan.highlighted) return "premium";
+    return "standard";
+  };
+
+  const getCardStyles = (variant: string) => {
+    switch (variant) {
+      case "free":
+        return {
+          cardClass:
+            "border-2 border-slate-200 hover:border-slate-300 hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-slate-50 to-white",
+          headerClass:
+            "bg-gradient-to-br from-slate-50 to-slate-100 rounded-t-lg",
+          buttonClass: "bg-slate-700 hover:bg-slate-800 text-white",
+          icon: <Check className="h-5 w-5" />,
+        };
+      case "premium":
+        return {
+          cardClass:
+            "border-2 border-amber-200 hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-amber-50 to-orange-50",
+          headerClass:
+            "bg-gradient-to-br from-amber-100 to-orange-100 rounded-t-lg",
+          buttonClass:
+            "bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white shadow-md",
+          icon: <Crown className="h-5 w-5" />,
+        };
+      default:
+        return {
+          cardClass:
+            "border-2 border-sky-200 hover:border-sky-300 hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-sky-50 to-white",
+          headerClass: "bg-gradient-to-br from-sky-50 to-sky-100 rounded-t-lg",
+          buttonClass:
+            "bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-700 hover:to-blue-700 text-white",
+          icon: <Zap className="h-5 w-5" />,
+        };
+    }
+  };
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-16">
-      {Array.isArray(plans) &&
-        plans.map((plan) => {
+    <div
+      className={`grid grid-cols-1 ${
+        filteredPlans.length === 1
+          ? "md:grid-cols-1 max-w-md mx-auto"
+          : filteredPlans.length === 2
+          ? "md:grid-cols-2 max-w-4xl mx-auto"
+          : filteredPlans.length === 3
+          ? "md:grid-cols-3 max-w-6xl mx-auto"
+          : "md:grid-cols-2 lg:grid-cols-4"
+      } gap-6 mb-16`}
+    >
+      {Array.isArray(filteredPlans) &&
+        filteredPlans.map((plan, index) => {
+          const variant = getCardVariant(plan);
+          const styles = getCardStyles(variant);
+
           return (
-            <Card
+            <motion.div
               key={plan.id}
-              className={`relative ${
-                plan.highlighted
-                  ? "border-primary/50 shadow-md"
-                  : "border-border/60"
-              }`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="h-full"
             >
-              {plan.highlighted && (
-                <div className="absolute top-0 right-0 transform translate-y-[-10px] translate-x-[10px]">
-                  <Badge className="bg-primary text-primary-foreground">
-                    {tPricing("pricing.card.badge")}
-                  </Badge>
-                </div>
-              )}
-
-              <CardHeader>
-                <CardTitle>{plan.name}</CardTitle>
-                <CardDescription>{plan.description}</CardDescription>
-
-                <div className="mt-4">
+              <Card
+                className={`relative ${styles.cardClass} h-full flex flex-col`}
+              >
+                {plan.highlighted && (
                   <>
+                    <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
+                      <Badge className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-4 py-1 shadow-md">
+                        <Crown className="h-3 w-3 mr-1" />
+                        Đề xuất
+                      </Badge>
+                    </div>
+                  </>
+                )}
+
+                <CardHeader className={`${styles.headerClass} flex-grow`}>
+                  <div className="flex items-center justify-between mb-3">
+                    <CardTitle className="text-xl font-bold flex items-center gap-2">
+                      {styles.icon}
+                      {plan.name}
+                    </CardTitle>
+                    {variant === "premium" && (
+                      <Star className="h-5 w-5 text-amber-500 fill-current" />
+                    )}
+                  </div>
+
+                  <CardDescription className="text-gray-600 h-[2.5rem] flex items-start mb-4">
+                    <span className="line-clamp-3">{plan.description}</span>
+                  </CardDescription>
+
+                  <div className="mt-auto">
                     {plan.price === 0 ? (
-                      <div className="flex flex-col items-start">
-                        <span className="text-3xl font-bold">
-                          {" "}
+                      <div className="text-center py-4">
+                        <span className="text-4xl font-bold bg-gradient-to-r from-gray-600 to-gray-800 bg-clip-text text-transparent">
                           {tPricing("pricing.card.free")}
                         </span>
-                        <span className="text-muted-foreground ml-1">
+                        <div className="text-sm text-gray-500 mt-2">
                           {formatDurationDisplay(plan.durationDays)}
-                        </span>
+                        </div>
                       </div>
                     ) : (
-                      <div className="flex items-baseline">
-                        <span className="text-3xl font-bold">
+                      <div className="text-center py-4">
+                        <span
+                          className={`text-4xl font-bold ${
+                            variant === "premium"
+                              ? "bg-gradient-to-r from-amber-700 to-orange-700 bg-clip-text text-transparent"
+                              : "bg-gradient-to-r from-sky-700 to-blue-700 bg-clip-text text-transparent"
+                          }`}
+                        >
                           {formatPrice(plan.price)}
                         </span>
-                        <span className="text-muted-foreground ml-1">
-                          /{formatDurationDisplay(plan.durationDays)}
-                        </span>
+                        <div className="text-sm text-gray-600 mt-2">
+                          cho {formatDurationDisplay(plan.durationDays)}
+                        </div>
                       </div>
                     )}
-                  </>
 
-                  {plan.price >= 0 && calculateSaving(plan) > 0 && (
-                    <Badge
-                      variant="outline"
-                      className="mt-2 bg-green-50 text-green-700 border-green-200"
+                    <div className="h-[2.5rem] flex items-center justify-center">
+                      {plan.price >= 0 && calculateSaving(plan) > 0 && (
+                        <Badge className="bg-emerald-100 text-emerald-800 border-emerald-300 px-3 py-1">
+                          <Star className="h-3 w-3 mr-1" />
+                          Tiết kiệm {Math.floor(calculateSaving(plan))}% vs{" "}
+                          {basePlan?.name}
+                        </Badge>
+                      )}
+                    </div>
+                  </div>
+                </CardHeader>
+
+                <CardFooter className="pt-4 pb-6 mt-auto">
+                  <div className="w-full space-y-3">
+                    <Button
+                      className={`w-full ${styles.buttonClass} font-semibold py-3 text-base transition-all duration-300 transform hover:scale-105`}
+                      onClick={() => handleSelectPlan(plan.name, plan.price)}
                     >
-                      {Math.floor(calculateSaving(plan))}
-                      {tPricing("pricing.card.save")}{" "}
-                      <span className="font-semibold">{basePlan?.name}</span>
-                    </Badge>
-                  )}
-                </div>
-              </CardHeader>
-
-              <CardFooter>
-                <Button
-                  className="w-full"
-                  variant={
-                    plan.price === 0
-                      ? "outline"
-                      : plan.highlighted
-                      ? "default"
-                      : "secondary"
-                  }
-                  onClick={() => handleSelectPlan(plan.name)}
-                >
-                  {plan.price === 0
-                    ? tPricing("pricing.card.startFree")
-                    : tPricing("pricing.card.selectPlan", {
-                        plan: plan.name.toLowerCase(),
-                      })}
-                  <ChevronRight className="ml-1 h-4 w-4" />
-                </Button>
-              </CardFooter>
-            </Card>
+                      {styles.icon}
+                      <span className="mx-2">
+                        {!auth?.accessToken || !auth?.currentAcc ? (
+                          plan.price === 0
+                            ? "Bắt đầu miễn phí"
+                            : "Đăng nhập để chọn gói"
+                        ) : plan.price === 0
+                        ? tPricing("pricing.card.startFree")
+                        : `Chọn gói ${plan.name}`}
+                      </span>
+                      <ChevronRight className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </CardFooter>
+              </Card>
+            </motion.div>
           );
         })}
     </div>

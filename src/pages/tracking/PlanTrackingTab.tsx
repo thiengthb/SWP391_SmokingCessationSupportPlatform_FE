@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Plus, Crown, Star } from "lucide-react";
-import { toast } from "sonner";
 import { differenceInDays, isAfter, isBefore } from "date-fns";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -83,7 +82,7 @@ export default function PlanTrackingTab() {
         }
       } catch (error) {
         console.error("Error fetching plans:", error);
-        toast.error("Lỗi khi tải kế hoạch");
+        // toast.error("Lỗi khi tải kế hoạch");
       } finally {
         setIsLoading(false);
       }

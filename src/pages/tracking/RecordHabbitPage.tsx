@@ -20,6 +20,7 @@ import PlanTrackingTab from "./PlanTrackingTab";
 import useApi from "@/hooks/useApi";
 import { BookingsTab } from "../dashboard/member/components/BookingTab";
 import CoachList from "../dashboard/coach/CoachList";
+import { Paths } from "@/constants/path";
 const RecordHabbitPage = () => {
   const { auth } = useAuth();
   const navigate = useNavigate();
@@ -207,7 +208,7 @@ const RecordHabbitPage = () => {
   };
 
   const handleNavigateToSettings = () => {
-    navigate("/settings");
+    navigate(Paths.ACCOUNT.SETTING);
   };
 
   const handleNavigateToDashboard = () => {

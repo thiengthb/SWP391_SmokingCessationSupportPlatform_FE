@@ -171,7 +171,7 @@ export function FTNDAssessmentForm({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
-        <DialogHeader className="space-y-3">
+        <DialogHeader className="space-y-1">
           <DialogTitle className="text-xl font-semibold">
             {tFtnd("ftnd.title")}
           </DialogTitle>
@@ -180,8 +180,8 @@ export function FTNDAssessmentForm({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="py-6">
-          <div className="mb-6">
+        <div className="py-2">
+          <div className="m-1">
             <div className="flex justify-between items-center mb-2">
               <span className="text-sm font-medium text-muted-foreground">
                 {tFtnd("ftnd.progress")}
@@ -190,7 +190,7 @@ export function FTNDAssessmentForm({
                 {Math.round(progress)}%
               </span>
             </div>
-            <Progress value={progress} className="h-3 bg-muted" />
+            <Progress value={progress} className="h-2 bg-muted" />
             <p className="text-xs text-right mt-2 text-muted-foreground">
               {tFtnd("ftnd.questionNumber", {
                 current: currentQuestion + 1,
@@ -199,10 +199,10 @@ export function FTNDAssessmentForm({
             </p>
           </div>
 
-          <div className="w-full space-y-6">
-            <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-4 rounded-lg border border-blue-200">
+          <div className="w-full space-y-3">
+            <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-3 rounded-lg border border-blue-200">
               <h3 className="font-medium text-lg leading-relaxed text-gray-800">
-               {tData(currentQuestionData.question)}
+                {tData(currentQuestionData.question)}
               </h3>
             </div>
 
@@ -214,7 +214,7 @@ export function FTNDAssessmentForm({
           </div>
         </div>
 
-        <DialogFooter className="flex sm:justify-between pt-4 border-t">
+        <DialogFooter className="flex sm:justify-between border-t">
           <Button
             type="button"
             variant="outline"

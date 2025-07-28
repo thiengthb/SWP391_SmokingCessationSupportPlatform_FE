@@ -22,6 +22,8 @@ import useApi from "@/hooks/useApi";
 import { useEffect, useState } from "react";
 import { type HealthListItem } from "@/types/models/health";
 import ReusablePagination from "@/components/ReusablePagination";
+import { toast } from "sonner";
+import { isToday } from "date-fns";
 
 interface PaginationResponse {
   content: HealthListItem[];
@@ -41,6 +43,11 @@ export default function HealthReportsTab() {
   const [totalElements, setTotalElements] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const pageSize = 10;
+
+  // Check if there's a report for today
+  const hasTodayReport = healthReports.some((report) =>
+    isToday(new Date(report.createdAt))
+  );
 
   useEffect(() => {
     const fetchHealthReports = async () => {
@@ -75,6 +82,16 @@ export default function HealthReportsTab() {
     setCurrentPage(page);
   };
 
+  const handleAddReport = () => {
+    if (hasTodayReport) {
+      toast.warning(
+        "You have already added a health report for today. Please try again tomorrow."
+      );
+      return;
+    }
+    setShowFTNDAssessment(true);
+  };
+
   const getFTNDLevelColor = (level: number) => {
     if (level <= 2) return "bg-green-100 text-green-800";
     if (level <= 4) return "bg-yellow-100 text-yellow-800";
@@ -92,9 +109,13 @@ export default function HealthReportsTab() {
               Your daily health tracking records ({totalElements} total)
             </CardDescription>
           </div>
-          <Button onClick={() => setShowFTNDAssessment(true)}>
+          <Button
+            onClick={handleAddReport}
+            disabled={hasTodayReport}
+            variant={hasTodayReport ? "secondary" : "default"}
+          >
             <Plus className="h-4 w-4 mr-2" />
-            Add Report
+            {hasTodayReport ? "Report Added Today" : "Add Report"}
           </Button>
           <FTNDAssessmentForm
             open={showFTNDAssessment}
@@ -120,7 +141,7 @@ export default function HealthReportsTab() {
               You haven't created any health reports yet. Start tracking your
               progress by adding your first report.
             </p>
-            <Button onClick={() => setShowFTNDAssessment(true)}>
+            <Button onClick={handleAddReport}>
               <Plus className="h-4 w-4 mr-2" />
               Add Your First Report
             </Button>

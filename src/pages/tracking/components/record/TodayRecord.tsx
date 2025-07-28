@@ -31,12 +31,12 @@ export function TodayRecord({
   const isSelectedDateToday = isToday(selectedDate);
   const selectedDateFormatted = format(selectedDate, "dd/MM/yyyy");
 
-  const getCigaretteStatusColor = (count: number) => {
-    if (count === 0) return "bg-green-100 text-green-800 border-green-200";
-    if (count <= 5) return "bg-yellow-100 text-yellow-800 border-yellow-200";
-    if (count <= 10) return "bg-orange-100 text-orange-800 border-orange-200";
-    return "bg-red-100 text-red-800 border-red-200";
-  };
+  // const getCigaretteStatusColor = (count: number) => {
+  //   if (count === 0) return "bg-green-100 text-green-800 border-green-200";
+  //   if (count <= 5) return "bg-yellow-100 text-yellow-800 border-yellow-200";
+  //   if (count <= 10) return "bg-orange-100 text-orange-800 border-orange-200";
+  //   return "bg-red-100 text-red-800 border-red-200";
+  // };
 
   const getCigaretteNumberColor = (count: number) => {
     if (count === 0) return "text-green-600";
