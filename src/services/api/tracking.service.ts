@@ -7,3 +7,8 @@ export const fetchMemberStatistics = async (): Promise<Statistics> => {
     const response = await authApi.get<ApiResponse<Statistics>>(`${Domains.STATISTICS}/member`);
     return response.data.result;
 }
+
+export const fetchCurrentMonthMemberStatistics = async (): Promise<Statistics> => {
+    const response = await authApi.get<ApiResponse<Statistics>>(`${Domains.STATISTICS}/member/current-month`);
+    return response.data.result;
+}
