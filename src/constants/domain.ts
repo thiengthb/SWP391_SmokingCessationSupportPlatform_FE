@@ -35,4 +35,5 @@ export const Domains = {
     UPLOAD_IMAGE: "/v1/upload/image",
     WEBHOOK: "/v1/webhooks",
     STATISTICS: "/v1/statistics",
+    BOOKINGS: "/v1/bookings",
 }

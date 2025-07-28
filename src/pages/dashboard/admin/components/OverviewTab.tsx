@@ -35,9 +35,7 @@ export function OverviewTab() {
             <div className="flex items-center gap-3 min-h-[80px]">
               <DollarSign className="h-6 w-6 text-green-600" />
               <div className="flex flex-col justify-center">
-                <p className="text-sm text-muted-foreground">
-                  Lifetime Month Revenue
-                </p>
+                <p className="text-sm text-muted-foreground">Lifetime Revenue</p>
                 <p className="text-2xl font-bold">
                   {adminStatistics.totalRevenue.toFixed(2)}
                 </p>
@@ -79,9 +77,7 @@ export function OverviewTab() {
         </Card>
         <Card>
           <CardContent className="p-4">
-            <p className="text-sm text-muted-foreground mb-2">
-              Revenue by Membership
-            </p>
+            <p className="text-sm text-muted-foreground mb-2">Monthly Revenue by Membership</p>
             <div className="space-y-1">
               {sortedCurrentMonthPlans.map((item, index) => (
                 <div key={index} className="flex justify-between text-sm">

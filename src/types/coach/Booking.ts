@@ -3,6 +3,7 @@ export interface Booking {
   memberId: string;
   memberName?: string;
   coachId: string;
+  coachFullName?: string; 
   meetLink: string;
   startedAt: string;
   endedAt: string;

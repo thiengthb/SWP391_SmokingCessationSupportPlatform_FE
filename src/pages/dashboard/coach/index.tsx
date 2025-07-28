@@ -4,7 +4,7 @@ import { OverviewTab } from "./components/OverviewTab";
 import { useTranslate } from "@/hooks/useTranslate";
 import BookingManagement from "./users/bookingManagement";
 import { ClientsTab } from "./components/ClientsTab";
-import { ScheduleTab } from "./components/ScheduleTab";
+import ScheduleTab from "./components/ScheduleTab";
 
 export default function CoachDashboard() {
   const { tCoach } = useTranslate();

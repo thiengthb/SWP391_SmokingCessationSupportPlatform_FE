@@ -34,6 +34,7 @@ export function BookingsTab() {
         const res = await api.get(
           `/v1/bookings/member-booking?page=${page}&size=${size}&direction=ASC&sortBy=startedAt`
         );
+        console.log("Bookings response:", res.data);
         const { content, totalElements } = res.data.result;
 
         setBookings(content || []);
@@ -110,7 +111,7 @@ export function BookingsTab() {
                     key={booking.id}
                     className="hover:bg-muted transition-colors"
                   >
-                    <TableCell>{booking.coachId}</TableCell>
+                    <TableCell>{booking.coachFullName}</TableCell>
                     <TableCell>{booking.status}</TableCell>
                     <TableCell>
                       {format(new Date(booking.startedAt), "dd/MM/yyyy HH:mm")}
