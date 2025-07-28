@@ -28,6 +28,9 @@ export default function CoachDashboard() {
           <TabsTrigger value="schedule">
             {tCoach("coachdashboard.tabs.schedule")}
           </TabsTrigger>
+          <TabsTrigger value="requests">
+            {tCoach("coachdashboard.tabs.requests")}
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview">
@@ -38,6 +41,9 @@ export default function CoachDashboard() {
         </TabsContent>
         <TabsContent value="schedule">
           <ScheduleTab />
+        </TabsContent>
+        <TabsContent value="requests">
+          <BookingManagement />
         </TabsContent>
       </Tabs>
     </div>

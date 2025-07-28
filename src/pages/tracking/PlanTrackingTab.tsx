@@ -5,13 +5,15 @@ import { Badge } from "@/components/ui/badge";
 import { Plus } from "lucide-react";
 import { toast } from "sonner";
 import { differenceInDays, isAfter, isBefore } from "date-fns";
-import type { Phase, PlanListItem } from "@/types/models/Plan";
+import type { PlanListItem } from "@/types/models/plan";
+import type { Phase } from "@/types/models/phase";
 import CurrentPlanOverview from "./components/plan/CurrentPlanOverview";
 import PlansList from "./components/plan/PlansList";
 import PlanDetails from "./components/plan/PlanDetails";
 import EmptyPlanState from "./components/plan/EmptyPlanState";
 import PresetPlans from "./components/plan/PresetPlans";
 import type { PlanStatus } from "@/types/enums/PlanStatus";
+import useApi from "@/hooks/useApi";
 
 export interface QuitPlan {
   id: string;
@@ -29,6 +31,7 @@ export default function PlanTrackingTab() {
   const [selectedPlan, setSelectedPlan] = useState<QuitPlan | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [showPresetPlans, setShowPresetPlans] = useState(false);
+  const apiWithInterceptor = useApi();
 
   useEffect(() => {
     const fetchPlans = async () => {

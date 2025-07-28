@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { isSameDay } from "date-fns";
+import { format, isSameDay } from "date-fns";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -15,6 +15,8 @@ import {
 } from "@/types/pagination";
 import PlanTrackingTab from "./PlanTrackingTab";
 import useApi from "@/hooks/useApi";
+import { BookingsTab } from "../dashboard/member/components/BookingTab";
+import CoachList from "../dashboard/coach/CoachList";
 const RecordHabbitPage = () => {
   const { auth } = useAuth();
   const [loading, setLoading] = useState(false);
@@ -38,13 +40,13 @@ const RecordHabbitPage = () => {
       setLoading(true);
       try {
         const response = await apiWithInterceptor.get(
-          `/v1/records?page=${pagination.page}&size=${pagination.size}`
+          `/v1/records?page=${pagination.page}&size=${pagination.size}&direction=DESC&sortBy=date`
         );
         console.log("Smoking records response:", response);
         const data = response.data.result;
         const records = response.data.result.content;
 
-        console.log("Fetched smoking records:", records);
+        console.log("Fetched smoking records:", records); ``
 
         const validRecords = Array.isArray(records)
           ? records.filter((record: any) => record && record.date)
@@ -107,8 +109,10 @@ const RecordHabbitPage = () => {
 
   const handleSaveRecord = async () => {
     try {
+      const localDateString = format(selectedDate, "yyyy-MM-dd");
+
       const payload = {
-        date: selectedDate.toISOString(),
+        date: localDateString, // <-- Use local date string
         cigarettesSmoked: newCigarettesCount,
         note: newNote,
       };
@@ -179,15 +183,16 @@ const RecordHabbitPage = () => {
 
       <Tabs defaultValue="overview" className="mb-6">
         <TabsList
-          className={`grid ${
-            auth.currentAcc?.havingSubscription ? "grid-cols-3" : "grid-cols-2"
-          } mb-4`}
+          className={`grid ${auth.currentAcc?.havingSubscription ? "grid-cols-5" : "grid-cols-4"
+            } mb-4`}
         >
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="records">Smoking Records</TabsTrigger>
           {auth.currentAcc?.havingSubscription && (
             <TabsTrigger value="plans">Plan</TabsTrigger>
           )}
+          <TabsTrigger value="bookings">Bookings</TabsTrigger>
+          <TabsTrigger value="Coach List">Coach List</TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview">
@@ -225,6 +230,12 @@ const RecordHabbitPage = () => {
 
         <TabsContent value="plans">
           <PlanTrackingTab />
+        </TabsContent>
+        <TabsContent value="bookings">
+          <BookingsTab></BookingsTab>
+        </TabsContent>
+        <TabsContent value="Coach List">
+          <CoachList />
         </TabsContent>
       </Tabs>
 

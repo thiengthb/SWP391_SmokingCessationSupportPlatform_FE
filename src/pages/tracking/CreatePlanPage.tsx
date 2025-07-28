@@ -23,11 +23,10 @@ import {
 import { toast } from "sonner";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import PlanPhase from "./components/plan/PlanPhase";
-import { addDays, startOfToday } from "date-fns";
-import { presetPlans, createPresetPlan } from "@/data/presetPlan.data";
-import type { PlanFormData } from "@/types/models/Plan";
-import type { PhaseFormData } from "@/types/models/phase";
-import { PhaseStatus } from "@/types/enums/PhaseStatus";
+import { addDays, differenceInCalendarDays, startOfToday } from "date-fns";
+import { presetPlans, createPresetPlan } from "@/data/preset-plan.data";
+import type { Phase, PlanFormData } from "@/types/models/plan";
+import useApi from "@/hooks/useApi";
 
 export default function CreatePlanPage() {
   const navigate = useNavigate();
@@ -113,14 +112,38 @@ export default function CreatePlanPage() {
     }));
   };
 
-  // const updatePhase = (id: string, phaseUpdate: Partial<Phase>) => {
-  //   setPlanData((prev) => ({
-  //     ...prev,
-  //     phases: prev.phases.map((phase) =>
-  //       phase.id === id ? { ...phase, ...phaseUpdate } : phase
-  //     ),
-  //   }));
-  // };
+  const updatePhase = (id: string, phaseUpdate: Partial<Phase>) => {
+    setPlanData((prev) => {
+      const phases = [...prev.phases];
+      const idx = phases.findIndex((phase) => phase.id === id);
+      if (idx === -1) return prev;
+
+      // Update the selected phase
+      phases[idx] = { ...phases[idx], ...phaseUpdate };
+
+      // If endDate is updated, update subsequent phases' startDate and endDate
+      if (phaseUpdate.endDate) {
+        let prevEndDate = phaseUpdate.endDate;
+        for (let i = idx + 1; i < phases.length; i++) {
+          // Calculate the duration of the phase
+          const duration =
+            differenceInCalendarDays(phases[i].endDate, phases[i].startDate);
+          // Set new startDate and endDate
+          phases[i] = {
+            ...phases[i],
+            startDate: addDays(prevEndDate, 1),
+            endDate: addDays(prevEndDate, 1 + duration),
+          };
+          prevEndDate = phases[i].endDate;
+        }
+      }
+
+      return {
+        ...prev,
+        phases,
+      };
+    });
+  };
 
   // const deletePhase = (id: string) => {
   //   if (planData.phases.length <= 1) {

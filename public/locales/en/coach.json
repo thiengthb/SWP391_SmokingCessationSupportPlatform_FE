@@ -8,7 +8,8 @@
       "clients": "Clients",
       "schedule": "Schedule",
       "lastmonth": "from last month",
-      "clientOverview": "Client Progress Overview"
+      "clientOverview": "Client Progress Overview",
+      "requests": "Booking Requests"
     },
     "clientStats": {
       "activeClients": "Active Clients",
