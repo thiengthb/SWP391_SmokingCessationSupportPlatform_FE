@@ -1,7 +1,8 @@
 export interface Statistics {
-    totalRecords: number;
     avgCigarettesPerDay: number;
     daysTracked: number;
+    cigarettesAvoided?: number;
+    moneySaved?: number;    
 }
 
 export interface AdminStatistics {

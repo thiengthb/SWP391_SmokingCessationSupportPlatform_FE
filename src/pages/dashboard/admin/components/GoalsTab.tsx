@@ -110,9 +110,9 @@ export default function AdminGoalsTab() {
         <div className="grid gap-2">
           <Label htmlFor="criteriaType">Criteria Type</Label>
           <Select
-            onValueChange={(val: goalFormData["criteriaType"]) =>
-              setValue("criteriaType", val)
-            }
+            onValueChange={(val: goalFormData["criteriaType"]) => {
+              setValue("criteriaType", val, { shouldValidate: true });
+            }}
           >
             <SelectTrigger>
               <SelectValue placeholder="Select criteria type" />
@@ -126,7 +126,30 @@ export default function AdminGoalsTab() {
               <SelectItem value="PHASE_COMPLETE">Phase Complete</SelectItem>
             </SelectContent>
           </Select>
+          <input type="hidden" {...register("criteriaType")} />
           <FormInputError field={errors.criteriaType} />
+        </div>
+        <div className="grid gap-2">
+          <Label htmlFor="goalDifficulty">Difficulty Level</Label>
+          <Select
+            onValueChange={(val) => {
+              setValue("goalDifficulty", val as goalFormData["goalDifficulty"], {
+                shouldValidate: true,
+              });
+            }}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Select goal difficulty" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="NORMAL">Normal</SelectItem>
+              <SelectItem value="BADGE">Badge</SelectItem>
+              <SelectItem value="MEDAL">Medal</SelectItem>
+            </SelectContent>
+          </Select>
+          <input type="hidden" {...register("goalDifficulty")} />
+          <FormInputError field={errors.goalDifficulty} />
+
         </div>
         <div className="grid gap-2">
           <Label htmlFor="criteriaValue">Criteria Value</Label>

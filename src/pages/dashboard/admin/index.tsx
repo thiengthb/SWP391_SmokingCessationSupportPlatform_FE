@@ -15,7 +15,7 @@ export default function AdminDashboard() {
         </h2>
       </div>
 
-      <Tabs defaultValue="reports" className="space-y-4">
+      <Tabs defaultValue="overview" className="space-y-4">
         <TabsList>
           <TabsTrigger value="overview">
             {tAdmin("admindashboard.admin.tabs.overview")}

@@ -75,6 +75,7 @@ export default function GoalManagement() {
   });
 
   const onSubmit: SubmitHandler<goalFormData> = async (data) => {
+    console.log("Submitting goal:", data);
     try {
       const response = await api.post("v1/goals", data);
       const { name } = response.data.result;
@@ -132,9 +133,8 @@ export default function GoalManagement() {
       >
         <DialogTrigger asChild>
           <Card
-            className={`cursor-pointer ${
-              isCompleted ? "opacity-100" : "opacity-75"
-            }`}
+            className={`cursor-pointer ${isCompleted ? "opacity-100" : "opacity-75"
+              }`}
           >
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">{goal.name}</CardTitle>
@@ -271,6 +271,12 @@ export default function GoalManagement() {
                       </SelectItem>
                     </SelectContent>
                   </Select>
+                  <input
+                    type="hidden"
+                    {...register("criteriaType", {
+                      required: "Criteria Type is required",
+                    })}
+                  />
                   <FormInputError field={errors.criteriaType} />
                 </div>
                 <div className="grid gap-2">
@@ -291,9 +297,9 @@ export default function GoalManagement() {
                   </Button>
                 </DialogClose>
                 <DialogClose asChild>
-                  <Button type="submit" disabled={isSubmitting}>
-                    {isSubmitting ? "Creating..." : "Create"}
-                  </Button>
+                <Button type="submit" disabled={isSubmitting}>
+                  {isSubmitting ? "Creating..." : "Create"}
+                </Button>
                 </DialogClose>
               </DialogFooter>
               <FormInputError field={errors.root} />

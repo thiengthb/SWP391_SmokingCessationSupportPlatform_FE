@@ -271,7 +271,7 @@ export default function UserManagement() {
 
       <div className="flex flex-col md:flex-row gap-4">
         <div className="flex-1">
-          <div className="relative max-w-sm">
+          {/* <div className="relative max-w-sm">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
               placeholder={tAdmin("admindashboard.userManagement.searchPlaceholder")}
@@ -279,9 +279,9 @@ export default function UserManagement() {
               onChange={(e) => setSearch(e.target.value)}
               className="pl-9"
             />
-          </div>
+          </div> */}
         </div>
-        <Select
+        {/* <Select
           value={role || ""}
           onValueChange={(val) => setRole(val === "" ? null : val)}
         >
@@ -301,7 +301,7 @@ export default function UserManagement() {
               {tAdmin("admindashboard.userManagement.roles.member")}
             </SelectItem>
           </SelectContent>
-        </Select>
+        </Select> */}
       </div>
 
       <UsersTab

@@ -11,7 +11,7 @@ export const useMemberStatistics = () => {
     );
 
     return {
-        statistics: data || { totalRecords: 0, avgCigarettesPerDay: 0, daysTracked: 0 },
+        statistics: data || { totalRecords: 0, avgCigarettesPerDay: 0, daysTracked: 0, cigarettesAvoided: 0, moneySaved: 0 },
         isLoading,
         error,
         mutate,

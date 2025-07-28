@@ -82,26 +82,30 @@ export function UsersTab({
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                      <DropdownMenuItem>
-                        {" "}
+                      <DropdownMenuItem onClick={() => onEditUser(user.id)}>
                         {tAdmin("admindashboard.userTable.edit")}
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        {" "}
+                      <DropdownMenuItem onClick={() => onViewUser(user.id)}>
                         {tAdmin("admindashboard.userTable.viewDetails")}
                       </DropdownMenuItem>
                       {user.status !== AccountStatus.BANNED ? (
-                        <DropdownMenuItem className="text-destructive">
+                        <DropdownMenuItem
+                          className="text-destructive"
+                          onClick={() => onToggleBan(user.id, true)}
+                        >
                           <Ban className="h-4 w-4 mr-2" />
                           {tAdmin("admindashboard.userTable.ban")}
                         </DropdownMenuItem>
                       ) : (
-                        <DropdownMenuItem>
+                        <DropdownMenuItem
+                          onClick={() => onToggleBan(user.id, false)}
+                        >
                           <CheckCircle className="h-4 w-4 mr-2" />
                           {tAdmin("admindashboard.userTable.unban")}
                         </DropdownMenuItem>
                       )}
                     </DropdownMenuContent>
+
                   </DropdownMenu>
                 </TableCell>
               </TableRow>

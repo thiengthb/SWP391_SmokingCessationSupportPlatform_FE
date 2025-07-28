@@ -22,4 +22,12 @@ export interface PremiumDistribution {
   totalAccounts: number;
 }
 
+export interface CompletionRate {
+  date: string;
+  totalPlans: number;
+  totalCompletedPlans: number;
+  totalFailedPlans: number;
+  totalCancelledPlans: number;
+}
+
 export type TimeRange = 'Weekly' | 'Monthly' | 'Yearly';

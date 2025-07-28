@@ -1,4 +1,4 @@
-import { fetchPremiumDistribution, fetchRevenueData, fetchUserDistribution, fetchUserGrowthData } from "@/services/api/report.service";
+import { fetchCompletionRate, fetchPremiumDistribution, fetchRevenueData, fetchUserDistribution, fetchUserGrowthData } from "@/services/api/report.service";
 import useSWR from "swr";
 import { Domains } from "@/constants/domain";
 import { useAuth } from "@/contexts/AuthContext";
@@ -62,3 +62,18 @@ export const useUserDistributionSwr = () => {
         mutate,
     };
 }   
+
+export const useCompletionRateSwr = (from: string, to: string) => {
+    const { canFetch } = useAuth();
+    const { data, error, isLoading, mutate } = useSWR(
+        canFetch ? `${Domains.REPORT}/completion-${from}-${to}` : null,
+        () => fetchCompletionRate({ from, to }),
+    );
+
+    return {
+        completionRate: data || [],
+        isLoading,
+        error,
+        mutate,
+    };
+}

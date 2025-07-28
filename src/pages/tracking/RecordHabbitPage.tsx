@@ -48,7 +48,7 @@ const RecordHabbitPage = () => {
       setLoading(true);
       try {
         const response = await apiWithInterceptor.get(
-          `/v1/records/my-records?page=${pagination.page}&size=${pagination.size}`
+          `/v1/records/my-records?page=${pagination.page}&size=${pagination.size}&sortBy=date&direction=DESC`
         );
         console.log("Smoking records response:", response);
         const data = response.data.result;

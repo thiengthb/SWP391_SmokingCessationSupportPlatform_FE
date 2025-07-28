@@ -10,8 +10,8 @@ import {
   DropdownMenuItem, DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { usePremiumDistributionSwr, useUserGrowthSwr, useUserDistributionSwr } from "@/hooks/swr/useReportSwr";
-import type { UserGrowthData, TimeRange } from "@/types/models/report";
+import { usePremiumDistributionSwr, useUserGrowthSwr, useUserDistributionSwr, useCompletionRateSwr } from "@/hooks/swr/useReportSwr";
+import type { UserGrowthData, TimeRange, CompletionRate } from "@/types/models/report";
 import {
   startOfWeek, endOfWeek, startOfMonth, endOfMonth,
   startOfYear, endOfYear, format, parseISO
@@ -58,11 +58,15 @@ export function ReportsTab() {
     return { level: selectedRange, from, to };
   };
 
-  const [drillStack, setDrillStack] = useState<DrillContext[]>(() => [getInitialDrill()]);
-  const currentDrill = drillStack[drillStack.length - 1];
+  const [userGrowthDrillStack, setUserGrowthDrillStack] = useState<DrillContext[]>(() => [getInitialDrill()]);
+  const [completionDrillStack, setCompletionDrillStack] = useState<DrillContext[]>(() => [getInitialDrill()]);
+  const currentUserGrowthDrill = userGrowthDrillStack.at(-1)!;
+  const currentCompletionDrill = completionDrillStack.at(-1)!;
 
   useEffect(() => {
-    setDrillStack([getInitialDrill()]);
+    const initialDrill = getInitialDrill();
+    setUserGrowthDrillStack([initialDrill]);
+    setCompletionDrillStack([initialDrill]);
   }, [selectedRange]);
 
   const generateDateLabels = (from: string, to: string) => {
@@ -99,6 +103,59 @@ export function ReportsTab() {
     return Array.from(groupedMap.entries()).map(([date, newAccounts]) => ({ date, newAccounts }));
   };
 
+  const groupCompletionByRangeUnit = (
+    data: CompletionRate[],
+    range: TimeRange
+  ): CompletionRate[] => {
+    const groupedMap = new Map<
+      string,
+      {
+        totalPlans: number;
+        totalCompletedPlans: number;
+        totalFailedPlans: number;
+        totalCancelledPlans: number;
+      }
+    >();
+
+    data.forEach((item) => {
+      const date = parseISO(item.date);
+      let key = item.date;
+
+      if (range === "Monthly") {
+        const weekOfMonth = Math.ceil(date.getDate() / 7);
+        const start = new Date(date.getFullYear(), date.getMonth(), (weekOfMonth - 1) * 7 + 1);
+        const end = new Date(start);
+        end.setDate(start.getDate() + 6);
+        const lastDay = endOfMonth(date);
+        if (end > lastDay) end.setDate(lastDay.getDate());
+        key = `W${weekOfMonth} (${format(start, "MMM d")}–${format(end, "d")})`;
+      } else if (range === "Yearly") {
+        key = format(date, "MMM");
+      } else if (range === "Weekly") {
+        key = `${format(date, "MMM d")}\n${format(date, "EEE")}`;
+      }
+
+      const current = groupedMap.get(key) ?? {
+        totalPlans: 0,
+        totalCompletedPlans: 0,
+        totalFailedPlans: 0,
+        totalCancelledPlans: 0,
+      };
+
+      groupedMap.set(key, {
+        totalPlans: current.totalPlans + item.totalPlans,
+        totalCompletedPlans: current.totalCompletedPlans + item.totalCompletedPlans,
+        totalFailedPlans: current.totalFailedPlans + item.totalFailedPlans,
+        totalCancelledPlans: current.totalCancelledPlans + item.totalCancelledPlans,
+      });
+    });
+
+    return Array.from(groupedMap.entries()).map(([date, values]) => ({
+      date,
+      ...values,
+    }));
+  };
+
   const fillMissingDates = (rawData: UserGrowthData[], from: string, to: string): UserGrowthData[] => {
     const dateLabels = generateDateLabels(from, to);
     const dataMap = new Map(rawData.map((item) => [item.date, item]));
@@ -108,15 +165,34 @@ export function ReportsTab() {
     }));
   };
 
-  const { userGrowth = [], isLoading: isUserGrowthLoading } = useUserGrowthSwr(currentDrill.from, currentDrill.to);
-  useEffect(() => {
-    console.log("SWR fetching:", currentDrill);
-  }, [currentDrill]);
+  const fillMissingCompletionRates = (
+    rawData: typeof completionRate,
+    from: string,
+    to: string
+  ) => {
+    const dateLabels = generateDateLabels(from, to);
+    const dataMap = new Map(rawData.map((item) => [item.date, item]));
+    return dateLabels.map((date) => ({
+      date,
+      totalPlans: dataMap.get(date)?.totalPlans ?? 0,
+      totalCompletedPlans: dataMap.get(date)?.totalCompletedPlans ?? 0,
+      totalFailedPlans: dataMap.get(date)?.totalFailedPlans ?? 0,
+      totalCancelledPlans: dataMap.get(date)?.totalCancelledPlans ?? 0,
+    }));
+  };
+
+  const { userGrowth = [], isLoading: isUserGrowthLoading } = useUserGrowthSwr(currentUserGrowthDrill.from, currentUserGrowthDrill.to);
+  const { completionRate = [], isLoading: isCompletionRateLoading } = useCompletionRateSwr(currentCompletionDrill.from, currentCompletionDrill.to);
   const { userDistribution, isLoading: isUserDistributionLoading } = useUserDistributionSwr();
   const { premiumDistribution, isLoading: isPremiumLoading } = usePremiumDistributionSwr();
 
-  const filledUserGrowth = fillMissingDates(userGrowth, currentDrill.from, currentDrill.to);
-  const groupedUserGrowth = groupDataByRangeUnit(filledUserGrowth, currentDrill.level);
+  const filledUserGrowth = fillMissingDates(userGrowth, currentUserGrowthDrill.from, currentUserGrowthDrill.to);
+  const groupedUserGrowth = groupDataByRangeUnit(filledUserGrowth, currentUserGrowthDrill.level);
+
+  const filledCompletionRates = fillMissingCompletionRates(completionRate, currentCompletionDrill.from, currentCompletionDrill.to);
+  const groupedCompletionRates = groupCompletionByRangeUnit(filledCompletionRates, currentCompletionDrill.level);
+
+
 
   const pieUserData = userDistribution ? [
     { name: "Online", value: userDistribution.onlineAccounts },
@@ -129,23 +205,40 @@ export function ReportsTab() {
     { name: "Non-Premium", value: premiumDistribution.nonPremiumAccounts },
   ] : [];
 
-  const handleDrillDown = (barData: UserGrowthData) => {
-    if (currentDrill.level === "Yearly") {
-      const month = new Date(`${barData.date} 1, ${new Date().getFullYear()}`);
-      const from = format(startOfMonth(month), "yyyy-MM-dd'T'00:00:00");
-      const to = format(endOfMonth(month), "yyyy-MM-dd'T'23:59:59");
-      setDrillStack([...drillStack, { level: "Monthly", from, to }]);
-    } else if (currentDrill.level === "Monthly") {
-      const match = barData.date.match(/\(([^)]+)\)/);
+  const getDrillFromBar = (label: string, level: TimeRange): DrillContext | null => {
+    const now = new Date();
+    const currentYear = now.getFullYear();
+
+    if (level === "Yearly") {
+      const month = new Date(`${label} 1, ${currentYear}`);
+      return {
+        level: "Monthly",
+        from: format(startOfMonth(month), "yyyy-MM-dd'T'00:00:00"),
+        to: format(endOfMonth(month), "yyyy-MM-dd'T'23:59:59"),
+      };
+    } else if (level === "Monthly") {
+      const match = label.match(/\(([^)]+)\)/);
       if (match) {
         const [startStr, endStr] = match[1].split("–");
-        const currentYear = new Date().getFullYear();
-        const month = barData.date.match(/\w{3}/)?.[0] ?? "Jul";
-        const from = format(new Date(`${month} ${startStr.trim()}, ${currentYear}`), "yyyy-MM-dd'T'00:00:00");
-        const to = format(new Date(`${month} ${endStr.trim()}, ${currentYear}`), "yyyy-MM-dd'T'23:59:59");
-        setDrillStack([...drillStack, { level: "Weekly", from, to }]);
+        const month = label.match(/\w{3}/)?.[0] ?? "Jul";
+        return {
+          level: "Weekly",
+          from: format(new Date(`${month} ${startStr.trim()}, ${currentYear}`), "yyyy-MM-dd'T'00:00:00"),
+          to: format(new Date(`${month} ${endStr.trim()}, ${currentYear}`), "yyyy-MM-dd'T'23:59:59"),
+        };
       }
     }
+    return null;
+  };
+
+  const handleDrillDown = (barData: UserGrowthData) => {
+    const newDrill = getDrillFromBar(barData.date, currentUserGrowthDrill.level);
+    if (newDrill) setUserGrowthDrillStack([...userGrowthDrillStack, newDrill]);
+  };
+
+  const handleCompletionDrillDown = (barData: CompletionRate) => {
+    const newDrill = getDrillFromBar(barData.date, currentCompletionDrill.level);
+    if (newDrill) setCompletionDrillStack([...completionDrillStack, newDrill]);
   };
 
   return (
@@ -189,13 +282,56 @@ export function ReportsTab() {
                 </ResponsiveContainer>
               )}
             </div>
-            {drillStack.length > 1 && (
-              <Button variant="outline" onClick={() => setDrillStack(drillStack.slice(0, -1))}>
-                ← Back to {drillStack.at(-2)?.level ?? selectedRange}
+            {userGrowthDrillStack.length > 1 && (
+              <Button variant="outline" onClick={() => setUserGrowthDrillStack(userGrowthDrillStack.slice(0, -1))}>
+                ← Back to {userGrowthDrillStack.at(-2)?.level}
               </Button>
             )}
           </CardContent>
         </Card>
+
+        <Card>
+          <CardHeader><CardTitle>Completion Rates</CardTitle></CardHeader>
+          <CardContent>
+            {isCompletionRateLoading ? (
+              <div className="flex justify-center h-[300px] items-center">Loading...</div>
+            ) : (
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart data={groupedCompletionRates}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="date" tick={{ fontSize: 12 }} />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Bar
+                    dataKey="totalCompletedPlans"
+                    name="Completed"
+                    fill="#82ca9d"
+                    onClick={({ payload }) => handleCompletionDrillDown(payload)}
+                  />
+                  <Bar
+                    dataKey="totalFailedPlans"
+                    name="Failed"
+                    fill="#ff7f7f"
+                    onClick={({ payload }) => handleCompletionDrillDown(payload)}
+                  />
+                  <Bar
+                    dataKey="totalCancelledPlans"
+                    name="Cancelled"
+                    fill="#ffc658"
+                    onClick={({ payload }) => handleCompletionDrillDown(payload)}
+                  />
+                </BarChart>
+              </ResponsiveContainer>
+            )}
+            {completionDrillStack.length > 1 && (
+              <Button variant="outline" onClick={() => setCompletionDrillStack(completionDrillStack.slice(0, -1))}>
+                ← Back to {completionDrillStack.at(-2)?.level}
+              </Button>
+            )}
+          </CardContent>
+        </Card>
+
 
         <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
           <Card>

@@ -1,6 +1,6 @@
 import { Domains } from "@/constants/domain";
 import { authApi } from "@/lib/axios";
-import type { UserGrowthData, UserDistributionResponse, RevenueResponse, PremiumDistribution } from "@/types/models/report";
+import type { UserGrowthData, UserDistributionResponse, RevenueResponse, PremiumDistribution, CompletionRate } from "@/types/models/report";
 import type { ApiResponse } from "@/types/response";
 
 export const fetchUserGrowthData = async ({ from, to }: { from: string, to: string }): Promise<UserGrowthData[]> => {
@@ -24,5 +24,12 @@ export const fetchRevenueData = async ({ from, to }: { from: string, to: string 
 
 export const fetchPremiumDistribution = async (): Promise<PremiumDistribution> => {
     const response = await authApi.get<ApiResponse<PremiumDistribution>>(`${Domains.REPORT}/premium-distribution`);
+    return response.data.result;
+}
+
+export const fetchCompletionRate = async ({ from, to }: { from: string, to: string }): Promise<CompletionRate[]> => {
+    const response = await authApi.get<ApiResponse<CompletionRate[]>>(`${Domains.REPORT}/completion`, {
+        params: { from, to },
+    });
     return response.data.result;
 }
