@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react";
-import { isSameDay } from "date-fns";
+import { isSameDay, startOfDay } from "date-fns";
 import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import SmokingAchievements from "@/pages/tracking/components/record/SmokingAchievements";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Settings, RefreshCw, BarChart3 } from "lucide-react";
 import TodayRecord from "@/pages/tracking/components/record/TodayRecord";
 import RecordCalendar from "@/pages/tracking/components/record/RecordCalendar";
 import RecordsList from "@/pages/tracking/components/record/RecordsList";
 import RecordDialog from "@/pages/tracking/components/record/RecordDialog";
-import type { SmokingRecord } from "@/types/models/Record";
+import type { SmokingRecord } from "@/types/models/record";
 import {
   defaultPaginationResponse,
   type PaginationResponse,
@@ -17,10 +20,11 @@ import PlanTrackingTab from "./PlanTrackingTab";
 import useApi from "@/hooks/useApi";
 const RecordHabbitPage = () => {
   const { auth } = useAuth();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [pagination, setPagination] = useState<PaginationResponse<void>>(
-    defaultPaginationResponse
-  );
+  const [pagination, setPagination] = useState<
+    PaginationResponse<SmokingRecord>
+  >(defaultPaginationResponse);
 
   const apiWithInterceptor = useApi();
 
@@ -38,7 +42,7 @@ const RecordHabbitPage = () => {
       setLoading(true);
       try {
         const response = await apiWithInterceptor.get(
-          `/v1/records?page=${pagination.page}&size=${pagination.size}`
+          `/v1/records/my-records?page=${pagination.page}&size=${pagination.size}`
         );
         console.log("Smoking records response:", response);
         const data = response.data.result;
@@ -77,6 +81,17 @@ const RecordHabbitPage = () => {
 
   const handleDateSelect = (date: Date | undefined) => {
     if (!date) return;
+
+    // Check if the selected date is not today
+    const today = startOfDay(new Date());
+    const selectedDay = startOfDay(date);
+
+    if (!isSameDay(selectedDay, today)) {
+      // For non-today dates, just show the record without allowing edit
+      setSelectedDate(date);
+      return;
+    }
+
     setSelectedDate(date);
 
     // Check if there's a record for this date
@@ -97,7 +112,22 @@ const RecordHabbitPage = () => {
     setShowRecordDialog(true);
   };
 
+  const handleCalendarDateSelect = (date: Date | undefined) => {
+    if (!date) return;
+    setSelectedDate(date);
+    // Don't open dialog, just update the selected date
+  };
+
   const handleEditRecord = (record: SmokingRecord) => {
+    // Check if the record date is not today
+    const today = startOfDay(new Date());
+    const recordDate = startOfDay(new Date(record.date));
+
+    if (!isSameDay(recordDate, today)) {
+      toast.error("You can only edit today's record");
+      return;
+    }
+
     setCurrentRecord(record);
     setSelectedDate(new Date(record.date));
     setNewCigarettesCount(record.cigarettesSmoked);
@@ -160,7 +190,7 @@ const RecordHabbitPage = () => {
 
     return smokingRecords.find(
       (record) =>
-        record && record.date && isSameDay(new Date(record.date), new Date())
+        record && record.date && isSameDay(new Date(record.date), selectedDate)
     );
   };
 
@@ -171,28 +201,39 @@ const RecordHabbitPage = () => {
     }));
   };
 
+  const handleNavigateToSettings = () => {
+    navigate("/settings");
+  };
+
+  const handleNavigateToDashboard = () => {
+    navigate("/member/dashboard");
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">
         Welcome Back, {auth?.currentAcc?.username}
       </h1>
-
-      <Tabs defaultValue="overview" className="mb-6">
-        <TabsList
-          className={`grid ${
-            auth.currentAcc?.havingSubscription ? "grid-cols-3" : "grid-cols-2"
-          } mb-4`}
+      <div className="mr-2 pb-10 flex justify-between">
+        <p className="text-gray-700 w-[50%]">
+          Manual tracking mode is enabled. Record your smoking habits daily. You
+          can also view your daily records here.
+        </p>
+        <Button
+          onClick={handleNavigateToDashboard}
+          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700"
+          size="lg"
         >
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="records">Smoking Records</TabsTrigger>
-          {auth.currentAcc?.havingSubscription && (
-            <TabsTrigger value="plans">Plan</TabsTrigger>
-          )}
-        </TabsList>
+          <BarChart3 className="h-4 w-4" />
+          View Dashboard
+        </Button>
+      </div>
 
-        <TabsContent value="overview">
-          <SmokingAchievements />
-        </TabsContent>
+      <Tabs defaultValue="records" className="mb-6">
+        <TabsList className={`grid grid-cols-2 mb-4`}>
+          <TabsTrigger value="records">Smoking Records</TabsTrigger>
+          <TabsTrigger value="plans">Plan</TabsTrigger>
+        </TabsList>
 
         <TabsContent value="records">
           <div className="flex flex-col gap-6">
@@ -200,6 +241,7 @@ const RecordHabbitPage = () => {
               <TodayRecord
                 loading={loading}
                 todayRecord={getTodayRecord()}
+                selectedDate={selectedDate}
                 handleDateSelect={handleDateSelect}
               />
               <RecordCalendar
@@ -208,6 +250,7 @@ const RecordHabbitPage = () => {
                   (record) => record && record.date
                 )}
                 handleDateSelect={handleDateSelect}
+                handleCalendarDateSelect={handleCalendarDateSelect}
               />
             </div>
 
@@ -240,6 +283,33 @@ const RecordHabbitPage = () => {
         handleSaveRecord={handleSaveRecord}
         handleDeleteRecord={handleDeleteRecord}
       />
+
+      <Card className="mb-6 bg-blue-50 border-blue-200">
+        <CardContent className="p-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <RefreshCw className="h-5 w-5 text-blue-600" />
+              <div>
+                <p className="text-sm font-medium text-blue-900">
+                  Currently using Manual Tracking
+                </p>
+                <p className="text-xs text-blue-700">
+                  Want to try automatic tracking? Change it in settings
+                </p>
+              </div>
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleNavigateToSettings}
+              className="border-blue-300 text-blue-700 hover:bg-blue-100"
+            >
+              <Settings className="h-4 w-4 mr-2" />
+              Settings
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };

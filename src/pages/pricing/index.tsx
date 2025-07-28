@@ -2,14 +2,12 @@ import { PricingHeader } from "@/pages/pricing/components/PricingHeader";
 import { PricingCards } from "@/pages/pricing/components/PricingCards";
 import { FeatureComparison } from "@/pages/pricing/components/FeatureComparison";
 import { BenefitCards } from "@/pages/pricing/components/BenefitCards";
-import { Testimonials } from "@/pages/pricing/components/Testimonials";
 import { FAQ } from "@/pages/pricing/components/FAQ";
 import { PricingCTA } from "@/pages/pricing/components/PricingCTA";
-import { faqs, testimonials, programFeatures } from "@/data/pricing.data";
+import { faqs, programFeatures } from "@/data/pricing.data";
 import { useEffect, useState } from "react";
 import { publicApi } from "@/lib/axios";
 import type { Membership } from "@/types/models/membership";
-import { useTranslate } from "@/hooks/useTranslate";
 
 export default function PricingPage() {
   const [memberships, setMemberships] = useState<Membership[]>([]);
@@ -36,8 +34,6 @@ export default function PricingPage() {
       <FeatureComparison features={programFeatures} />
 
       <BenefitCards />
-
-      <Testimonials testimonials={testimonials} />
 
       <FAQ faqs={faqs} />
 

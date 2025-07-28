@@ -62,7 +62,7 @@ const router = createBrowserRouter([
             children: memberRoutes,
           },
           {
-            path: Paths.PREMIUM.ROOT,
+            path: Paths.MEMBER.ROOT,
             element: <RequireAuth allowedRoles={[ForRoles.PREMIUM]} />,
             children: premiumRoutes,
           },

@@ -2,16 +2,20 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Plus } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Plus, Crown, Star } from "lucide-react";
 import { toast } from "sonner";
 import { differenceInDays, isAfter, isBefore } from "date-fns";
-import type { Phase, PlanListItem } from "@/types/models/Plan";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
+import type { PlanListItem } from "@/types/models/plan";
 import CurrentPlanOverview from "./components/plan/CurrentPlanOverview";
 import PlansList from "./components/plan/PlansList";
 import PlanDetails from "./components/plan/PlanDetails";
 import EmptyPlanState from "./components/plan/EmptyPlanState";
 import PresetPlans from "./components/plan/PresetPlans";
 import type { PlanStatus } from "@/types/enums/PlanStatus";
+import useApi from "@/hooks/useApi";
 
 export interface QuitPlan {
   id: string;
@@ -19,16 +23,20 @@ export interface QuitPlan {
   startDate: Date;
   targetQuitDate: Date;
   description?: string;
-  phases: Phase[];
+  phases: [];
   status?: PlanStatus;
 }
 
 export default function PlanTrackingTab() {
+  const { auth } = useAuth();
+  const navigate = useNavigate();
   const [currentPlan, setCurrentPlan] = useState<QuitPlan | null>(null);
   const [allPlans, setAllPlans] = useState<PlanListItem[]>([]);
   const [selectedPlan, setSelectedPlan] = useState<QuitPlan | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [showPresetPlans, setShowPresetPlans] = useState(false);
+
+  const apiWithInterceptor = useApi();
 
   useEffect(() => {
     const fetchPlans = async () => {
@@ -193,6 +201,12 @@ export default function PlanTrackingTab() {
     }
   };
 
+  const isPremiumUser = auth?.currentAcc?.havingSubscription;
+
+  const handleUpgradeToPremium = () => {
+    navigate("/pricing");
+  };
+
   if (isLoading) {
     return (
       <div className="container py-8">
@@ -206,8 +220,94 @@ export default function PlanTrackingTab() {
     );
   }
 
-  // Show preset plans when creating new plan or when no plans exist
-  if (showPresetPlans || (allPlans.length === 0 && !currentPlan)) {
+  // Show upgrade message for non-premium users
+  if (!isPremiumUser) {
+    return (
+      <div className="container py-8 space-y-8">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center"
+        >
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+            Kế hoạch cai thuốc
+          </h1>
+          <p className="text-muted-foreground">
+            Tính năng dành riêng cho thành viên Premium
+          </p>
+        </motion.div>
+
+        {/* Premium Upgrade Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <Card className="bg-gradient-to-br from-yellow-50 to-orange-50 border-yellow-200 shadow-lg">
+            <CardContent className="p-8 text-center">
+              <div className="bg-yellow-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+                <Crown className="h-10 w-10 text-yellow-600" />
+              </div>
+
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                Nâng cấp lên Premium để sử dụng tính năng này
+              </h2>
+
+              <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+                Tạo và quản lý kế hoạch cai thuốc cá nhân hóa với sự hướng dẫn
+                từ chuyên gia. Theo dõi tiến trình chi tiết và nhận được lời
+                khuyên phù hợp với từng giai đoạn.
+              </p>
+
+              <div className="grid md:grid-cols-3 gap-4 mb-8">
+                <div className="bg-white p-4 rounded-lg border border-yellow-200">
+                  <Star className="h-6 w-6 text-yellow-600 mx-auto mb-2" />
+                  <h3 className="font-semibold text-sm mb-1">
+                    Kế hoạch cá nhân hóa
+                  </h3>
+                  <p className="text-xs text-gray-600">
+                    Tạo kế hoạch phù hợp với bạn
+                  </p>
+                </div>
+                <div className="bg-white p-4 rounded-lg border border-yellow-200">
+                  <Star className="h-6 w-6 text-yellow-600 mx-auto mb-2" />
+                  <h3 className="font-semibold text-sm mb-1">
+                    Theo dõi tiến trình
+                  </h3>
+                  <p className="text-xs text-gray-600">
+                    Xem báo cáo chi tiết hàng ngày
+                  </p>
+                </div>
+                <div className="bg-white p-4 rounded-lg border border-yellow-200">
+                  <Star className="h-6 w-6 text-yellow-600 mx-auto mb-2" />
+                  <h3 className="font-semibold text-sm mb-1">
+                    Hỗ trợ chuyên gia
+                  </h3>
+                  <p className="text-xs text-gray-600">
+                    Lời khuyên từ chuyên gia y tế
+                  </p>
+                </div>
+              </div>
+
+              <Button
+                onClick={handleUpgradeToPremium}
+                className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white px-8 py-3 text-lg font-semibold shadow-md"
+                size="lg"
+              >
+                <Crown className="h-5 w-5 mr-2" />
+                Nâng cấp lên Premium ngay
+              </Button>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </div>
+    );
+  }
+
+  // Show preset plans when user clicks to view them
+  if (showPresetPlans) {
     return (
       <div className="container py-8">
         <motion.div
@@ -216,15 +316,13 @@ export default function PlanTrackingTab() {
           transition={{ duration: 0.6 }}
           className="mb-8"
         >
-          {allPlans.length > 0 && (
-            <Button
-              variant="ghost"
-              onClick={handleBackFromPreset}
-              className="mb-4"
-            >
-              ← Quay lại danh sách kế hoạch
-            </Button>
-          )}
+          <Button
+            variant="ghost"
+            onClick={handleBackFromPreset}
+            className="mb-4"
+          >
+            ← Quay lại danh sách kế hoạch
+          </Button>
           <div>
             <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               Tạo kế hoạch cai thuốc
@@ -241,7 +339,7 @@ export default function PlanTrackingTab() {
 
   return (
     <div className="container py-8 space-y-8">
-      {/* Header */}
+      {/* Header with Premium Badge */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -249,9 +347,15 @@ export default function PlanTrackingTab() {
         className="flex items-center justify-between"
       >
         <div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Kế hoạch cai thuốc
-          </h1>
+          <div className="flex items-center gap-2 mb-2">
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Kế hoạch cai thuốc
+            </h1>
+            <Badge className="bg-yellow-100 text-yellow-800 border-yellow-300">
+              <Crown className="h-3 w-3 mr-1" />
+              Premium
+            </Badge>
+          </div>
           <p className="text-muted-foreground">
             Quản lý và theo dõi tiến trình cai thuốc của bạn
           </p>
@@ -263,6 +367,36 @@ export default function PlanTrackingTab() {
           <Plus className="h-4 w-4 mr-2" />
           Tạo kế hoạch mới
         </Button>
+      </motion.div>
+
+      {/* Preset Plans Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+        className="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200"
+      >
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h2 className="text-xl font-semibold text-gray-900">
+              Kế hoạch mẫu có sẵn
+            </h2>
+            <p className="text-sm text-gray-600">
+              Chọn một kế hoạch mẫu để bắt đầu nhanh chóng
+            </p>
+          </div>
+          <Button
+            onClick={() => setShowPresetPlans(true)}
+            variant="outline"
+            className="border-green-300 text-green-700 hover:bg-green-100"
+          >
+            Xem tất cả kế hoạch mẫu
+          </Button>
+        </div>
+        <div className="text-sm text-gray-500">
+          💡 Các kế hoạch mẫu được thiết kế bởi chuyên gia và phù hợp với nhiều
+          người dùng
+        </div>
       </motion.div>
 
       {/* Current Plan Overview */}

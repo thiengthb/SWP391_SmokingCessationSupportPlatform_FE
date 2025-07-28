@@ -35,25 +35,25 @@ export const teamMembers: TeamMember[] = [
     name: "data.aboutus.team.members.0.name",
     role: "data.aboutus.team.members.0.role",
     description: "data.aboutus.team.members.0.description",
-    image: "/team/member1.jpg",
+    image: "",
   },
   {
     name: "data.aboutus.team.members.1.name",
     role: "data.aboutus.team.members.1.role",
     description: "data.aboutus.team.members.1.description",
-    image: "/team/member2.jpg",
+    image: "",
   },
   {
     name: "data.aboutus.team.members.2.name",
     role: "data.aboutus.team.members.2.role",
     description: "data.aboutus.team.members.2.description",
-    image: "/team/member3.jpg",
+    image: "",
   },
   {
     name: "data.aboutus.team.members.3.name",
     role: "data.aboutus.team.members.3.role",
     description: "data.aboutus.team.members.3.description",
-    image: "/team/member4.jpg",
+    image: "",
   },
 ];
 

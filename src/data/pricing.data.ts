@@ -1,7 +1,6 @@
 import type {
   ProgramFeature,
   FAQItem,
-  Testimonial,
 } from "@/types/models/membership";
 
 export const programFeatures: ProgramFeature[] = [
@@ -100,26 +99,3 @@ export const faqs: FAQItem[] = [
   },
 ];
 
-export const testimonials: Testimonial[] = [
-  {
-    name: "data.pricing.testimonials.1.name",
-    role: "data.pricing.testimonials.1.role",
-    content: "data.pricing.testimonials.1.content",
-    avatar: "https://i.pravatar.cc/100?img=3",
-    rating: 5,
-  },
-  {
-    name: "data.pricing.testimonials.2.name",
-    role: "data.pricing.testimonials.2.role",
-    content: "data.pricing.testimonials.2.content",
-    avatar: "https://i.pravatar.cc/100?img=5",
-    rating: 5,
-  },
-  {
-    name: "data.pricing.testimonials.3.name",
-    role: "data.pricing.testimonials.3.role",
-    content: "data.pricing.testimonials.3.content",
-    avatar: "https://i.pravatar.cc/100?img=12",
-    rating: 4,
-  },
-];

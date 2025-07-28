@@ -9,7 +9,8 @@ export interface PlanFormData {
 }
 
 export interface Tip {
-
+    id: string;
+    content: string;
 }
 
 export interface Plan {

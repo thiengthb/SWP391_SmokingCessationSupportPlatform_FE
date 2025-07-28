@@ -64,7 +64,7 @@ export default function PaymentResult() {
   };
 
   const goToDashboard = () => {
-    navigate("/member/dashboard");
+    navigate("/account/profile");
   };
 
   const retryPayment = () => {
@@ -179,7 +179,7 @@ export default function PaymentResult() {
                 Trang chủ
               </Button>
               <Button onClick={goToDashboard}>
-                Đi đến bảng điều khiển
+                Đi đến hồ sơ
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </>

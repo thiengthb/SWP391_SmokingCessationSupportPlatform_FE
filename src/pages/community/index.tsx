@@ -18,7 +18,7 @@ export default function CommunityPage() {
   const PAGE_SIZE = 50; // Number of messages per page
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<ChatMessageType[]>([]);
-  const { onlineUsers, error, isLoading} = useOnlineListSwr();
+  const { onlineUsers, error, isLoading } = useOnlineListSwr();
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [shouldScrollToBottom, setShouldScrollToBottom] = useState(false);
@@ -153,7 +153,9 @@ export default function CommunityPage() {
   return (
     <div className="container py-10 px-4 mx-auto">
       <div className="mb-6 space-y-1">
-        <h1 className="text-4xl font-bold mb-2">{tCommunity("community.title")}</h1>
+        <h1 className="text-4xl font-bold mb-2">
+          {tCommunity("community.title")}
+        </h1>
         <p className="text-muted-foreground">
           {tCommunity("community.description")}
         </p>
@@ -203,10 +205,8 @@ export default function CommunityPage() {
               </h3>
             </div>
             <div className="space-y-1">
-              {isLoading && <p>Loading online users...</p>
-              } : {
-              error && <p className="text-red-500">Error loading users</p>
-              } :
+              {isLoading && <p>Loading online users...</p>}
+              {error && <p className="text-red-500">Error loading users</p>}
               {onlineUsers.map((user) => (
                 <OnlineUser key={user.id} user={user} />
               ))}

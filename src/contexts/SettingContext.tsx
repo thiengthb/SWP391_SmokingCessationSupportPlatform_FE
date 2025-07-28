@@ -23,7 +23,7 @@ export interface SettingContext {
 const defaultSetting: Setting = {
   theme: Theme.SYSTEM,
   language: Language.EN,
-  trackingMode: TrackingMode.AUTO_COUNT,
+  trackingMode: TrackingMode.DAILY_RECORD,
   motivationFrequency: MotivationFrequency.DAILY,
   reportDeadline: "19:00",
 };

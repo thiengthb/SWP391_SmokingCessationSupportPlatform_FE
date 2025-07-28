@@ -31,7 +31,7 @@ export const Paths = {
             RANKINGS: "/leaderboard/rankings",
             HALL_OF_FAME: "/leaderboard/hall-of-fame",
         },
-        PAYMENT: "public/payment",
+        PAYMENT: "/payment",
 
         // in future
         FAQ: "/faq",
@@ -66,13 +66,10 @@ export const Paths = {
     MEMBER: {
         ROOT: "/member",
         DASHBOARD: "/member/dashboard",
-    },
-    PREMIUM: {
-        ROOT: "/premium",
         TRACKING: {
-            ROOT: "/premium/tracking",
-            INFO: "/premium/tracking/info",
-            CREATE_PLAN: "/premium/tracking/create-plan",
-        }
+            ROOT: "/member/tracking",
+            INFO: "/member/tracking/info",
+            CREATE_PLAN: "/member/tracking/create-plan",
+        },
     },
 };

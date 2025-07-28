@@ -25,14 +25,17 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import PlanPhase from "./components/plan/PlanPhase";
 import { addDays, startOfToday } from "date-fns";
 import { presetPlans, createPresetPlan } from "@/data/presetPlan.data";
-import type { PlanFormData } from "@/types/models/Plan";
+import type { PlanFormData } from "@/types/models/plan";
 import type { PhaseFormData } from "@/types/models/phase";
 import { PhaseStatus } from "@/types/enums/PhaseStatus";
+import useApi from "@/hooks/useApi";
 
 export default function CreatePlanPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const presetPlanId = searchParams.get("preset");
+
+  const apiWithInterceptor = useApi();
 
   const [isLoading, setIsLoading] = useState(false);
   const [planData, setPlanData] = useState<PlanFormData>({
@@ -246,24 +249,6 @@ export default function CreatePlanPage() {
                     className="border-2 border-gray-200 focus:border-blue-500"
                   />
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="duration" className="text-sm font-medium">
-                    Thời gian dự kiến (ngày)
-                  </Label>
-                  <Input
-                    id="duration"
-                    type="number"
-                    value={planData.duration}
-                    onChange={(e) =>
-                      updatePlanField(
-                        "duration",
-                        parseInt(e.target.value) || 30
-                      )
-                    }
-                    min={1}
-                    className="border-2 border-gray-200 focus:border-blue-500"
-                  />
-                </div>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="description" className="text-sm font-medium">
@@ -363,7 +348,7 @@ export default function CreatePlanPage() {
                       ?.cigaretteBound || 0}
                   </div>
                   <div className="text-sm text-muted-foreground">
-                    Mục tiêu cuối
+                    Mục tiêu hút thuốc cuối cùng
                   </div>
                 </div>
                 <div className="text-center p-4 bg-white/60 rounded-lg">
@@ -392,7 +377,7 @@ export default function CreatePlanPage() {
         >
           <Button
             variant="outline"
-            onClick={() => navigate("/tracking")}
+            onClick={() => navigate("/member/tracking")}
             disabled={isLoading}
           >
             Hủy bỏ

@@ -29,13 +29,11 @@ import {
   ChevronUp,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import type { Phase } from "@/types/models/phase";
+import type { PhaseFormData } from "@/types/models/phase";
 
 interface PlanPhaseProps {
-  phase: Phase;
+  phase: PhaseFormData;
   phaseIndex: number;
-  updatePhase: (id: string, phase: Partial<Phase>) => void;
-  deletePhase: (id: string) => void;
   isFirst: boolean;
   isLast: boolean;
   isCurrent: boolean;
@@ -44,8 +42,6 @@ interface PlanPhaseProps {
 export default function PlanPhase({
   phase,
   phaseIndex,
-  updatePhase,
-  deletePhase,
   isFirst,
   isLast,
   isCurrent,
@@ -53,24 +49,24 @@ export default function PlanPhase({
   const [isExpanded, setIsExpanded] = useState(isCurrent || isFirst);
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    updatePhase(phase.id, { phaseName: e.target.value });
+    //updatePhase(phase.id, { phaseName: e.target.value });
   };
 
   const handleDescriptionChange = (
     e: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
-    updatePhase(phase.id, { description: e.target.value });
+    // updatePhase(phase.id, { description: e.target.value });
   };
 
   const handleStartDateChange = (date: Date | undefined) => {
     if (date) {
-      updatePhase(phase.id, { startDate: date });
+      // updatePhase(phase.id, { startDate: date });
     }
   };
 
   const handleEndDateChange = (date: Date | undefined) => {
     if (date) {
-      updatePhase(phase.id, { endDate: date });
+      // updatePhase(phase.id, { endDate: date });
     }
   };
 
@@ -79,17 +75,17 @@ export default function PlanPhase({
   ) => {
     const value = parseInt(e.target.value);
     if (!isNaN(value) && value >= 0) {
-      updatePhase(phase.id, { cigaretteBound: value });
+      // updatePhase(phase.id, { cigaretteBound: value });
     }
   };
 
   const incrementMax = () => {
-    updatePhase(phase.id, { cigaretteBound: phase.cigaretteBound + 1 });
+    // updatePhase(phase.id, { cigaretteBound: phase.cigaretteBound + 1 });
   };
 
   const decrementMax = () => {
     if (phase.cigaretteBound > 0) {
-      updatePhase(phase.id, { cigaretteBound: phase.cigaretteBound - 1 });
+      // updatePhase(phase.id, { cigaretteBound: phase.cigaretteBound - 1 });
     }
   };
 
@@ -102,19 +98,19 @@ export default function PlanPhase({
 
   const addTip = () => {
     const newTips = [...phase.tips, { content: "Mẹo mới..." }];
-    updatePhase(phase.id, { tips: newTips });
+    // updatePhase(phase.id, { tips: newTips });
   };
 
   const updateTip = (index: number, value: string) => {
     const newTips = [...phase.tips];
     newTips[index] = { content: value };
-    updatePhase(phase.id, { tips: newTips });
+    // updatePhase(phase.id, { tips: newTips });
   };
 
   const deleteTip = (index: number) => {
     const newTips = [...phase.tips];
     newTips.splice(index, 1);
-    updatePhase(phase.id, { tips: newTips });
+    // updatePhase(phase.id, { tips: newTips });
   };
 
   return (
@@ -134,16 +130,6 @@ export default function PlanPhase({
                 {phase.phaseName}
               </h3>
             </div>
-            {isCurrent && <Badge variant="default">Hiện tại</Badge>}
-            {phase.completed && (
-              <Badge
-                variant="outline"
-                className="bg-green-50 text-green-700 border-green-200"
-              >
-                <Check className="mr-1 h-3 w-3" />
-                Hoàn thành
-              </Badge>
-            )}
           </div>
           <div className="flex items-center justify-between">
             <p className="text-sm text-muted-foreground">
@@ -343,7 +329,7 @@ export default function PlanPhase({
               <Button
                 variant="destructive"
                 size="sm"
-                onClick={() => deletePhase(phase.id)}
+                // onClick={() => deletePhase(phase.id)}
                 disabled={isFirst && isLast}
               >
                 <Trash2 className="mr-1.5 h-4 w-4" />

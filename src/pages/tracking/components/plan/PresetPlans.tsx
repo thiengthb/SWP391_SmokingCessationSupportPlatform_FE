@@ -43,53 +43,7 @@ export default function PresetPlans() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="border-dashed border-2 bg-background hover:bg-muted/10 transition-colors">
-          <CardHeader className="pb-3">
-            <div className="flex justify-between items-start mb-2">
-              <div className="rounded-full bg-primary/10 p-2">
-                <Edit className="h-5 w-5 text-primary" />
-              </div>
-            </div>
-            <CardTitle>Tạo Kế Hoạch Riêng</CardTitle>
-            <CardDescription>
-              Tự thiết kế kế hoạch cai thuốc lá phù hợp với nhu cầu cá nhân của
-              bạn
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <div className="flex items-center justify-between">
-              <div className="text-sm text-muted-foreground">
-                Tạo kế hoạch từ đầu với các giai đoạn do bạn quyết định
-              </div>
-            </div>
-
-            <ul className="space-y-1">
-              <li className="flex gap-2 text-sm">
-                <Plus className="h-4 w-4 text-primary mt-0.5" />
-                <span>Tùy chỉnh số lượng giai đoạn</span>
-              </li>
-              <li className="flex gap-2 text-sm">
-                <Plus className="h-4 w-4 text-primary mt-0.5" />
-                <span>Đặt mục tiêu phù hợp với bản thân</span>
-              </li>
-              <li className="flex gap-2 text-sm">
-                <Plus className="h-4 w-4 text-primary mt-0.5" />
-                <span>Linh hoạt điều chỉnh thời gian</span>
-              </li>
-            </ul>
-
-            <Button
-              onClick={createCustomPlan}
-              className="w-full mt-4"
-              variant="outline"
-            >
-              Tạo kế hoạch riêng
-              <ArrowRight className="ml-1 h-4 w-4" />
-            </Button>
-          </CardContent>
-        </Card>
-
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {generatedPlans.map(({ template, plan }) => (
           <PlanCard
             key={template.id}
@@ -99,6 +53,48 @@ export default function PresetPlans() {
           />
         ))}
       </div>
+
+      <Card className="border-dashed border-2 bg-background hover:bg-muted/10 transition-colors">
+        <CardHeader className="pb-3">
+          <div className="flex justify-between items-start mb-2">
+            <div className="rounded-full bg-primary/10 p-2">
+              <Edit className="h-5 w-5 text-primary" />
+            </div>
+          </div>
+          <CardTitle>Tạo Kế Hoạch Riêng</CardTitle>
+          <CardDescription>
+            Tự thiết kế kế hoạch cai thuốc lá phù hợp với nhu cầu cá nhân của
+            bạn
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <div className="flex items-center justify-between">
+            <div className="text-sm text-muted-foreground">
+              Tạo kế hoạch từ đầu với các giai đoạn do bạn quyết định
+            </div>
+          </div>
+
+          <ul className="space-y-1">
+            <li className="flex gap-2 text-sm">
+              <Plus className="h-4 w-4 text-primary mt-0.5" />
+              <span>Tùy chỉnh số lượng giai đoạn</span>
+            </li>
+            <li className="flex gap-2 text-sm">
+              <Plus className="h-4 w-4 text-primary mt-0.5" />
+              <span>Đặt mục tiêu phù hợp với bản thân</span>
+            </li>
+            <li className="flex gap-2 text-sm">
+              <Plus className="h-4 w-4 text-primary mt-0.5" />
+              <span>Linh hoạt điều chỉnh thời gian</span>
+            </li>
+          </ul>
+
+          <Button onClick={createCustomPlan} className="w-full mt-4">
+            Tạo kế hoạch riêng
+            <ArrowRight className="ml-1 h-4 w-4" />
+          </Button>
+        </CardContent>
+      </Card>
 
       <PlanGuide plans={presetPlans} />
     </div>

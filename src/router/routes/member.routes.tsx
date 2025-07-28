@@ -13,14 +13,14 @@ export const memberRoutes = [
 
 export const premiumRoutes: RouteObject[] = [
   {
-    path: Paths.PREMIUM.TRACKING.ROOT,
+    path: Paths.MEMBER.TRACKING.ROOT,
     children: [
       {
         index: true,
-        path: Paths.PREMIUM.TRACKING.INFO,
+        path: Paths.MEMBER.TRACKING.INFO,
         element: <CigaretteHealthInfo />,
       },
-      { path: Paths.PREMIUM.TRACKING.CREATE_PLAN, element: <CreatePlanPage /> },
+      { path: Paths.MEMBER.TRACKING.CREATE_PLAN, element: <CreatePlanPage /> },
     ],
   },
 ];

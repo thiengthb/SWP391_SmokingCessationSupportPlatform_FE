@@ -4,15 +4,10 @@ import { Button } from "@/components/ui/button";
 import { teamMembers } from "../../../data/aboutUs.info";
 import { useTranslate } from "@/hooks/useTranslate";
 import { Paths } from "@/constants/path";
+import { UserRound } from "lucide-react";
 
 export default function TeamPage() {
   const { tData, tAboutus } = useTranslate();
-  const getInitials = (name: string) => {
-    return name
-      .split(" ")
-      .map((n) => n[0])
-      .join("");
-  };
   return (
     <div className="container max-w-3xl lg:max-w-6xl mx-auto px-4 py-6 lg:py-10">
       <div className="space-y-10">
@@ -31,7 +26,9 @@ export default function TeamPage() {
                 <CardHeader className="text-center">
                   <Avatar className="h-24 w-24 mx-auto mb-4">
                     <AvatarImage src={member.image} alt={tData(member.name)} />
-                    <AvatarFallback>{getInitials(member.name)}</AvatarFallback>
+                    <AvatarFallback>
+                      <UserRound />
+                    </AvatarFallback>
                   </Avatar>
                   <CardTitle className="text-xl font-bold">
                     {tData(member.name)}
@@ -63,7 +60,9 @@ export default function TeamPage() {
 
           <div className="text-center pt-6">
             <Button asChild size="lg">
-              <a href={Paths.PUBLIC.CONTACT}>{tAboutus("aboutus.team.buttonContact")}</a>
+              <a href={Paths.PUBLIC.CONTACT}>
+                {tAboutus("aboutus.team.buttonContact")}
+              </a>
             </Button>
           </div>
         </div>

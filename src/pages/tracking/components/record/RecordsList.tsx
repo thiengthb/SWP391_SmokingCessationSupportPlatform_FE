@@ -7,13 +7,14 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
-import { type SmokingRecord } from "@/types/models/Record";
-import type { Pagination } from "@/types/pagination";
+import { type SmokingRecord } from "@/types/models/record";
+import type { PaginationResponse } from "@/types/pagination";
+import { isToday } from "date-fns";
 
 interface RecordsListProps {
   loading: boolean;
   smokingRecords: SmokingRecord[];
-  pagination: Pagination;
+  pagination: PaginationResponse<SmokingRecord>;
   handlePageChange: (page: number) => void;
   handleEditRecord: (record: SmokingRecord) => void;
 }
@@ -34,24 +35,28 @@ export function RecordsList({
         <Button
           variant="outline"
           size="sm"
-          disabled={pagination.pageNumber === 0}
-          onClick={() => handlePageChange(pagination.pageNumber - 1)}
+          disabled={pagination.page === 0}
+          onClick={() => handlePageChange(pagination.page - 1)}
         >
           Previous
         </Button>
         <span className="flex items-center px-3">
-          Page {pagination.pageNumber + 1} of {pagination.totalPages}
+          Page {pagination.page + 1} of {pagination.totalPages}
         </span>
         <Button
           variant="outline"
           size="sm"
-          disabled={pagination.pageNumber === pagination.totalPages - 1}
-          onClick={() => handlePageChange(pagination.pageNumber + 1)}
+          disabled={pagination.page === pagination.totalPages - 1}
+          onClick={() => handlePageChange(pagination.page + 1)}
         >
           Next
         </Button>
       </div>
     );
+  };
+
+  const isTodayRecord = (recordDate: string) => {
+    return isToday(new Date(recordDate));
   };
 
   return (
@@ -91,11 +96,17 @@ export function RecordsList({
                     {record.cigarettesSmoked} cigarettes
                   </div>
                   <Button
+                    variant="outline"
                     size="sm"
-                    variant="ghost"
                     onClick={() => handleEditRecord(record)}
+                    disabled={!isTodayRecord(record.date.toString())}
+                    className={
+                      !isTodayRecord(record.date.toString())
+                        ? "opacity-50 cursor-not-allowed"
+                        : ""
+                    }
                   >
-                    Edit
+                    {isTodayRecord(record.date.toString()) ? "Edit" : "View"}
                   </Button>
                 </div>
               </div>
