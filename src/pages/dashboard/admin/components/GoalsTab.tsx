@@ -132,10 +132,7 @@ export default function AdminGoalsTab() {
       {/* --- Goals Grid --- */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {goals.map((goal) => {
-          const progress = goal.goalProgress?.progress || 0;
           const max = goal.criteriaValue || 0;
-          const percentage = max > 0 ? Math.min((progress / max) * 100, 100) : 0;
-          const completed = max > 0 && progress >= max;
 
           return (
             <Dialog
@@ -146,15 +143,12 @@ export default function AdminGoalsTab() {
               }}
             >
               <DialogTrigger asChild>
-                <Card className={`cursor-pointer ${completed ? "opacity-100" : "opacity-75"}`}>
+                <Card className={`cursor-pointer "opacity-100"`}>
                   <CardHeader className="flex flex-row items-center justify-between">
                     <CardTitle className="text-sm font-medium">{goal.name}</CardTitle>
-                    {completed && <Trophy className="w-4 h-4 text-primary" />}
                   </CardHeader>
                   <CardContent className="space-y-2">
                     <p className="text-sm text-muted-foreground line-clamp-2">{goal.description}</p>
-                    <Progress value={percentage} />
-                    <p className="text-xs text-right text-muted-foreground">{percentage.toFixed(0)}%</p>
                   </CardContent>
                 </Card>
               </DialogTrigger>
@@ -176,7 +170,6 @@ export default function AdminGoalsTab() {
                     <p><strong>Description:</strong> {goalDetail.description}</p>
                     <p><strong>Criteria Type:</strong> {goalDetail.criteriaType}</p>
                     <p><strong>Criteria Value:</strong> {goalDetail.criteriaValue}</p>
-                    <Progress value={goalDetail.goalProgress?.progress ?? 0} />
                   </div>
                 ) : (
                   <p className="text-sm text-red-500">Failed to load goal details.</p>

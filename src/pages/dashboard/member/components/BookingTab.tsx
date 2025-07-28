@@ -1,119 +1,189 @@
-import { useState } from "react";
-import { format } from "date-fns";
-import { useForm, type SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-
-import { bookingSchema, type bookingFormData } from "@/types/member/bookingFormData";
+import { useEffect, useState } from "react";
 import useApi from "@/hooks/useApi";
-
-import { Calendar } from "@/components/ui/calendar";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import FormInputError from "@/components/FormInputError";
+import { type Booking } from "@/types/coach/Booking";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+import { format } from "date-fns";
 import { toast } from "sonner";
 
 export function BookingsTab() {
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const api = useApi();
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
+  const size = 5;
 
-  const {
-    register,
-    handleSubmit,
-    setError,
-    reset,
-    formState: { errors, isSubmitting },
-  } = useForm<bookingFormData>({
-    resolver: zodResolver(bookingSchema),
-  });
+  useEffect(() => {
+    const fetchBookings = async () => {
+      try {
+        const res = await api.get(
+          `/v1/bookings/member-booking?page=${page}&size=${size}&direction=ASC&sortBy=startedAt`
+        );
+        const { content, totalElements } = res.data.result;
 
-  const onSubmit: SubmitHandler<bookingFormData> = async (data) => {
-    try {
-      const [sh, sm] = data.startedAt.split(":").map(Number);
-      const [eh, em] = data.endedAt.split(":").map(Number);
+        setBookings(content || []);
+        setTotalPages(
+          totalElements === 0 ? 0 : Math.ceil(totalElements / size)
+        );
+      } catch (error) {
+        console.error("Error fetching member bookings", error);
+        toast.error("Failed to load bookings");
+      }
+    };
 
-      const startedAt = new Date(selectedDate);
-      startedAt.setHours(sh, sm, 0, 0);
+    fetchBookings();
+  }, [page]);
 
-      const endedAt = new Date(selectedDate);
-      endedAt.setHours(eh, em, 0, 0);
+  const handlePrevious = () => {
+    if (page > 0) setPage((prev) => prev - 1);
+  };
 
-      const payload = {
-        coachId: data.coachId,
-        bookingReason: data.bookingReason,
-        startedAt: format(startedAt, "yyyy-MM-dd'T'HH:mm"),
-        endedAt: format(endedAt, "yyyy-MM-dd'T'HH:mm"),
-      };
+  const handleNext = () => {
+    if (page < totalPages - 1) setPage((prev) => prev + 1);
+  };
 
-      await api.post("/v1/bookings", payload);
+  const generatePageNumbers = (
+    current: number,
+    total: number
+  ): (number | "...")[] => {
+    const pages: (number | "...")[] = [];
 
-      toast.success("Booking created successfully!");
-      reset();
-      setSelectedDate(new Date());
-    } catch (error: any) {
-      console.error("Booking error:", error);
-      setError("root", {
-        type: "server",
-        message:
-          error?.response?.data?.message || "Unexpected error. Please try again.",
-      });
+    if (total <= 5) {
+      for (let i = 1; i <= total; i++) pages.push(i);
+    } else {
+      if (current > 3) pages.push(1, "...");
+      const start = Math.max(1, current - 1);
+      const end = Math.min(total, current + 1);
+      for (let i = start; i <= end; i++) pages.push(i);
+      if (current < total - 2) pages.push("...", total);
+      else if (!pages.includes(total)) pages.push(total);
     }
+
+    return pages;
   };
 
   return (
-    <div className="grid gap-4 md:grid-cols-[1fr_2fr]">
-      {/* Left: Calendar */}
-      <div className="flex flex-col items-center space-y-4">
-        <div className="text-lg font-semibold">Select Booking Date</div>
-        <Calendar
-          mode="single"
-          selected={selectedDate}
-          onSelect={(d) => d && setSelectedDate(d)}
-          className="rounded-md border"
-        />
-      </div>
+    <div className="container py-6 space-y-6 mx-auto">
+      <Card>
+        <CardHeader>
+          <CardTitle>My Bookings</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Coach</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Start</TableHead>
+                <TableHead>End</TableHead>
+                <TableHead>Meet Link</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {bookings.length === 0 ? (
+                <TableRow>
+                  <TableCell
+                    colSpan={5}
+                    className="text-center text-muted-foreground"
+                  >
+                    No Bookings Found
+                  </TableCell>
+                </TableRow>
+              ) : (
+                bookings.map((booking) => (
+                  <TableRow
+                    key={booking.id}
+                    className="hover:bg-muted transition-colors"
+                  >
+                    <TableCell>{booking.coachId}</TableCell>
+                    <TableCell>{booking.status}</TableCell>
+                    <TableCell>
+                      {format(new Date(booking.startedAt), "dd/MM/yyyy HH:mm")}
+                    </TableCell>
+                    <TableCell>
+                      {format(new Date(booking.endedAt), "dd/MM/yyyy HH:mm")}
+                    </TableCell>
+                    <TableCell>
+                      {booking.meetLink ? (
+                        <a
+                          href={booking.meetLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:underline"
+                        >
+                          Join
+                        </a>
+                      ) : (
+                        <span className="text-gray-400">N/A</span>
+                      )}
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
+            </TableBody>
+          </Table>
 
-      {/* Right: Form */}
-      <div className="md:pt-10 space-y-4 max-w-lg">
-        <h2 className="text-xl font-semibold">Booking Form</h2>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div className="grid gap-2">
-            <Label htmlFor="coachId">Coach ID</Label>
-            <Input id="coachId" placeholder="Enter coach ID" {...register("coachId")} />
-            <FormInputError field={errors.coachId} />
-          </div>
-
-          <div className="grid gap-2">
-            <Label htmlFor="bookingReason">Booking Reason</Label>
-            <Input
-              id="bookingReason"
-              placeholder="Why do you need this booking?"
-              {...register("bookingReason")}
-            />
-            <FormInputError field={errors.bookingReason} />
-          </div>
-
-          <div className="grid gap-2">
-            <Label htmlFor="startedAt">Start Time</Label>
-            <Input type="time" id="startedAt" {...register("startedAt")} />
-            <FormInputError field={errors.startedAt} />
-          </div>
-
-          <div className="grid gap-2">
-            <Label htmlFor="endedAt">End Time</Label>
-            <Input type="time" id="endedAt" {...register("endedAt")} />
-            <FormInputError field={errors.endedAt} />
-          </div>
-
-          <FormInputError field={errors.root} />
-
-          <div className="flex justify-end">
-            <Button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? "Saving..." : "Create Booking"}
-            </Button>
-          </div>
-        </form>
-      </div>
+          {bookings.length > 0 && totalPages > 1 && (
+            <div className="flex justify-center mt-4">
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious
+                      onClick={handlePrevious}
+                      className={
+                        page === 0
+                          ? "pointer-events-none opacity-50"
+                          : "cursor-pointer"
+                      }
+                    />
+                  </PaginationItem>
+                  {generatePageNumbers(page + 1, totalPages).map(
+                    (item, index) => (
+                      <PaginationItem key={index}>
+                        {item === "..." ? (
+                          <span className="px-2 text-muted-foreground">...</span>
+                        ) : (
+                          <PaginationLink
+                            isActive={item === page + 1}
+                            onClick={() => setPage(Number(item) - 1)}
+                          >
+                            {item}
+                          </PaginationLink>
+                        )}
+                      </PaginationItem>
+                    )
+                  )}
+                  <PaginationItem>
+                    <PaginationNext
+                      onClick={handleNext}
+                      className={
+                        page >= totalPages - 1
+                          ? "pointer-events-none opacity-50"
+                          : "cursor-pointer"
+                      }
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            </div>
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 }

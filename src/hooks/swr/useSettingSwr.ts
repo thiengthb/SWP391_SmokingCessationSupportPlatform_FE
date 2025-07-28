@@ -1,10 +1,12 @@
 import { Domains } from "@/constants/domain";
+import { useAuth } from "@/contexts/AuthContext";
 import { getSetting } from "@/services/api/setting.service";
 import useSWR from "swr";
 
 export const useSettingSwr = (accountId: string) => {
+    const { canFetch } = useAuth();
     const { data, error, isLoading, mutate } = useSWR(
-        accountId ? `${Domains.SETTING}/${accountId}` : null,
+        canFetch ? accountId ? `${Domains.SETTING}/${accountId}` : null : null,
         () => getSetting(accountId),
     );
 

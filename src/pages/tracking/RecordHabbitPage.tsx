@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { isSameDay, startOfDay } from "date-fns";
+import { format, isSameDay, startOfDay } from "date-fns";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -18,6 +18,8 @@ import {
 } from "@/types/pagination";
 import PlanTrackingTab from "./PlanTrackingTab";
 import useApi from "@/hooks/useApi";
+import { BookingsTab } from "../dashboard/member/components/BookingTab";
+import CoachList from "../dashboard/coach/CoachList";
 const RecordHabbitPage = () => {
   const { auth } = useAuth();
   const navigate = useNavigate();
@@ -49,6 +51,7 @@ const RecordHabbitPage = () => {
         const records = response.data.result.content;
 
         console.log("Fetched smoking records:", records);
+        ``;
 
         const validRecords = Array.isArray(records)
           ? records.filter((record: any) => record && record.date)
@@ -137,8 +140,10 @@ const RecordHabbitPage = () => {
 
   const handleSaveRecord = async () => {
     try {
+      const localDateString = format(selectedDate, "yyyy-MM-dd");
+
       const payload = {
-        date: selectedDate.toISOString(),
+        date: localDateString, // <-- Use local date string
         cigarettesSmoked: newCigarettesCount,
         note: newNote,
       };
@@ -230,9 +235,11 @@ const RecordHabbitPage = () => {
       </div>
 
       <Tabs defaultValue="records" className="mb-6">
-        <TabsList className={`grid grid-cols-2 mb-4`}>
+        <TabsList className={`grid grid-cols-4 mb-4`}>
           <TabsTrigger value="records">Smoking Records</TabsTrigger>
           <TabsTrigger value="plans">Plan</TabsTrigger>
+          <TabsTrigger value="bookings">Bookings</TabsTrigger>
+          <TabsTrigger value="Coach List">Coach List</TabsTrigger>
         </TabsList>
 
         <TabsContent value="records">
@@ -268,6 +275,12 @@ const RecordHabbitPage = () => {
 
         <TabsContent value="plans">
           <PlanTrackingTab />
+        </TabsContent>
+        <TabsContent value="bookings">
+          <BookingsTab></BookingsTab>
+        </TabsContent>
+        <TabsContent value="Coach List">
+          <CoachList />
         </TabsContent>
       </Tabs>
 
