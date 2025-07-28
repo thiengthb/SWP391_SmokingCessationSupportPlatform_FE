@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-  LineChart, Line, BarChart, Bar, PieChart, Pie,
+  BarChart, Bar, PieChart, Pie,
   XAxis, YAxis, CartesianGrid, Tooltip, Legend,
   ResponsiveContainer, Cell
 } from "recharts";
@@ -10,7 +10,7 @@ import {
   DropdownMenuItem, DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { usePremiumDistributionSwr, useRevenueSwr, useUserGrowthSwr, useUserDistributionSwr } from "@/hooks/swr/useReportSwr";
+import { usePremiumDistributionSwr, useUserGrowthSwr, useUserDistributionSwr } from "@/hooks/swr/useReportSwr";
 import type { UserGrowthData, TimeRange } from "@/types/models/report";
 import {
   startOfWeek, endOfWeek, startOfMonth, endOfMonth,
@@ -108,7 +108,6 @@ export function ReportsTab() {
     }));
   };
 
-  const { revenue = [], isLoading: isRevenueLoading } = useRevenueSwr(currentDrill.from, currentDrill.to);
   const { userGrowth = [], isLoading: isUserGrowthLoading } = useUserGrowthSwr(currentDrill.from, currentDrill.to);
   useEffect(() => {
     console.log("SWR fetching:", currentDrill);
@@ -195,27 +194,6 @@ export function ReportsTab() {
                 ← Back to {drillStack.at(-2)?.level ?? selectedRange}
               </Button>
             )}
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader><CardTitle>Revenue</CardTitle></CardHeader>
-          <CardContent>
-            <div className="h-[300px]">
-              {isRevenueLoading ? (
-                <div className="flex items-center justify-center h-full">Loading revenue data...</div>
-              ) : (
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={revenue}>
-                    <XAxis dataKey="date" />
-                    <YAxis />
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <Legend verticalAlign="bottom" align="center" iconType="circle" />
-                    <Line dataKey="revenue" stroke="#1E90FF" name="Revenue" />
-                  </LineChart>
-                </ResponsiveContainer>
-              )}
-            </div>
           </CardContent>
         </Card>
 

@@ -4,6 +4,7 @@ import UserManagement from "./users";
 import { useTranslate } from "@/hooks/useTranslate";
 import FeedbackManagement from "./users/adminFeedback";
 import AdminGoalsTab from "./components/GoalsTab";
+import { OverviewTab } from "./components/OverviewTab";
 export default function AdminDashboard() {
  const { tAdmin } = useTranslate();
   return (
@@ -16,6 +17,9 @@ export default function AdminDashboard() {
 
       <Tabs defaultValue="reports" className="space-y-4">
         <TabsList>
+          <TabsTrigger value="overview">
+            {tAdmin("admindashboard.admin.tabs.overview")}
+          </TabsTrigger>
           <TabsTrigger value="reports">
             {tAdmin("admindashboard.admin.tabs.reports")}
           </TabsTrigger>
@@ -25,10 +29,10 @@ export default function AdminDashboard() {
           <TabsTrigger value="feedback">Feedbacks</TabsTrigger>
           <TabsTrigger value="goals">Goals</TabsTrigger>
         </TabsList>
-{/* 
+
         <TabsContent value="overview">
           <OverviewTab />
-        </TabsContent> */}
+        </TabsContent>
         <TabsContent value="reports">
           <ReportsTab />
         </TabsContent>
