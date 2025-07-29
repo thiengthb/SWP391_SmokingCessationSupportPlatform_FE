@@ -16,14 +16,14 @@ export default function CoachDashboard() {
         </h2>
       </div>
 
-      <Tabs defaultValue="overview" className="space-y-4">
+      <Tabs defaultValue="schedule" className="space-y-4">
         <TabsList>
-          <TabsTrigger value="overview">
+          {/* <TabsTrigger value="overview">
             {tCoach("coachdashboard.tabs.overview")}
           </TabsTrigger>
           <TabsTrigger value="clients">
             {tCoach("coachdashboard.tabs.clients")}
-          </TabsTrigger>
+          </TabsTrigger> */}
           <TabsTrigger value="schedule">
             {tCoach("coachdashboard.tabs.schedule")}
           </TabsTrigger>
