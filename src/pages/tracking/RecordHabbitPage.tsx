@@ -65,7 +65,7 @@ const RecordHabbitPage = () => {
         setPagination({
           ...pagination,
           page: data.pageNumber || 0,
-          size: data.pageSize || 30,
+          size: data.pageSize || 50,
           totalElements: data.totalElements || 0,
           totalPages: data.totalPages || 1,
         });

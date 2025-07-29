@@ -1,4 +1,4 @@
-import { ChevronRight, Crown, Star, Zap, Check } from "lucide-react";
+import { ChevronRight, Crown, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -145,7 +145,6 @@ export function PricingCards({ plans }: PricingCardsProps) {
           headerClass:
             "bg-gradient-to-br from-slate-50 to-slate-100 rounded-t-lg",
           buttonClass: "bg-slate-700 hover:bg-slate-800 text-white",
-          icon: <Check className="h-5 w-5" />,
         };
       case "premium":
         return {
@@ -155,7 +154,6 @@ export function PricingCards({ plans }: PricingCardsProps) {
             "bg-gradient-to-br from-amber-100 to-orange-100 rounded-t-lg",
           buttonClass:
             "bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white shadow-md",
-          icon: <Crown className="h-5 w-5" />,
         };
       default:
         return {
@@ -164,7 +162,6 @@ export function PricingCards({ plans }: PricingCardsProps) {
           headerClass: "bg-gradient-to-br from-sky-50 to-sky-100 rounded-t-lg",
           buttonClass:
             "bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-700 hover:to-blue-700 text-white",
-          icon: <Zap className="h-5 w-5" />,
         };
     }
   };
@@ -211,7 +208,6 @@ export function PricingCards({ plans }: PricingCardsProps) {
                 <CardHeader className={`${styles.headerClass} flex-grow`}>
                   <div className="flex items-center justify-between mb-3">
                     <CardTitle className="text-xl font-bold flex items-center gap-2">
-                      {styles.icon}
                       {plan.name}
                     </CardTitle>
                     {variant === "premium" && (
@@ -268,7 +264,6 @@ export function PricingCards({ plans }: PricingCardsProps) {
                       className={`w-full ${styles.buttonClass} font-semibold py-3 text-base transition-all duration-300 transform hover:scale-105`}
                       onClick={() => handleSelectPlan(plan.name, plan.price)}
                     >
-                      {styles.icon}
                       <span className="mx-2">
                         {!auth?.accessToken || !auth?.currentAcc
                           ? plan.price === 0
