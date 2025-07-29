@@ -1,0 +1,66 @@
+{
+  "aboutus": {
+    "team": {
+      "title": "Our Team",
+      "description": "Meet the dedicated professionals working to help you quit smoking",
+      "getInTouchTitle": "Get in Touch",
+      "getInTouchDescription": "Have questions? We'd love to hear from you. Send us a message and we'll respond...",
+      "buttonContact": "Contact Us"
+    },
+    "story": {
+      "title": "Our Story",
+      "subtitle": "The journey of building a smoke-free future",
+      "missionTitle": "Our Mission",
+      "missionDescription": "We are committed to helping people break free from tobacco addiction through innovative technology, supportive community, and evidence-based methods.",
+      "goalsTitle": "Goals",
+      "joinTitle": "Join Our Mission",
+      "joinDescription": "Let's work together to create a healthier world. We can help more people quit smoking and live better lives.",
+      "buttonGetStarted": "Get Started Now"
+    },
+    "common": {
+      "badge": "About Our Platform",
+      "title": "Empowering Your Journey to a",
+      "highlight": "Smoke-Free Life",
+      "description": "We're dedicated to helping people quit smoking through personalized support, community engagement, and evidence-based methods.",
+
+      "mission": {
+        "title": "Our Mission",
+        "description": "We believe everyone deserves the support and tools needed to break free from smoking. Our platform combines technology, community, and expertise to make your journey easier and more successful.",
+        "cta": "Start Your Journey"
+      },
+      "features": {
+        "feature1": {
+          "title": "Health-First Approach",
+          "description": "Evidence-based methods and personalized plans for successful quitting"
+        },
+        "feature2": {
+          "title": "Community Support",
+          "description": "Connect with others on the same journey and share experiences"
+        },
+        "feature3": {
+          "title": "Expert Guidance",
+          "description": "Professional coaches and medical experts to support your journey"
+        },
+        "feature4": {
+          "title": "Goal Tracking",
+          "description": "Set and track your goals with detailed progress analytics"
+        }
+      },
+      "journey": {
+        "title": "Your Journey Matters",
+        "step1": {
+          "title": "Personalized Plan",
+          "description": "Get a customized quitting plan based on your habits and goals"
+        },
+        "step2": {
+          "title": "Expert Support",
+          "description": "Access to professional coaches and medical experts"
+        },
+        "step3": {
+          "title": "Track Progress",
+          "description": "Monitor your achievements and health improvements"
+        }
+      }
+    }
+  }
+}

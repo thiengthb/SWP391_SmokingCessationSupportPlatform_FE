@@ -1,0 +1,10 @@
+{
+  "community": {
+    "title": "Community",
+    "description": "Connect and share with others on their journey",
+    "inputPlaceholder": "Type your message here...",
+    "onlineUsers": "Online Users",
+    "activeNow": "Active Now",
+    "away": "Away"
+  }
+}

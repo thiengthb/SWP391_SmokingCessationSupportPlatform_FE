@@ -11,8 +11,9 @@ import {
 } from "@/components/ui/select";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check } from "lucide-react";
-import { Currency } from "@/types/models/transaction";
 import type { FTNDQuestion } from "../../data/ftnd.data";
+import { useTranslate } from "@/hooks/useTranslate";
+import { Currency } from "@/types/enums/Currency";
 
 interface RenderQuestionInputProps {
   currentQuestionData: FTNDQuestion;
@@ -28,7 +29,7 @@ export const RenderQuestionInput: React.FC<RenderQuestionInputProps> = ({
   const [selectedCurrency, setSelectedCurrency] = useState<Currency>(
     Currency.VND
   );
-
+  const { tFtnd, tData } = useTranslate();
   const currencies = [
     { code: Currency.VND, symbol: "₫", name: "Vietnamese Dong" },
     { code: Currency.USD, symbol: "$", name: "US Dollar" },
@@ -47,7 +48,7 @@ export const RenderQuestionInput: React.FC<RenderQuestionInputProps> = ({
           value={currentAnswer !== undefined ? currentAnswer.toString() : ""}
           onChange={(e) => handleAnswer(e.target.value)}
           className="w-full h-12 text-base border-2 border-muted-foreground/20 focus:border-primary transition-all duration-200 rounded-lg"
-          placeholder="Enter your answer..."
+          placeholder={tFtnd("ftnd.input.textPlaceholder")}
         />
       </motion.div>
     );
@@ -59,7 +60,7 @@ export const RenderQuestionInput: React.FC<RenderQuestionInputProps> = ({
         transition={{ duration: 0.3 }}
         className="space-y-2"
       >
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2">
           <Input
             type="number"
             min="0"
@@ -73,7 +74,7 @@ export const RenderQuestionInput: React.FC<RenderQuestionInputProps> = ({
                 handleAnswer(value);
               }
             }}
-            className="flex-1 h-12 text-base border-2 border-muted-foreground/20 focus:border-primary transition-all duration-200 rounded-lg"
+            className="flex-1 h-8 text-base border-2 border-muted-foreground/20 focus:border-primary transition-all duration-200 rounded-lg"
             placeholder="0"
           />
           {currentQuestionData.isPriceQuestion ? (
@@ -87,7 +88,7 @@ export const RenderQuestionInput: React.FC<RenderQuestionInputProps> = ({
                   }
                 }}
               >
-                <SelectTrigger className="w-28 h-12 border-2 border-muted-foreground/20">
+                <SelectTrigger className="w-20 h-8 border-2 border-muted-foreground/20">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -110,7 +111,7 @@ export const RenderQuestionInput: React.FC<RenderQuestionInputProps> = ({
             </div>
           ) : currentQuestionData.unit ? (
             <span className="text-sm font-medium text-muted-foreground bg-muted px-3 py-2 rounded-md">
-              {currentQuestionData.unit}
+              {tData(currentQuestionData.unit)}
             </span>
           ) : null}
         </div>
@@ -125,10 +126,7 @@ export const RenderQuestionInput: React.FC<RenderQuestionInputProps> = ({
           >
             <div className="flex items-center space-x-1">
               <span>💡</span>
-              <span>
-                Tip: Select the currency that matches your local pricing for
-                accurate tracking.
-              </span>
+              <span>{tFtnd("ftnd.input.priceTip")}</span>
             </div>
           </motion.div>
         )}
@@ -146,7 +144,7 @@ export const RenderQuestionInput: React.FC<RenderQuestionInputProps> = ({
             currentAnswer !== undefined ? currentAnswer.toString() : undefined
           }
           onValueChange={(value) => handleAnswer(Number(value))}
-          className="space-y-3"
+          className=""
         >
           {currentQuestionData.options?.map((option, index) => (
             <motion.div
@@ -156,7 +154,7 @@ export const RenderQuestionInput: React.FC<RenderQuestionInputProps> = ({
               transition={{ duration: 0.3, delay: index * 0.1 }}
               className="group"
             >
-              <div className="flex items-center space-x-3 p-4 rounded-lg border-2 border-muted-foreground/20 hover:border-primary/50 hover:bg-primary/5 transition-all duration-200 cursor-pointer">
+              <div className="flex items-center space-x-3 p-3 rounded-lg border-2 border-muted-foreground/20 hover:border-primary/50 hover:bg-primary/5 transition-all duration-200 cursor-pointer">
                 <RadioGroupItem
                   value={option.value.toString()}
                   id={`option-${option.value}`}
@@ -166,7 +164,7 @@ export const RenderQuestionInput: React.FC<RenderQuestionInputProps> = ({
                   htmlFor={`option-${option.value}`}
                   className="flex-1 cursor-pointer text-base font-medium leading-relaxed group-hover:text-primary transition-colors duration-200"
                 >
-                  {option.label}
+                  {tData(option.label)}
                 </Label>
                 <AnimatePresence>
                   {currentAnswer?.toString() === option.value.toString() && (

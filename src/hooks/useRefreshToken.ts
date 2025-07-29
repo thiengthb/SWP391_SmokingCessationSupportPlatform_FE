@@ -1,19 +1,20 @@
-import { api } from "@/lib/axios";
 import { useAuth } from "@/contexts/AuthContext";
+import authService from "@/services/api/auth.service";
+import { useCallback } from "react";
 
 const useRefreshToken = () => {
     const { setAuth } = useAuth();
 
-    const refresh = async () => {
-        const response = await api.post("/v1/auth/refresh-token");
-        setAuth((prev) => ({
-            ...prev,
-            currentAcc: response.data.result.account,
-            accessToken: response.data.result.accessToken,
-            isAuthenticated: true,
-        }));
-        return response.data.result.accessToken;
-    }
+    const refresh = useCallback(async () => {
+    const data = await authService.refresh();
+    setAuth((prev) => ({
+      ...prev,
+      currentAcc: data.account,
+      accessToken: data.accessToken,
+      isAuthenticated: true,
+    }));
+    return data.accessToken;
+  }, [setAuth]);
 
   return refresh;
 }

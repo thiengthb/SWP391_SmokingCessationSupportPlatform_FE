@@ -1,40 +1,40 @@
 import { Calendar, Clock, ShieldCheck, Sparkles } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { useTranslate } from "@/hooks/useTranslate";
 
 export function BenefitCards() {
+  const { tPricing } = useTranslate();
   const benefits = [
     {
       icon: <Calendar className="h-6 w-6 text-primary" />,
-      title: "Thanh Toán Linh Hoạt",
-      description:
-        "Không cam kết dài hạn. Chọn thanh toán hàng tháng hoặc hàng năm, có thể hủy bất cứ lúc nào.",
+      title: "pricing.benefit.1.title",
+      description: "pricing.benefit.1.description",
     },
     {
       icon: <Clock className="h-6 w-6 text-primary" />,
-      title: "Hỗ Trợ Kịp Thời",
-      description:
-        "Nhận sự hỗ trợ mỗi khi bạn cần, giúp vượt qua những thời điểm khó khăn trong hành trình cai thuốc.",
+      title: "pricing.benefit.2.title",
+      description: "pricing.benefit.2.description",
     },
     {
       icon: <Sparkles className="h-6 w-6 text-primary" />,
-      title: "Dựa Trên Khoa Học",
-      description:
-        "Các phương pháp và công cụ được phát triển dựa trên nghiên cứu khoa học về cai nghiện và thay đổi hành vi.",
+      title: "pricing.benefit.3.title",
+      description: "pricing.benefit.3.description",
     },
     {
       icon: <ShieldCheck className="h-6 w-6 text-primary" />,
-      title: "Bảo Mật Dữ Liệu",
-      description:
-        "Thông tin cá nhân và dữ liệu sức khỏe của bạn được bảo vệ theo tiêu chuẩn bảo mật cao nhất.",
+      title: "pricing.benefit.4.title",
+      description: "pricing.benefit.4.description",
     },
   ];
 
   return (
     <div className="mb-16">
       <div className="text-center mb-10">
-        <h2 className="text-3xl font-bold mb-2">Lợi Ích Khi Đăng Ký</h2>
+        <h2 className="text-3xl font-bold mb-2">
+          {tPricing("pricing.benefit.title")}
+        </h2>
         <p className="text-muted-foreground">
-          Tận hưởng những lợi ích sau với bất kỳ gói đăng ký nào
+          {tPricing("pricing.benefit.description")}
         </p>
       </div>
 
@@ -45,8 +45,12 @@ export function BenefitCards() {
               <div className="rounded-full w-12 h-12 flex items-center justify-center bg-primary/10 mb-4">
                 {benefit.icon}
               </div>
-              <h3 className="font-semibold text-lg mb-2">{benefit.title}</h3>
-              <p className="text-muted-foreground">{benefit.description}</p>
+              <h3 className="font-semibold text-lg mb-2">
+                {tPricing(benefit.title)}
+              </h3>
+              <p className="text-muted-foreground">
+                {tPricing(benefit.description)}
+              </p>
             </CardContent>
           </Card>
         ))}

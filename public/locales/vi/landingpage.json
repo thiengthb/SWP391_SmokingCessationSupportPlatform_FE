@@ -1,0 +1,62 @@
+{
+  "landingPage": {
+    "title": "🎉 Tham gia cùng hơn 100.000 người dùng bỏ thuốc lá",
+    "description": "Nơi bạn có thể tìm thấy sự hỗ trợ và động lực để từ bỏ thuốc lá",
+    "paragraph": "Trải nghiệm hỗ trợ cá nhân hóa, theo dõi tiến trình và tham gia cộng đồng",
+    "buttonStart": "Bắt đầu ngay",
+    "buttonLearnMore": "Tìm hiểu thêm",
+    "paragraph1": "Mọi thứ bạn cần để bỏ thuốc lá",
+    "paragraph2": "Công cụ và hỗ trợ toàn diện để giúp bạn thành công",
+    "paragraph3": "Người thật, thành công thật",
+    "successItems": {
+      "item1": "Hơn 100.000 người bỏ thuốc thành công",
+      "item2": "Tỷ lệ thành công 90% sau 3 tháng",
+      "item3": "Tiết kiệm trung bình $2.000 mỗi năm",
+      "item4": "Cải thiện sức khỏe trong vòng vài tuần"
+    },
+    "text1": "Sẵn sàng thay đổi cuộc sống của bạn?",
+    "text2": "Tham gia cộng đồng của chúng tôi và bắt đầu hành trình",
+    "buttonStartNow": "Bắt đầu ngay",
+    "buttonRead": "Đọc câu chuyện thành công"
+  },
+  "feature": {
+    "shield": {
+      "title": "Bảo vệ",
+      "description": "Bảo vệ tài khoản và dữ liệu của bạn"
+    },
+    "activity": {
+      "title": "Theo dõi hoạt động",
+      "description": "Theo dõi tiến trình của bạn và giữ động lực"
+    },
+    "communitySupport": {
+      "title": "Hỗ trợ cộng đồng",
+      "description": "Kết nối với những người khác trên cùng một hành trình"
+    },
+    "health": {
+      "title": "Cải thiện sức khỏe",
+      "description": "Trải nghiệm sức khỏe và thể chất tốt hơn"
+    },
+    "timeEfficient": {
+      "title": "Tiết kiệm thời gian",
+      "description": "Phương pháp nhanh chóng và dễ dàng để theo dõi tiến trình của bạn"
+    },
+    "success": {
+      "title": "Thành công đã được chứng minh",
+      "description": "Gia nhập hàng ngũ những người bỏ thuốc thành công"
+    }
+  },
+  "testimonial": {
+    "item1": {
+      "text": "Dịch vụ tuyệt vời!",
+      "role": "Khách hàng"
+    },
+    "item2": {
+      "text": "Rất thích trải nghiệm.",
+      "role": "Người dùng"
+    },
+    "item3": {
+      "text": "Rất đáng để thử.",
+      "role": "Khách quen"
+    }
+  }
+}

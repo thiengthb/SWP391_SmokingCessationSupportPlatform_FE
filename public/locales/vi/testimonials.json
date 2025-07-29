@@ -1,0 +1,19 @@
+{
+  "testimonials": {
+    "title": "Câu Chuyện Thành Công",
+    "description": "Lắng nghe những câu chuyện truyền cảm hứng từ người dùng đã cai thuốc thành công nhờ hệ thống của chúng tôi.",
+    "filterLabel": "Lọc câu chuyện",
+    "sortLabel": "Sắp xếp theo",
+    "filters": {
+      "all": "Tất cả",
+      "verified": "Đã xác minh",
+      "highest": "Đánh giá cao nhất"
+    },
+    "sorts": {
+      "recent": "Mới nhất",
+      "rating": "Đánh giá cao"
+    },
+    "showing": "Hiển thị {{count}} câu chuyện",
+    "notfound": "Không tìm thấy câu chuyện phù hợp với bộ lọc."
+  }
+}

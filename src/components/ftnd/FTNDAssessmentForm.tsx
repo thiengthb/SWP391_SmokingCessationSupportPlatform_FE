@@ -9,20 +9,18 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { api } from "@/lib/axios";
 import { toast } from "sonner";
 import {
   calculateScoreFromCirgettesPerDay,
   ftndQuestions,
 } from "../../data/ftnd.data";
 import RenderQuestionInput from "./RenderQuestionInput";
-import {
-  defaultHealthValue,
-  type HealthInfoUpdate,
-} from "@/types/models/health";
+import { defaultHealthValue, type Health } from "@/types/models/health";
 import { ResultForm } from "./ResultForm";
 import { useFTND } from "@/contexts/FTNDContext";
-import type { Currency } from "@/types/models/transaction";
+import type { Currency } from "@/types/enums/Currency";
+import { healthService } from "@/services/api/heath.service";
+import { useTranslate } from "@/hooks/useTranslate";
 
 interface FTNDAssessmentFormProps {
   open: boolean;
@@ -39,7 +37,7 @@ export function FTNDAssessmentForm({
     Record<number | string, number | string>
   >({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [healthInfo, setHealthInfo] = useState<HealthInfoUpdate>();
+  const [healthInfo, setHealthInfo] = useState<Partial<Health>>();
   const [showCompletionDialog, setShowCompletionDialog] = useState(false);
   const [ftndScore, setFtndScore] = useState(0);
   const [selectedCurrency, setSelectedCurrency] = useState("VND");
@@ -124,12 +122,12 @@ export function FTNDAssessmentForm({
         ...healthInfo,
         ftndAnswers: JSON.stringify(ftndAnswerObject),
         ftndLevel: result,
-        currency: selectedCurrency, // Ensure currency is included
+        currency: selectedCurrency as Currency,
       };
 
       console.log("Submitting FTND assessment:", updatedHealthInfo);
 
-      await api.post("/v1/healths", updatedHealthInfo);
+      await healthService.create(updatedHealthInfo);
 
       setFtndScore(result);
       setShowCompletionDialog(true);
@@ -150,7 +148,7 @@ export function FTNDAssessmentForm({
   const progress = ((currentQuestion + 1) / ftndQuestions.length) * 100;
   const currentQuestionData = ftndQuestions[currentQuestion];
   const currentAnswer = answers[currentQuestionData.id];
-
+  const { tFtnd, tData } = useTranslate();
   if (showCompletionDialog) {
     return (
       <ResultForm
@@ -173,36 +171,38 @@ export function FTNDAssessmentForm({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
-        <DialogHeader className="space-y-3">
+        <DialogHeader className="space-y-1">
           <DialogTitle className="text-xl font-semibold">
-            🚭 Smoking Assessment
+            {tFtnd("ftnd.title")}
           </DialogTitle>
           <DialogDescription className="text-base">
-            Please answer these questions to help us understand your smoking
-            habits and create a personalized plan for you.
+            {tFtnd("ftnd.description")}
           </DialogDescription>
         </DialogHeader>
 
-        <div className="py-6">
-          <div className="mb-6">
+        <div className="py-2">
+          <div className="m-1">
             <div className="flex justify-between items-center mb-2">
               <span className="text-sm font-medium text-muted-foreground">
-                Progress
+                {tFtnd("ftnd.progress")}
               </span>
               <span className="text-sm font-medium text-primary">
                 {Math.round(progress)}%
               </span>
             </div>
-            <Progress value={progress} className="h-3 bg-muted" />
+            <Progress value={progress} className="h-2 bg-muted" />
             <p className="text-xs text-right mt-2 text-muted-foreground">
-              Question {currentQuestion + 1} of {ftndQuestions.length}
+              {tFtnd("ftnd.questionNumber", {
+                current: currentQuestion + 1,
+                total: ftndQuestions.length,
+              })}
             </p>
           </div>
 
-          <div className="w-full space-y-6">
-            <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-4 rounded-lg border border-blue-200">
+          <div className="w-full space-y-3">
+            <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-3 rounded-lg border border-blue-200">
               <h3 className="font-medium text-lg leading-relaxed text-gray-800">
-                {currentQuestionData.question}
+                {tData(currentQuestionData.question)}
               </h3>
             </div>
 
@@ -214,7 +214,7 @@ export function FTNDAssessmentForm({
           </div>
         </div>
 
-        <DialogFooter className="flex sm:justify-between pt-4 border-t">
+        <DialogFooter className="flex sm:justify-between border-t">
           <Button
             type="button"
             variant="outline"
@@ -222,7 +222,7 @@ export function FTNDAssessmentForm({
             disabled={currentQuestion === 0}
             className="px-6"
           >
-            Previous
+            {tFtnd("ftnd.previous")}
           </Button>
           <Button
             type="button"
@@ -235,10 +235,10 @@ export function FTNDAssessmentForm({
             className="px-6"
           >
             {isSubmitting
-              ? "Submitting..."
+              ? tFtnd("ftnd.submitting")
               : currentQuestion < ftndQuestions.length - 1
-              ? "Next"
-              : "Complete Assessment"}
+              ? tFtnd("ftnd.next")
+              : tFtnd("ftnd.complete")}
           </Button>
         </DialogFooter>
       </DialogContent>

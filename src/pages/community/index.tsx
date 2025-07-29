@@ -8,17 +8,17 @@ import { OnlineUser } from "./components/OnlineUser";
 import { useWebSocket } from "@/contexts/WebSocketContext";
 import { useAuth } from "@/contexts/AuthContext";
 import type { ChatMessage as ChatMessageType } from "@/types/models/chat";
-import type { Account } from "@/types/models/account";
+import { useOnlineListSwr } from "@/hooks/swr/useCommunitySwr";
 import useApi from "@/hooks/useApi";
 
-import { useTranslation } from "react-i18next";
+import { useTranslate } from "@/hooks/useTranslate";
 
 export default function CommunityPage() {
-  const { t } = useTranslation();
+  const { tCommunity } = useTranslate();
   const PAGE_SIZE = 50; // Number of messages per page
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<ChatMessageType[]>([]);
-  const [onlineUsers, setOnlineUsers] = useState<Account[]>([]);
+  const { onlineUsers, error, isLoading } = useOnlineListSwr();
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [shouldScrollToBottom, setShouldScrollToBottom] = useState(false);
@@ -74,26 +74,6 @@ export default function CommunityPage() {
   };
 
   useEffect(() => {
-    const fetchOnlineUsers = async () => {
-      try {
-        const response = await apiWithInterceptor.get(
-          "/v1/accounts/online-users"
-        );
-        const data = response.data;
-
-        if (Array.isArray(data.result)) {
-          setOnlineUsers(data.result);
-        } else if (Array.isArray(data.users.result)) {
-          setOnlineUsers(data.users.result);
-        } else {
-          console.error("Unexpected online users format:", data);
-          setOnlineUsers([]); // Fallback to empty array
-        }
-      } catch (error) {
-        console.error("Failed to fetch online users", error);
-      }
-    };
-
     const loadInitialMessages = async () => {
       try {
         const response = await apiWithInterceptor.get("/v1/chats", {
@@ -118,8 +98,6 @@ export default function CommunityPage() {
     };
 
     loadInitialMessages();
-
-    fetchOnlineUsers();
   }, []);
 
   useEffect(() => {
@@ -175,9 +153,11 @@ export default function CommunityPage() {
   return (
     <div className="container py-10 px-4 mx-auto">
       <div className="mb-6 space-y-1">
-        <h1 className="text-4xl font-bold mb-2">{t("page.community.title")}</h1>
+        <h1 className="text-4xl font-bold mb-2">
+          {tCommunity("community.title")}
+        </h1>
         <p className="text-muted-foreground">
-          {t("page.community.description")}
+          {tCommunity("community.description")}
         </p>
       </div>
 
@@ -206,7 +186,7 @@ export default function CommunityPage() {
               <Input
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                placeholder={t("page.community.inputPlaceholder")}
+                placeholder={tCommunity("community.inputPlaceholder")}
                 className="flex-1"
               />
               <Button type="submit" size="icon">
@@ -221,10 +201,12 @@ export default function CommunityPage() {
             <div className="flex items-center gap-2 mb-4">
               <Users className="h-5 w-5" />
               <h3 className="font-semibold">
-                {t("page.community.onlineUsers")}
+                {tCommunity("community.onlineUsers")}
               </h3>
             </div>
             <div className="space-y-1">
+              {isLoading && <p>Loading online users...</p>}
+              {error && <p className="text-red-500">Error loading users</p>}
               {onlineUsers.map((user) => (
                 <OnlineUser key={user.id} user={user} />
               ))}

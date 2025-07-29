@@ -12,37 +12,36 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Gauge, UserRound } from "lucide-react";
-import { useTranslation } from "react-i18next";
-import { mainNav } from "./navbar.item";
+import { ForDisplay, mainNav, routeRoleDashboard } from "./navbar.item";
 import { NavigationNotifications } from "./NavigationNotifications";
-import { Badge } from "@/components/ui/badge";
+import UserInfoCard from "./UserInfoCard";
+import { ForRoles, toForRoles } from "@/utils/tab.util";
+import { Paths } from "@/constants/path";
+import { useTranslate } from "@/hooks/useTranslate";
 
 export function UserNav() {
   const navigate = useNavigate();
-  const { t } = useTranslation();
   const { auth, handleLogout } = useAuth();
+  const { tNavbar, tCommon } = useTranslate();
+
+  const isPremiumUser = auth.currentAcc?.havingSubscription;
 
   const submitLogout = async () => {
     await handleLogout();
-    navigate("/auth/login");
+    navigate(Paths.AUTH.LOGIN);
   };
 
-  const filteredItems = mainNav.filter((item) => {
-    if (
-      auth.isAuthenticated &&
-      (item.id === "about" || item.id === "contact")
-    ) {
-      return true;
-    }
-
-    if (!item.displayMobile) return false;
-
-    if (auth.currentAcc?.havingSubscription && item.id === "pricing") {
-      return false;
-    }
-
-    return true;
-  });
+  const filteredItems = mainNav
+    .filter(
+      (item) =>
+        item.forDisplays?.includes(ForDisplay.ALL) ||
+        item.forDisplays?.includes(ForDisplay.USER_NAV)
+    )
+    .filter(
+      (item) =>
+        item.forRoles?.includes(toForRoles(auth.currentAcc?.role)) ||
+        item.forRoles?.includes(ForRoles.ALL)
+    );
 
   return (
     <div className="flex items-center space-x-4">
@@ -50,10 +49,14 @@ export function UserNav() {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-            <Avatar className="h-8 w-8">
+            <Avatar
+              className={`h-8 w-8 ${
+                isPremiumUser ? "ring-2 ring-yellow-400 ring-offset-1" : ""
+              }`}
+            >
               <AvatarImage
-                src={auth.currentAcc?.avatar ?? ""}
-                alt={auth.currentAcc?.username ?? t("roles.user")}
+                src={auth.currentAcc?.avatar}
+                alt={auth.currentAcc?.username ?? tCommon("roles.user")}
               />
               <AvatarFallback>
                 <UserRound />
@@ -63,43 +66,31 @@ export function UserNav() {
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56" align="end" forceMount>
           <DropdownMenuLabel className="font-normal">
-            <div className="flex flex-col space-y-2">
-              <div className="flex items-center gap-2">
-                <p className="text-sm font-medium leading-none">
-                  {auth.currentAcc?.username || t("roles.guest")}
-                </p>
-                <Badge>
-                  {auth.currentAcc?.havingSubscription ? "Premium" : "Free"}
-                </Badge>
-              </div>
-              <p className="text-xs leading-none text-muted-foreground">
-                {auth.currentAcc?.email}
-              </p>
-            </div>
+            <UserInfoCard />
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <DropdownMenuItem>
               <Link
-                to={`/${auth.currentAcc?.role?.toLowerCase()}/dashboard`}
+                to={routeRoleDashboard(auth.currentAcc?.role)}
                 className="w-full flex items-center gap-2"
               >
                 <Gauge className="h-4 w-4" />
-                {t(`nav.dashboard.title`)}
+                {tNavbar(`navbar.dashboard.title`)}
               </Link>
             </DropdownMenuItem>
             {filteredItems.map((item) => (
               <DropdownMenuItem key={item.href}>
                 <Link to={item.href} className="w-full flex items-center gap-2">
                   {item.icon && <item.icon className="h-4 w-4" />}
-                  {t(item.title)}
+                  {tNavbar(item.title)}
                 </Link>
               </DropdownMenuItem>
             ))}
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuItem variant="destructive" onClick={submitLogout}>
-            <p className="pl-2">{t(`buttons.logout`)}</p>
+            <p className="pl-2">{tCommon(`buttons.logout`)}</p>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

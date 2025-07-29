@@ -1,6 +1,6 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
-import { CalendarIcon, MapPinIcon } from "lucide-react";
+import { CalendarIcon, MapPinIcon, UserRound } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/contexts/AuthContext";
 import { useProfile } from "@/contexts/ProfileContext";
@@ -17,11 +17,11 @@ export default function ProfileHeader() {
           <div className="flex flex-col md:flex-row items-center md:items-end gap-4">
             <Avatar className="h-24 w-24 md:h-32 md:w-32 border-4 border-background">
               <AvatarImage
-                src={memberProfile?.avatar}
+                src={auth.currentAcc?.avatar}
                 alt={memberProfile?.username}
               />
               <AvatarFallback className="text-2xl">
-                {memberProfile?.username}
+                <UserRound className="h-16 w-16 text-gray-600 " />
               </AvatarFallback>
             </Avatar>
             <div className="flex flex-col gap-2 items-center md:items-start mt-2 md:mt-0 md:mb-2">
@@ -29,7 +29,13 @@ export default function ProfileHeader() {
                 <h1 className="text-2xl font-bold">
                   {memberProfile?.username}
                 </h1>
-                <Badge>
+                <Badge
+                  className={`${
+                    auth.currentAcc?.havingSubscription
+                      ? "bg-yellow-500 text-orange-900"
+                      : "bg-blue-500 text-white"
+                  }`}
+                >
                   {auth.currentAcc?.havingSubscription ? "Premium" : "Free"}
                 </Badge>
               </div>

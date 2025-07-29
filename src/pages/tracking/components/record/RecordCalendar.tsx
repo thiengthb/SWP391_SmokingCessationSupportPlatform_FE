@@ -12,12 +12,13 @@ interface RecordCalendarProps {
   selectedDate: Date;
   smokingRecords: SmokingRecord[];
   handleDateSelect: (date: Date | undefined) => void;
+  handleCalendarDateSelect: (date: Date | undefined) => void;
 }
 
 export function RecordCalendar({
   selectedDate,
   smokingRecords,
-  handleDateSelect,
+  handleCalendarDateSelect,
 }: RecordCalendarProps) {
   // Safely create dates for the calendar
   const getCalendarDates = () => {
@@ -31,24 +32,30 @@ export function RecordCalendar({
   return (
     <Card className="shadow-lg">
       <CardHeader>
-        <CardTitle>Smoking Record Calendar</CardTitle>
+        <CardTitle>Lịch Bản Ghi Hút Thuốc</CardTitle>
         <CardDescription>
-          View or edit your smoking records by date
+          Xem bản ghi hút thuốc theo ngày (Chỉ có thể chỉnh sửa hôm nay)
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col items-center">
         <Calendar
           mode="single"
           selected={selectedDate}
-          onSelect={handleDateSelect}
+          onSelect={handleCalendarDateSelect}
           className="rounded border mx-auto"
           modifiers={{
             booked: getCalendarDates(),
+            today: new Date(),
           }}
           modifiersStyles={{
             booked: {
               backgroundColor: "rgba(239, 68, 68, 0.1)",
               color: "#ef4444",
+              fontWeight: "bold",
+            },
+            today: {
+              backgroundColor: "rgba(34, 197, 94, 0.2)",
+              color: "#16a34a",
               fontWeight: "bold",
             },
           }}

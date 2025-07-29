@@ -1,26 +1,24 @@
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import type { Account } from "@/types/models/account";
-import { useTranslation } from "react-i18next";
+import { useTranslate } from "@/hooks/useTranslate";
+import { UserRound } from "lucide-react";
 
 interface OnlineUserProps {
   user: Account;
 }
 
 export function OnlineUser({ user }: OnlineUserProps) {
-  const { t } = useTranslation();
-  const initials = user.username
-    .split(" ")
-    .map((n) => n[0])
-    .join("")
-    .toUpperCase();
+  const { tCommunity } = useTranslate();
 
   return (
     <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted/50">
       <div className="relative">
         <Avatar className="h-8 w-8">
           <AvatarImage src={user.avatar} alt={user.username} />
-          <AvatarFallback>{initials}</AvatarFallback>
+          <AvatarFallback>
+            <UserRound className="h-4 w-4" />
+          </AvatarFallback>
         </Avatar>
         <span
           className={cn(
@@ -34,11 +32,9 @@ export function OnlineUser({ user }: OnlineUserProps) {
           {user.username}
         </span>
         <span className="text-xs text-muted-foreground">
-          {t(
-            user.status === "ONLINE"
-              ? "page.community.activeNow"
-              : "page.community.away"
-          )}
+          {user.status === "ONLINE"
+            ? tCommunity("community.activeNow")
+            : tCommunity("community.away")}
         </span>
       </div>
     </div>

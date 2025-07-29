@@ -1,3 +1,5 @@
+import { Gender } from "../enums/Gender";
+
 export interface MemberProfile {
   id: string;
   username: string;
@@ -11,22 +13,6 @@ export interface MemberProfile {
   bio?: string;
   createdAt: Date;
 }
-
-export interface MemberInfoUpdate {
-  fullName?: string;
-  email?: string;
-  phoneNumber?: string;
-  address?: string;
-  dob?: Date;
-  gender: Gender;
-  bio?: string;
-}
-
-export const Gender = {
-  MALE: "MALE",
-  FEMALE: "FEMALE",
-  OTHER: "OTHER",
-} as const;
 
 export const defaultMemberProfile: MemberProfile = {
   id: "",
@@ -42,4 +28,3 @@ export const defaultMemberProfile: MemberProfile = {
   createdAt: new Date(),
 }
 
-export type Gender = (typeof Gender)[keyof typeof Gender];

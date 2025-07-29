@@ -1,6 +1,6 @@
 import i18n from "@/lib/i18n";
-import { Currency } from "./transaction";
-import { Language } from "./setting";
+import { Language } from "../enums/Language";
+import { Currency } from "../enums/Currency";
 
 export interface Health {
   id: string;
@@ -13,17 +13,6 @@ export interface Health {
   reasonToQuit: string;
   smokeYear: number;
   createdAt: Date;
-}
-
-export interface HealthInfoUpdate {
-  ftndAnswers?: string;
-  ftndLevel?: number;
-  cigarettesPerDay?: number;
-  cigarettesPerPack?: number;
-  packPrice?: number;
-  currency?: Currency;
-  reasonToQuit?: string;
-  smokeYear?: number;
 }
 
 export interface HealthListItem {

@@ -1,16 +1,15 @@
-import useApi from "@/hooks/useApi";
-import {
-  Language,
-  MotivationFrequency,
-  Theme,
-  TrackingMode,
-  type Setting,
-} from "@/types/models/setting";
 import { useAuth } from "./AuthContext";
 import { createContext, useContext, useState, useEffect } from "react";
-import { toast } from "sonner";
 import { useTheme } from "@/components/theme/theme-provider";
 import i18n from "@/lib/i18n";
+import type { Setting } from "@/types/models/setting";
+import { Theme } from "@/types/enums/Theme";
+import { Language } from "@/types/enums/Language";
+import { TrackingMode } from "@/types/enums/TrackingMode";
+import { MotivationFrequency } from "@/types/enums/MotivationFrequency";
+import { useSettingSwr } from "@/hooks/swr/useSettingSwr";
+import { toast } from "sonner";
+import useApi from "@/hooks/useApi";
 
 export interface SettingContext {
   setting: Setting;
@@ -25,7 +24,7 @@ export interface SettingContext {
 const defaultSetting: Setting = {
   theme: Theme.SYSTEM,
   language: Language.EN,
-  trackingMode: TrackingMode.AUTO_COUNT,
+  trackingMode: TrackingMode.DAILY_RECORD,
   motivationFrequency: MotivationFrequency.DAILY,
   reportDeadline: "19:00",
 };
@@ -36,54 +35,47 @@ export function SettingProvider({ children }: { children: React.ReactNode }) {
   const { auth } = useAuth();
   const apiWithInterceptors = useApi();
 
-  const [setting, setSetting] = useState<Setting>(defaultSetting);
+  const { setting: fetchedSetting } = useSettingSwr(auth.currentAcc?.id || "");
+  const [setting, setSetting] = useState<Setting>(
+    fetchedSetting || defaultSetting
+  );
+  const [hasUserChangedSetting, setHasUserChangedSetting] = useState(false);
   const { setTheme } = useTheme();
-
-  useEffect(() => {
-    const fetchSetting = async () => {
-      if (auth.accessToken) {
-        try {
-          const response = await apiWithInterceptors.get(
-            `/v1/settings/${auth.currentAcc?.id}`
-          );
-          console.log("Fetched settings:", response.data.result);
-          setSetting(response.data.result);
-        } catch (error) {
-          console.error("Error fetching settings:", error);
-        }
-      }
-    };
-
-    fetchSetting();
-  }, [auth.accessToken]);
 
   const handleChangeTheme = async (newTheme: Theme) => {
     setTheme(newTheme);
     localStorage.setItem("theme", newTheme.toLowerCase());
     setSetting((prev) => ({ ...prev, theme: newTheme }));
+    setHasUserChangedSetting(true);
   };
 
   const handleChangeLanguage = async (newLanguage: Language) => {
     i18n.changeLanguage(newLanguage.toLowerCase());
     localStorage.setItem("language", newLanguage.toLowerCase());
     setSetting((prev) => ({ ...prev, language: newLanguage }));
+    setHasUserChangedSetting(true);
   };
 
   const handleChangeTrackingMode = async (newTrackingMode: TrackingMode) => {
     setSetting((prev) => ({ ...prev, trackingMode: newTrackingMode }));
+    setHasUserChangedSetting(true);
   };
 
   const handleChangeMotivationFrequency = async (
     newFrequency: MotivationFrequency
   ) => {
     setSetting((prev) => ({ ...prev, motivationFrequency: newFrequency }));
+    setHasUserChangedSetting(true);
   };
 
   const handleChangeReportDeadline = async (newDeadline: string) => {
     setSetting((prev) => ({ ...prev, reportDeadline: newDeadline }));
+    setHasUserChangedSetting(true);
   };
 
   useEffect(() => {
+    if (!hasUserChangedSetting) return;
+
     const handleSaveSetting = async () => {
       if (auth.accessToken) {
         try {
@@ -102,7 +94,13 @@ export function SettingProvider({ children }: { children: React.ReactNode }) {
       }
     };
     handleSaveSetting();
-  }, [setting]);
+  }, [setting, hasUserChangedSetting]);
+
+  useEffect(() => {
+    if (fetchedSetting) {
+      setSetting(fetchedSetting);
+    }
+  }, [fetchedSetting]);
 
   return (
     <SettingContext.Provider

@@ -4,6 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useTranslate } from "@/hooks/useTranslate";
 import { type FAQItem } from "@/types/models/membership";
 
 interface FAQProps {
@@ -11,12 +12,13 @@ interface FAQProps {
 }
 
 export function FAQ({ faqs }: FAQProps) {
+  const { tData, tPricing } = useTranslate();
   return (
     <div className="mb-16">
       <div className="text-center mb-10">
-        <h2 className="text-3xl font-bold mb-2">Câu Hỏi Thường Gặp</h2>
+        <h2 className="text-3xl font-bold mb-2">{tPricing("pricing.faq.title")}</h2>
         <p className="text-muted-foreground">
-          Tìm câu trả lời cho những thắc mắc phổ biến về gói đăng ký
+          {tPricing("pricing.faq.description")}
         </p>
       </div>
 
@@ -25,9 +27,9 @@ export function FAQ({ faqs }: FAQProps) {
           {faqs.map((faq, index) => (
             <AccordionItem key={index} value={`item-${index}`}>
               <AccordionTrigger className="text-left">
-                {faq.question}
+                {tData(faq.question)}
               </AccordionTrigger>
-              <AccordionContent>{faq.answer}</AccordionContent>
+              <AccordionContent>{tData(faq.answer)}</AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>

@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { MotivationFrequency } from "@/types/models/setting";
+import { MotivationFrequency } from "@/types/enums/MotivationFrequency";
 
 interface NotificationSettingsProps {
   motivationFrequency: MotivationFrequency;

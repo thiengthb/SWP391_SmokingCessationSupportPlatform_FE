@@ -9,10 +9,10 @@ import {
 } from "@/components/ui/card";
 import { CreditCard } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
-import { type Subscription } from "@/types/models/subscritption";
 import { useEffect, useState } from "react";
 import useApi from "@/hooks/useApi";
 import { Link } from "react-router-dom";
+import type { Subscription } from "@/types/models/subscritption";
 
 export default function CurrentMembership() {
   const apiWithInterceptor = useApi();

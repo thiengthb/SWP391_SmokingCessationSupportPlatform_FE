@@ -22,7 +22,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="container py-8 space-y-8">
+    <div className="mx-auto container py-8 space-y-8">
       <ProfileHeader />
 
       <Tabs defaultValue="personal-info" className="space-y-6">

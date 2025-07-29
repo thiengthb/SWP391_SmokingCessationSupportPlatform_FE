@@ -6,7 +6,7 @@ import {
   isSameDay,
 } from "date-fns";
 import type { QuitPlan } from "../PlanTrackingTab";
-import type { Phase } from "@/types/models/plan";
+import type { Phase } from "@/types/models/phase";
 
 export function getCurrentPhase(plan: QuitPlan): Phase | null {
   const today = new Date();

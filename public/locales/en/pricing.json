@@ -1,0 +1,69 @@
+{
+  "pricing": {
+    "benefit": {
+      "title": "Subscription Benefits",
+      "description": "Enjoy the following benefits with any subscription plan",
+      "1": {
+        "title": "Flexible Payment",
+        "description": "No long-term commitment. Choose monthly or yearly payments, cancel anytime."
+      },
+      "2": {
+        "title": "Timely Support",
+        "description": "Get support whenever you need it, helping you overcome difficult moments in your quit smoking journey."
+      },
+      "3": {
+        "title": "Science-Based",
+        "description": "Methods and tools developed based on scientific research on addiction and behavior change."
+      },
+      "4": {
+        "title": "Data Security",
+        "description": "Your personal information and health data are protected according to the highest security standards."
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "description": "Find answers to common questions about subscription plans"
+    },
+    "features": {
+      "title": "Detailed Comparison",
+      "description": "See the differences between free and paid versions",
+      "items": {
+        "feature": "Feature",
+        "free": "Free",
+        "paid": "Paid",
+        "badge": "Recommended"
+      }
+    },
+    "card": {
+      "badge": "most popular",
+      "save": "% savings compared to",
+      "free": "Free",
+      "startFree": "Start free",
+      "selectPlan": "Select {{plan}} plan",
+      "duration": {
+        "unlimited": "Unlimited",
+        "year": "{{count}} year",
+        "year_plural": "{{count}} years",
+        "month": "{{count}} month",
+        "month_plural": "{{count}} months",
+        "week": "{{count}} week",
+        "week_plural": "{{count}} weeks",
+        "day": "{{count}} day",
+        "day_plural": "{{count}} days"
+      }
+    },
+    "cta": {
+      "heading": "Ready to start your quit smoking journey?",
+      "description": "Choose the subscription plan that suits you and begin your journey towards a healthier, smoke-free life.",
+      "button": "Sign Up Now",
+      "support": {
+        "note": "Need consultation? Contact support at 1900 1234"
+      }
+    },
+    "header": {
+      "badge": "Subscription Plans",
+      "title": "Choose the Right Plan for Your Quit Journey",
+      "description": "From free to premium plans with advanced features, we offer solutions for everyone on their journey to quit smoking"
+    }
+  }
+}

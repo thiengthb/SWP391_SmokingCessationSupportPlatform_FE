@@ -6,11 +6,13 @@ import AppearanceSetting from "./AppearenceSetting";
 import Logo from "../Logo";
 import { UserNav } from "./UserNav";
 import { useAuth } from "@/contexts/AuthContext";
-import { useTranslation } from "react-i18next";
+import { useTranslate } from "@/hooks/useTranslate";
+import { Paths } from "@/constants/path";
 
 const Navbar = () => {
-  const { t } = useTranslation();
   const { auth } = useAuth();
+
+  const { tCommon } = useTranslate();
 
   return (
     <header className="sticky top-0 z-50 w-full px-4 sm:px-6 lg:px-8 xl:px-12 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -33,10 +35,10 @@ const Navbar = () => {
                   asChild
                   className="hidden lg:inline-flex"
                 >
-                  <Link to="/auth/login">{t(`buttons.login`)}</Link>
+                  <Link to={Paths.AUTH.LOGIN}>{tCommon(`buttons.login`)}</Link>
                 </Button>
                 <Button size="sm" asChild>
-                  <Link to="/auth/register">{t(`buttons.signup`)}</Link>
+                  <Link to={Paths.AUTH.REGISTER}>{tCommon(`buttons.signup`)}</Link>
                 </Button>
                 <div className="hidden lg:flex">
                   <AppearanceSetting />

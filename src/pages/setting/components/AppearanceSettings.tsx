@@ -7,7 +7,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Language, Theme } from "@/types/models/setting";
+import { Language } from "@/types/enums/Language";
+import { Theme } from "@/types/enums/Theme"
 
 interface AppearanceSettingsProps {
   theme: Theme;

@@ -1,5 +1,11 @@
 import { Shield, Activity, Users, Heart, Clock, Star } from "lucide-react";
-import type { Feature } from "./types";
+import type { ElementType } from "react";
+
+export interface Feature {
+  icon: ElementType;
+  title: string;
+  description: string;
+}
 
 export const features: Feature[] = [
   {
@@ -35,10 +41,10 @@ export const features: Feature[] = [
 ];
 
 export const successItems = [
-  "page.landingPage.successItems.item1",
-  "page.landingPage.successItems.item2",
-  "page.landingPage.successItems.item3",
-  "page.landingPage.successItems.item4",
+  "landingPage.successItems.item1",
+  "landingPage.successItems.item2",
+  "landingPage.successItems.item3",
+  "landingPage.successItems.item4",
 ];
 
 export const testimonials = [

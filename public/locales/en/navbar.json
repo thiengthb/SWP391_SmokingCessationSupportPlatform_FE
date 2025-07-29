@@ -1,0 +1,82 @@
+{
+  "navbar": {
+    "menu": {
+      "title": "Menu",
+      "description": "Explore our features and sections"
+    },
+    "toggleMenu": {
+      "title": "Toggle Menu",
+      "description": "Open or close the navigation menu"
+    },
+    "profile": {
+      "title": "Profile"
+    },
+    "settings": {
+      "title": "Settings",
+      "theme": {
+        "title": "Theme"
+      },
+      "language": {
+        "title": "Language"
+      }
+    },
+    "home": {
+      "title": "Home"
+    },
+    "pricing": {
+      "title": "Pricing",
+      "description": "Explore our plans and pricing options"
+    },
+    "blog": {
+      "title": "Blog",
+      "description": "News, articles, and resources"
+    },
+    "leaderboard": {
+      "title": "Leaderboard",
+      "description": "Explore top rankings and achievements",
+      "global": {
+        "title": "Global Ranking",
+        "description": "See the top achievers worldwide"
+      },
+      "hallOfFame": {
+        "title": "Hall of Fame",
+        "description": "Celebrating our greatest achievers"
+      }
+    },
+    "community": {
+      "title": "Community",
+      "description": "Connect with other members"
+    },
+    "about": {
+      "title": "About Us",
+      "description": "Learn more about our mission and team",
+      "team": {
+        "title": "Our Team",
+        "description": "Meet the people behind our platform"
+      },
+      "story": {
+        "title": "Our Story",
+        "description": "Discover our journey and values"
+      }
+    },
+    "contact": {
+      "title": "Contact Us"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "description": "Your personal dashboard"
+    },
+    "notifications": {
+      "title": "Notifications",
+      "description": "View your notifications and updates",
+      "empty": "No notifications",
+      "seeMore": "See More"
+    },
+    "logo": {
+      "title": "Smoking Cessation"
+    },
+    "feedback": {
+      "title": "Feedback"
+    }     
+  }
+}

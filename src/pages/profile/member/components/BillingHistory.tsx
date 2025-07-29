@@ -18,10 +18,8 @@ import {
 import ReusablePagination from "@/components/ReusablePagination";
 import { useEffect, useState } from "react";
 import useApi from "@/hooks/useApi";
-import {
-  TransactionStatus,
-  type BillingTransaction,
-} from "@/types/models/transaction";
+import { type BillingTransaction } from "@/types/models/transaction";
+import { TransactionStatus } from "@/types/enums/TransactionStatus";
 
 interface PaginationResponse {
   content: BillingTransaction[];

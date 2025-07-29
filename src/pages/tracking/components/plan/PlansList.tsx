@@ -1,15 +1,6 @@
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { AlertCircle } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Calendar } from "lucide-react";
 import { format } from "date-fns";
-import { vi } from "date-fns/locale";
 import type { PlanListItem } from "@/types/models/plan";
 import type { QuitPlan } from "../../PlanTrackingTab";
 
@@ -25,54 +16,45 @@ export default function PlansList({
   allPlans,
   selectedPlan,
   onSelectPlan,
-  onCreateNewPlan,
   getPlanStatusBadge,
 }: PlansListProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-lg">Danh sách kế hoạch</CardTitle>
-        <CardDescription>Tất cả kế hoạch cai thuốc của bạn</CardDescription>
+        <CardTitle className="flex items-center gap-2">
+          <Calendar className="h-5 w-5" />
+          Danh sách kế hoạch
+        </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-3">
-        {allPlans.length === 0 ? (
-          <div className="text-center py-8">
-            <AlertCircle className="h-12 w-12 text-muted-foreground mx-auto mb-3" />
-            <p className="text-muted-foreground">Chưa có kế hoạch nào</p>
-            <Button
-              variant="outline"
-              onClick={onCreateNewPlan}
-              className="mt-3"
-            >
-              Tạo kế hoạch đầu tiên
-            </Button>
-          </div>
-        ) : (
-          <AnimatePresence>
-            {allPlans.map((plan, index) => (
-              <motion.div
+      <CardContent className="p-0">
+        <div className="space-y-2">
+          {allPlans.length === 0 ? (
+            <div className="p-6 text-center text-muted-foreground">
+              <Calendar className="h-12 w-12 mx-auto mb-3 opacity-50" />
+              <p className="text-sm">Chưa có kế hoạch nào</p>
+              <p className="text-xs mt-1">Tạo kế hoạch đầu tiên của bạn</p>
+            </div>
+          ) : (
+            allPlans.map((plan) => (
+              <div
                 key={plan.id}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                className={`p-4 rounded-lg border cursor-pointer transition-all duration-200 hover:shadow-md ${
-                  selectedPlan?.id === plan.id
-                    ? "border-primary bg-primary/5"
-                    : "border-gray-200 hover:border-gray-300"
+                className={`p-4 border-b last:border-b-0 cursor-pointer transition-colors hover:bg-muted/50 ${
+                  selectedPlan?.id === plan.id ? "bg-muted" : ""
                 }`}
                 onClick={() => onSelectPlan(plan)}
               >
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="font-semibold truncate">{plan.planName}</h3>
+                  <h3 className="font-medium text-sm">{plan.planName}</h3>
                   {getPlanStatusBadge(plan)}
                 </div>
-                <p className="text-xs text-muted-foreground">
-                  {format(plan.startDate, "dd/MM/yyyy", { locale: vi })}
-                </p>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        )}
+                <div className="text-xs text-muted-foreground space-y-1">
+                  <div>Bắt đầu: {format(plan.startDate, "dd/MM/yyyy")}</div>
+                  <div>Kết thúc: {format(plan.endDate, "dd/MM/yyyy")}</div>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
       </CardContent>
     </Card>
   );

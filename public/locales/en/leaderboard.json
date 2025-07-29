@@ -1,0 +1,39 @@
+{
+    "leaderboard": {
+        "title": "Leaderboard",
+        "description": "Top achievers in their smoke-free journey",
+        "tabs": {
+            "global": "Global Rankings",
+            "monthly": "Monthly Leaders"
+        },
+        "filter": {
+            "placeholder": "Filter by",
+            "all": "All Time",
+            "week": "This Week",
+            "month": "This Month",
+            "year": "This Year"
+        },
+        "period": {
+            "placeholder": "Select Month",
+            "current": "Current Month",
+            "last": "Last Month",
+            "previous": "Previous Months"
+        },
+        "global": {
+            "title": "Global Leaders",
+            "description": "Updated in real-time"
+        },
+        "monthly": {
+            "title": "Monthly Champions",
+            "description": "Rankings reset monthly"
+        },
+        "hallOfFame": {
+            "title": "Hall of Fame",
+            "subtitle": "Celebrating our greatest achievers",
+            "button": "Hall of Fame"
+        },
+        "yourRanking": "Your Ranking",
+        "daysSmokeFree": "days smoke-free",
+        "points": "pts"
+    }
+}

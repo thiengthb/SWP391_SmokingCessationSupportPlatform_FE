@@ -8,12 +8,13 @@ import {
 import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
 import { type SmokingRecord } from "@/types/models/record";
-import type { Pagination } from "@/types/models/pagination";
+import type { PaginationResponse } from "@/types/pagination";
+import { isToday } from "date-fns";
 
 interface RecordsListProps {
   loading: boolean;
   smokingRecords: SmokingRecord[];
-  pagination: Pagination;
+  pagination: PaginationResponse<SmokingRecord>;
   handlePageChange: (page: number) => void;
   handleEditRecord: (record: SmokingRecord) => void;
 }
@@ -34,37 +35,41 @@ export function RecordsList({
         <Button
           variant="outline"
           size="sm"
-          disabled={pagination.pageNumber === 0}
-          onClick={() => handlePageChange(pagination.pageNumber - 1)}
+          disabled={pagination.page === 0}
+          onClick={() => handlePageChange(pagination.page - 1)}
         >
-          Previous
+          Trước
         </Button>
         <span className="flex items-center px-3">
-          Page {pagination.pageNumber + 1} of {pagination.totalPages}
+          Trang {pagination.page + 1} / {pagination.totalPages}
         </span>
         <Button
           variant="outline"
           size="sm"
-          disabled={pagination.pageNumber === pagination.totalPages - 1}
-          onClick={() => handlePageChange(pagination.pageNumber + 1)}
+          disabled={pagination.page === pagination.totalPages - 1}
+          onClick={() => handlePageChange(pagination.page + 1)}
         >
-          Next
+          Tiếp
         </Button>
       </div>
     );
+  };
+
+  const isTodayRecord = (recordDate: string) => {
+    return isToday(new Date(recordDate));
   };
 
   return (
     <Card className="shadow-lg md:col-span-2">
       <CardHeader className="flex flex-row items-center justify-between">
         <div>
-          <CardTitle>Smoking Records</CardTitle>
-          <CardDescription>Your smoking records history</CardDescription>
+          <CardTitle>Bản Ghi Hút Thuốc</CardTitle>
+          <CardDescription>Lịch sử bản ghi hút thuốc của bạn</CardDescription>
         </div>
       </CardHeader>
       <CardContent>
         {loading ? (
-          <div className="text-center py-8">Loading...</div>
+          <div className="text-center py-8">Đang tải...</div>
         ) : smokingRecords.length > 0 ? (
           <div className="divide-y">
             {smokingRecords.map((record) => (
@@ -74,10 +79,10 @@ export function RecordsList({
               >
                 <div>
                   <p className="font-medium">
-                    {format(new Date(record.date), "PPP")}
+                    {format(new Date(record.date), "dd/MM/yyyy")}
                   </p>
                   <p className="text-sm text-gray-500">
-                    {record.note ? record.note : "No note"}
+                    {record.note ? record.note : "Không có ghi chú"}
                   </p>
                 </div>
                 <div className="flex items-center space-x-2">
@@ -88,14 +93,20 @@ export function RecordsList({
                         : "bg-red-100 text-red-800"
                     }`}
                   >
-                    {record.cigarettesSmoked} cigarettes
+                    {record.cigarettesSmoked} điếu thuốc
                   </div>
                   <Button
+                    variant="outline"
                     size="sm"
-                    variant="ghost"
                     onClick={() => handleEditRecord(record)}
+                    disabled={!isTodayRecord(record.date.toString())}
+                    className={
+                      !isTodayRecord(record.date.toString())
+                        ? "opacity-50 cursor-not-allowed"
+                        : ""
+                    }
                   >
-                    Edit
+                    {isTodayRecord(record.date.toString()) ? "Sửa" : "Xem"}
                   </Button>
                 </div>
               </div>
@@ -103,7 +114,7 @@ export function RecordsList({
           </div>
         ) : (
           <div className="text-center py-8">
-            <p>No records found</p>
+            <p>Không tìm thấy bản ghi nào</p>
           </div>
         )}
         {renderPagination()}

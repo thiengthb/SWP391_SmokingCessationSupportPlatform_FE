@@ -1,15 +1,22 @@
 import LandingPage from "@/pages/landingpage";
-import MemberHome from "@/pages/tracking";
 import { useFTND } from "@/contexts/FTNDContext";
-import FTNDAssessmentForm from "@/components/ftnd/FTNDAssessmentForm";
 import { useAuth } from "./contexts/AuthContext";
-import { Role } from "./types/models/account";
+import AdminDashboard from "./pages/dashboard/admin";
+import LazyLoad from "./lazyload";
+import { Role } from "./types/enums/Role";
+import CoachDashboard from "./pages/dashboard/coach";
+
+const MemberHome = LazyLoad("./pages/tracking");
+const FTNDAssessmentForm = LazyLoad("./components/ftnd/FTNDAssessmentForm");
 
 function App() {
   const { auth } = useAuth();
   const { showFTNDAssessment, setShowFTNDAssessment } = useFTND();
 
   const isMember = auth?.accessToken && auth?.currentAcc?.role === Role.MEMBER;
+  const isAdmin = auth?.accessToken && auth?.currentAcc?.role === Role.ADMIN;
+  const isCoach = auth?.accessToken && auth?.currentAcc?.role === Role.COACH;
+  const isGuest = !auth?.accessToken;
 
   return (
     <>
@@ -23,7 +30,11 @@ function App() {
         </>
       )}
 
-      {!isMember && <LandingPage />}
+      {isAdmin && <AdminDashboard />}
+
+      {isCoach && <CoachDashboard />}
+
+      {isGuest && <LandingPage />}
     </>
   );
 }

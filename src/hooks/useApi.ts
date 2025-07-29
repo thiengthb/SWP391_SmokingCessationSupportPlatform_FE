@@ -1,7 +1,7 @@
 import useRefreshToken from './useRefreshToken'
 import { useAuth } from '@/contexts/AuthContext';
+import { publicApi } from '@/lib/axios';
 import i18n from '@/lib/i18n';
-import { api } from '@/lib/axios';
 import { useEffect } from 'react';
 
 const useApi = () => {
@@ -10,7 +10,7 @@ const useApi = () => {
 
     useEffect(() => {
 
-        const requestInterceptor = api.interceptors.request.use(
+        const requestInterceptor = publicApi.interceptors.request.use(
             config => {
                 config.headers["Accept-Language"] = i18n.language;
                 if (!config.headers['Authorization'] && auth?.accessToken) {
@@ -20,15 +20,15 @@ const useApi = () => {
             }, (error) => Promise.reject(error)
         );
 
-        const responseInterceptor = api.interceptors.response.use(
+        const responseInterceptor = publicApi.interceptors.response.use(
             response => response,
             async error => {
                 const originalRequest = error.config;
-                if (error.response && error.response.status === 403 && !originalRequest?.sent) {
+                if (error.response && error.response.status === 401 && !originalRequest?.sent) {
                         originalRequest.sent = true;
                         const newAccessToken = await refresh();
                         originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
-                        return api(originalRequest);
+                        return publicApi(originalRequest);
                     
                 }
                 return Promise.reject(error);
@@ -36,12 +36,12 @@ const useApi = () => {
         );
 
         return () => {
-            api.interceptors.request.eject(requestInterceptor);
-            api.interceptors.response.eject(responseInterceptor);
+            publicApi.interceptors.request.eject(requestInterceptor);
+            publicApi.interceptors.response.eject(responseInterceptor);
         }
     }, [auth, refresh]);
 
-  return api;
+  return publicApi;
 }
 
 export default useApi;

@@ -3,7 +3,8 @@ import { Badge } from "@/components/ui/badge";
 import { CheckCircle } from "lucide-react";
 import { format } from "date-fns";
 import { vi } from "date-fns/locale";
-import type { Phase } from "@/types/models/plan";
+import type { Phase } from "@/types/models/phase";
+import { PhaseStatus } from "@/types/enums/PhaseStatus";
 
 interface PlanPhasesListProps {
   phases: Phase[];
@@ -26,7 +27,7 @@ export default function PlanPhasesList({ phases }: PlanPhasesListProps) {
               <Badge variant="outline">
                 Tối đa {phase.cigaretteBound} điếu
               </Badge>
-              {phase.completed && (
+              {phase.phaseStatus === PhaseStatus.COMPLETED && (
                 <CheckCircle className="h-4 w-4 text-green-600" />
               )}
             </div>
